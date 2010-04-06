@@ -81,28 +81,21 @@ void Hora::cargarHora(istream& is){
 //OJO: Sale inmediatamente luego de cargar los segundos!!
 
 
-	char c,d;
-	
-	is.get(c);
-	is.get(d);
-	
-	setHora(((short)(c-'0')) * 10 + ((short)(d-'0')));
+	int n;
+	is >> n;	
+	setHora(n);
 
-	is.get(c);
-	assert(c == ':');
+	assert(is.peek() == (int) ':');
+	is.ignore(1);
+	
+	is >> n;
+	setMinutos(n);
+	
+	assert(is.peek() == (int) ':');
+	is.ignore(1);
 
-	is.get(c);
-	is.get(d);
-	
-	setMinutos(((short)(c-'0')) * 10 + ((short)(d-'0')));
-	
-	is.get(c);
-	assert(c == ':');
-
-	is.get(c);
-	is.get(d);
-	
-	setSegundos(((short)(c-'0')) * 10 + ((short)(d-'0')));	
+	is >> n;
+	setSegundos(n);
 }
 
 void Hora::imprimir(ostream& os) const{

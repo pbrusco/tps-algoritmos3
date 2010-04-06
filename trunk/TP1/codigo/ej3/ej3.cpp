@@ -80,14 +80,8 @@ void Empresa::cargarEmpresa(ficha entran[], ficha salen[], int tam){
 //cargar empresa desde archivo
 void Empresa::cargarEmpresa(istream& is){
 
-	char c;
-	string s;
-		
-	saltearEspacios(is);
+	is >> programadoresTotales;
 	
-	cargarNumero(is,s);
-	
-	programadoresTotales = pasarStringANumero(s);
 	ficha entran[programadoresTotales];
 	ficha salen[programadoresTotales];
 	ficha aux;
@@ -95,14 +89,9 @@ void Empresa::cargarEmpresa(istream& is){
 	
 	for(int i = 0; i < programadoresTotales; i++){
 		
-		saltearEspacios(is);
-		
 		(aux.hora).cargarHora(is);
-		
-		saltearEspacios(is);
-		
-		cargarNumero(is,s);
-		aux.programador = pasarStringANumero(s);
+
+		is >> aux.programador;
 		
 		entran[i] = aux;	
 	}
@@ -110,14 +99,9 @@ void Empresa::cargarEmpresa(istream& is){
 
 	for(int i = 0; i < programadoresTotales; i++){
 		
-		saltearEspacios(is);
-		
 		(aux.hora).cargarHora(is);
 		
-		saltearEspacios(is);
-		
-		cargarNumero(is,s);
-		aux.programador = pasarStringANumero(s);
+		is >> aux.programador;
 		
 		salen[i] = aux;	
 	}
@@ -139,7 +123,7 @@ void Empresa::cargarEmpresasYResolver(string filenameIn, string filenameOut){
 	os.open(filenameOut.c_str());
 	assert(os.is_open());
 	
-	Empresa e(0);	
+	Empresa e(0);
 
 	while(is.peek() != (int)('-')){
 	
