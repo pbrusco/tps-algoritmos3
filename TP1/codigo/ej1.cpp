@@ -23,14 +23,13 @@ long long potenciacion(long long base, long long exp, long long mod) {
 		res = (temp*temp) % mod;
 	}else {
 		long long temp = potenciacion(base, (exp-1)/2, mod);
-		res = (temp*temp*base) % mod;
+		res = (((temp*temp) % mod) * (base % mod)) % mod;
 	}return res;
 }
 
 int main(int argc, char** argv) {
 	char* filename = "./inputs/Tp1Ej1.in";
-	if (argc == 2)
-		filename = argv[1];
+	if (argc == 2) filename = argv[1];
 	ifstream infile; 
 	ofstream outfile;
 	infile.open(filename); 
