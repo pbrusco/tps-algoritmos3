@@ -1,0 +1,19 @@
+CPPCOMPILER = g++
+CPPFLAGS = -c -g
+OBJS = Ronda.o
+
+.PHONY = clean all
+
+all: clean main
+
+
+%.o : %.cpp
+	$(CPPCOMPILER) $(CPPFLAGS) -o $@ $<
+	
+
+main: main.cpp $(OBJS)
+	$(CPPCOMPILER) -g -o $@ $^
+	
+clean:
+	rm -f *.o
+	rm -f main
