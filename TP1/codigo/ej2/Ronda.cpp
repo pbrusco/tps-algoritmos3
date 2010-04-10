@@ -1,8 +1,11 @@
 #include "Ronda.h"
 
 
+bool min(int a,int b);
+
+
 Ronda::Ronda(){
-	amistades = new map<chica,set<chica> >;
+	amistades = new map<chica,list<chica> >;
 	enRonda   = new set<chica>;
 }
 
@@ -11,8 +14,8 @@ Ronda::~Ronda(){
 	delete enRonda;
 }
 
-void Ronda::agregarAmistades(chica c,set<chica> amigas){
-	amistades->insert(pair<chica, set<chica> >(c,amigas) );
+void Ronda::agregarAmistades(chica c,list<chica> amigas){
+	amistades->insert(pair<chica, list<chica> >(c,amigas) );
 }
 
 void Ronda::cargarAmistades(istream& is,int n){
@@ -21,8 +24,7 @@ void Ronda::cargarAmistades(istream& is,int n){
 	amistades->clear();
 	
 	int m,a;
-	set<chica> amigas;
-	
+	list<chica> amigas;
 	
 	for(int i = 1;i <= n; i++){
 		is >> m;
@@ -30,38 +32,59 @@ void Ronda::cargarAmistades(istream& is,int n){
 		for(int j = 1; j <= m; j++)
 		{
 			is >> a;
-			amigas.insert(a);
+			amigas.push_front(a);
 		}
 		agregarAmistades(i,amigas);
 	}	
+
+//	for(int i = 1;i <= n; i++){
+//	(*amistades)[i].sort(comparacionPorAmistades);
+//	}	
 	
 
 }
+/*
+bool Ronda::comparacionPorAmistades(const chica& primera,const chica& segunda)
+{
+return ((*amistades)[primera].size() > (*amistades)[segunda].size()) ;
+}
+*/
+
+
 
 bool Ronda::resolver(){
-	bool aux;
+
+	/***************************************************************|
+	|		Comienzo eligiendo la chica con menos amigas			|
+	|		para maximizar el tamaño del arbol jeje					|
+	****************************************************************/
+
+	chica solitaria = 1;
 	for(int i = 1;i<=amistades->size();i++)
 	{
-		enRonda->insert(i);
-		aux = probarDistintasRondas(i,i);
-		if(aux) {
-			return true;
-		}
-		enRonda->erase(i);
-
+		solitaria = min(solitaria,(*amistades)[i].size());
 	}
+
+// la inserto en la ronda y comienzo con el backtracking:
+
+	enRonda->insert(solitaria);
 	
-	return false;
+	return  probarDistintasRondas(solitaria,solitaria);;
 
 }
 
 bool Ronda::probarDistintasRondas(chica prim, chica ult){
 
-	if (((*amistades)[ult].count(prim) == 1) && (amistades->size() == enRonda->size())) {
+list<chica>::iterator it,itA,itB;	
+
+itA = (*amistades)[ult].begin();
+itB =  (*amistades)[ult].end();
+
+	if ((find(itA,itB, prim) != itB) && (amistades->size() == enRonda->size())) {
 		return true;
 	}
 	else {
-		set<int>::iterator it;
+
 		bool res;
 	
 		for (it = (*amistades)[ult].begin();it != (*amistades)[ult].end();it++){
@@ -84,14 +107,10 @@ bool Ronda::probarDistintasRondas(chica prim, chica ult){
 }
 
 void Ronda::mostrar(ostream& os){}
-		
 ostream& Ronda::operator<<(const Ronda &r){}
-
-void Ronda::cargarRelacion(istream& is){
-
-
-
+bool min(int a, int b){
+	if (a<b) return a;
+	else return b;
 }
-
 
 

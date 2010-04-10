@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <map>
+#include <list>
 #include <set>
+#include<algorithm>
 
 using namespace std;
 
@@ -17,7 +19,7 @@ class Ronda{
 		
 		~Ronda();
 		
-		void agregarAmistades(chica c,set<chica> amigas);
+		void agregarAmistades(chica c,list<chica> amigas);
 		
 		void cargarAmistades(istream& is,int n);
 		
@@ -29,7 +31,7 @@ class Ronda{
 		
 		ostream& operator<<(const Ronda &r);
 
-
+		bool comparacionPorAmistades(const chica& primera,const chica& segunda);
 
 	private:
 	
@@ -37,10 +39,10 @@ class Ronda{
 		set<chica>* enRonda;
 		
 		//contiene las relaciones entre las chicas
-		map<chica,set<chica> >* amistades;
+		map<chica,list<chica> >* amistades;
 		
 		void cargarRelacion(istream& is);
-		
+
 };
 
 
