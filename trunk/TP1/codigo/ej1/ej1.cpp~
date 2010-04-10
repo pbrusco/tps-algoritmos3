@@ -57,7 +57,7 @@ long long potenciacion(long long base, long long exp, long long mod) {
 int main(int argc, char** argv) {
 
 	time_t start, end;
-	double tiempo = 11.0;
+	double tiempo = 0.0;
 
 	ifstream infile; 
 	infile.open("./Tp1Ej1.in"); 

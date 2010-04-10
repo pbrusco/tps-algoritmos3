@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2010.1.28)  10 APR 2010 17:18
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2010.1.28)  10 APR 2010 19:50
 entering extended mode
  %&-line parsing enabled.
 **Informe_Tp1.tex
@@ -429,27 +429,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--35
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logo_dc.jpg> <./logo_uba
-.jpg>] (./Ejercicio1.tex) [2] (./Informe_Tp1.aux) ) 
+.jpg>] (./Ejercicio1.tex
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+
+ []
+
+) [2] (./Informe_Tp1.aux) ) 
 Here is how much of TeX's memory you used:
- 2500 strings out of 95086
- 28626 string characters out of 1183255
- 84504 words of memory out of 1500000
- 5623 multiletter control sequences out of 10000+50000
- 13088 words of font info for 50 fonts, out of 1200000 for 2000
+ 2507 strings out of 95086
+ 28709 string characters out of 1183255
+ 85504 words of memory out of 1500000
+ 5629 multiletter control sequences out of 10000+50000
+ 13434 words of font info for 51 fonts, out of 1200000 for 2000
  28 hyphenation exceptions out of 8191
- 34i,8n,26p,495b,207s stack positions out of 5000i,500n,6000p,200000b,5000s
-</usr/share/texmf-texlive/fo
-nts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/c
-m/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi8.pfb></usr/s
-hare/texmf-texlive/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-texlive/f
-onts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/c
-m/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr8.pfb></usr/shar
-e/texmf-texlive/fonts/type1/bluesky/cm/cmr9.pfb></usr/share/texmf-texlive/fonts
-/type1/bluesky/cm/cmss10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/c
-mssbx10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmtt10.pfb>
-Output written on Informe_Tp1.pdf (2 pages, 424148 bytes).
+ 34i,8n,26p,507b,207s stack positions out of 5000i,500n,6000p,200000b,5000s
+</usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmb
+x12.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmex10.pfb></usr/share
+/texmf-texlive/fonts/type1/bluesky/cm/cmmi10.pfb></usr/share/texmf-texlive/font
+s/type1/bluesky/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/c
+mr10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr12.pfb></usr/share
+/texmf-texlive/fonts/type1/bluesky/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/
+type1/bluesky/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr9
+.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmss10.pfb></usr/share/te
+xmf-texlive/fonts/type1/bluesky/cm/cmssbx10.pfb></usr/share/texmf-texlive/fonts
+/type1/bluesky/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/c
+mtt10.pfb>
+Output written on Informe_Tp1.pdf (2 pages, 433935 bytes).
 PDF statistics:
- 55 PDF objects out of 1000 (max. 8388607)
+ 63 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
