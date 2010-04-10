@@ -5,7 +5,6 @@
 #include <cassert>
 
 #include "ej3.h"
-#include "auxiliares.h"
 
 
 
@@ -47,11 +46,13 @@ int Empresa::maxCantProgJuntos() const{
 		
 		if(juntosActualmente > maxJuntos)
 			maxJuntos = juntosActualmente;
-			
 		
-		while(j<programadoresTotales && egresos[j].hora < ingresos[i].hora){
-			estanAdentro.erase(egresos[j].programador);
-			j++;
+		if(!termine){
+		
+			while(j<programadoresTotales && egresos[j].hora < ingresos[i].hora){
+				estanAdentro.erase(egresos[j].programador);
+				j++;
+			}
 		}
 	}
 	
@@ -78,9 +79,9 @@ void Empresa::cargarEmpresa(ficha entran[], ficha salen[], int tam){
 }		
 
 //cargar empresa desde archivo
-void Empresa::cargarEmpresa(istream& is){
+void Empresa::cargarEmpresa(istream& is, int n){
 
-	is >> programadoresTotales;
+	programadoresTotales = n;
 	
 	ficha entran[programadoresTotales];
 	ficha salen[programadoresTotales];
@@ -89,7 +90,7 @@ void Empresa::cargarEmpresa(istream& is){
 	
 	for(int i = 0; i < programadoresTotales; i++){
 		
-		(aux.hora).cargarHora(is);
+		is >> aux.hora;
 
 		is >> aux.programador;
 		
@@ -99,7 +100,7 @@ void Empresa::cargarEmpresa(istream& is){
 
 	for(int i = 0; i < programadoresTotales; i++){
 		
-		(aux.hora).cargarHora(is);
+		is >> aux.hora;
 		
 		is >> aux.programador;
 		
@@ -124,16 +125,19 @@ void Empresa::cargarEmpresasYResolver(string filenameIn, string filenameOut){
 	assert(os.is_open());
 	
 	Empresa e(0);
-
-	while(is.peek() != (int)('-')){
 	
-		e.cargarEmpresa(is);
+	int cantProg;
+	
+	is >> cantProg;
+
+	while(cantProg != -1){
+	
+		e.cargarEmpresa(is,cantProg);
 		
 		//guardo resultado y salto de linea
 		os << e.maxCantProgJuntos() << endl;
 		
-		//me muevo hasta el comienzo de la proxima linea
-		saltearEspacios(is);
+		is >> cantProg;
 	}
 	
 	is.close();

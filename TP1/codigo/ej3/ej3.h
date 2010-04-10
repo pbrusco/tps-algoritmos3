@@ -1,14 +1,14 @@
 #ifndef __EJ3__
 #define __EJ3__
 
-#include "Hora.h"
+using namespace std;
 
 typedef int Programador;
 
 
 struct ficha{
 
-	Hora hora;
+	string hora;
 	Programador programador;
 };
 
@@ -31,7 +31,7 @@ class Empresa{
 		void cargarEmpresa(ficha entran[], ficha salen[], int tam);			
 	
 		//cargar empresa desde archivo
-		void cargarEmpresa(istream& is);
+		void cargarEmpresa(istream& is, int n);
 		
 		//cargar empresas y guardar salidas
 		void cargarEmpresasYResolver(string filenameIn, string filenameOut);
