@@ -106,8 +106,28 @@ itB =  (*amistades)[ult].end();
 
 }
 
-void Ronda::mostrar(ostream& os){}
-ostream& Ronda::operator<<(const Ronda &r){}
+void Ronda::mostrar(ostream& os) const{
+
+	map<chica,list<chica> >::iterator it;
+	list<chica>::iterator it2;
+		
+	for(it=amistades->begin(); it != amistades->end(); it++){
+		os << "Chica: " << (*it).first << "    Amigas: ";
+		for(it2=((*it).second).begin(); it2 != ((*it).second).end(); it2++){
+			os << (*it2) << " ";
+		}
+		os << endl;
+	}
+	os << endl;
+}
+
+
+ostream& operator<<(ostream& os, const Ronda &r){
+	r.mostrar(os);
+	return os;
+}
+
+
 bool min(int a, int b){
 	if (a<b) return a;
 	else return b;
