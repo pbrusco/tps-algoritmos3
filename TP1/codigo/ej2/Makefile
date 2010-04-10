@@ -1,5 +1,5 @@
 CPPCOMPILER = g++
-CPPFLAGS = -c -g
+CPPFLAGS = -c -g -w
 OBJS = Ronda.o
 
 .PHONY = clean all

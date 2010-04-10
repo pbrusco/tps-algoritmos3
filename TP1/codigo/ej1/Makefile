@@ -1,5 +1,5 @@
 CC=g++
-GCCFLAGS= -g -o
+GCCFLAGS= -g -w -o
 .PHONY=clean all
 
 all: ej1.out
