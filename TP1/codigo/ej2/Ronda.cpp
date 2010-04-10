@@ -1,9 +1,6 @@
 #include "Ronda.h"
 
 
-bool min(int a,int b);
-
-
 Ronda::Ronda(){
 	amistades = new map<chica,list<chica> >;
 	enRonda   = new set<chica>;
@@ -59,17 +56,18 @@ bool Ronda::resolver(){
 	|		para maximizar el tamaño del arbol jeje					|
 	****************************************************************/
 
-	chica solitaria = 1;
+	chica simpatica = 1;
 	for(int i = 1;i<=amistades->size();i++)
 	{
-		solitaria = min(solitaria,(*amistades)[i].size());
+		if( (*amistades)[simpatica].size() < (*amistades)[i].size())
+			simpatica = i;
 	}
 
 // la inserto en la ronda y comienzo con el backtracking:
 
-	enRonda->insert(solitaria);
+	enRonda->insert(simpatica);
 	
-	return  probarDistintasRondas(solitaria,solitaria);;
+	return  probarDistintasRondas(simpatica,simpatica);;
 
 }
 
@@ -127,10 +125,5 @@ ostream& operator<<(ostream& os, const Ronda &r){
 	return os;
 }
 
-
-bool min(int a, int b){
-	if (a<b) return a;
-	else return b;
-}
 
 
