@@ -1,11 +1,25 @@
 \section*{Ejercicio 1}
 
 \subsection*{Introducción}
-El primer problema del presente trabajo consistió en la implementación de un algoritmo capaz de dar solución a la ecuación \begin{equation} b^n mod (n) \end{equation} haciendo uso de alguna de las técnicas algorítmicas aprendidas hasta el momento en la materia. Asímismo, la consigna dictaba que la complejidad final del algoritmo debería ser menor a \Ode{n}.\\
-En pos de cumplimentar lo pedido se decidió usar la técnica de Dividir \& Conquistar\footnote{Poner alguna referencia en donde se explique esta técnica} para desarrollar el algoritmo. Esta técnica se caracteriza principalmente en dividir la instancia de un problema en instancias más pequeñas, atacar cada una de ellas por separado y resolverlas, para finalmente juntar sus resultados y aséi producir el resultado final.
+	El primer problema del presente trabajo consistió en la implementación de un algoritmo capaz de dar solución a la ecuación 
+
+	\begin{equation} 
+		b^n mod (n) 
+	\end{equation} 
+
+haciendo uso de alguna de las técnicas algorítmicas aprendidas hasta el momento en la materia. Asímismo, la consigna dictaba que la complejidad final del algoritmo debería ser menor a \Ode{n}.\\
+	En pos de cumplimentar lo pedido se decidió usar la técnica de \textit{Dividir \& Conquistar}\footnote{Poner alguna referencia 	en donde se explique esta técnica} para desarrollar el algoritmo. Esta técnica se caracteriza principalmente en dividir la instancia de un problema en instancias más pequeñas, atacar cada una de ellas por separado y resolverlas, para finalmente juntar sus resultados y aséi producir el resultado final.
 
 \subsection*{Detalles de implementación}
+	La primera solución que se piensa casi de manera intuitiva es la de mutliplicar \textit{n} veces el número \textit{b} y luego hallar el resto de dividir ese resultado por \textit{n}. 
 
+	\begin{equation}
+		\underbrace{b.b.b \hdots b.b.b}_{n}\ mod\ (b)  = b^n mod (b)
+	\end{equation}
+
+	Sin embargo, la complejidad ese algoritmo es \Ode{n}, ya que se realizan \textit{n} multipicaciones y 1 división, razón por lo cual no cumple con lo pedido en la consigna.\\
+
+	No obstante, la idea anterior conduce a otra forma de encarar el problema. La misma consiste en agrupar de a pares los \textit{b}'s y calcular su resto módulo \textit{n}.
 
 %\subsection*{Análisis de la complejidad del algoritmo}
 %\subsection*{Debate}

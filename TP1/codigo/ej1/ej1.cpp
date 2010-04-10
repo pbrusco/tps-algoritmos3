@@ -21,7 +21,7 @@ long long potenciacion(long long base, long long exp, long long mod);
 
 list<pair<int,int> >* cargarDatos(istream& is) {
 
-	list<pair<int,int> >* res;
+	list<pair<int,int> >* res = new list<pair<int,int> >();
 	int b = 0, n = 0;
 
 	while(is.good()) {
