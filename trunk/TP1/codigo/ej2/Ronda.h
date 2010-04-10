@@ -5,7 +5,7 @@
 #include <map>
 #include <list>
 #include <set>
-#include<algorithm>
+#include <algorithm>
 
 using namespace std;
 
@@ -28,8 +28,6 @@ class Ronda{
 		bool probarDistintasRondas(chica prim, chica ult);
 		
 		void mostrar(ostream& os);
-		
-		ostream& operator<<(const Ronda &r);
 
 		bool comparacionPorAmistades(const chica& primera,const chica& segunda);
 
@@ -45,6 +43,6 @@ class Ronda{
 
 };
 
-
+ostream& operator<<(ostream& os, const Ronda &r);
 
 #endif
