@@ -27,7 +27,7 @@ class Ronda{
 
 		bool probarDistintasRondas(chica prim, chica ult);
 		
-		void mostrar(ostream& os);
+		void mostrar(ostream& os) const ;
 
 		bool comparacionPorAmistades(const chica& primera,const chica& segunda);
 
