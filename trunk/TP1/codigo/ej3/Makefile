@@ -1,5 +1,5 @@
 CPPCOMPILER = g++
-CPPFLAGS = -c -g
+CPPFLAGS = -c -g -w
 OBJS = Hora.o ej3.o
 
 .PHONY = clean all

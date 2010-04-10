@@ -79,6 +79,8 @@ int main(int argc, char** argv) {
 		res.push_back(temp);
 	}
 	
+	delete input;
+	
 	forall(it, res)
 		outfile << *it << endl;
 
