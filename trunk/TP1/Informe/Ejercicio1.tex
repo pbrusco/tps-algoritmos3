@@ -30,7 +30,7 @@ ya que el Algoritmo de División de Números Enteros asegura que el resto existe
 
 	Luego, una de las propiedades de congruencias, nos asegura que:
 	\begin{equation}
-		a \equiv p (n)\ ,\ b \equiv q (n)\ \Longrightarrow\ a.b \equiv p.q (n)\ , \hspace{10pt} \forall\ a,b,p,q,n \in
+		a \equiv p (n)\ ,\ b \equiv q (n)\ \Longrightarrow\ a.b \equiv p.q (n)\ , \hspace{10pt} \forall\ a,b,p,q,n \in \mathbf Z
 	\end{equation}
 por lo que, tomando en particular, $a=b$ sigue que:
 	\begin{equation}
@@ -53,8 +53,8 @@ donde por \ref{resto_p2} sabíamos que $k$ es un número entre 0 y $n$.\\
 
 	De este modo, podemos aplicar el resultado de \ref{segunda_idea} en \ref{primera_idea}, obteniéndose:
 	\begin{equation}
-		b^n = \underbrace{b.b.b \hdots b.b.b}_{n\ veces}\ \equiv\ x (n) 
-		b^n = \underbrace{b^2. b^2 \hdots b^2. b^2}_{n/2\ veces}\ \equiv\ x (n)
+		b^n = \underbrace{b.b.b \hdots b.b.b}_{n\ veces}\ \equiv\ x (n) \\
+		b^n = \underbrace{b^2. b^2 \hdots b^2. b^2}_{n/2\ veces}\ \equiv\ x (n) \\
 		b^n = \underbrace{k. k \hdots k. k}_{n/2\ veces}\ \equiv\ x (n)
 	\label{idea_final}
 	\end{equation}
