@@ -109,7 +109,7 @@ void generarArchivo(string filename, int modo) {
 	assert(outfile.is_open());
 
 	int cant_casos = 0;
-	int b = 0, n = 1;
+	long long b = 0, n = 1;
 	
 	/* inicializo la semilla para generara nros aleatorios */
 	srand ( time(NULL) );
