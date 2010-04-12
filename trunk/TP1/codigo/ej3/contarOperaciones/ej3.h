@@ -25,16 +25,16 @@ class Empresa{
 		~Empresa();
 
 		//resolucion del ej3
-		int maxCantProgJuntos(int& cantOp) const;
+		int maxCantProgJuntos() const;
 		
 		//cargar empresa a mano
-		void cargarEmpresa(ficha entran[], ficha salen[], int tam);
+		void cargarEmpresa(ficha entran[], ficha salen[], int tam);			
 	
 		//cargar empresa desde archivo
 		void cargarEmpresa(istream& is, int n);
 		
 		//cargar empresas y guardar salidas
-		static void cargarEmpresasYResolver(string filenameIn, string filenameOut);
+		void cargarEmpresasYResolver(string filenameIn, string filenameOut);
 
 	private:
 	
