@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include "Hora.h"
 #include "ej3.h"
 #include <set>
 

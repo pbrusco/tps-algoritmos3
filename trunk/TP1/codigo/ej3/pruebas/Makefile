@@ -12,7 +12,7 @@ all: clean main
 	
 
 main: main.cpp $(OBJS)
-	$(CPPCOMPILER) -g -o $@ $^
+	$(CPPCOMPILER) -g -w -o $@ $^
 	
 clean:
 	rm -f *.o

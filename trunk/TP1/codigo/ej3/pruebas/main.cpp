@@ -7,7 +7,9 @@
 #include <time.h>
 #include <algorithm>
 #include <vector>
+#include <sys/time.h>
 
+int seed = 2;
 
 using namespace std;
 
@@ -23,7 +25,19 @@ bool menor(programador a, programador b);
 
 int main(){
 
-	generarArchivo("entrada");
+	//generarArchivo("entrada3");
+	
+struct timeval t1,t2;
+double tiempo;
+
+gettimeofday(&t1,NULL);
+
+
+gettimeofday(&t2,NULL);
+tiempo = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t1.tv_usec);
+
+
+	Empresa::cargarEmpresasYResolver("entrada2","salida2");
 
 	return 0;
 
@@ -39,12 +53,12 @@ void generarArchivo(string nombreArchivo){
 	ofstream os;
 	os.open(nombreArchivo.c_str());
 	
-	int cantEmpresas = 5;
+	int cantEmpresas = 16;
 	int cantProg = 2;
 	
 	for(int i = 1; i<= cantEmpresas; i++){
 		crearEmpresaAlAzar(cantProg,os);
-		cantProg = cantProg * cantProg;
+		cantProg = cantProg*2;
 	}
 	os << -1;
 	
@@ -60,7 +74,7 @@ void crearEmpresaAlAzar(int n, ostream& os){
 	vector<programador> salidas;
 	
 	//creo 2 listas con programadores y sus horarios de salida y entrada
-	for(int i = 0; i < n; i++){
+	for(int i = 0; i < n-1; i++){
 		
 		//genero cantidad de segundos entre 0 y SEGXDIA-2
 		desde = 0;
@@ -74,7 +88,16 @@ void crearEmpresaAlAzar(int n, ostream& os){
 		crearHoraAlAzar(P.hrs, P.mins, P.segs, desde);
 		P.nom = i+1;
 		salidas.push_back(P);
+
 	}
+	P.nom = n;
+	P.hrs = 23;
+	P.mins = 59;
+	P.segs = 58;
+	entradas.push_back(P);
+	P.segs = 59;
+	salidas.push_back(P);
+
 	//ordeno las listas
 	sort(entradas.begin(),entradas.end(),menor);
 	sort(salidas.begin(),salidas.end(),menor);
@@ -118,6 +141,9 @@ void crearHoraAlAzar(int& hora, int& min, int& seg, int& desde){
 	
 	assert(desde < 86399);
 
+	srand( seed );
+	seed++;
+
 	int segMaximos = SEGXDIA - desde;
 	int tiempo = desde + (rand() % segMaximos);
 	
@@ -139,5 +165,5 @@ void crearHoraAlAzar(int& hora, int& min, int& seg, int& desde){
 
 
 bool menor(programador a, programador b){
-	return (a.hrs < b.hrs) || ((a.hrs == b.hrs) && (a.mins < b.mins)) || ((a.hrs == b.hrs) && (a.mins == b.mins) && (a.segs == b.segs));
+	return (a.hrs < b.hrs) || ((a.hrs == b.hrs) && (a.mins < b.mins)) || ((a.hrs == b.hrs) && (a.mins == b.mins) && (a.segs < b.segs));
 }
