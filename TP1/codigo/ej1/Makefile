@@ -2,14 +2,18 @@ CC=g++
 GCCFLAGS= -g -w -o
 .PHONY=clean all
 
-all: ej1.out
+all: ejercicio_1 input_gen1
 
-%.out: %.cpp
+ejercicio_1: ej1.cpp
+	$(CC) $(GCCFLAGS) $@ $<
+
+input_gen1: input_gen1.cpp
 	$(CC) $(GCCFLAGS) $@ $<
 
 clean:
+	rm ejercicio_1
+	rm input_gen1	
 	rm *.out
-	
 
 
 
