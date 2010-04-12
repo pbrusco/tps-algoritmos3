@@ -15,7 +15,7 @@ using namespace std;
 
 void MenuPrincipal();
 char LeerOpcion(char desde, char hasta);
-void generarArchivo(string filename, int modo);
+void generarArchivo(int modo);
 
 
 // ******************************************************** Implementacion de funciones ***************************************************************
@@ -25,25 +25,25 @@ void MenuPrincipal() {
     bool exit = false;
 
     while (!exit) {
-        system("cls");
+        system("clear");
         cout << endl << "Menu Principal" << endl ;
         cout << endl
             << "Por favor seleccione el tipo de archivo de entrada que desea generar y presione Enter"<< endl << endl
 
-			// b y n grandes
-			<< "a. |b| <= 1000000 y 1000000 <= |n| <= 1000000000 " << endl
+			// n grande
+			<< "a. 1000000 <= |n| <= 1000000000 " << endl
 
-            // b y n pequeños
-            << "b. |b| <= 1000 y |n| <= 1000000" << endl
+            // n pequeño
+            << "b. |n| <= 1000000" << endl
 
 			// b multiplo de n
             << "c. b mod (n) = 0" << endl
 
-			// b cualquiera y n impar
-            << "d. b cualquiera y n impar" << endl
+			// n impar
+            << "d. n impar" << endl
 
-			// b cualquiera y n primo
-            << "e. b cualquiera y n primo" << endl
+			// n primo
+            << "e. n primo" << endl
 
 			// b primo y b cualquiera
             << "f. b primo y n cualquiera" << endl
@@ -56,29 +56,23 @@ void MenuPrincipal() {
 
         switch(opcion) 
         {
-            case 'a': {
-            			generarArchivo("prueba.in", 1);
-			}break;
+            case 'a': generarArchivo(1);
+			break;
 
-            case 'b': {
-            			generarArchivo("prueba.in", 2);
-			}break;
+            case 'b': generarArchivo(2);
+			break;
 
-            case 'c': {
-            			generarArchivo("prueba.in", 3);
-			}break;
+            case 'c': generarArchivo(3);
+			break;
 
-            case 'd': {
-            			generarArchivo("prueba.in", 4);
-			}break;
+            case 'd': generarArchivo(4);
+			break;
 
-            case 'e': {
-            			generarArchivo("prueba.in", 5);
-			}break;
+            case 'e': generarArchivo(5);
+			break;
 
-            case 'f': {
-            			generarArchivo("prueba.in", 6);
-			}break;
+            case 'f': generarArchivo(6);
+			break;
 
             case 'g': exit = true;
             break;
@@ -102,37 +96,49 @@ char LeerOpcion(char desde, char hasta){
     return opt[0];
 }
 
-void generarArchivo(string filename, int modo) {
+void generarArchivo(int modo) {
+	
+	system("clear");
+	string filename = "prueba.in";		
 
+	cout << "Ingrese el nombre del archivo que quiere generar: " ;
+	cin >> filename;
+	
 	ofstream outfile;
 	outfile.open(filename.c_str());
 	assert(outfile.is_open());
 
-	int cant_casos = 0;
-	long long b = 0, n = 1;
+	int cant_casos = 0, signo = 0;
+	long long b = 0, n = 0;
 	
 	/* inicializo la semilla para generara nros aleatorios */
 	srand ( time(NULL) );
 
-	cout << "Ingrese la cantidad de casos de prueba que quiere generar: " ;
+	cout << endl << "Ingrese la cantidad de casos de prueba que quiere generar: " ;
 	cin >> cant_casos;
 	
 	switch(modo)
 	{
-		// b y n grandes
+		// n grande
 		case 1: {
 			forn(i, cant_casos) {
+				signo = (rand() % 2);
 				b = (rand() % 1000000);
 				n = (1000000 + rand() % 1000000000);
+				if (signo)
+					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
 
-		// b y n pequeños
+		// n pequeño
 		case 2: {
 			forn(i, cant_casos) {
-				b = (rand() % 1000);
+				signo = (rand() % 2);
+				b = (rand() % 1000000);
 				n = (1 + rand() % 1000000);
+				if (signo)
+					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -140,29 +146,39 @@ void generarArchivo(string filename, int modo) {
 		// b multiplo de n
 		case 3: {
 			forn(i, cant_casos) {
-				b = (rand() % 1000);
-				n = (1 + rand() % 1000);
+				signo = (rand() % 2);
+				b = (rand() % 1000000);
+				n = (1 + rand() % 1000000);
 				while (b == 0 or b % n != 0) 
-					b = (rand() % 1000);
+					b = (rand() % 1000000);
+				if (signo)
+					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
 
-		// b cualquiera y n impar
+		// n impar
 		case 4: {
 			forn(i, cant_casos) {
-				b = (rand() % 1000);
+				signo = (rand() % 2);
+				b = (rand() % 1000000);
+				n = (1 + rand() % 1000000);
 				while(n % 2 == 0)
 					n = (1 + rand() % 1000000);
+				if (signo)
+					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
 
-		// b cualquiera y n primo
+		// n primo
 		case 5: {
 			forn(i, cant_casos) {
-				b = (rand() % 1000);
+				signo = (rand() % 2);
+				b = (rand() % 100000);
 				n = (1 + rand() % 1000000);
+				if (signo)
+					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -170,13 +186,16 @@ void generarArchivo(string filename, int modo) {
 		// b primo y b cualquiera
 		case 6: {
 			forn(i, cant_casos) {
-				b = (rand() % 1000);
+				signo = (rand() % 2);
+				b = (rand() % 100000);
 				n = (1 + rand() % 1000000);
+				if (signo)
+					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
 	}
-
+	outfile << -1 << "\t" << -1 << endl;
 	outfile.close();
 }
 

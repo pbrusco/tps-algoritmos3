@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <fstream>
 #include <list>
-#include <time.h>
+#include <sys/time.h>
 #include <cassert>
 
 #define forn(i, n) for(int i = 0; i < n; i++)
@@ -11,14 +11,18 @@
 using namespace std;
 
 
-//*************************************************************** Declaración de funciones **************************************************************
+
+/*######################################################################################################################
+#														Declaración de funciones													   # ######################################################################################################################*/
 
 list<pair<int,int> >* cargarDatos(istream& is);
-long long potenciacion(long long b, long long n);
-long long potenciacion2(long long base, long long exp, long long mod);
+long long potenciacion(long long base, long long exp, long long mod);
+
+struct timeval t_i, t_f;
 
 
-//************************************************************* Implementacion de funciones ***********************************************************
+/*######################################################################################################################
+#													Implementación de funciones													   # ######################################################################################################################*/
 
 list<pair<int,int> >* cargarDatos(istream& is) {
 
@@ -28,35 +32,38 @@ list<pair<int,int> >* cargarDatos(istream& is) {
 	while(is.good()) {
 		is >> b;
 		is >> n;
-		if (b != -1 and n != -1)
-			res->push_back(make_pair(b,n));			
+		if (b == -1 and n == -1) break;
+		res->push_back(make_pair(b,n));
 	}
-
+	
 	return res;	
 }
 
-long long potenciacion(long long b, long long n) {
-	
-	long long res = 1;
-	long long p = b%n;				// resto de dividir a b por n
-	if (p == 0) return 0;
-	
-	else {
-		long long x = (p*p)%n;			// resto de dividir a b² por n	
-	
-		forn(i, n/2)
-			res = (res*x)%n;				// multiplico los n/2 x's al tiempo que tomo módulo n
-	
-		if (n % 2)
-			return (res*p)%n;				// si el número es impar, multiplico por p y tomo módulo n
-	
-		else
-			return res;
+long long potenciacion(long long base, long long exp, long long mod) {
+
+	while (base < 0)
+		base += mod;
+
+	long long res = 0;
+	if (exp == 1) return (base % mod);
+
+	else if (exp % 2 == 0) {
+		long long temp = potenciacion(base, exp/2, mod);
+		res = (temp*temp) % mod;
 	}
+
+	else {
+		long long temp = potenciacion(base, (exp-1)/2, mod);
+		res = (((temp*temp) % mod) * (base % mod)) % mod;
+	}
+	
+	return res;
 }
 
 
-//**************************************************************** Algoritmo Principal ********************************************************************
+/*######################################################################################################################
+#														Algoritmo Principal													   		    #
+######################################################################################################################*/
 
 int main(int argc, char** argv) {
 
@@ -78,21 +85,22 @@ int main(int argc, char** argv) {
 	assert(outfile.is_open());
 		
 	list<int> res;
-
+	
 	forall(it, *input) {
-		time(&start);
-		int temp = potenciacion(it->first, it->second);
-		time(&end);
-		tiempo += difftime(end, start);
+		gettimeofday(&t_i, NULL);
+		int temp = potenciacion(it->first, it->second, it->second);
+		gettimeofday(&t_f, NULL);
+		tiempo += ((t_f.tv_sec - t_i.tv_sec)*1000 + (t_f.tv_usec - t_i.tv_usec)/1000.0);
 		res.push_back(temp);
 	}
 	
 	delete input;
+	
 	forall(it, res)
 		outfile << *it << endl;
 
 	outfile.close();
-	printf ("El algoritmo tardó %.15lf segundos en procesar todos los datos.\n", tiempo );
+	printf ("El algoritmo tardó %.15lf milisegundos en procesar todos los datos.\n", tiempo );
 
 	return 0;	
 }
