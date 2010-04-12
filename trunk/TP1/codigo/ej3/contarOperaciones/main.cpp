@@ -4,10 +4,8 @@
 #include "ej3.h"
 #include <set>
 #include <cassert>
-#include <time.h>
 #include <algorithm>
 #include <vector>
-#include <sys/time.h>
 
 int seed = 2;
 
@@ -27,17 +25,7 @@ int main(){
 
 	//generarArchivo("entrada3");
 	
-struct timeval t1,t2;
-double tiempo;
-
-gettimeofday(&t1,NULL);
-
-
-gettimeofday(&t2,NULL);
-tiempo = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t1.tv_usec);
-
-
-	Empresa::cargarEmpresasYResolver("entrada2","salida2");
+	Empresa::cargarEmpresasYResolver("entrada3","salida3","grafico3");
 
 	return 0;
 
