@@ -8,7 +8,6 @@
 
 
 
-
 //constructor
 Empresa::Empresa(int cantProgramadores){
 
@@ -26,23 +25,20 @@ Empresa::~Empresa(){
 //resolucion del ej3 (debe ser una empresa ya inicializada)
 int Empresa::maxCantProgJuntos() const{
 
-	set<Programador> estanAdentro;
 	bool termine = false;
 	int maxJuntos = 0;
 	int juntosActualmente = 0;
 	int i = 0, j = 0;
 	
 	while(!termine){
-	
+
 		while(i<programadoresTotales && ingresos[i].hora <= egresos[j].hora){
-			estanAdentro.insert(ingresos[i].programador);
+			juntosActualmente++;
 			i++;
 		}
 		
 		if(i == programadoresTotales)
 			termine = true;
-		
-		juntosActualmente = estanAdentro.size();
 		
 		if(juntosActualmente > maxJuntos)
 			maxJuntos = juntosActualmente;
@@ -50,7 +46,7 @@ int Empresa::maxCantProgJuntos() const{
 		if(!termine){
 		
 			while(j<programadoresTotales && egresos[j].hora < ingresos[i].hora){
-				estanAdentro.erase(egresos[j].programador);
+				juntosActualmente--;
 				j++;
 			}
 		}
@@ -142,6 +138,8 @@ void Empresa::cargarEmpresasYResolver(string filenameIn, string filenameOut){
 	
 	is.close();
 	os.close();
+
+
 }
 
 
