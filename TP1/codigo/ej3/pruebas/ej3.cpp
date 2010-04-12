@@ -142,8 +142,6 @@ void Empresa::cargarEmpresasYResolver(string filenameIn, string filenameOut){
 	
 	is.close();
 	os.close();
-
-
 }
 
 
