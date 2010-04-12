@@ -25,19 +25,10 @@ bool menor(programador a, programador b);
 
 int main(){
 
-	//generarArchivo("entrada3");
+	generarArchivo("entrada4");
 	
-struct timeval t1,t2;
-double tiempo;
 
-gettimeofday(&t1,NULL);
-
-
-gettimeofday(&t2,NULL);
-tiempo = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t1.tv_usec);
-
-
-	Empresa::cargarEmpresasYResolver("entrada2","salida2");
+//	Empresa::cargarEmpresasYResolver("entrada3","salida3");
 
 	return 0;
 
@@ -53,12 +44,12 @@ void generarArchivo(string nombreArchivo){
 	ofstream os;
 	os.open(nombreArchivo.c_str());
 	
-	int cantEmpresas = 16;
-	int cantProg = 2;
+	int cantEmpresas = 100;
+	int cantProg = 10;
 	
 	for(int i = 1; i<= cantEmpresas; i++){
 		crearEmpresaAlAzar(cantProg,os);
-		cantProg = cantProg*2;
+		cantProg = cantProg+10;
 	}
 	os << -1;
 	
@@ -139,7 +130,7 @@ void crearHoraAlAzar(int& hora, int& min, int& seg, int& desde){
 	| va de la franja entre DESDE y SEGXDIA(desde < 86399)|
 	******************************************************/
 	
-	assert(desde < 86399);
+	assert(desde < SEGXDIA);
 
 	srand( seed );
 	seed++;
