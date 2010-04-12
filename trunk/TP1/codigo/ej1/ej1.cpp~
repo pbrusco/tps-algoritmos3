@@ -75,7 +75,7 @@ void resolverInput(string& filename) {
 	string filename2 = (filename.substr(0, filename.size()-3) + ".out");	
 
 	/* Creo el nombre del archivo con los datos necesios para graficar */
-	string filename3 = ("./info graficos/" + filename.substr(0, filename.size()-3) + "_grafico.out");
+	string filename3 = (filename.substr(0, filename.size()-3) + "_grafico.out");
 
 	/* Abro el archivo con los datos de entrada */	
 	ifstream infile; 
