@@ -55,6 +55,18 @@ bool operator<(const chica &c1,const chica &c2){
 
 bool Ronda::resolver(){
 	
+	int n = gente->size();
+	bool sonPocas = false;
+	bool sonSuficientes = true;
+	//mejoras 3 y 4: checkeo que todas tengan 2 o mas amigas o si todas tienen n-1 amigas.
+	for(list<chica>::iterator it = gente->begin();it != gente->end();it++){
+		 sonPocas = sonPocas or (((*it).dameAmigas())->size() < 2);
+		 sonSuficientes = sonSuficientes && ( ((*it).dameAmigas())->size() == n-1);
+	}
+	
+	if (sonSuficientes) {cout << "son suficientes" << endl;return true;}
+	if (sonPocas) {cout << "son pocas" << endl;return false;}
+	
 	//	Comienzo eligiendo la chica con menos amigas			
 	//	para minimizar el tamaño del arbol, es decir,						
 	//	si la mejora (1) esta activada, gente->front(); devuelve la chica con menos amigas.
