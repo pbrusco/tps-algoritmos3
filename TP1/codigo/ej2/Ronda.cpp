@@ -23,7 +23,7 @@ void Ronda::cargarAmistades(istream& is,int n){
 		is >> m;
 		
 		c.nombrar(i);
-		
+		c.borrarAmigas();
 		
 		for(int j = 1; j <= m; j++)
 		{
@@ -77,17 +77,14 @@ list<chica>::iterator it;
 		bool res;
 	
 		for (it = gente->begin();it != gente->end();it++){
-		
-			if (enRonda->count(it->dameNombre()) == 0 && (ult.dameAmigas())->count(prim.dameNombre()) != 0){
+
+			if ( (enRonda->count(it->dameNombre()) == 0 ) && ((ult.dameAmigas())->count(it->dameNombre()) != 0)){
 				
 				enRonda->insert(it->dameNombre());
 				res = probarDistintasRondas(prim,*it);
 			
-				if(res){
-					return true;
-				}
-				
-				enRonda->erase(it->dameNombre());
+				if(res)	return true;
+				else enRonda->erase(it->dameNombre());
 				
 			}	
 		}
@@ -124,17 +121,21 @@ list<chica>::iterator it;
 	}
 	
 	chica::chica(const chica &c){
+		set<int>::iterator it;
 		nombre = c.dameNombre();
 		amigas = new set<int>;
-		(*amigas)(*(c.dameAmigas()));
-//		amigas((c.dameAmigas())->begin(),(c.dameAmigas())->end()); 
+		for (it = (c.dameAmigas())->begin();it != (c.dameAmigas())->end();it++){
+			amigar(*it);
 		}
+	}
 
 	chica& chica::operator=(const chica &c){
+	set<int>::iterator it;
 	amigas->clear();
 	nombre = c.dameNombre();
-	(*amigas)(*(c.dameAmigas()));
-	//	amigas((c.dameAmigas())->begin(),(c.dameAmigas())->end()); 
+		for (it = (c.dameAmigas())->begin();it != (c.dameAmigas())->end();it++){
+			amigar(*it);
+		}
 	}
 
 
@@ -144,7 +145,10 @@ list<chica>::iterator it;
 
 	void chica::amigar(int a){
 	amigas->insert(a);
-	
+	}
+
+	void chica::borrarAmigas(){
+	amigas->clear();
 	}
 
 

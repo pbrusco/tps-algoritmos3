@@ -23,6 +23,7 @@ public:
 	chica& operator=(const chica &c1);
 	void nombrar(int i);
 	void amigar(int i);
+	void borrarAmigas();
 };
 
 
