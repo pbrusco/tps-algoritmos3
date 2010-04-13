@@ -93,10 +93,37 @@ Con el objetivo de realizar un mejor análisis de la complejidad del algoritmo p
 Si hacemos una mirada mas minuciosa sobre el pseudocódigo, veremos que la complejidad del algoritmo está dada por $n$, que hace referencia a la cantidad de trabajadores de la empresa. Si vemos las complejidades de cada operación, vemos que todas son constantes, con excepción del flujo ``while'' más grande (aquél que tiene como condición: (!\textit{termine}) ). Veamos por qué sucede esto.
 
 \paragraph{}
-Como se puede ver en la línea 5, el booleano \textit{termine} es inicializado con el valor de verdad \false. La otra variable que nos va a interesar para este análisis es \textit{i}, la cuál se inicializa con el valor 0. Con estos valores, y sabiendo que el flujo while que estamos analizando tiene como condición la negación de 
+Como se puede ver en la línea 5, el booleano \textit{termine} es inicializado con el valor de verdad \false. La otra variable que nos va a interesar para este análisis es \textit{i}, la cuál se inicializa con el valor 0. Con estos valores, y sabiendo que el flujo while que estamos analizando tiene como condición la negación de \textit{termine}, se desprende que el algoritmo terminara sí y solo sí \textit{termine} tome el valor de verdad \true .
+
+\paragraph{}
+Si vemos la línea 13 del pseudocódigo, vemos que aquí es modificado el valor de verdad de \textit{termine} y no se modifica en ningún otro lugar. En esta línea se ve que:
+\begin{equation}
+termine \leftarrow i \geq n
+\end{equation}
+
+Entonces, juntando esto con lo dicho anteriormente, se ve claramente que el algoritmo va a finalizar una vez que \textit{i} \ensuremath{\geq} n. Veamos entonces cómo se comporta \textit{i} a lo largo del programa.
+
+\paragraph{}
+La variable \textit{i} sólo es modificada en el primer while anidado, y en esta modificación, \textit{i} es incrementada de a uno por vez. Por lo tanto, una vez que se ejecute el contenido de este while anidado n veces, el algoritmo finalizará.
+
+\paragraph{}
+Si consideramos la precondición de que todos los trabajadores ingresan a la empresa estrictamente antes de egresar, podemos ver entonces que este primer while anidado va a ejecutarse siempre a lo sumo n veces\footnote{Ver condición del primer while anidado}. Por lo tanto, el algoritmo tiene una complejidad de \Ode{n}.
 
 
-%\subsection[Detalles de Implementación}
+
+\subsection{Detalles de Implementación}
+
+\paragraph{}
+Para compilar este programa, se debe referir a la carpeta que contiene al ejercicio nº 3 y ejecutar make en consola.
+
+\paragraph{}
+Luego de ejecutar make, se creara un archivo ejecutable, llamado main. Para ejecutarlo, se debe hacer una llamada desde la consola respetando el siguiente formato:\\
+\texttt{main [nombreEntrada] [nombreSalida]}.
+
+\paragraph{}
+Los parámetros son opcionales, pero se puede elegir entre no pasar ningún parámetro, o pasar 2. Si no se pasan parámetros, el programa tomara los valores por defecto, esto quiere decir que el archivo de entrada será el designado por la materia.
+
+
 %\subsection{Resultados}
 %\subsection{Debate}
 %\subsection{Comentarios}
