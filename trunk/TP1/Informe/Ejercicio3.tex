@@ -18,8 +18,84 @@ Pero luego de un mejor an\'alisis del problema, se cay\'o en la cuenta que los d
 Para lograr dicha soluci\'on, no se requiri\'o de una t\'ecnica compleja. En realidad, lo que se hizo fue iterar sobre las dos listas de entrada, que conten\'ian los horarios de entrada y de salida de los trabajadores. De esta forma, con un recorrido lineal sobre ambas listas de entrada, se pod\'ia saber con certeza cu\'al era la respuesta al problema para las mismas.
 
 
-%\subsection{Explicación}
-%\subsection{Análisis de la complejidad del algoritmo}
+\subsection{Explicación}
+\label{explicacion}
+
+\paragraph{}
+Para encontrar soluci\'on al problema dado, lo primero que se realiz\'o fue pensar qu\'e cosas se necesitaban para representarlo. Para ello se cre\'o una clase ``Empresa'', la cual consta de dos arreglos que contienen en cada posici\'on, una hora junto con un nombre de un trabajador, ambos arreglos ordenados ascendentemente por hora. Uno de ellos contiene los horarios de entrada de los trabajadores, mientras que el otro contiene los de salida. Adem\'as, se cuenta con las siguientes precondiciones:
+\begin{itemize}
+ \item Cada trabajador ingresa estrictamente antes de egresar
+ \item Los horarios van desde 00:00:00 hasta 23:59:59.
+\end{itemize}
+ 
+
+\paragraph{}
+Una vez cargados los datos en nuestra estructura, se procedi\'o a armar el algoritmo que resuelve el problema. La idea del mismo fue ir index\'ando ambos arreglos desde la posici\'on 0 hasta la n-1 \'esima. De esta forma, lo que se hizo fue ir recorriendo el arreglo que conten\'ia los horarios de entrada, hasta que se encontrara una posici\'on en la cu\'al su horario de entrada fuese mayor al horario de salida que se estaba indexando en ese momento (en el caso de la primer iteraci\'on por ejemplo, el horario ubicado en la posici\'on 0 del arreglo de horarios de salida). Mientras se realizaba esto, un contador con valor inicial 0 se iba incrementando con cada iteraci\'on, simulando as\'i la cantidad de trabajadores que iban entrando.
+
+\paragraph{}
+Cuando se encontraba un horario de entrada mayor al de salida esto significaba que, antes de que ingresara un nuevo trabajador, al menos uno se hab\'ia retirado, por lo que se sal\'ia de esta iteraci\'on. En un primer paso se verificaba cu\'antos trabajadores habían entrado hasta ese momento y se guardaba en una variable (siempre y cuando dicho valor fuese mayor al guardado anteriormente). Luego, se recorr\'ia el arreglo que conten\'ia los horarios de salida de la misma manera que antes: recorrer hasta que se encuentre un horario mayor al indexado en el arreglo de entradas, con la diferencia que en este caso, cada vez que se iteraba, se decrementaba el contador de trabajadores simulando un egreso.
+
+\paragraph{}
+Esto se repet\'ia varias veces, hasta que se indexaran todas las posiciones del arreglo de los horarios de entrada, devolviendo finalmente el valor que se iba actualizando tras cada cambio de iteraci\'on, es decir, el valor que se actualizaba una vez que se dejaba de iterar el arreglo con los horarios de entrada.
+
+\paragraph{}
+A modo de una explicaci\'on m\'as clara que nos acerque un poco m\'as a la implementaci\'on, detallamos lo expreso anteriormente a trav\'es del siguiente pseudoc\'odigo:
+
+\incmargin{1em}
+\linesnumbered
+\restylealgo{boxed}
+%\dontprintsemicolon
+
+
+\SetKw{Orden}{Complejidad:}
+\begin{algorithm}[H]
+\Orden{O(n)}
+\BlankLine
+\textbf{var} i,j,maxJuntos,juntosPorAhora : \entero \\
+\textbf{var} termine : bool \\
+\BlankLine
+i $\leftarrow$ j $\leftarrow$ maxJuntos $\leftarrow$ juntosPorAhora $\leftarrow$ 0\tcp*{O(1)}
+termine $\leftarrow$ false\tcp*{O(1)}
+\BlankLine
+\While{(!termine)\tcp*{O(n)}}{
+
+    \While{(noLlegueAlFinal(i,n) $\&\&$ hora(entradas[i]) $\leq$ hora(salidas[j]))\tcp*{O(1)}}{
+    
+	juntosPorAhora++		\tcp*{O(1)}
+	i++				\tcp*{O(1)}
+    }
+    \BlankLine
+    termine = i $\geq$ n			\tcp*{O(1)}
+    \BlankLine
+    \If{(maxJuntos $\leq$ juntosPorAhora)\tcp*{O(1)}}{maxJuntos $\leftarrow$ juntosPorAhora\tcp*{O(1)}}
+    \BlankLine
+    \While{(!termine $\&\&$ hora(salidas[j]) $\leq$ hora(entradas[i]))\tcp*{O(1)}}{
+    
+	juntosPorAhora$--$		\tcp*{O(1)}
+	j++						\tcp*{O(1)}
+    }
+
+}
+\BlankLine
+\textbf{return} maxJuntos
+\end{algorithm}
+
+
+\subsection{Análisis de la complejidad del algoritmo}
+
+\paragraph{}
+Para realizar el análisis de la complejidad del algoritmo, se decidió utilizar el modelo uniforme y no el logarítmico. Esto se debió a que en este caso, no resulta lógico evaluar la complejidad de acuerdo al costo de representar los valores de los parámetros de entrada. Más aún, por la forma y el contexto del problema y por el algoritmo implementado para la resolución, no sería correcto hacer un análisis logarítmico ya que en este caso las horas representables están acotadas (habíamos dicho que se encontraban entre 00:00:00 y 23:59:59) y la cantidad de trabajadores, aunque no está explícitamente acotada, podríamos suponerla así. De esta manera, sería válido considerar que la complejidad espacial de cada elemento es unitaria, haciendo inadecuado analizar la complejidad del algoritmo con el modelo logarítmico.
+
+\paragraph{}
+Con el objetivo de realizar un mejor análisis de la complejidad del algoritmo propuesto, vamos a analizar el mismo remitiéndonos al pseudocódigo citado en la sección [\ref{explicacion}].
+
+\paragraph{}
+Si hacemos una mirada mas minuciosa sobre el pseudocódigo, veremos que la complejidad del algoritmo está dada por $n$, que hace referencia a la cantidad de trabajadores de la empresa. Si vemos las complejidades de cada operación, vemos que todas son constantes, con excepción del flujo ``while'' más grande (aquél que tiene como condición: (!\textit{termine}) ). Veamos por qué sucede esto.
+
+\paragraph{}
+Como se puede ver en la línea 5, el booleano \textit{termine} es inicializado con el valor de verdad \false. La otra variable que nos va a interesar para este análisis es \textit{i}, la cuál se inicializa con el valor 0. Con estos valores, y sabiendo que el flujo while que estamos analizando tiene como condición la negación de 
+
+
 %\subsection[Detalles de Implementación}
 %\subsection{Resultados}
 %\subsection{Debate}
