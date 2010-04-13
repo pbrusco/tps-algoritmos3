@@ -34,7 +34,7 @@ class Empresa{
 		void cargarEmpresa(istream& is, int n);
 		
 		//cargar empresas y guardar salidas
-		static void cargarEmpresasYResolver(string filenameIn, string filenameOut);
+		static void cargarEmpresasYResolver(string filenameIn, string filenameOut, string gr);
 
 	private:
 	
