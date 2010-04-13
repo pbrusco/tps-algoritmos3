@@ -108,7 +108,7 @@ void generarArchivo(int modo) {
 	outfile.open(filename.c_str());
 	assert(outfile.is_open());
 
-	int cant_casos = 0, signo = 0;
+	int cant_casos = 0;
 	long long b = 0, n = 0;
 	
 	/* inicializo la semilla para generara nros aleatorios */
@@ -122,11 +122,8 @@ void generarArchivo(int modo) {
 		// n grande
 		case 1: {
 			forn(i, cant_casos) {
-				signo = (rand() % 2);
 				b = (rand() % 1000000);
 				n = (1000000 + rand() % 1000000000);
-				if (signo)
-					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -134,11 +131,8 @@ void generarArchivo(int modo) {
 		// n pequeño
 		case 2: {
 			forn(i, cant_casos) {
-				signo = (rand() % 2);
 				b = (rand() % 1000000);
 				n = (1 + rand() % 1000000);
-				if (signo)
-					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -146,13 +140,10 @@ void generarArchivo(int modo) {
 		// b multiplo de n
 		case 3: {
 			forn(i, cant_casos) {
-				signo = (rand() % 2);
 				b = (rand() % 1000000);
 				n = (1 + rand() % 1000000);
 				while (b == 0 or b % n != 0) 
 					b = (rand() % 1000000);
-				if (signo)
-					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -160,13 +151,10 @@ void generarArchivo(int modo) {
 		// n impar
 		case 4: {
 			forn(i, cant_casos) {
-				signo = (rand() % 2);
 				b = (rand() % 1000000);
 				n = (1 + rand() % 1000000);
 				while(n % 2 == 0)
 					n = (1 + rand() % 1000000);
-				if (signo)
-					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -174,11 +162,8 @@ void generarArchivo(int modo) {
 		// n primo
 		case 5: {
 			forn(i, cant_casos) {
-				signo = (rand() % 2);
 				b = (rand() % 100000);
 				n = (1 + rand() % 1000000);
-				if (signo)
-					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -186,11 +171,8 @@ void generarArchivo(int modo) {
 		// b primo y b cualquiera
 		case 6: {
 			forn(i, cant_casos) {
-				signo = (rand() % 2);
 				b = (rand() % 100000);
 				n = (1 + rand() % 1000000);
-				if (signo)
-					b = -b;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;

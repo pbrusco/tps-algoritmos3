@@ -5,12 +5,10 @@
 #include <sys/time.h>
 #include <cassert>
 
-
 #define forn(i, n) for(int i = 0; i < n; i++)
 #define forall(it, X)	for(typeof((X).begin()) it = (X).begin(); it != (X).end(); it++)
 
 using namespace std;
-
 
 
 /*######################################################################################################################
@@ -22,10 +20,13 @@ void resolverInput(string& filename);
 
 struct timeval t_i, t_f;
 
+/* Variable global para medir la cantidad de operaciónes del algoritmo "potenciación"*/
+long long int cantOp = 0;
+
 
 /*######################################################################################################################
 #													Implementación de funciones													   # ######################################################################################################################*/
-
+	
 list<pair<long long int, long long int> >* cargarDatos(istream& is) {
 
 	list<pair<long long int, long long int> >* res = new list<pair<long long int, long long int> >();
@@ -44,23 +45,35 @@ list<pair<long long int, long long int> >* cargarDatos(istream& is) {
 long long int potenciacion(long long int base, long long int exp, long long int mod) {
 
 	long long int res = 0;
+	cantOp++;					// contabilizo la asignación
 	
-	while (base < 0)
-		base += mod;
-
 	base = base % mod;
-	if (base == 0) return base;
+	cantOp++;					// contabilizo el módulo
+
+	if (base == 0) {
+		cantOp++;				// contabilizo la comparación del if
+		return base;
+	}
 	
-	else if (exp == 1) return base;
+	else if (exp == 1) {
+		cantOp += 2;			// contabilizo las comparaciones de los 2 if's
+		return base;
+	}
 
 	else if (exp % 2 == 0) {
+		cantOp += 4;			// contabilizo las comparaciones de los 2 if's anteriores, el módulo y la comparación del if actual
 		long long int temp = potenciacion(base, exp/2, mod);
+		cantOp ++; 			// contabilizo la asignación
 		res = (temp*temp) % mod;
+		cantOp += 3;			// contabilizo el producto, el módulo y la asignación
 	}
 
 	else {
+		cantOp += 4;		// contabilizo las operaciones de la guardas de los if's anteriores
 		long long int temp = potenciacion(base, (exp-1)/2, mod);
-		res = (((temp*temp) % mod) * base) % mod;
+		cantOp++; 			// contabilizola asignación
+		res = (((temp*temp) % mod) * base) % mod; 
+		cantOp += 5;		// contabilizo los 3 productos, los 2 módulos y la asignación
 	}
 	
 	return res;
@@ -68,9 +81,9 @@ long long int potenciacion(long long int base, long long int exp, long long int 
 
 void resolverInput(string& filename) {
 
-	/* Variables para medir el tiempo */
-	double tiempo = 0.0, tiempo_tot = 0.0;
-	
+	/* Acumulador de la cantidad de operaciones necesarias para resolver la totalidad del input*/
+	long long int cantOp_tot = 0;
+
 	/* Creo el nombre del archivo de salida*/
 	string filename2 = (filename.substr(0, filename.size()-3) + ".out");	
 
@@ -102,28 +115,22 @@ void resolverInput(string& filename) {
 	list<long long int> res;
 	
 	/* Lista donde voy a guardar los datos necesios para graficar */
-	list<pair<long long int, double> > grafico;
+	list<pair<long long int, long long int> > grafico;
 
-	/* Calculo la respuesta y el tiempo que demoró en obtenerla para cada tupla de input*/
+	/* Calculo la respuesta y cantidad de operaciones que se necesitaron para obtenerla para cada una de las tupla de input*/
 	forall(it, *input) {
 
-		/* Mido el tiempo inicial */
-		gettimeofday(&t_i, NULL);
-
+		/* Reseto la cantidad de operaciones */		
+		cantOp = 0;
+	
 		/* Calculo la respuesta para la tupla (b,n) en la que estoy parado */
 		long long int temp = potenciacion(it->first, it->second, it->second);
 
-		/* Mido el tiempo final */
-		gettimeofday(&t_f, NULL);
-
-		/* Calculo cuánto tardó el algoritmo */
-		tiempo = ((t_f.tv_sec - t_i.tv_sec)*1000 + (t_f.tv_usec - t_i.tv_usec)/1000.0);
-		
-		/* Sumo el tiempo que tardó el algortimo al tiempo total */
-		tiempo_tot += tiempo;
-		
-		/* Guardo el valor de n y el tiempo en que tardó en resolverse el problema en la lista grafico */
-		grafico.push_back(make_pair(it->second, tiempo));
+		/* Sumo la cantidad de operaciones que tardó el algortimo al acumulador total */
+		cantOp_tot += cantOp;	
+				
+		/* Guardo el valor de n y la cantidad de operaciónes que usó para resolver el problema en la lista grafico */
+		grafico.push_back(make_pair(it->second, cantOp));
 		
 		/* Guardo el resultado en la lista de respuestas */
 		res.push_back(temp);
@@ -142,7 +149,7 @@ void resolverInput(string& filename) {
 	outfile.close();
 	data_grafico.close();
 
-	printf ("El algoritmo tardó %.15lf milisegundos en procesar todos los datos.\n", tiempo_tot );
+	printf ("El algoritmo tardó %d operaciones en procesar todos los datos.\n", cantOp_tot );
 }
 
 
