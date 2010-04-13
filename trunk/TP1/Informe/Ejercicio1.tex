@@ -1,66 +1,63 @@
-\section*{Ejercicio 1}
+\section{Ejercicio 1}
 
-\subsection*{Introducción}
+\subsection{Introducción}
 	El primer problema del presente trabajo consistió en la implementación de un algoritmo capaz de dar solución a la ecuación 
 	\begin{equation} 
-		b^n\ mod\ (n) 
-	\end{equation} 
+		b^n\ mod\ (n)
+	\label{problema}
+	\end{equation}
 haciendo uso de alguna de las técnicas algorítmicas aprendidas hasta el momento en la materia. Asímismo, la consigna dictaba que la complejidad final del algoritmo debería ser menor a \Ode{n}.\\
 	En pos de cumplimentar lo pedido se decidió usar la técnica de \textit{Dividir \& Conquistar}\footnote{Poner alguna referencia 	en donde se explique esta técnica} para desarrollar el algoritmo. Esta técnica se caracteriza principalmente en dividir la instancia de un problema en instancias más pequeñas, atacar cada una de ellas por separado y resolverlas, para finalmente juntar sus resultados y así producir el resultado final.
 
-\subsection*{Detalles de implementación}
+\subsection{Explicación}
 	La primera solución que se piensa casi de manera intuitiva es la de mutliplicar \textit{n} veces el número \textit{b} y luego hallar el resto de dividir ese resultado por \textit{n}. 
 	\begin{equation}
 		\underbrace{b.b.b \hdots b.b.b}_{n\ veces}\ mod\ (n)  = b^n\ mod\ (n)
+	\label{primera_idea}		
 	\end{equation}
-Sin embargo, la complejidad ese algoritmo es \Ode{n}, ya que se realizan \textit{n} multipicaciones y 1 división, razón por lo cual no cumple con lo pedido en la consigna.\\
-No obstante, la idea anterior conduce a otra forma de encarar el problema. Veamos de qué se trata. \\
+Sin embargo, la complejidad ese algoritmo es \Ode{n}, ya que se realizan \textit{n} multipicaciones y 1 división, razón por lo cual no cumple con lo pedido en la consigna. Además, puesto que ese algoritmo realizar sucesivas multipliciones de \textit{b}, cabe la posibilidad de que el valor en que se va acumulando el resultado sobrepase el máximo número entero representable en la computadora produciedo así un overflow y obteniéndose en consecuencia un resultado incorrecto. \\
 
-	Sabemos que $b^n\ mod\ (n)$ es el resto de dividir $b^n$ por $n$. Llamemos \textit{x} a ese resto. Luego: 
+	Analizando la falla del algoritmo anterior, se observa que lo que se debe evitar es calcular directamente el resultado de $b^n$ ya que ese número podría ser excesivamente grande. \\
+Con esto en mente veamos una manera más conveniente de abordar el problema. Es claro, por definición de congruencia, que resover la ecuación en \ref{problema} equivale a hallar el $x$ tal que:
 	\begin{equation}
-		 x = b^n\ mod\ (n)\ , \hspace{10pt}con\ 0 \leq x < n
-	\end{equation}
-ya que el Algoritmo de División de Números Enteros asegura que el resto existe, es único y es un valor entre 0 y \textit{n}.\\
-
-	Inmediatamente de lo anterior, por la definición de congruencia, se desprende que:
-	\begin{equation}
-		b^n\ \equiv\ x\ (n)
-	\label{primera_idea}
+		b^n\ \equiv\ x\ (n)\ , \hspace{10pt}\ con\ 0\ \leq\ x\ <\ n 
+	\label{problema2}
 	\end{equation}
 
-	Luego, una de las propiedades de congruencias, nos asegura que:
+Luego, asumamos por un momento que podemos tener gratis un k tal que:
 	\begin{equation}
-		a \equiv p (n)\ ,\ b \equiv q (n)\ \Longrightarrow\ a.b \equiv p.q (n)\ , \hspace{10pt} \forall\ a,b,p,q,n \in \mathbf Z
-	\end{equation}
-por lo que, tomando en particular, $a=b$ sigue que:
-	\begin{equation}
-		b \equiv\ p (n)\ \Longrightarrow\ b.b \equiv p.p\  \Leftrightarrow\ b^2 = p^2 (n)
-	\label{resto_b2}
+		b^{n/2}\ \equiv\ k\ (n)\ , \hspace{10pt}\ con\ 0\ \leq\ k\ <\ n 
+	\label{divide}
 	\end{equation}
 
-	Sea ahora \textit{k} el resto de la division de $ p^2 $ por \textit{n}; luego:
-	\begin{equation}
-		p^n\ \equiv\ k\ (n)\ , \hspace{10pt} con\ 0 \leq k < n
-	\label{resto_p2}
-	\end{equation}
+Entonces, aplicando el resultado de \ref{divide} en \ref{problema2} obtenemos que:
+	\begin{itemize}
+		\item{
+		Si \textit{n} es par:
+			\begin{eqnarray}
+				b^n\ \equiv\ x\ (n)\ , \hspace{10pt}\ con\ 0\ \leq\ x\ <\ n \nonumber\\
+				b^{n/2}.b^{n/2}\ \equiv\ x\ (n) \nonumber\\
+				k.k\ \equiv\ x\ (n) \nonumber\\
+				k^2\ \equiv\ x\ (n)
+			\end{eqnarray}
+		}
+		
+		\item{
+		Si \textit{n} es impar par:
+			\begin{eqnarray}
+				b^n\ \equiv\ x\ (n)\ , \hspace{10pt}\ con\ 0\ \leq\ x\ <\ n \nonumber\\
+				b.b^{n/2}.b^{n/2}\ \equiv\ x\ (n) \nonumber\\
+				b.k.k\ \equiv\ x\ (n) \nonumber\\
+				b.k^2\ \equiv\ x\ (n) 
+			\end{eqnarray}
+		}
+	\end{itemize}
+		
+Sin lugar a dudas, las expresiones resultantes en ambos casos son fáciles de resolver puesto que números mucho menores que $b^n$. 
 
-	Por lo tanto, de \ref{resto_b2} y \ref{resto_p2} se obtiene usando la propiedad transitiva de congruencias que:
-	\begin{equation}
-		b^2 \equiv p^2 (n)\ ,\ p^2 \equiv k (n)\ \Longrightarrow\ b^2 \equiv k (n)
-	\label{segunda_idea}
-	\end{equation}
-donde por \ref{resto_p2} sabíamos que $k$ es un número entre 0 y $n$.\\
-
-	De este modo, podemos aplicar el resultado de \ref{segunda_idea} en \ref{primera_idea}, obteniéndose:
-	\begin{equation}
-		b^n = \underbrace{b.b.b \hdots b.b.b}_{n\ veces}\ \equiv\ x (n) \\
-		b^n = \underbrace{b^2. b^2 \hdots b^2. b^2}_{n/2\ veces}\ \equiv\ x (n) \\
-		b^n = \underbrace{k. k \hdots k. k}_{n/2\ veces}\ \equiv\ x (n)
-	\label{idea_final}
-	\end{equation}
-	
-
-%\subsection*{Análisis de la complejidad del algoritmo}
-%\subsection*{Debate}
-%\subsection*{Comentarios}
-%\subsection*{Conclusiones}
+%\subsection{Análisis de la complejidad del algoritmo}
+%\subsection[Detalles de Implementación}
+%\subsection{Resultados}
+%\subsection{Debate}
+%\subsection{Comentarios}
+%\subsection{Conclusiones}
