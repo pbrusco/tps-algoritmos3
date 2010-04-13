@@ -1,6 +1,23 @@
-%\section{Ejercicio 3}
+\section{Ejercicio 3}
 
-%\subsection{Introducción}
+\subsection{Introducción}
+
+\paragraph{}
+El tercer y \'ultimo problema de este trabajo pr\'actico consiste en, dadas dos listas con horarios de entrada y salida de ciertos trabajadores a una empresa, decidir cu\'al es el mayor n\'umero de los mismos que se encuentran al mismo tiempo dentro de dicha empresa.
+
+\paragraph{}
+En una primer mirada, se pens\'o que la mejor forma de resolver el ejercicio era aplicando un algoritmo similar al del quicksort\footnote{Alguna referencia que explique el algoritmo}, s\'olo que el mismo se realizaba sobre conjuntos y no sobre arreglos. En resumidas cuentas, la idea era tomar un trabajador cualquiera del grupo, y separar en tres conjuntos distintos: los que se cruzaban con el trabajador pivote, los que sal\'ian antes que el pivote entrara y los que entraban luego que el pivote saliera\footnote{Para que el algoritmo funcionara bien, se deb\'ia tener cierto cuidado con los trabajadores que se cruzaran con el pivote, pero la explicaci\'on de estos detalles no hacen a la escencia de la introducci\'on. Adem\'as, este algoritmo fue descartado m\'as adelante, por lo que estos detalles son irrelevantes para este trabajo.}. De esta manera, si se repet\'ia el proceso varias veces, se llegaba a tener varios conjuntos en los cuales aparec\'ian solamente trabajadores que se cruzaban en sus horarios dentro de la empresa. Finalmente, s\'olo restaba devolver el mayor cardinal de dichos conjuntos.
+
+\paragraph{}
+Al igual que el quicksort, si el pivote era elegido al azar, el algoritmo anterior contaba con una complejidad promedio de \Ode{n*log(n)} (donde $n$ es la cantidad de trabajadores).  Igualmente, el peor caso segu\'ia siendo \Ode{n^2}, por lo que no se iba a poder respetar la cota dada como m\'axima para este trabajo, ya que se especificaba que el algoritmo deb\'ia tener una complejidad menor a \Ode{n^2}.
+
+\paragraph{}
+Pero luego de un mejor an\'alisis del problema, se cay\'o en la cuenta que los datos de entrada contaban con la caracter\'istica de estar ordenados por horario (tanto los de entrada como los de salida), por lo que inmediatamente surgi\'o la idea de poder solucionar el problema con una complejidad de \Ode{n}.
+
+\paragraph{}
+Para lograr dicha soluci\'on, no se requiri\'o de una t\'ecnica compleja. En realidad, lo que se hizo fue iterar sobre las dos listas de entrada, que conten\'ian los horarios de entrada y de salida de los trabajadores. De esta forma, con un recorrido lineal sobre ambas listas de entrada, se pod\'ia saber con certeza cu\'al era la respuesta al problema para las mismas.
+
+
 %\subsection{Explicación}
 %\subsection{Análisis de la complejidad del algoritmo}
 %\subsection[Detalles de Implementación}
