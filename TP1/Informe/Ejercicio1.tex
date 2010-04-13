@@ -18,7 +18,7 @@ haciendo uso de alguna de las técnicas algorítmicas aprendidas hasta el moment
 Sin embargo, la complejidad ese algoritmo es \Ode{n}, ya que se realizan \textit{n} multipicaciones y 1 división, razón por lo cual no cumple con lo pedido en la consigna. Además, puesto que ese algoritmo realizar sucesivas multipliciones de \textit{b}, cabe la posibilidad de que el valor en que se va acumulando el resultado sobrepase el máximo número entero representable en la computadora produciedo así un overflow y obteniéndose en consecuencia un resultado incorrecto. \\
 
 	Analizando la falla del algoritmo anterior, se observa que lo que se debe evitar es calcular directamente el resultado de $b^n$ ya que ese número podría ser excesivamente grande. \\
-Con esto en mente veamos una manera más conveniente de abordar el problema. Es claro, por definición de congruencia, que resover la ecuación en \ref{problema} equivale a hallar el $x$ tal que:
+Con esto en mente veamos una manera más conveniente de abordar el problema. Es claro, por definición de congruencia, que resover la ecuación en (\ref{problema}) equivale a hallar el $x$ tal que:
 	\begin{equation}
 		b^n\ \equiv\ x\ (n)\ , \hspace{10pt}\ con\ 0\ \leq\ x\ <\ n 
 	\label{problema2}
@@ -30,7 +30,7 @@ Luego, asumamos por un momento que podemos tener gratis un k tal que:
 	\label{divide}
 	\end{equation}
 
-Entonces, aplicando el resultado de \ref{divide} en \ref{problema2} obtenemos que:
+Entonces, aplicando el resultado de (\ref{divide}) en (\ref{problema2}) obtenemos que:
 	\begin{itemize}
 		\item{
 		Si \textit{n} es par:
@@ -52,9 +52,11 @@ Entonces, aplicando el resultado de \ref{divide} en \ref{problema2} obtenemos qu
 			\end{eqnarray}
 		}
 	\end{itemize}
-		
-Sin lugar a dudas, las expresiones resultantes en ambos casos son fáciles de resolver puesto que números mucho menores que $b^n$. 
+Sin lugar a dudas, las expresiones resultantes en ambos casos son fáciles de resolver ya que $k < n$;  al tiempo que también son números mucho menores que $b^n$. \\
 
+Volviendo un poco sobre nuestro pasos, se dijo anteriormente en (\ref{divide}) que podíamos asumir que obtener $k$ no tenía un costo computacional significativo. No obstante, esto no siempre es cierto puesto que para obtener $k$ es necesario calcular previamente $b^{n/2}$ el cual puede ser un número nada despreciable en lo que respecta a tamaño en memoria.\\
+Pero esto no representa, dificultad alguna para calcular $b^{n/2}$ puesto que podemos aplicar repetidas veces el procedimiento descripto con anterioridad dividiendo el exponente de $b$ hasta que valga 1, y luego reagrupando los resultados y tomando módulo $n$ hasta obtener finalmente la solución del problema.
+ 
 %\subsection{Análisis de la complejidad del algoritmo}
 %\subsection[Detalles de Implementación}
 %\subsection{Resultados}
