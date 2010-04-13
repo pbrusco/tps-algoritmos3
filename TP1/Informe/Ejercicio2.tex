@@ -14,9 +14,21 @@
 	
 \subsection{Explicación}
 	Dado que para este problema no se conocen algoritmos buenos\footnote{Un algoritmo se considera bueno si puede ser resuelto en tiempo polinomial.},
-	se pensó en utilizar la solución por fuerza bruta, con algunas mejoras, es decir, intentar todas las combinaciones hasta lograr determinar si hay o no solución.
+	se pensó en utilizar la solución por fuerza bruta, es decir, intentar todas las combinaciones hasta lograr determinar si hay o no solución, pero, agregando 
+	algunas mejoras.
+
+	Mejoras como evaluar, en el momento de cargar la ronda, si alguna persona no tiene las suficientes amigos, es decir 2, o si todos son amigos de todos.	
+
+	También a este método, se le agregó la estrategia de ``Vuelta atrás'', (Backtracking).
+\\ \\ \\
+\textit{
+\underline{\textbf{Backtracking:}}\\
+En su forma básica, la idea de backtracking se asemeja a un recorrido en profundidad dentro de un grafo dirigido. El grafo en cuestión suele ser un árbol, o por lo menos no contiene ciclos. Sea cual sea su estructura, existe sólo implícitamente. El objetivo del recorrido es encontrar soluciones para algún problema. Esto se consigue construyendo soluciones parciales a medida que progresa el recorrido; estas soluciones parciales limitan las regiones en las que se puede encontrar una solución completa. El recorrido tiene éxito si, procediendo de esta forma, se puede definir por completo una solución. En este caso el algoritmo puede bien detenerse (si lo único que se necesita es una solución del problema) o bien seguir buscando soluciones alternativas (si deseamos examinarlas todas). Por otra parte, el recorrido no tiene éxito si en alguna etapa la solución parcial construida hasta el momento no se puede completar. En tal caso, el recorrido vuelve atrás exactamente igual que en un recorrido en profundidad, eliminando sobre la marcha los elementos que se hubieran añadido en cada fase. Cuando vuelve a un nodo que tiene uno o más vecinos sin explorar, prosigue el recorrido de una solución.
+}\footnote{http:\/\/es.wikipedia.org\/}
+\\ \\
+
+En este caso particular, la idea es, seleccionar una persona (P), ingresarla en la ronda, 
 	
-	A este método, se le agregó
 
 %\subsection{Análisis de la complejidad del algoritmo}
 %\subsection[Detalles de Implementación}
