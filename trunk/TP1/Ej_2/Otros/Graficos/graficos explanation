@@ -1,4 +1,18 @@
-ronda con pocas relaciones:
+Rondas con pocas relaciones (primeros 2 gráficos)
 
 Estos graficos muestran la desigualdad entre tiempos de resolución para rondas es donde es complicado encontrar la solución. Se ve que quitando unos pocos outliers, los tiempos se encuentran en otros ordenes. Para ver este suceso, basta con obvservar las escalas de tiempo (en un gráfico se mueve entre 0 y 3500 microsegundos, y en la que posee outliers entre 0 y 1400000 microsegundos.) o también se puede observar las funciones que se utilizaron para dar cuenta de las dimensiones (en una comparada con 0.5x⁴ y en la otra con 2x²).
 Esta claro que mientras mas grande es la ronda, podriamos encontrar un mal caso en donde la complejidad solo podria ser acotada por O(n!) donde n es la cantidad de personas en la ronda.
+
+
+
+
+Rondas con una cantidad media de relaciones. (segundos 2 gráficos)
+
+En estos se puede observar como 2 outliers destruyen el caso promedio que se venia dando en el tiempo de resolución del algoritmo, pasando de graficos que se comparan con 10x^3 contra otro que compara con 50x, es decir, para rondas donde hay buenas probabilidades de que se pueda formar, el algoritmo parecería comportarse linealmente, pero claramente es una ilusión.
+
+
+
+
+Rondas con una cantidad alta de relaciones. (ultimo gráficos)
+
+Cuando es muy poco probable que NO se pueda armar una ronda, el algoritmo y sus mejoras claramente funcionan bien, como es el caso de este gráfico. Esto se debe a las propiedades del backtracking y a las mejoras implementadas.
