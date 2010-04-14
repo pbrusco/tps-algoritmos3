@@ -25,7 +25,7 @@
 \textit{
 \underline{\textbf{Backtracking:}}\\
 En su forma básica, la idea de backtracking se asemeja a un recorrido en profundidad dentro de un grafo dirigido. El grafo en cuestión suele ser un árbol, o por lo menos no contiene ciclos. Sea cual sea su estructura, existe sólo implícitamente. El objetivo del recorrido es encontrar soluciones para algún problema. Esto se consigue construyendo soluciones parciales a medida que progresa el recorrido; estas soluciones parciales limitan las regiones en las que se puede encontrar una solución completa. El recorrido tiene éxito si, procediendo de esta forma, se puede definir por completo una solución. En este caso el algoritmo puede bien detenerse (si lo único que se necesita es una solución del problema) o bien seguir buscando soluciones alternativas (si deseamos examinarlas todas). Por otra parte, el recorrido no tiene éxito si en alguna etapa la solución parcial construida hasta el momento no se puede completar. En tal caso, el recorrido vuelve atrás exactamente igual que en un recorrido en profundidad, eliminando sobre la marcha los elementos que se hubieran añadido en cada fase. Cuando vuelve a un nodo que tiene uno o más vecinos sin explorar, prosigue el recorrido de una solución.
-}\footnote{http:\/\/es.wikipedia.org\/}
+}\footnote{$http://es.wikipedia.org/wiki/Vuelta_atras$}
 \\ \\
 
 En este caso particular, la idea es, seleccionar una persona (P), ingresarla en la ronda, e ir armando un arbol implicito de posibilidades en donde
@@ -159,11 +159,11 @@ En lo que respecta a la complejidad del mejor caso, se puede ver de forma simple
 
 \subsection{Detalles de Implementación}
 \paragraph{}
-Para compilar este programa, sólo hace falta ejecutar el comando make. El modo de uso del mismo es simple: En la carpeta que contiene al ejecutable debe existir un archivo con los datos de entrada llamado ``entrada''. El programa pasará a ejecutarse al escribir .\/main en la consola y una vez que termine, devolverá en un archivo llamado ``salida'' el resultado buscado.
+Para compilar este programa, sólo hace falta ejecutar el comando make. El modo de uso del mismo es simple: En la carpeta que contiene al ejecutable debe existir un archivo con los datos de entrada llamado ``entrada''. El programa pasará a ejecutarse al escribir $./main$ en la consola y una vez que termine, devolverá en un archivo llamado ``salida'' el resultado buscado.
 
 Si se desean generar casos de pruebas, se puede utilizar el generador que se encuentra dentro de la carpeta del ejercicio 2, en la subcarpeta otros.
 
-Este generador se puede compilar utilizando el comando ``g++ main.cpp'' en la consola de linux, y luego ejecutandolo con el comando .\/a.out
+Este generador se puede compilar utilizando el comando ``g++ main.cpp'' en la consola de linux, y luego ejecutandolo con el comando $./a.out$
 
 Una vez abierto, el programa solicita un porcentaje $(0 \leq porc \leq 100)$ y un numero maximo de chicas (max), el funcionamiento es el siguiente:
 
@@ -172,10 +172,10 @@ Se generan rondas de tamaño 2, 3, 4, ..., max inclusive, en donde en cada una, 
 Este programa genera un archivo con el nombre ``entradap'', que puede ser utilizado como entrada para el programa principal (cambiandole el nombre por ``entrada'').
 
 
-Si se desea medir el tiempo que demora el algoritmo para una entrada, se puede utilizar el programa almacenado en la carpeta Ej2\/otros\/Tiempos.
+Si se desea medir el tiempo que demora el algoritmo para una entrada, se puede utilizar el programa almacenado en la carpeta $Ej2/otros/Tiempos$.
 
 Los pasos a seguir son equivalentes a los del programa original, necesita una entrada ``entrada'' y ser compilado con la instruccion make. 
-luego con .\/main 
+luego con $./main $
 
 
 
