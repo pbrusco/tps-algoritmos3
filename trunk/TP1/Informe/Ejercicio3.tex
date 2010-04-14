@@ -28,6 +28,7 @@ Como corolario de un an\'alisis m\'as exhaustivo del problema, se cay\'o en la c
 
 
 \subsubsection{Segunda aproximación}
+\label{segaprox}
 \paragraph{}
 Para encontrar soluci\'on al problema dado, lo primero que se realiz\'o fue pensar qu\'e cosas se necesitaban para representarlo. Para ello se cre\'o una clase ``Empresa'', sobre la cual se cargar\'ian los datos de entrada. La clase en cuestión consta de dos arreglos de tuplas $\langle$ horario, trabajador\footnote{Cada trabajador es representado por un número natural}$\rangle$. Dichos arreglos se hallan ordenados ascendentemente por horario; uno de los ellos contiene \'unicamente los horarios de entrada, mientras que el otro contiene \'unicamente los de salida. 
 
@@ -128,6 +129,15 @@ Los parámetros son opcionales, pero se puede elegir entre no pasar ningún par�
 
 \subsection{Resultados}
 \label{resultadosej3}
+
+\paragraph{}
+Para poder analizar el comportamiento del algoritmo implementado, se procedió a realizar un programa que genere distintas entradas, de acuerdo a distintos criterios que nos parecieron relevantes remarcar.\\
+De esta manera, se utilizaron dos formas distintas de generar un archivo de entrada. Una de ellas se corresponde a una entrada completamente azarosa, a modo de analizar el comportamiento del algoritmo para una extensa cantidad de casos distintos. La segunda, trata de plasmar en sus casos la hipótesis de peor caso planteada en [\ref{segaprox}].
+
+\paragraph{}
+A continuación se adjuntan los gráficos provenientes de analizar los casos antes planteados. Están agrupados de a pares, a modo de mostrar más claramente la diferencia en la complejidad de cada caso.
+
+
 
 	\begin{table}[ht] %ubicacion de la tabla
 		\centering %centra la tabla
