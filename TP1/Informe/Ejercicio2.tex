@@ -29,9 +29,6 @@ En su forma básica, la idea de backtracking se asemeja a un recorrido en profun
 
 En este caso particular, la idea es, seleccionar una persona (P), ingresarla en la ronda, 
 
-gente: lista(chica);
-enRonda: conj(nombre);
-
 \vspace{3cm}
 \incmargin{1em}
 \linesnumbered
@@ -65,6 +62,58 @@ enRonda: conj(nombre);
 
 	  \end{algorithm}
 	  
+
+
+%segundo algoritmo:
+
+\vspace{3cm}
+\incmargin{1em}
+\linesnumbered
+\restylealgo{boxed}
+
+\textbf{probarDistintasRondas(prim : chica, ult : chica)}\\
+\SetKw{Orden}{Complejidad:}
+	\begin{algorithm}[H]
+	\Orden{T(n)}
+		\BlankLine
+	\eIf{(cuenta(amigas(ult),nombre(prim)) $\neq$ 0 $\&\&$ tam(gente) $=$ tam(enRonda) )}{retornar true;}{
+		\textbf{var} res : bool\\
+		\textbf{var} eraAmiga : bool $\leftarrow$ false \\
+\BlankLine		
+\ForEach{chi en gente}{
+		\textbf{var} estaEnRonda : int $\leftarrow$ cuenta(enRonda,nombre(chi)) \\
+		\textbf{var} esAmigaDeLaUltima : int $\leftarrow$ cuenta(amigas(ult),nombre(chi)) \\
+		\textbf{var} restantesAmigasPrimera : int $\leftarrow$ tam(amigasPrimera) \\
+		\textbf{var} esAmigaDeLaPrimera : int $\leftarrow$ cuenta(amigas(prim),nombre(chi)) \\
+		  \BlankLine
+	\If {( (estaEnRonda $=$ 0) $\&\&$ (esAmigaDeLaUltima $\neq$ 0) $\&\&$ (restantesAmigasPrimera $\neq$ 0) )}{
+\BlankLine	
+			\eIf{(esAmigaDeLaPrimera $\neq$ 0)}{
+					eraAmiga $\leftarrow$ true;\\
+					eliminar(amigasPrimera,nobre(chi));
+				}{
+					eraAmiga = false;
+				}
+				insertar(enRonda,nombre(chi));\\
+				res $\leftarrow$ probarDistintasRondas(prim,chi);
+\BlankLine	
+			\eIf{(res)}
+				{
+					retornar true;
+				}
+				{
+					borrar(enRonda,nombre(chi));\\
+\BlankLine	
+				\If{(eraAmiga)}{insertar(amigasPrimera,nombre(chi))}
+						}
+				}	
+		}
+		retornar false;
+	}	
+
+
+  \end{algorithm}
+
 
 %\subsection{Análisis de la complejidad del algoritmo}
 %\subsection[Detalles de Implementación}
