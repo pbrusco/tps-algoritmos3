@@ -179,7 +179,38 @@ luego con .\/main
 
 \subsection{Resultados}
 \label{resultadosej2}
-Aca, ademas de los graficos, podemos mencionar que para algunos casos el algoritmo no termino, pero por decisión nuestra, ya que si las mejoras no servian para cortar antes el algoritmo y justo esa distribucion de amigas no tenia solucion, si las amigas eran muchas el algoritmo demoraria mucho en terminar
+
+
+	\begin{table}[ht] %ubicacion de la tabla
+		\centering %centra la tabla
+			\begin{tabular}{c}
+				\includegraphics[scale=0.7]{../Ej_2/Otros/Graficos/Graph10-1.pdf} \\
+				\includegraphics[scale=0.7]{../Ej_2/Otros/Graficos/Graph10-2.pdf}
+				\end{tabular}
+				\caption{Rondas con pocas relaciones: Estos graficos muestran la desigualdad entre tiempos de resolución para rondas es donde es complicado encontrar la solución. Se ve que quitando unos pocos outliers, los tiempos se encuentran en otros ordenes. Para ver este suceso, basta con obvservar las escalas de tiempo (en un gráfico se mueve entre 0 y 3500 microsegundos, y en la que posee outliers entre 0 y 1400000 microsegundos.) o también se puede observar las funciones que se utilizaron para dar cuenta de las dimensiones (en una comparada con $0.5*x^4$ y en la otra con $2x^2$).} %titulo de la tabla
+				\label{tiempoEj2a} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+	\end{table}
+
+	\begin{table}[ht] %ubicacion de la tabla
+		\centering %centra la tabla
+			\begin{tabular}{c}
+				\includegraphics[scale=0.7]{../Ej_2/Otros/Graficos/Graph50-1.pdf} \\
+				\includegraphics[scale=0.7]{../Ej_2/Otros/Graficos/Graph50-2.pdf}
+			\end{tabular}
+			\caption{Rondas con una cantidad media de relaciones: En estos se puede observar como 2 outliers destruyen el caso promedio que se venia dando en el tiempo de resolución del algoritmo, pasando de graficos que se comparan con $10*x^3$ contra otro que compara con $50*x$, es decir, para rondas donde hay buenas probabilidades de que se pueda formar, el algoritmo parecería comportarse linealmente, pero claramente es una ilusión.} %titulo de la tabla
+			\label{tiempoEj2b} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+	\end{table}
+
+\begin{table}[ht] %ubicacion de la tabla
+\centering %centra la tabla
+\begin{tabular}{c}
+\includegraphics[scale=0.7]{../Ej_2/Otros/Graficos/Graph90.pdf} \\
+\end{tabular}
+
+\caption{Rondas con una cantidad alta de relaciones: Cuando es muy poco probable que NO se pueda armar una ronda, el algoritmo y sus mejoras claramente funcionan bien (polimomial), como es el caso de este gráfico. Esto se debe a las propiedades del backtracking y a las mejoras implementadas.} %titulo de la tabla
+\label{tiempoEj2c} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+\end{table}
+
 
 
 
