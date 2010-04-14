@@ -47,15 +47,12 @@ void MenuPrincipal() {
 			// n primo
             << "e. Casos con n primo con n entre 1 y 1000.000.000" << endl
 
-			// b primo y b cualquiera
-            << "f. Casos con b primo" << endl
-
 			// exit
-            << "g. Salir del programa" << endl << endl
+            << "f. Salir del programa" << endl << endl
             
             << "*Aclaración: En todos los casos b es un numero entre 0 y 1.000.000." << endl;
             
-        char opcion = LeerOpcion('a','g');
+        char opcion = LeerOpcion('a','f');
 		int cant_casos = 0;
 
         switch(opcion) 
@@ -75,10 +72,7 @@ void MenuPrincipal() {
             case 'e': generarArchivo(5);
 			break;
 
-            case 'f': generarArchivo(6);
-			break;
-
-            case 'g': exit = true;
+            case 'f': exit = true;
             break;
         }
     }
@@ -203,17 +197,6 @@ void generarArchivo(int modo) {
 			}
 		}break;
 
-		// b primo y n cualquiera
-		case 6: {
-			forn(i, cant_casos) {
-				b = (rand() % 1000000);
-				n = (1 + rand() % 1000000);
-				while(! esPrimo(b))
-					b = (rand() % 1000000);
-				outfile << b << "\t" << n << endl;
-			}
-		}break;
-		
 	}
 	outfile << -1 << "\t" << -1 << endl;
 	outfile.close();
