@@ -1,0 +1,88 @@
+QtiPlot 0.9.7 project file
+<scripting-lang>	muParser
+<windows>	1
+<multiLayer>
+Graph1	1	1	13/04/10 18:54
+geometry	0	0	510	430	active
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	417	325
+Alignement	0	0
+<graph>
+ggeometry	5	5	497	373
+PlotTitle	BackTracking vs Cúbica	#000000	4228
+<Antialiasing>1</Antialiasing>
+Background	#ffffff	255
+Margin	0
+Border	0	#000000
+grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
+EnabledAxes	1	0	1	0	
+AxesTitles	Tamaño de la ronda	tiempo (micro segundos)	 	 	
+AxesTitleColors	#000000	#000000	#000000	#000000	
+AxesTitleAlignment	5124	4	5124	4
+TitleFont	Sans	12	75	0	0	0
+ScaleFont0	Sans	10	75	0	0	0
+ScaleFont1	Sans	10	75	0	0	0
+ScaleFont2	Sans	10	75	0	0	0
+ScaleFont3	Sans	10	75	0	0	0
+AxisFont0	Sans	10	50	0	0	0
+AxisFont1	Sans	10	50	0	0	0
+AxisFont2	Sans	10	50	0	0	0
+AxisFont3	Sans	10	50	0	0	0
+EnabledTickLabels	1	1	1	1	
+AxesColors	#000000	#000000	#000000	#000000
+AxesNumberColors	#1a1a1a	#1a1a1a	#1a1a1a	#1a1a1a
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffff	255
+<Function>
+<Type>0</Type>
+<Title>F8</Title>
+<Expression>250*x^3</Expression>
+<Variable>x</Variable>
+<Range>0	120</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#000080</Color>
+	<Style>0</Style>
+	<Width>1</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	500000000	0	8	5	0	0
+scale	1	0	500000000	0	8	5	0	0
+scale	2	0	120	0	8	5	0	0
+scale	3	0	120	0	8	5	0	0
+LabelsFormat	1	0	0	4	0	4	0	4	
+AxisType	0	0	0	0	
+MajorTicks	1	1	1	1	
+MinorTicks	1	1	1	1	
+TicksLength	5	9
+DrawAxesBackbone	1
+AxesLineWidth	1
+LabelsRotation	0	0
+<Legend>
+<Frame>2</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>5.2595155709343</x>
+<y>537096774.19355</y>
+<right>14.8034934497817</right>
+<bottom>431596091.205212</bottom>
+<Text>
+\l(1)250.x³
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+</Legend>
+</graph>
+</multiLayer>
