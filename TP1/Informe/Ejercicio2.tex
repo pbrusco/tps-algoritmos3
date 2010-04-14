@@ -152,7 +152,12 @@ Por lo tanto, el algoritmo implementado NO es bueno. Sin embargo, cuando para un
 
 
 %\subsection[Detalles de Implementación}
-%\subsection{Resultados}
+\subsection{Resultados}
+\label{resultadosej2}
+Aca, ademas de los graficos, podemos mencionar que para algunos casos el algoritmo no termino, pero por decisión nuestra, ya que si las mejoras no servian para cortar antes el algoritmo y justo esa distribucion de amigas no tenia solucion, si las amigas eran muchas el algoritmo demoraria mucho en terminar
+
+
+
 \subsection{Debate}
 \paragraph{}
 De los resultados pertenecientes a la sección [\ref{complejidadej2}] podemos observar cómo se comporta la implementación frente a algunas entradas particulares. Las mismas fueron creadas al azar pero de forma tal que se cumplan los invariantes citados en [\ref{introej2}].
@@ -164,5 +169,10 @@ En un primer análisis, podemos ver que en general para todos los casos analizad
 La función antes mencionada, pareciera ser bastante monótona. Igualmente, se observa con claridad la aparición de casos en los cuales se demoró mucho más tiempo que el tiempo promedio. Esto podría dejar entrever que para ciertos valores de la entrada o no se encontró resultado alguno, por lo cuál se tuvieron que analizar los (n-1)! casos posibles, o bien se encontró una solución al problema, pero esta se demoró en ser encontrada ya que se trataba de un ejemplo en el cual las mejoras realizadas no surtieron efecto o, peor aún, tuvieron un efecto contrario al deseado.
 
 
-%\subsection{Comentarios}
-%\subsection{Conclusiones}
+\subsection{Conclusiones}
+
+\paragraph{}
+Como resultado del análisis de los datos arrojados en [\ref{resultadosej2}] y de las hipótesis realizadas anteriormente, podemos concluir algunas cosas.\\
+Primero, podemos decir que para muchos de los casos analizados durante el transcurso de este trabajo práctico, el algoritmo llegó a una respuesta en un tiempo promedio mucho menor al que en teoría debería demorar. Por lo tanto, podemos intuir que las mejoras realizadas dentro del algoritmo fueron, en general, muy productivas. Sin embargo, no nos aseguran que el algoritmo mejore su complejidad asintóticamente.
+
+\paragraph{}
