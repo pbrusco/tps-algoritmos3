@@ -69,15 +69,18 @@ Pero esto no representa, dificultad alguna para calcular $b^{n/2}$ puesto que po
 \subsection{Análisis de la complejidad del algoritmo}
 
 \paragraph{}
-A continuación presentamos la complejidad del algoritmo \textit{potenciacion} el cual permite resolver la ecuacion (\ref{problema}). \\
+A continuación se calculará la complejidad del algortimo \textit{potenciacion} que es el que resuelve el problema que se planteo en (\ref{problema}). Dicho problema tiene por variables a $b\ \in\ \nat$ y $n\ \in\nat$, lo cual en términos matemáticos representa que \textit{b} y \textit{n} pueden tomar valores tan grandes como se desee puesto que $\nat$ es un conjunto infinito. Esto se ve traducido en que los parámetros del algoritmo \textit{potenciacion} sean tan grandes como uno desee. \\
+Ahora bien, la consigna asegura que \textit{b} puede considerarse como un número acotado; pero aún así, \textit{n} puede seguir siendo tan grande como uno desee. Por este motivo, resulta lógico pensar que la suposición de que \textit{n} cabe perfectamente en una posicion fija de memoria no es correcta en lo absoluto. Entonces, para que el análisis de complejidad del algoritmo sea lo más correcto posible se debe evaluar la complejidad de las operaciónes que realiza el algoritmo en función del tamaño de símbolos binarios necesarios para representar el valor de n dentro del ordenador.\\
+Lo expresado en el pensamiento anterior conlleva a que la medición de complejidad del algortimo se efectúe mediante el \textit{modelo logarítmico} el cual precisamente mide la performance de un algoritmo a través de la suma de los costos de todas las operaciones en función del tamaño de las variables involucradas.
 
-AAAHHHHHHHHHHHHHH!!!! AYUDA!!!!!!!!!!!\\
+\paragraph{}
+Sigue a continuación un pseudocódigo del algoritmo en cuestión en el que se detallan, para cada instrucción, su costo en el modelo logarítmico: \\
 
 \incmargin{1em}
 \linesnumbered
 \restylealgo{boxed}
 
-\textbf{potenciacion(base : \entero,  exp: \entero,  m: \entero)}\\
+\textsl{potenciacion(base : \nat,  exp: \nat,  m: \nat)}\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
 		\Orden{T(n)}
