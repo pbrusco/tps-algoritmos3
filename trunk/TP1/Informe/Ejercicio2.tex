@@ -147,7 +147,7 @@ La complejidad en el peor caso de este algoritmo surge inmediatamente al hacer p
 recorrer casi todas las ramas del arbol hasta poder decir que no hay solucion. En este caso, podriamos entonces solo acotar el peor caso por la funcion $f(n) = c.(n-1)! + b$ 
 (donde b y c son constantes) ya que la cantidad de formas de armar una ronda con n personas es (n!/n) = (n-1)!\footnote{Se lo puede imaginar como una fila de n personas. Para la primer posición hay n personas dispoibles, para la segunda n-1, y asi sucesivamente. Por lo tanto hay n*(n-1)*...*1 formas de acomodar las personas en una fila. Ahora, si se unen las puntas, podria rotar la fila n veces y seguiria siendo la misma ronda, por lo tanto se dividiendo por n obtengo la respuesta: \textbf{(n-1)!}.} 
 
-Por lo tanto, el algoritmo implementado NO es bueno. Sin embargo, cuando para un conjunto de datos de entrada se puede formar una ronda, el algoritmo no recorre todo el arbol en busca de la solución, sino que al encontrar una termina. Esta propiedad del backtracking y el resto de las mejoras, hace que para datos de entradas en donde se pueden formar rondas, el algoritmo se comporte como lo haria una solucion polinomial.
+Por lo tanto, el algoritmo implementado NO es bueno. Sin embargo, cuando para un conjunto de datos de entrada se puede formar una ronda, el algoritmo no recorre todo el arbol en busca de la solución, sino que al encontrar una termina. Esta propiedad del backtracking y el resto de las mejoras, hace que para ciertos datos de entradas en donde se pueden formar rondas, el algoritmo se comporte como lo haria una solucion polinomial.
 
 
 %\subsection[Detalles de Implementación}
