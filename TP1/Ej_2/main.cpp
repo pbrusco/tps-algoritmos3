@@ -22,6 +22,7 @@ int main(){
 		if(res) salida<<"ronda"<<endl;
 		else salida <<"no"<<endl;
 		archivo >> id;
+
 	}
 	
 	salida.close();
