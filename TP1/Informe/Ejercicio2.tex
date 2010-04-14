@@ -38,8 +38,25 @@ También, se implementaron otras mejoras que intentan podar el arbol dadas ciert
  \item Cuando se elige qué valor se va a asignar, se hace un examen comprobando que aun queden amigas de la que inicio la ronda dispoibles. En caso que no, se pueden evitar muchas llamadas sin sentido.
 \end{itemize}
 
+A continuación se ve un pseudocodigo que muestra el comportamiento de la estrategia y las mejoras elegidas.
 
 \vspace{3cm}
+\underline{Algunos detalles:}
+
+\begin{itemize}
+ \item \textbf{gente} es una lista con elementos de tipo chica.
+ \item el tipo \textbf{chica} consta de un nombre (int) y sus amigas (conjunto de nombres).
+ \item \textbf{enRonda} es un conjunto de nombres donde se va almacenando quienes pertenecen a la ronda.
+ \item \textbf{amigasPrimera} es un conjunto de nombres donde se almacenan los nombres de las amigas de la chica que comienza la ronda.
+ \item \textbf{tam(c)} devuelve el tamaño del conjunto c.
+ \item \textbf{insertar(c,e)} inserta a e en el conjunto c.
+ \item \textbf{borrar(c,e)} borra a e del conjunto c.
+ \item \textbf{cuenta(c,e)} cuenta la cantidad de apariciones del elemento e en c.
+ \item \textbf{primerElemento(l)} devuelve el primer elemento de una lista.
+\end{itemize}
+
+\newpage
+
 \incmargin{1em}
 \linesnumbered
 \restylealgo{boxed}
@@ -75,8 +92,6 @@ También, se implementaron otras mejoras que intentan podar el arbol dadas ciert
 
 
 %segundo algoritmo:
-
-\vspace{3cm}
 \incmargin{1em}
 \linesnumbered
 \restylealgo{boxed}
