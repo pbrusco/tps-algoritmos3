@@ -171,6 +171,7 @@ Se generan rondas de tamaño 2, 3, 4, ..., max inclusive, en donde en cada una, 
 
 Este programa genera un archivo con el nombre ``entradap'', que puede ser utilizado como entrada para el programa principal (cambiandole el nombre por ``entrada'').
 
+
 Si se desea medir el tiempo que demora el algoritmo para una entrada, se puede utilizar el programa almacenado en la carpeta Ej2\/otros\/Tiempos.
 
 Los pasos a seguir son equivalentes a los del programa original, necesita una entrada ``entrada'' y ser compilado con la instruccion make. 
@@ -184,7 +185,7 @@ Aca, ademas de los graficos, podemos mencionar que para algunos casos el algorit
 
 \subsection{Debate}
 \paragraph{}
-De los resultados pertenecientes a la sección [\ref{complejidadej2}] podemos observar cómo se comporta la implementación frente a algunas entradas particulares. Las mismas fueron creadas al azar pero de forma tal que se cumplan los invariantes citados en [\ref{introej2}] y con el agregado de fijar la cantidad de enlaces (amistades) en cada ronda (esta función del generador de casos de prueba es explicado en la sección \textbf{resultados}.
+De los resultados pertenecientes a la sección [\ref{complejidadej2}] podemos observar cómo se comporta la implementación frente a algunas entradas particulares. Las mismas fueron creadas al azar pero de forma tal que se cumplan los invariantes citados en [\ref{introej2}] y con el agregado de fijar la cantidad de enlaces (amistades) en cada ronda (esta función del generador de casos de prueba es explicado en la sección \textbf{detalles de implementación}.
 
 
 \paragraph{}
@@ -197,11 +198,13 @@ La función antes mencionada, pareciera ser bastante monótona. Igualmente, se o
 \subsection{Conclusiones}
 
 \paragraph{}
-Como resultado del análisis de los datos arrojados en [\ref{resultadosej2}] y de las hipótesis realizadas anteriormente, podemos concluir algunas cosas.\\
-Primero, podemos decir que para muchos de los casos analizados durante el transcurso de este trabajo práctico, el algoritmo llegó a una respuesta en un tiempo promedio mucho menor al que en teoría debería demorar. Por lo tanto, podemos intuir que las mejoras realizadas dentro del algoritmo fueron, en general, muy productivas. Sin embargo, no nos aseguran que el algoritmo mejore su complejidad asintóticamente.
+Como resultado del análisis de los datos arrojados en [\ref{resultadosej2}] y de las hipótesis realizadas anteriormente, podemos concluir:.
+
+Primero, para muchos de los casos analizados durante el transcurso de este trabajo práctico, el algoritmo llegó a una respuesta en un tiempo promedio mucho menor al que en teoría debería demorar. Por lo tanto, podemos intuir que las mejoras realizadas dentro del algoritmo fueron, en general, muy productivas. Sin embargo, no nos aseguran que el algoritmo mejore su complejidad asintóticamente.
 
 \paragraph{}
 En segundo lugar, y continuando lo antes dicho, se observaron casos en los cuales el algoritmo demoró más que el tiempo promedio. Esto puede deberse a que, para ciertos casos de entrada, las mejoras del algoritmo no inciden en la resolución del problema, haciendo que se demore demasiado en conseguir una solución válida. Si se suma el hecho de analizar dichos casos para entradas de gran tamaño, podemos llegar a estar ante un problema, ya que el tiempo de resolución del problema para nuestro algoritmo puede ser, en términos humanos, eterno.
 
 \paragraph{}
-Finalmente, podemos concluir entonces que el algoritmo, más allá de las mejoras implementadas sobre el mismo, no alcanza a obtener una complejidad de peor caso menor que \Ode{n!}, pero las mismas sirven para que el algoritmo encuentre más fácilmente el camino hacia el mejor caso\footnote{Siempre y cuando exista al menos una solución al problema y además, esta solución se condiga con las mejoras elegidas en la implementación.}, que para este tipo de problemas es \omegade{n}
+Finalmente, podemos concluir entonces que el algoritmo, más allá de las mejoras implementadas sobre el mismo, no alcanza a obtener una complejidad de peor caso menor que \Ode{n!}, pero las mismas sirven para que el algoritmo encuentre más fácilmente el camino hacia una buena solución\footnote{Siempre y cuando exista al menos una solución al problema y además, esta solución se condiga con las mejoras elegidas en la implementación.}.
+
