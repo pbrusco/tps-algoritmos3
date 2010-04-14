@@ -144,13 +144,17 @@ A continuación se ve un pseudocodigo que muestra el comportamiento de la estrat
 
 \subsection{Análisis de la complejidad del algoritmo}
 \label{complejidadej2}
+
+\paragraph{}
 La complejidad en el peor caso de este algoritmo surge inmediatamente al hacer pruebas. Dependiendo de las entradas elegidas, el programa podria tener que 
 recorrer casi todas las ramas del arbol hasta poder decir que no hay solucion. En este caso, podriamos entonces solo acotar el peor caso por la funcion $f(n) = c.(n-1)! + b$ 
 (donde b y c son constantes) ya que la cantidad de formas de armar una ronda con n personas es (n!/n) = (n-1)!\footnote{Se lo puede imaginar como una fila de n personas. Para la primer posición hay n personas disponibles, para la segunda n-1, y asi sucesivamente. Por lo tanto hay n*(n-1)*...*1 = n! formas de acomodar las personas en una fila. Ahora, si se unen las puntas, podria rotar la fila n veces y seguiria siendo la misma ronda, por lo tanto dividiendo por n obtengo la respuesta: \textbf{(n-1)!}.} 
 
+\paragraph{}
 Por lo tanto, el algoritmo implementado NO es bueno. Sin embargo, cuando para un conjunto de datos de entrada se puede formar una ronda, el algoritmo no recorre todo el arbol en busca de la solución, sino que al encontrar una termina. Esta propiedad del backtracking y el resto de las mejoras, hace que para ciertos datos de entradas en donde se pueden formar rondas, el algoritmo se comporte como lo haria una solucion polinomial.
 
-
+\paragraph{}
+En lo que respecta a la complejidad del mejor caso, se puede ver de forma simple que el mismo se da si en el primer intento de formar una ronda se lograra llegar a una respuesta válida. Esto significa que el algoritmo demoró $n$ pasos para unir a las amigas y uno más para verificar que era una ronda válida. Por lo tanto, la complejidad en el mejor caso es \omegade{n}
 %\subsection[Detalles de Implementación}
 \subsection{Resultados}
 \label{resultadosej2}
@@ -176,3 +180,7 @@ Como resultado del análisis de los datos arrojados en [\ref{resultadosej2}] y d
 Primero, podemos decir que para muchos de los casos analizados durante el transcurso de este trabajo práctico, el algoritmo llegó a una respuesta en un tiempo promedio mucho menor al que en teoría debería demorar. Por lo tanto, podemos intuir que las mejoras realizadas dentro del algoritmo fueron, en general, muy productivas. Sin embargo, no nos aseguran que el algoritmo mejore su complejidad asintóticamente.
 
 \paragraph{}
+En segundo lugar, y continuando lo antes dicho, se observaron casos en los cuales el algoritmo demoró más que el tiempo promedio. Esto puede deberse a que, para ciertos casos de entrada, las mejoras del algoritmo no inciden en la resolución del problema, haciendo que se demore demasiado en conseguir una solución válida. Si se suma el hecho de analizar dichos casos para entradas de gran tamaño, podemos llegar a estar ante un problema, ya que el tiempo de resolución del problema para nuestro algoritmo puede ser, en términos humanos, eterno.
+
+\paragraph{}
+Finalmente, podemos concluir entonces que el algoritmo, más allá de las mejoras implementadas sobre el mismo, no alcanza a obtener una complejidad de peor caso menor que \Ode{n!}, pero las mismas sirven para que el algoritmo encuentre más fácilmente el camino hacia el mejor caso\footnote{Siempre y cuando exista al menos una solución al problema y además, esta solución se condiga con las mejoras elegidas en la implementación.}, que para este tipo de problemas es \omegade{n}
