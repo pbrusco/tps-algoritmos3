@@ -80,6 +80,13 @@ termine $\leftarrow$ false\tcp*{O(1)}
 \textbf{return} maxJuntos
 \end{algorithm}
 
+\paragraph{}
+De esta explicación y de un análisis más minucioso del pseudocódigo, se desprenden algunas hipótesis.
+\begin{itemize}
+	\item La complejidad temporal del algoritmo es \Ode{n}
+	\item El peor caso se da cuando hay muchos trabajadores dispersos durante todo el día. Esto es, por ejemplo, que desde el comienzo del día hasta el final, pase que cada vez que sale un trabajador inmediatamente en ese momento ingrese otro. Esto haría que se ejecute cada while anidado una sola vez por cada iteración.
+\end{itemize}
+
 
 \subsection{Análisis de la complejidad del algoritmo}
 
@@ -124,7 +131,62 @@ Luego de ejecutar make, se creara un archivo ejecutable, llamado main. Para ejec
 Los parámetros son opcionales, pero se puede elegir entre no pasar ningún parámetro, o pasar 2. Si no se pasan parámetros, el programa tomara los valores por defecto, esto quiere decir que el archivo de entrada será el designado por la materia.
 
 
-%\subsection{Resultados}
-%\subsection{Debate}
-%\subsection{Comentarios}
-%\subsection{Conclusiones}
+\subsection{Resultados}
+\label{resultadosej3}
+
+\begin{table}[ht] %ubicacion de la tabla
+\centering %centra la tabla
+\begin{tabular}{c}
+\includegraphics[scale=0.7]{../ej3/graficos/contarOp1.pdf} \\
+\includegraphics[scale=0.7]{../ej3/graficos/contarOp5.pdf}
+\end{tabular}
+
+\caption{Muestran el comportamiento de la cantidad de operaciones contra la cantidad de trabajadores} %titulo de la tabla
+\label{cantOp} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+\end{table}
+
+\begin{table}[ht] %ubicacion de la tabla
+\centering %centra la tabla
+\begin{tabular}{c}
+\includegraphics[scale=0.7]{../ej3/graficos/clocks1.pdf} \\
+\includegraphics[scale=0.7]{../ej3/graficos/clocks5.pdf}
+\end{tabular}
+
+\caption{Muestran el comportamiento de la cantidad de operaciones contra la cantidad de trabajadores} %titulo de la tabla
+\label{cantOp} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+\end{table}
+
+\begin{table}[ht] %ubicacion de la tabla
+\centering %centra la tabla
+\begin{tabular}{c}
+\includegraphics[scale=0.7]{../ej3/graficos/tiempo1.pdf} \\
+\includegraphics[scale=0.7]{../ej3/graficos/tiempo5.pdf}
+\end{tabular}
+
+\caption{Muestran el comportamiento de la cantidad de operaciones contra la cantidad de trabajadores} %titulo de la tabla
+\label{cantOp} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+\end{table}
+
+
+\subsection{Debate}
+\paragraph{}
+Como podemos observar en los gráficos propuestos en la sección [\ref{resultadosej3}] en general la implementación realizada se comporta como se esperaba que en teoría funcionara. Es decir, durante el desarrollo del informe sobre este ejercicio, entre otras cosas, hicimos notar que nuestra hipótesis sobre la complejidad del algoritmo era que el mismo tenía un costo de \Ode{n}, donde $n$ es la cantidad de trabajadores de la empresa.
+
+\paragraph{}
+Se puede identificar en cada gráfico una marcada similitud entre los resultados arrojados en las distintas mediciones que se hicieron sobre la implementación y alguna recta (o función lineal) , variando esta última su pendiente. Esta pendiente podría compararse o considerarse como la constante que acompa\~na a la complejidad del algoritmo.
+
+\paragraph{}
+Se puede notar claramente que esta constante o pendiente, es notablemente mayor en aquellos gráficos en los cuales se evaluó el comportamiento del algoritmo en el peor caso que en los que se evaluó el mismo con entradas al azar.
+
+\paragraph{}
+En el gráfico [clocks5] podemos notar dos casos de outliers. Si observamos más detalladamente podemos ver que estos casos se dan con valores de $n$ grandes. Esto puede deberse a que, como el algoritmo tarda más en terminar, es más probable que haya alguna interrupción que irrumpa durante el mismo haciendo que la medición no sea precisa. Esto se debe a la forma en que se miden los ciclos de reloj. Lo que se hace es obtener los ciclos de reloj transcurridos hasta antes de hacer la llamada al algoritmo implementado, luego se toma la misma medición y, finalmente, se toma la diferencia entre ambas mediciones obteniendo como resultado la cantidad de ciclos insumidos por el algoritmo. Pero si durante el algoritmo, una llega una interrupción y la atención de la misma le insume al procesador varias instrucciones, esto puede llegar a provocar una medición de ciclos de reloj muy imprecisa.\\
+Más aún, si tomamos en cuenta cómo un sistema operativo hace manejo de los procesos, puede haber llegado a ocurrir que durante la ejecución del algoritmo, este haya consumido todo su tiempo de ejecución asignado por el sistema, por lo que puede haber tenido que esperar una o incluso varias veces a que el sistema deje continuar con su ejecución.
+
+
+\subsection{Conclusiones}
+\paragraph{}
+Luego de describir el funcionamiento del algoritmo, de realizar las pruebas y gráficos pertinentes y de analizarlos detalladamente, podemos realizar algunas conclusiones.\\
+Podemos asegurar fehacientemente que la complejidad del algoritmo propuesto es lineal, es decir, \Ode{n} donde $n$ es la cantidad de trabajadores. Esto no sólo se desprende del análisis teórico realizado anteriormente, sino también de las sucesivas pruebas realizadas. Claramente se puede observar en todos los gráficos presentados cómo el comportamiento de la implementación se asemeja a una función lineal sobre los datos de entrada.
+
+\paragraph{}
+Si hacemos una comparación entre los resultados obtenidos al aplicarse el algoritmo sobre datos de entrada azarosos y datos de entrada que se condicen con el peor caso, se pudo observar que la constante que acompaña a la complejidad para el peor caso es considerablemente mayor a la constante que aparece en el caso azaroso. Se puede concluir entonces que los casos que se habían supuesto como peores casos, realmente cumplían esta condición. 
