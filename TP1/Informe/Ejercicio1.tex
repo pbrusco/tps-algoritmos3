@@ -143,7 +143,7 @@ Sigue a continuación un pseudocódigo del algoritmo en cuestión en el que se d
 		\end{algorithm}
 
 \paragraph{}
-Analizando los costos de las operaciones detalladas en el pseudocódigo anterior, se puede ver que en el caso que $b \not \equiv 0\ (n)$  y $n \neq 1$, entonces el algoritmo realiza una cierta cantidad de operaciones correspondientes a uno de los dos bloque que se ejecutan dependiendo de la paridad del exponente. Ese número de operaciones puede ser acotada por \textit{q}, siendo \textit{q} el máximo entre las cantidades de operaciones de ambos bloques\footnote{En particular, el bloque con mayor cantidad de operaciones es el bloque que se ejecuta cuando el exponene es impar}. \\
+Analizando los costos de las operaciones detalladas en el pseudocódigo anterior, se puede ver que en el caso que $b \not \equiv 0\ (n)$  y $n \neq 1$, entonces el algoritmo realiza una cierta cantidad de operaciones correspondientes a uno de los dos bloques que se ejecutan dependiendo de la paridad del exponente. Ese número de operaciones puede ser acotada por \textit{q}, siendo \textit{q} el máximo entre las cantidades de operaciones de ambos bloques\footnote{En particular, el bloque con mayor cantidad de operaciones es el bloque que se ejecuta cuando el exponene es impar}. \\
 Por otra parte, también es observable que el algoritmo efectua los llamados recursivos en la medida que el exponente se pueda seguir dividiendo por 2. En consecuencia, se puede afirmar que el algoritmo realiza a lo sumo $q.log_2$(n) operaciones; de donde sigue que la complejidad teórica del algoritmo es \Ode{log_2(n)}.
 
 
