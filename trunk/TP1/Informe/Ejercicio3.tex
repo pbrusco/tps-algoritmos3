@@ -40,13 +40,6 @@ Luego, se recorre el arreglo que contiene los horarios de salida decremendo el c
 Esta iteraci\'on "alternada" sobre los arrelgos se repite, hasta haberse indexado todas las posiciones del arreglo con los horarios de entrada, momento en el cual se devuelve el valor de la variable en la que se fueron almacenando los m\'aximos.
 
 \paragraph{}
-De esta explicación y de un análisis más minucioso del pseudocódigo, se desprenden algunas hipótesis.
-\begin{itemize}
-	\item La complejidad temporal del algoritmo es \Ode{n}.
-	\item El peor caso se da cuando hay muchos trabajadores dispersos durante todo el día, es decir, si todos los horarios de salida y entrada entre dos trabajadores cualesquiera son disjuntos.
-\end{itemize}
-
-\paragraph{}
 A modo de una explicaci\'on m\'as clara que nos acerque un poco m\'as a la implementaci\'on, detallamos lo expuesto anteriormente a trav\'es del siguiente pseudoc\'odigo:
 
 	\incmargin{1em}
@@ -87,42 +80,37 @@ A modo de una explicaci\'on m\'as clara que nos acerque un poco m\'as a la imple
 \subsection{Análisis de la complejidad del algoritmo}
 
 \paragraph{}
-Para realizar el análisis de la complejidad del algoritmo, se decidió utilizar el modelo uniforme y no el logarítmico. Esto se debió a que en este caso, no resulta lógico evaluar la complejidad de acuerdo al costo de representar los valores de los parámetros de entrada. Más aún, por la forma y el contexto del problema y por el algoritmo implementado para la resolución, no sería correcto hacer un análisis logarítmico ya que en este caso las horas representables están acotadas (habíamos dicho que se encontraban entre 00:00:00 y 23:59:59) y la cantidad de trabajadores, aunque no está explícitamente acotada, podríamos suponerla así. De esta manera, sería válido considerar que la complejidad espacial de cada elemento es unitaria, haciendo inadecuado analizar la complejidad del algoritmo con el modelo logarítmico.
+Para realizar el análisis de la complejidad del algoritmo, se decidió utilizar el modelo uniforme y no el logarítmico. Esto se debió a que en este caso, no resulta lógico evaluar la complejidad de acuerdo al costo de representar los valores de los parámetros de entrada. Más aún, por la forma y el contexto del problema y por el algoritmo implementado para la resolución, no sería correcto hacer un análisis logarítmico ya que en este caso las horas representables están acotadas (habíamos dicho que se encontraban entre 00:00:00 y 23:59:59) y la cantidad de trabajadores, aunque no está explícitamente acotada, se podría suponer como tal. De esta manera, resulta válido considerar que la complejidad espacial de cada elemento es unitaria, haciendo inadecuado analizar la complejidad del algoritmo con el modelo logarítmico.
 
 \paragraph{}
 Con el objetivo de realizar un mejor análisis de la complejidad del algoritmo propuesto, vamos a analizar el mismo remitiéndonos al pseudocódigo citado en la sección [\ref{explicacion}].
 
 \paragraph{}
-Si hacemos una mirada más minuciosa sobre el pseudocódigo, veremos que la complejidad del algoritmo está dada por $n$, que hace referencia a la cantidad de trabajadores de la empresa. Si observamos las complejidades de cada operación, podemos apreciar que todas son constantes, con excepción del flujo ``while'' más grande (aquél que tiene como condición: (!\textit{termine}) ). Veamos por qué sucede esto.
-
-\paragraph{}
-Como podemos ver en la línea 5, el booleano \textit{termine} es inicializado con el valor de verdad \false. La otra variable que nos va a interesar para este análisis es \textit{i}, la cuál se inicializa con el valor 0. Con estos valores, y sabiendo que el flujo while que estamos analizando tiene como condición la negación de \textit{termine}, se desprende que el algoritmo terminará sí y solo sí \textit{termine} tome el valor de verdad \true .
-
-\paragraph{}
+Observando de un modo más minucioso el pseudocódigo, se puede apreciar que la complejidad del algoritmo está dada por $n$, que hace referencia a la cantidad de trabajadores de la empresa. Si se observan las complejidades de cada operación, es facil advertir que todas son constantes, con excepción del flujo "while'' más grande (aquél que tiene como condición: (!\textit{termine})). \\
+Como se puede ver en la línea 5, el booleano \textit{termine} es inicializado con el valor de verdad \false. La otra variable que va a ser de interé para este análisis es \textit{i}, la cuál se inicializa con el valor 0. Con estos valores, y sabiendo que el flujo while que se está analizando tiene como condición la negación de \textit{termine}, se desprende que el algoritmo terminará sí y solo sí \textit{termine} tome el valor de verdad \true. \\
 En la línea 13 del pseudocódigo es en el único lugar que se modifica el valor de verdad de \textit{termine}. En esta línea se ve que:
-\begin{equation}
-termine \leftarrow i \geq n
-\end{equation}
+	\begin{equation}
+		termine \leftarrow i \geq n
+	\end{equation}
 
-Entonces, juntando esto con lo dicho anteriormente, se puede asegurar que el algoritmo va a finalizar una vez que \textit{i} \ensuremath{\geq} n. Veamos entonces cómo se comporta \textit{i} a lo largo del programa.
 
-\paragraph{}
+Entonces, juntando esto con lo dicho anteriormente, se puede asegurar que el algoritmo va a finalizar una vez que \textit{i} \ensuremath{\geq} n. Veamos entonces cómo se comporta \textit{i} a lo largo del programa. \\
 La variable \textit{i} sólo es modificada en el primer while anidado, incrementándose de a uno por vez. Por lo tanto, una vez que se ejecute el contenido de este while anidado $n$ veces, el algoritmo finalizará.
 
 \paragraph{}
-Si consideramos la precondición que dice que todos los trabajadores ingresan a la empresa estrictamente antes de egresar, podemos decir entonces que este primer while anidado va a ejecutarse siempre a lo sumo n veces\footnote{Ver condición del primer while anidado}. Por lo tanto, el algoritmo tiene una complejidad de \Ode{n}. Es más, se puede asegurar que el algoritmo nunca va a terminar antes de recorrer toda la lista de ingresos, por lo que el mejor caso es \omegade{n}, es decir, el algoritmo es \titade{n}
+Considerando la precondición que dice que todos los trabajadores ingresan a la empresa estrictamente antes de egresar, nos permite afirmar entonces que este primer while anidado va a ejecutarse siempre a lo sumo n veces\footnote{Ver condición del primer while anidado}. Por lo tanto, el algoritmo tiene una complejidad de \Ode{n}. Es más, se puede asegurar que el algoritmo nunca va a terminar antes de recorrer toda la lista de ingresos, por lo que el mejor caso es \omegade{n}, es decir, el algoritmo es \titade{n}
 
 \paragraph{}
-Vamos a demostrar ahora que la complejidad del algoritmo es lineal en el tamaño de la entrada.
+A continuación se demuestra que la complejidad del algoritmo es lineal en el tamaño de la entrada.
 
 \paragraph{}
-Para empezar, vamos a decir que $n =\ cantidad\ de\ programadores\ de\ la\ empresa$. Se tiene entonces que:
+Para empezar, consideremos $n =\ cantidad\ de\ programadores\ de\ la\ empresa$. Se tiene entonces que:
 \begin{itemize}
 	\item C(I) = \Ode{n}
 	\item E(I) = \Ode{n}
 \end{itemize}
 
-En este caso, podemos ver claramente y sin necesidad de aplicar la definición de la relación entre la complejidad y el tamaño de la entrada, que:
+En este caso, se puede ver claramente y sin necesidad de aplicar la definición de la relación entre la complejidad y el tamaño de la entrada, que:
 \begin{equation}
 	C(I) = c' * E(I) \Leftrightarrow C(I) = \Ode{E(I)}
 \end{equation}
@@ -138,56 +126,56 @@ Luego de ejecutar make, se creara un archivo ejecutable, llamado main. Para ejec
 \texttt{main [nombreEntrada] [nombreSalida]}.
 
 \paragraph{}
-Los parámetros son opcionales, pero se puede elegir entre no pasar ningún parámetro, o pasar 2. Si no se pasan parámetros, el programa tomara los valores por defecto, esto quiere decir que el archivo de entrada será el designado por la materia.
+Los parámetros son opcionales, pero se puede elegir entre no pasar ningún parámetro, o pasar 2. Si no se pasan parámetros, el programa tomara los valores por defecto, esto quiere decir que el archivo de entrada será el que vienen incluído con la consigna del presente trabajo.
 
 
 \subsection{Resultados}
 \label{resultadosej3}
 
 \paragraph{}
+De la sección Explicación y de un análisis más minucioso del pseudocódigo, se desprende como algunas hipótesis
+ que el peor caso se da cuando hay muchos trabajadores dispersos durante todo el día, es decir, si todos los horarios de salida y entrada entre dos trabajadores cualesquiera son disjuntos.
+
+\paragraph{}
 Para poder analizar el comportamiento del algoritmo implementado, se procedió a realizar un programa que genere distintas entradas, de acuerdo a distintos criterios que nos parecieron relevantes remarcar.\\
-De esta manera, se utilizaron dos formas distintas de generar un archivo de entrada. Una de ellas se corresponde a una entrada completamente azarosa, a modo de analizar el comportamiento del algoritmo para una extensa cantidad de casos distintos. La segunda, trata de plasmar en sus casos la hipótesis de peor caso planteada en [\ref{segaprox}].
+De esta manera, se utilizaron dos formas distintas de generar un archivo de entrada. Una de ellas se corresponde a una entrada completamente azarosa, a modo de analizar el comportamiento del algoritmo para una extensa cantidad de casos distintos. La segunda, trata de plasmar en sus casos la hipótesis de peor caso planteada en el párrafo anterior.
 
 \paragraph{}
 A continuación se adjuntan los gráficos provenientes de analizar los casos antes planteados. Están agrupados de a pares, a modo de mostrar más claramente la diferencia en la complejidad de cada caso.
-
-
-
 	\begin{table}[ht] %ubicacion de la tabla
 		\centering %centra la tabla
-			\begin{tabular}{c}
-				\includegraphics[scale=0.7]{../ej3/graficos/contarOp1.pdf} \\
-				\includegraphics[scale=0.7]{../ej3/graficos/contarOp5.pdf}
-				\end{tabular}
-				\caption{Muestran el comportamiento de la cantidad de operaciones contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
-				\label{cantOpEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+		\begin{tabular}{c}
+			\includegraphics[scale=0.7]{../ej3/graficos/contarOp1.pdf} \\
+			\includegraphics[scale=0.7]{../ej3/graficos/contarOp5.pdf}
+		\end{tabular}
+		\caption{Muestran el comportamiento de la cantidad de operaciones contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
+		\label{cantOpEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
 	\end{table}
 
 	\begin{table}[ht] %ubicacion de la tabla
 		\centering %centra la tabla
-			\begin{tabular}{c}
-				\includegraphics[scale=0.7]{../ej3/graficos/clocks1.pdf} \\
-				\includegraphics[scale=0.7]{../ej3/graficos/clocks5.pdf}
-			\end{tabular}
-			\caption{Muestran el comportamiento de la cantidad de ticks de reloj contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
+		\begin{tabular}{c}
+			\includegraphics[scale=0.7]{../ej3/graficos/clocks1.pdf} \\
+			\includegraphics[scale=0.7]{../ej3/graficos/clocks5.pdf}
+		\end{tabular}
+		\caption{Muestran el comportamiento de la cantidad de ticks de reloj contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
 			\label{clocksEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
 	\end{table}
 
-\begin{table}[ht] %ubicacion de la tabla
-\centering %centra la tabla
-\begin{tabular}{c}
-\includegraphics[scale=0.7]{../ej3/graficos/tiempo1.pdf} \\
-\includegraphics[scale=0.7]{../ej3/graficos/tiempo5.pdf}
-\end{tabular}
-
-\caption{Muestran el comportamiento de la cantidad de microsegundos contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
-\label{tiempoEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
-\end{table}
+	\begin{table}[ht] %ubicacion de la tabla
+		\centering %centra la tabla
+		\begin{tabular}{c}
+			\includegraphics[scale=0.7]{../ej3/graficos/tiempo1.pdf} \\
+			\includegraphics[scale=0.7]{../ej3/graficos/tiempo5.pdf}
+			\end{tabular}
+		\caption{Muestran el comportamiento de la cantidad de microsegundos contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
+		\label{tiempoEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+	\end{table}
 
 
 \subsection{Debate}
 \paragraph{}
-Como podemos observar en los gráficos propuestos en la sección [\ref{resultadosej3}] en general la implementación realizada se comporta como se esperaba que en teoría lo hiciera. Es decir, durante el desarrollo del informe sobre este ejercicio, entre otras cosas, hicimos notar que nuestra hipótesis sobre la complejidad del algoritmo era que el mismo tenía un costo de \titade{n}, donde $n$ es la cantidad de trabajadores de la empresa.
+Se puede apreciar en los gráficos propuestos en la sección [\ref{resultadosej3}] que en general la implementación realizada se comporta como se esperaba que en teoría lo hiciera. Es decir, durante el desarrollo del informe sobre este ejercicio, entre otras cosas, se postuló la hipótesis de que la complejidad del algoritmo tenía un costo de \titade{n}, donde $n$ es la cantidad de trabajadores de la empresa.
 
 \paragraph{}
 Se puede identificar en cada gráfico una marcada similitud entre los resultados arrojados en las distintas mediciones que se hicieron sobre la implementación y alguna recta (o función lineal), variando esta última su pendiente para cada caso. Esta pendiente podría compararse o considerarse como la constante que acompa\~na a la complejidad del algoritmo.
