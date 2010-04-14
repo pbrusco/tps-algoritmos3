@@ -19,7 +19,7 @@
 
 	Mejoras como evaluar, en el momento de cargar la ronda, si alguna persona no tiene las suficientes amigos, es decir 2, o si todos son amigos de todos.	
 
-	También a este método, se le agregó la estrategia de ``Vuelta atrás'', (Backtracking).
+	Luego, se pensó en la estrategia de ``Vuelta atrás'', (Backtracking).
 \\ \\ \\
 \textit{
 \underline{\textbf{Backtracking:}}\\
@@ -27,7 +27,17 @@ En su forma básica, la idea de backtracking se asemeja a un recorrido en profun
 }\footnote{http:\/\/es.wikipedia.org\/}
 \\ \\
 
-En este caso particular, la idea es, seleccionar una persona (P), ingresarla en la ronda, 
+En este caso particular, la idea es, seleccionar una persona (P), ingresarla en la ronda, e ir armando un arbol implicito de posibilidades en donde
+el nodo padre es P y cada rama se forma con las distintas selecciones de amigas de P y sus sub-arboles, con las combinaciones posibles de amigas del nodo padre en el que esté.
+Para ello se utiliza la recursión, en donde se intenta bajar lo más posible en el arbol hasta llegar a formar un camino desde el primer nodo hasta alguna hoja en donde se encuentren
+todas las chicas con nodos padre e hijo amigas.
+
+También, se implementaron otras mejoras que intentan podar el arbol dadas ciertas condiciones que permitan acortar las posibilidades:
+\begin{itemize}
+ \item Las amigas de un nodo se pueden procesar en cualquier orden, pero decidimos intentar ser lo más restrictivo posible con las primeras (las que tienen menos amigas primero). Este proceso poda el árbol de búsqueda antes de que se tome la decisión y se llame a la subrutina recursiva.
+ \item Cuando se elige qué valor se va a asignar, se hace un examen comprobando que aun queden amigas de la que inicio la ronda dispoibles. En caso que no, se pueden evitar muchas llamadas sin sentido.
+\end{itemize}
+
 
 \vspace{3cm}
 \incmargin{1em}
