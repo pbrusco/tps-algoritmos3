@@ -33,26 +33,28 @@ void MenuPrincipal() {
             << "Por favor seleccione el tipo de archivo de entrada que desea generar y presione Enter"<< endl << endl
 
 			// n grande
-			<< "a. 1000000 <= |n| <= 1000000000 " << endl
+			<< "a. Casos con n entre 1.000.000 y 1000.000.000 " << endl
 
             // n pequeño
-            << "b. |n| <= 1000000" << endl
+            << "b. Casos con n entre 1 y 1.000.000" << endl
 
 			// b multiplo de n
-            << "c. b mod (n) = 0" << endl
+            << "c. Casos con b multiplo de n , con n entre 1 y 1.000.000" << endl
 
 			// n impar
-            << "d. n = 2^k - 1, con 2 <= k <= 30" << endl
+            << "d. Casos con n = 2^k - 1, con k entre 2 y 30" << endl
 
 			// n primo
-            << "e. n primo" << endl
+            << "e. Casos con n primo con n entre 1 y 1000.000.000" << endl
 
 			// b primo y b cualquiera
-            << "f. b primo y n cualquiera" << endl
+            << "f. Casos con b primo" << endl
 
 			// exit
-            << "g. Salir del programa" << endl;
-
+            << "g. Salir del programa" << endl << endl
+            
+            << "*Aclaración: En todos los casos b es un numero entre 0 y 1.000.000." << endl;
+            
         char opcion = LeerOpcion('a','g');
 		int cant_casos = 0;
 
@@ -193,10 +195,10 @@ void generarArchivo(int modo) {
 		// n primo
 		case 5: {
 			forn(i, cant_casos) {
-				b = (rand() % 100000);
+				b = (rand() % 1000000);
 				n = (1 + rand() % 1000000);
 				while(! esPrimo(n))
-					n = (1 + rand() % 1000000);
+					n = (1 + rand() % 1000000000);
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -204,10 +206,10 @@ void generarArchivo(int modo) {
 		// b primo y n cualquiera
 		case 6: {
 			forn(i, cant_casos) {
-				b = (rand() % 100000);
+				b = (rand() % 1000000);
 				n = (1 + rand() % 1000000);
 				while(! esPrimo(b))
-					b = (rand() % 100000);
+					b = (rand() % 1000000);
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
