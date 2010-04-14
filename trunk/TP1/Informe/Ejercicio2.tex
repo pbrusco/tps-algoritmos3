@@ -154,14 +154,27 @@ recorrer casi todas las ramas del árbol hasta poder decir que no hay solución.
 Por lo tanto, el algoritmo implementado NO es bueno. Sin embargo, cuando para un conjunto de datos de entrada se puede formar una ronda, el algoritmo no recorre todo el árbol en busca de la solución, sino que al encontrar una termina. Esta propiedad del backtracking y el resto de las mejoras, hace que para ciertos datos de entradas en donde se pueden formar rondas, el algoritmo se comporte como lo haría una solución polinomial.
 
 \paragraph{}
-En lo que respecta a la complejidad del mejor caso, se puede ver de forma simple que el mismo se da si en el primer intento de formar una ronda se lograra llegar a una respuesta válida. Esto significa que el algoritmo demoró $n$ pasos para unir a las amigas y uno más para verificar que era una ronda válida. Por lo tanto, la complejidad en el mejor caso es \omegade{n}
+En lo que respecta a la complejidad del mejor caso, se puede ver de forma simple que el mismo se da si en el primer intento de formar una ronda se lograra llegar a una respuesta válida. Esto significa que el algoritmo demoró $n$ pasos para unir a las amigas y uno más para verificar que era una ronda válida. Por lo tanto, la complejidad en el mejor caso es \omegade{n} \footnote{esta cota menor se podría dar optimizando el algoritmo para que se comporte de la manera descripta pero sin algunas mejoras como comprobar para adelante en cada paso por ejemplo.}
 
 
 \subsection{Detalles de Implementación}
 \paragraph{}
-Para compilar este programa, sólo hace falta ejecutar el comando make. El modo de uso del mismo es simple: En la carpeta que contiene al ejecutable debe existir un archivo con los datos de entrada llamado ``entrada''. El programa pasará a ejecutarse y una vez que termine, devolverá en un archivo llamado ``salida'' el resultado buscado.
+Para compilar este programa, sólo hace falta ejecutar el comando make. El modo de uso del mismo es simple: En la carpeta que contiene al ejecutable debe existir un archivo con los datos de entrada llamado ``entrada''. El programa pasará a ejecutarse al escribir .\/main en la consola y una vez que termine, devolverá en un archivo llamado ``salida'' el resultado buscado.
 
+Si se desean generar casos de pruebas, se puede utilizar el generador que se encuentra dentro de la carpeta del ejercicio 2, en la subcarpeta otros.
 
+Este generador se puede compilar utilizando el comando ``g++ main.cpp'' en la consola de linux, y luego ejecutandolo con el comando .\/a.out
+
+Una vez abierto, el programa solicita un porcentaje $(0 \leq porc \leq 100)$ y un numero maximo de chicas (max), el funcionamiento es el siguiente:
+
+Se generan rondas de tamaño 2, 3, 4, ..., max inclusive, en donde en cada una, el programa intenta formar aproximadamente $(porc/100)*numeroTotalDeConecciones$ de amistades. Es decir, para $n$ chicas, hay $n$.$(n-1)/2$ rondas amistades posibles, por lo tanto, el programa intentara formar $(porc/100)*(n*(n-1)/2)$ amistades en la ronda.
+
+Este programa genera un archivo con el nombre ``entradap'', que puede ser utilizado como entrada para el programa principal (cambiandole el nombre por ``entrada'').
+
+Si se desea medir el tiempo que demora el algoritmo para una entrada, se puede utilizar el programa almacenado en la carpeta Ej2\/otros\/Tiempos.
+
+Los pasos a seguir son equivalentes a los del programa original, necesita una entrada ``entrada'' y ser compilado con la instruccion make. 
+luego con .\/main 
 
 \subsection{Resultados}
 \label{resultadosej2}
