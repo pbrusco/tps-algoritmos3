@@ -1,6 +1,7 @@
 \section{Ejercicio 2}
 
 \subsection{Introducción}
+\label{introej2}
 	El segundo problema consistió en la implementación de un algoritmo capaz de dar solución al problema que se plantea a continuación:
 
 	 Decidir si un grupo de n personas pueden formar o no una ronda que cumpla con las siguientes restricciones:
@@ -35,7 +36,7 @@ todas las chicas con nodos padre e hijo amigas.
 También, se implementaron otras mejoras que intentan podar el arbol dadas ciertas condiciones que permitan acortar las posibilidades:
 \begin{itemize}
  \item Las amigas de un nodo se pueden procesar en cualquier orden, pero decidimos intentar ser lo más restrictivo posible con las primeras (las que tienen menos amigas primero). Este proceso poda el árbol de búsqueda antes de que se tome la decisión y se llame a la subrutina recursiva.
- \item Cuando se elige qué valor se va a asignar, se hace un examen comprobando que aun queden amigas de la que inicio la ronda dispoibles. En caso que no, se pueden evitar muchas llamadas sin sentido.
+ \item Cuando se elige qué valor se va a asignar, se hace un examen comprobando que aún queden amigas de la que inició la ronda disponibles. En caso que no, se pueden evitar muchas llamadas sin sentido.
 \end{itemize}
 
 A continuación se ve un pseudocodigo que muestra el comportamiento de la estrategia y las mejoras elegidas.
@@ -44,7 +45,7 @@ A continuación se ve un pseudocodigo que muestra el comportamiento de la estrat
 \underline{Algunos detalles:}
 
 \begin{itemize}
- \item \textbf{gente} es una lista con elementos de tipo chica.
+ \item \textbf{gente} es una lista con elementos de tipo chica, ordenadas de acuerdo a la cantidad de amigas que tiene cada elemento.
  \item el tipo \textbf{chica} consta de un nombre (int) y sus amigas (conjunto de nombres).
  \item \textbf{enRonda} es un conjunto de nombres donde se va almacenando quienes pertenecen a la ronda.
  \item \textbf{amigasPrimera} es un conjunto de nombres donde se almacenan los nombres de las amigas de la chica que comienza la ronda.
@@ -115,9 +116,9 @@ A continuación se ve un pseudocodigo que muestra el comportamiento de la estrat
 \BlankLine	
 			\eIf{(esAmigaDeLaPrimera $\neq$ 0)}{
 					eraAmiga $\leftarrow$ true;\\
-					eliminar(amigasPrimera,nobre(chi));
+					eliminar(amigasPrimera,nombre(chi));
 				}{
-					eraAmiga = false;
+					eraAmiga $\leftarrow$ false;
 				}
 				insertar(enRonda,nombre(chi));\\
 				res $\leftarrow$ probarDistintasRondas(prim,chi);
@@ -142,16 +143,26 @@ A continuación se ve un pseudocodigo que muestra el comportamiento de la estrat
 
 
 \subsection{Análisis de la complejidad del algoritmo}
-
+\label{complejidadej2}
 La complejidad en el peor caso de este algoritmo surge inmediatamente al hacer pruebas. Dependiendo de las entradas elegidas, el programa podria tener que 
 recorrer casi todas las ramas del arbol hasta poder decir que no hay solucion. En este caso, podriamos entonces solo acotar el peor caso por la funcion $f(n) = c.(n-1)! + b$ 
-(donde b y c son constantes) ya que la cantidad de formas de armar una ronda con n personas es (n!/n) = (n-1)!\footnote{Se lo puede imaginar como una fila de n personas. Para la primer posición hay n personas dispoibles, para la segunda n-1, y asi sucesivamente. Por lo tanto hay n*(n-1)*...*1 formas de acomodar las personas en una fila. Ahora, si se unen las puntas, podria rotar la fila n veces y seguiria siendo la misma ronda, por lo tanto se dividiendo por n obtengo la respuesta: \textbf{(n-1)!}.} 
+(donde b y c son constantes) ya que la cantidad de formas de armar una ronda con n personas es (n!/n) = (n-1)!\footnote{Se lo puede imaginar como una fila de n personas. Para la primer posición hay n personas disponibles, para la segunda n-1, y asi sucesivamente. Por lo tanto hay n*(n-1)*...*1 = n! formas de acomodar las personas en una fila. Ahora, si se unen las puntas, podria rotar la fila n veces y seguiria siendo la misma ronda, por lo tanto dividiendo por n obtengo la respuesta: \textbf{(n-1)!}.} 
 
 Por lo tanto, el algoritmo implementado NO es bueno. Sin embargo, cuando para un conjunto de datos de entrada se puede formar una ronda, el algoritmo no recorre todo el arbol en busca de la solución, sino que al encontrar una termina. Esta propiedad del backtracking y el resto de las mejoras, hace que para ciertos datos de entradas en donde se pueden formar rondas, el algoritmo se comporte como lo haria una solucion polinomial.
 
 
 %\subsection[Detalles de Implementación}
 %\subsection{Resultados}
-%\subsection{Debate}
+\subsection{Debate}
+\paragraph{}
+De los resultados pertenecientes a la sección [\ref{complejidadej2}] podemos observar cómo se comporta la implementación frente a algunas entradas particulares. Las mismas fueron creadas al azar pero de forma tal que se cumplan los invariantes citados en [\ref{introej2}].
+
+\paragraph{}
+En un primer análisis, podemos ver que en general para todos los casos analizados la función proveniente de graficar cantidad de chicas contra tiempo demorado en ejecutar el algoritmo se asemeja bastante a una función polinomial. Si bien sabemos que esto no refleja la verdadera complejidad del algoritmo, en primer instancia podría significar un buen funcionamiento de las mejoras realizadas en el algoritmo a la técnica utilizada.
+
+\paragraph{}
+La función antes mencionada, pareciera ser bastante monótona. Igualmente, se observa con claridad la aparición de casos en los cuales se demoró mucho más tiempo que el tiempo promedio. Esto podría dejar entrever que para ciertos valores de la entrada o no se encontró resultado alguno, por lo cuál se tuvieron que analizar los (n-1)! casos posibles, o bien se encontró una solución al problema, pero esta se demoró en ser encontrada ya que se trataba de un ejemplo en el cual las mejoras realizadas no surtieron efecto o, peor aún, tuvieron un efecto contrario al deseado.
+
+
 %\subsection{Comentarios}
 %\subsection{Conclusiones}
