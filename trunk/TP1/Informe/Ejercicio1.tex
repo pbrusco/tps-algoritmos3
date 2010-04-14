@@ -186,8 +186,6 @@ El programa \textit{input\_gen1} fue desarrollado para poder generar diversos ca
 		Se pensó en este tipo de casos para poder observar el comportamiento del algoritmo en la situación más desfavorable. Esta es en la cual al dividir el exponente de \textit{b} por 2 el resultado es siempre un número impar, por lo cual el algoritmo entra por en el último \textit{else} que es el bloque de código con mayor número de operaciones.} 
 		\item[\texttt{e.-}]{\texttt{Casos con n primo con n entre 1 y 1000.000.000:} \\
 		Se pensó en este tipo de casos para poder evaluar el comportamiento del algoritmo frente a valores de \textit{n} primos.}
-		\item[\texttt{f.-}]{\texttt{Casos con b primo:} \\
-		Se pensó en este tipo de casos para poder evaluar el comportamiento del algoritmo frente a valores de \textit{n} bastante acotados.}
 	\end{itemize}  
 
 \paragraph{}
@@ -195,7 +193,9 @@ Mediante cada uno de estos casos se buscó estudiar el comportamiento del algori
 	\begin{itemize}
 		\item[1)]{En el caso \texttt{c}, dado que el algoritmo realiza 2 asignaciones y una única cuenta (la de calcular el resto de \textit{b} módulo \textit{n}), resulta esperable que la complejidad real sea de valor constante 3.}
 		\item[2)]{Para los casos \texttt{a} y \texttt{b} el algoritmo realiza en cada iteración una cierta cantidad de operaciones correspondientes a uno de los dos bloque que se ejecutan dependiendo de la paridad del exponente. Ese número de operaciones está acotada por \textit{q}, siendo \textit{q} el máximo entre la cantidad de operaciones de ambos bloques\footnote{En particular, el bloque con mayor cantidad de operaciones es el bloque que se ejecuta cuando el exponene es impar}. Asímismo el algoritmo itera en la medida que el exponente se pueda seguir dividiendo por 2; con lo cual el ciclo se ejecuta $log_2$(n) veces y por lo tanto el número de operaciones esperable es menor o igual a $q.log_2(n)$. No obstante, como los \textit{n's} del caso \texttt{a} son del orden de $10^9$, mientras que los \textit{n's} del caso \texttt{b} son del orden de $10^6$ cabría esperar que la cantidad de operaciones para los \textit{n's} del caso \texttt{a} sean mayores que los del caso \texttt{b}}. 
-		\item[3)]{}
+		\item[3)]{
+		
+		Siguiendo con lo expresado en la hipotesis anterior, es de esperarse que la complejidad real del caso \texttt{d} sea exactamente $q.log_2(n)$, puesto que en cada iteración siempre ingresa al blóque de código de los exponentes impares. Esta complejidad es peor que la de cualquier otro \textit{n'} de igual tamaño que \textit{n}.
 	\end{itemize}
 
 \paragraph{}
@@ -248,16 +248,6 @@ A continuación se presentan los gráficos realizados para cada caso:
 			\caption{.} 
 	\end{table}
 
-	%grafico de f.in	
-	\begin{table}[ht]
-		\centering 
-			\begin{tabular}{c}
-				\includegraphics[scale = 0.8]{./../ej1/tests/f.jpg}
-			\end{tabular}
-			\caption{.} 
-	\end{table}
-
 
 %\subsection{Debate}
-%\subsection{Comentarios}
 %\subsection{Conclusiones}
