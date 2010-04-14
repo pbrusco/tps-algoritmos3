@@ -66,7 +66,7 @@ Luego, las expresiones resultantes en ambos casos pueden resolver de manera más
 
 \paragraph{}
 Volviendo un poco sobre nuestro pasos, se dijo anteriormente en (\ref{divide}) que podíamos asumir que obtener $k$ no tenía un costo computacional significativo. No obstante, esto no siempre es cierto puesto que para obtener \textit{k} es necesario calcular previamente $b^{n/2}$ el cual puede ser un número nada despreciable en lo que respecta a tamaño en memoria.\\
-Si ese fuera el caso, entonces para calcular $b^{n/2}$ podemos aplicar nuevamente el procedimiento descripto con anterioridad calculando $b^{n/4}$ y usando una expresion análoga a (\ref{recursion_par}) o a (\ref{recursion_impar}) dependiendo de si $n/2$ es par o impar respectivamente. Del mismo modo se puede repetir el accionar con $b^{n/4}$ y así sucesivamente hasta que reducir el exponente a 1, donde $b^1\ mod\ n$ puede calcularse en O(1) ya que \textit{b} es acotado. A partir de allí se realiza el camino inverso calculando cada uno de los restos módulo \textit{n} de las potencias de \textit{b} a partir del resto de dividir por \textit{n} a la potencia de \textit{b} calculada en el paso inmediatamente anterior, hasta dar finalmente con la solución del problema.
+Si ese fuera el caso, entonces para calcular $b^{n/2}$ podemos aplicar nuevamente el procedimiento descripto con anterioridad calculando $b^{n/4}$ y usando una expresion análoga a (\ref{recursion_par}) o a (\ref{recursion_impar}) dependiendo de si $n/2$ es par o impar respectivamente. Del mismo modo se puede repetir el accionar con $b^{n/4}$ y así sucesivamente hasta reducir el exponente a 1, donde $b^1\ mod\ n$ puede calcularse en O(1) ya que \textit{b} es acotado. A partir de allí se realiza el camino inverso calculando cada uno de los restos módulo \textit{n} de las potencias de \textit{b} a partir del resto de dividir por \textit{n} a la potencia de \textit{b} calculada en el paso inmediatamente anterior, hasta dar finalmente con la solución del problema.
 
 
 \subsection{Análisis de la complejidad del algoritmo}
@@ -172,6 +172,7 @@ Finalmente, en \textit{./ej1/} se hayan los archivos \textit{.Tp1Ej1.in} y \text
 
 
 \subsection{Resultados}
+\label{Resultados1}
 
 \paragraph{}
 El programa \textit{input\_gen1} fue desarrollado para poder generar diversos casos de pruebas en los que \textit{n} adopte distintos valores\footnote{Aclaración: En todos los casos b es un numero entre 0 y 1.000.000}. A continuación se describen cuáles son esos casos y se explica brevemente que se esperaba observar en cada uno de ellos.
@@ -254,9 +255,20 @@ A continuación se presentan los gráficos realizados para cada caso:
 
 
 \subsection{Debate}
+\label{Debate1}
 
 \paragraph{}
-Como primera observación de los gráficos expuestos en la sección anterior, cabe decir que la complejidad real se ajustó perfectamente la la complejidad teórica, ya que en todos los casos se pudo hallar una constante $c \in\ \real$ tal que a partir de algún $n_0$ el gráfico de $c.log_2$(n) pasa a acotar superiormente a la cantidad de operaciones realizadas por el algoritmo.
+Como primera observación de los gráficos expuestos en la sección anterior, cabe decir que la complejidad real se ajustó a la complejidad teórica, ya que en todos los casos se pudo hallar una constante $c \in\ \real$ tal que a partir de algún $n_0$ el gráfico de $c.log_2$(n) pasa a acotar superiormente a la cantidad de operaciones realizadas por el algoritmo.
+
+\paragraph{}
+En lo que respecta a la las hipótesis postuladas en la sección \ref{Resultados1}, analicemos una a una su veracidad en función de los gráficos obtenidos.\\
+Se puede advertir mediante la observación del  \ref{grafico3} que se cumple la hipótesis 1, ya que para todo n la cantidad de operaciones es constante. Del mismo módo, cotejando \ref{grafico1} y \ref{grafico2} se corrobora la hipótesis 2 ya que para los \textit{n's} del caso \texttt{a} la cantidad de operaciones asciende hasta 320 aproximadamente, mientras que en el caso \texttt{b} no traspasan la barrera de las 250 operaciones.\\
+En cuanto a la hipótesis 3, la comparación entre \ref{grafico1} y \ref{grafico5} no pareciera arrojar ningún dato que pudiera confirmar la suposición. Más aún, pareciera refutarla, ya que para el grueso de los \textit{n's} medidos en cada caso, el algoritmo encuentra la solución al problema en 300 operaciones aproximadamente. \\
+Por último, en lo que concierne a la hipótesis 4, viendo el \ref{grafico3} se ve que para \textit{n's} en el orden de $10^9$, el algoritmo llega a realizar alrrededor de 340 operaciones; valor que sin duda supera a todas las cantidades de operaciones de los demás casos. Puede verse también que la distribución de las mediciones es la que mejor se ajusta a la curva logarítmica de entre las restantes mediciones. 
 
 
-%\subsection{Conclusiones}
+\subsection{Conclusiones}
+En base analizado en la sección \ref{Debate1}, es digno de remarcar el como conclusión hecho de que la complejidad medida en la realidad se asemeja bastante a las complejidades teóricas estimadas. Asímismo, el hecho de que el número de operaciones necesarias para resolver el algoritmo crece de manera logarítmica conforme el tamaño de la entrada aumente. No obstante, en el caso en que \textit{b} sea un múltiplo de \textit{n}, el algoritmo será capaz de resolver el problema en un número constante de operaciones, aunque no así de tiempo, ya que el tiempo que demore en realizar las operaciones dependerá del tamaño de \textit{n}.
+Por último, se puede concluir que el hecho de que \textit{n} sea un número primo no conlleva a un aumento significativo en la cantidad de operaciones, por lo que la complejidad real en esos casos se mantiene consistente a la complejidad teórica.
+
+
