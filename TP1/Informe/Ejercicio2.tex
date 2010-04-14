@@ -171,10 +171,11 @@ Aca, ademas de los graficos, podemos mencionar que para algunos casos el algorit
 
 \subsection{Debate}
 \paragraph{}
-De los resultados pertenecientes a la sección [\ref{complejidadej2}] podemos observar cómo se comporta la implementación frente a algunas entradas particulares. Las mismas fueron creadas al azar pero de forma tal que se cumplan los invariantes citados en [\ref{introej2}].
+De los resultados pertenecientes a la sección [\ref{complejidadej2}] podemos observar cómo se comporta la implementación frente a algunas entradas particulares. Las mismas fueron creadas al azar pero de forma tal que se cumplan los invariantes citados en [\ref{introej2}] y con el agregado de fijar la cantidad de enlaces (amistades) en cada ronda (esta función del generador de casos de prueba es explicado en la sección \textbf{resultados}.
+
 
 \paragraph{}
-En un primer análisis, podemos ver que en general para todos los casos analizados la función proveniente de graficar cantidad de chicas contra tiempo demorado en ejecutar el algoritmo se asemeja bastante a una función polinomial. Si bien sabemos que esto no refleja la verdadera complejidad del algoritmo, en primer instancia podría significar un buen funcionamiento de las mejoras realizadas en el algoritmo a la técnica utilizada.
+En un primer análisis, podemos ver que en general para todos los casos analizados la función proveniente de graficar cantidad de chicas contra tiempo demorado en ejecutar el algoritmo se asemeja bastante a una función polinomial cuando la cantidad de relaciones es alta. Si bien sabemos que esto no refleja la verdadera complejidad del algoritmo, en primer instancia podría significar un buen funcionamiento de las mejoras realizadas sobre el algoritmo.
 
 \paragraph{}
 La función antes mencionada, pareciera ser bastante monótona. Igualmente, se observa con claridad la aparición de casos en los cuales se demoró mucho más tiempo que el tiempo promedio. Esto podría dejar entrever que para ciertos valores de la entrada o no se encontró resultado alguno, por lo cuál se tuvieron que analizar los (n-1)! casos posibles, o bien se encontró una solución al problema, pero esta se demoró en ser encontrada ya que se trataba de un ejemplo en el cual las mejoras realizadas no surtieron efecto o, peor aún, tuvieron un efecto contrario al deseado.
