@@ -1,6 +1,6 @@
 CPPCOMPILER = g++
 CPPFLAGS = -c -g -w
-OBJS = Ronda.o
+OBJS = Ronda.o Chica.o
 
 .PHONY = clean all
 

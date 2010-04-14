@@ -2,14 +2,31 @@
 #define __RONDA__
 
 #include <iostream>
-#include <map>
 #include <list>
 #include <set>
-#include <algorithm>
 
 using namespace std;
 
-typedef int chica;
+
+
+class chica{
+private:
+	int nombre;
+	set<int>* amigas;
+
+public:
+	chica();
+	~chica();
+	int dameNombre() const;
+	set<int>* dameAmigas() const;
+	chica(const chica&);
+	chica& operator=(const chica &c1);
+	void nombrar(int i);
+	void amigar(int i);
+	void borrarAmigas();
+};
+
+
 
 class Ronda{
 
@@ -18,31 +35,20 @@ class Ronda{
 		Ronda();
 		
 		~Ronda();
-		
-		void agregarAmistades(chica c,list<chica> amigas);
-		
+
 		void cargarAmistades(istream& is,int n);
-		
 		bool resolver();
-
-		bool probarDistintasRondas(chica prim, chica ult);
-		
-		void mostrar(ostream& os) const ;
-
-		bool comparacionPorAmistades(const chica& primera,const chica& segunda);
+		bool probarDistintasRondas(const chica &prim,const chica& ult);
 
 	private:
-	
-		//de aca voy a saber si una chica esta o no en la ronda que estoy armando
-		set<chica>* enRonda;
-		
-		//contiene las relaciones entre las chicas
-		map<chica,list<chica> >* amistades;
-		
-		void cargarRelacion(istream& is);
 
+		set<int>* enRonda;
+		list<chica>* gente;
+		set<int>* amigasPrimera;
 };
 
-ostream& operator<<(ostream& os, const Ronda &r);
+
+bool operator<(const chica &c1,const chica &c2);
+
 
 #endif
