@@ -1,15 +1,18 @@
 \section{Ejercicio 3}
 
 \subsection{Introducción}
-\paragraph{}
-El tercer y \'ultimo problema de este trabajo pr\'actico consistió en la implementación de un algoritmo que dé una solución al siguiente problema:\\
-Dadas dos listas con horarios de entrada y salida de ciertos trabajadores a una empresa, decidir cu\'al es el mayor n\'umero de trabajadores que se encuentran al mismo tiempo dentro de dicha empresa. Estas listas cumplían con estas condiciones:
-\begin{itemize}
-	\item Están ordenadas ascendentemente por horario.
-	\item Las horas van desde 00:00:00 hasta 23:59:59
-	\item Para todos los trabajadores, es cierto que su horario de ingreso es estrictamente menor que su horario de egreso.
-\end{itemize}
 
+\paragraph{}
+El tercer y \'ultimo problema de este trabajo pr\'actico consiste en, dadas dos listas con horarios de entrada y salida de cierto grupo de trabajadores a una empresa, se quiere saber cu\'al es la m\'axima cantidad de empleados que se encuentran en simult\'aneo dentro de dicha empresa. Estas listas cumplen con la particularidad de que:
+	\begin{itemize}
+		\item Están ordenadas ascendentemente por horario.
+		\item Las horas van desde 00:00:00 hasta 23:59:59
+		\item Para todos los trabajadores, es cierto que su horario de ingreso es estrictamente menor que su horario de egreso.
+	\end{itemize}
+Adem\'as, como parte de la consigna se solicitaba que el algoritmo produjese un resultado correcto en tiempo estrictamente menor a \Ode{n^2}, donde n es la cantidad de trabajadores pertenecientes a la empresa.
+
+\paragraph{}
+La solución empleada no requiri\'o de una t\'ecnica algor\'itmica compleja, sino que aprovech\'o las características de los datos de entrada para resolver el problema de una forma eficaz. Conociendo que existen dos listas (una de horarios de entrada y otra de horarios de salidas), y que ambas listas esta\'an ordenadas por horarios, bastó simplemente con un recorrido lineal sobre ellas para poder llevar un registro del número de empleados dentro de la empresa y así averiguar con certeza la solución al problema.
 
 
 \subsection{Explicación}
@@ -17,69 +20,23 @@ Dadas dos listas con horarios de entrada y salida de ciertos trabajadores a una 
 \label{explicacion}
 
 \paragraph{}
-En una primer mirada, se pens\'o que la mejor forma de resolver el ejercicio era aplicando un algoritmo similar al del quicksort\footnote{Alguna referencia que explique el algoritmo}, s\'olo que el mismo se realizaba sobre conjuntos y no sobre arreglos. En resumidas cuentas, la idea era tomar un trabajador cualquiera del grupo, y separar en tres conjuntos distintos: los que se cruzaban con el trabajador pivote, los que sal\'ian antes que el pivote entrara y los que entraban luego que el pivote saliera\footnote{Para que el algoritmo funcionara bien, se deb\'ia tener cierto cuidado con los trabajadores que se cruzaran con el pivote, pero la explicaci\'on de estos detalles no hacen a la esencia de la introducci\'on. Adem\'as, este algoritmo fue descartado m\'as adelante, por lo que estos detalles son irrelevantes para este trabajo.}. De esta manera, si se repet\'ia el proceso varias veces, se llegaba a tener varios conjuntos en los cuales aparec\'ian solamente trabajadores que se cruzaban en sus horarios dentro de la empresa. Finalmente, s\'olo restaba devolver el mayor cardinal de dichos conjuntos.
+En una primer mirada, se pens\'o que la mejor forma de resolver el ejercicio era aplicando un algoritmo similar al quicksort\footnote{Alguna referencia que explique el algoritmo}, s\'olo que el mismo se realizaba sobre conjuntos y no sobre arreglos. En resumidas cuentas, la idea consist\'ia en tomar un trabajador cualquiera del grupo para actuar de pivot, y luego mediante la comparaci\'on con el pivot, separar a los restantes en tres conjuntos distintos: los que sal\'ian antes que el pivote entrara a la empresa, los que entraban luego que el pivote saliera de la empresa y los que se cruzaban con el trabajador pivote (tanto cuando el pivote entraba y el otro sal\'a como en el caso inverso). De esta manera, si se repet\'ia el proceso varias veces, se obten\'ia varios conjuntos en los cuales aparec\'ian \'unicamente los trabajadores que se cruzaban en sus horarios dentro de la empresa. Finalmente, s\'olo restaba devolver el mayor cardinal de dichos conjuntos.\\
+Al igual que el quicksort, si el pivote era elegido al azar, el algoritmo anterior contaba con una complejidad promedio de \Ode{n*log(n)}. De cualquier modo, el peor caso segu\'ia siendo \Ode{n^2}, por lo que no se cumpl\'ia con la cota m\'axima pedida para este trabajo.
 
 \paragraph{}
-Al igual que el quicksort, si el pivote era elegido al azar, el algoritmo anterior contaba con una complejidad promedio de \Ode{n*log(n)} (donde $n$ es la cantidad de trabajadores).  Igualmente, el peor caso segu\'ia siendo \Ode{n^2}, por lo que no se iba a poder respetar la cota dada como m\'axima para este trabajo, ya que se especificaba que el algoritmo deb\'ia tener una complejidad menor a \Ode{n^2}.
-
-\paragraph{}
-Pero luego de un mejor an\'alisis del problema, se cay\'o en la cuenta que los datos de entrada contaban con la caracter\'istica de estar ordenados por horario (tanto los de entrada como los de salida), por lo que inmediatamente surgi\'o la idea de poder solucionar el problema con una complejidad de \Ode{n} sin necesidad siquiera de una técnica algorítmica compleja.
+Como corolario de un an\'alisis m\'as exhaustivo del problema, se cay\'o en la cuenta que los datos de entrada contaban con la caracter\'istica de estar ordenados por horario, tanto en la lista de entradas como en la de salidas. Dicha observación posibilitó el desarrollo de una idea capaz de solucionar el problema en tiempo \Ode{n}, la cual se expone en la sección a continuac\'ion.
 
 
 \subsubsection{Segunda aproximación}
 \paragraph{}
-Para encontrar soluci\'on al problema dado, lo primero que se realiz\'o fue pensar qu\'e cosas se necesitaban para representarlo. Para ello se cre\'o una clase ``Empresa'', la cual consta de dos arreglos que contienen en cada posici\'on, una hora junto con un nombre de un trabajador, ambos arreglos ordenados ascendentemente por hora. Uno de ellos contiene los horarios de entrada de los trabajadores, mientras que el otro contiene los de salida. 
+Para encontrar soluci\'on al problema dado, lo primero que se realiz\'o fue pensar qu\'e cosas se necesitaban para representarlo. Para ello se cre\'o una clase ``Empresa'', sobre la cual se cargar\'ian los datos de entrada. La clase en cuestión consta de dos arreglos de tuplas $\langle$ horario, trabajador\footnote{Cada trabajador es representado por un número natural}$\rangle$. Dichos arreglos se hallan ordenados ascendentemente por horario; uno de los ellos contiene \'unicamente los horarios de entrada, mientras que el otro contiene \'unicamente los de salida. 
 
 \paragraph{}
-Una vez cargados los datos en nuestra estructura, se procedi\'o a armar el algoritmo que resuelve el problema. La idea del mismo fue ir index\'ando ambos arreglos desde la posici\'on 0 hasta la n-1 \'esima. De esta forma, se iba recorriendo el arreglo que conten\'ia los horarios de entrada, hasta que se encontrara una posici\'on en la cu\'al su horario de entrada fuese mayor al horario de salida que se estaba indexando en ese momento (en el caso de la primer iteraci\'on por ejemplo, el horario ubicado en la posici\'on 0 del arreglo de horarios de salida). Mientras se realizaba esto, un contador con valor inicial 0 se iba incrementando con cada iteraci\'on, simulando as\'i la cantidad de trabajadores que iban entrando.
-
-\paragraph{}
-Cuando se encontraba un horario de entrada mayor al de salida esto significaba que, antes que ingresara un nuevo trabajador, al menos uno se hab\'ia retirado, por lo que se sal\'ia de esta iteraci\'on. En un primer paso se verificaba cu\'antos trabajadores habían entrado hasta ese momento y se guardaba en una variable (siempre y cuando dicho valor fuese mayor al guardado anteriormente). Luego, se recorr\'ia el arreglo que conten\'ia los horarios de salida de una manera parecida a la de antes: recorrer hasta que se encuentre un horario mayor al indexado en el arreglo de entradas, con la diferencia que en este caso, cada vez que se iteraba, se decrementaba el contador de trabajadores simulando un egreso.
-
-\paragraph{}
-Esto se repet\'ia varias veces, hasta que se indexaran todas las posiciones del arreglo de los horarios de entrada, devolviendo finalmente el valor que se iba actualizando tras cada cambio de iteraci\'on, es decir, el valor que se actualizaba una vez que se dejaba de iterar el arreglo con los horarios de entrada.
-
-\paragraph{}
-A modo de una explicaci\'on m\'as clara que nos acerque un poco m\'as a la implementaci\'on, detallamos lo expreso anteriormente a trav\'es del siguiente pseudoc\'odigo:
-
-\incmargin{1em}
-\linesnumbered
-\restylealgo{boxed}
-%\dontprintsemicolon
-
-
-\SetKw{Orden}{Complejidad:}
-\begin{algorithm}[H]
-\Orden{O(n)}
-\BlankLine
-\textbf{var} i,j,maxJuntos,juntosPorAhora : \entero \\
-\textbf{var} termine : bool \\
-\BlankLine
-i $\leftarrow$ j $\leftarrow$ maxJuntos $\leftarrow$ juntosPorAhora $\leftarrow$ 0\tcp*{O(1)}
-termine $\leftarrow$ false\tcp*{O(1)}
-\BlankLine
-\While{(!termine)\tcp*{O(n)}}{
-
-    \While{(noLlegueAlFinal(i,n) $\&\&$ hora(entradas[i]) $\leq$ hora(salidas[j]))\tcp*{O(1)}}{
-    
-	juntosPorAhora++		\tcp*{O(1)}
-	i++				\tcp*{O(1)}
-    }
-    \BlankLine
-    termine = i $\geq$ n			\tcp*{O(1)}
-    \BlankLine
-    \If{(maxJuntos $\leq$ juntosPorAhora)\tcp*{O(1)}}{maxJuntos $\leftarrow$ juntosPorAhora\tcp*{O(1)}}
-    \BlankLine
-    \While{(!termine $\&\&$ hora(salidas[j]) $\leq$ hora(entradas[i]))\tcp*{O(1)}}{
-    
-	juntosPorAhora$--$		\tcp*{O(1)}
-	j++						\tcp*{O(1)}
-    }
-
-}
-\BlankLine
-\textbf{return} maxJuntos
-\end{algorithm}
+Una vez resuelto el problema de cómo albergar los datos de manera de poder acceder a ellos de forma eficiente, se prosiguió con el desarrollo del algoritmo que resolviera el problema planteado en la intrducci\'on. \\
+La idea del mismo consiste en ir index\'ando ambos arreglos desde la posici\'on 0 hasta la n-1 \'esima. De esta forma, se recorre el arreglo que contiene los horarios de entrada, hasta que se encuentra posici\'on en la cual el horario de entrada sea mayor al horario de salida que se est\'a indexando en ese momento (por ejemplo, en el caso de la primera iteraci\'on, el horario ubicado en la posici\'on 0 del arreglo de horarios de salida). Mientras esto se realiza, un contador con valor inicial 0 se va incrementando con cada iteraci\'on, simulando as\'i la cantidad de trabajadores dentro del establecimiento.\\
+De momento que se halla un horario de entrada mayor al de salida esto significa que, antes que ingrese el trabajador correspondiente a ese horario de entrada, hubo al menos uno que se retir\'o. Esto lleva a dejar de iterar el arreglo de entradas y pasar a iterar el de salidas, al tiempo que se guarda en la variable a devolver el máximo entre el contador de trabajadores dentro de la empresa y el mayor n\'umero de empleados que hubo dentro de la empresa registrado hasta el momento (este \'ultimo valor inicialmente es 0). \\
+Luego, se recorre el arreglo que contiene los horarios de salida decremendo el contador de trabajadores dentro de la empresa, (simulando de ese modo el egreso de un trabajador). hasta encontrar un horario mayor al indexado en el arreglo de entradas, en cuyo caso se alternaba al arreglo a iterar.\\
+Esta iteraci\'on "alternada" sobre los arrelgos se repite, hasta haberse indexado todas las posiciones del arreglo con los horarios de entrada, momento en el cual se devuelve el valor de la variable en la que se fueron almacenando los m\'aximos.
 
 \paragraph{}
 De esta explicación y de un análisis más minucioso del pseudocódigo, se desprenden algunas hipótesis.
@@ -87,6 +44,43 @@ De esta explicación y de un análisis más minucioso del pseudocódigo, se desp
 	\item La complejidad temporal del algoritmo es \Ode{n}.
 	\item El peor caso se da cuando hay muchos trabajadores dispersos durante todo el día, es decir, si todos los horarios de salida y entrada entre dos trabajadores cualesquiera son disjuntos.
 \end{itemize}
+
+\paragraph{}
+A modo de una explicaci\'on m\'as clara que nos acerque un poco m\'as a la implementaci\'on, detallamos lo expuesto anteriormente a trav\'es del siguiente pseudoc\'odigo:
+
+	\incmargin{1em}
+	\linesnumbered
+	\restylealgo{boxed}
+
+	\SetKw{Orden}{Complejidad:}
+		\begin{algorithm}[H]
+			\Orden{O(n)}
+			\BlankLine
+			\textbf{var} i,j,maxJuntos,juntosPorAhora : \entero \\
+			\textbf{var} termine : bool \\
+			\BlankLine
+			i $\leftarrow$ j $\leftarrow$ maxJuntos $\leftarrow$ juntosPorAhora $\leftarrow$ 0\tcp*{O(1)}
+			termine $\leftarrow$ false\tcp*{O(1)}
+			\BlankLine
+			\While{(!termine)\tcp*{O(n)}}{
+				\While{(noLlegueAlFinal(i,n) $\&\&$ hora(entradas[i]) $\leq$ hora(salidas[j]))\tcp*{O(1)}}{
+					juntosPorAhora++		\tcp*{O(1)}
+					i++				\tcp*{O(1)}
+				}
+				\BlankLine
+				termine = i $\geq$ n			\tcp*{O(1)}
+				\BlankLine
+				\If{(maxJuntos $\leq$ juntosPorAhora)\tcp*{O(1)}}{maxJuntos $\leftarrow$ juntosPorAhora\tcp*{O(1)}}
+				\BlankLine
+				\While{(!termine $\&\&$ hora(salidas[j]) $\leq$ hora(entradas[i]))\tcp*{O(1)}}{
+					juntosPorAhora$--$		\tcp*{O(1)}
+					j++						\tcp*{O(1)}
+				}
+
+			}
+			\BlankLine
+			\textbf{return} maxJuntos
+		\end{algorithm}
 
 
 \subsection{Análisis de la complejidad del algoritmo}
@@ -135,27 +129,25 @@ Los parámetros son opcionales, pero se puede elegir entre no pasar ningún par�
 \subsection{Resultados}
 \label{resultadosej3}
 
-\begin{table}[ht] %ubicacion de la tabla
-\centering %centra la tabla
-\begin{tabular}{c}
-\includegraphics[scale=0.7]{../ej3/graficos/contarOp1.pdf} \\
-\includegraphics[scale=0.7]{../ej3/graficos/contarOp5.pdf}
-\end{tabular}
+	\begin{table}[ht] %ubicacion de la tabla
+		\centering %centra la tabla
+			\begin{tabular}{c}
+				\includegraphics[scale=0.7]{../ej3/graficos/contarOp1.pdf} \\
+				\includegraphics[scale=0.7]{../ej3/graficos/contarOp5.pdf}
+				\end{tabular}
+				\caption{Muestran el comportamiento de la cantidad de operaciones contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
+				\label{cantOpEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+	\end{table}
 
-\caption{Muestran el comportamiento de la cantidad de operaciones contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
-\label{cantOpEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
-\end{table}
-
-\begin{table}[ht] %ubicacion de la tabla
-\centering %centra la tabla
-\begin{tabular}{c}
-\includegraphics[scale=0.7]{../ej3/graficos/clocks1.pdf} \\
-\includegraphics[scale=0.7]{../ej3/graficos/clocks5.pdf}
-\end{tabular}
-
-\caption{Muestran el comportamiento de la cantidad de ticks de reloj contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
-\label{clocksEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
-\end{table}
+	\begin{table}[ht] %ubicacion de la tabla
+		\centering %centra la tabla
+			\begin{tabular}{c}
+				\includegraphics[scale=0.7]{../ej3/graficos/clocks1.pdf} \\
+				\includegraphics[scale=0.7]{../ej3/graficos/clocks5.pdf}
+			\end{tabular}
+			\caption{Muestran el comportamiento de la cantidad de ticks de reloj contra la cantidad de trabajadores. El primer gráfico proviene de una entrada hecha al azar. El segundo proviene de evaluar el comportamiento del algoritmo para el peor caso.} %titulo de la tabla
+			\label{clocksEj3} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+	\end{table}
 
 \begin{table}[ht] %ubicacion de la tabla
 \centering %centra la tabla
