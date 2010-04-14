@@ -146,16 +146,23 @@ A continuación se ve un pseudocodigo que muestra el comportamiento de la estrat
 \label{complejidadej2}
 
 \paragraph{}
-La complejidad en el peor caso de este algoritmo surge inmediatamente al hacer pruebas. Dependiendo de las entradas elegidas, el programa podria tener que 
-recorrer casi todas las ramas del arbol hasta poder decir que no hay solucion. En este caso, podriamos entonces solo acotar el peor caso por la funcion $f(n) = c.(n-1)! + b$ 
-(donde b y c son constantes) ya que la cantidad de formas de armar una ronda con n personas es (n!/n) = (n-1)!\footnote{Se lo puede imaginar como una fila de n personas. Para la primer posición hay n personas disponibles, para la segunda n-1, y asi sucesivamente. Por lo tanto hay n*(n-1)*...*1 = n! formas de acomodar las personas en una fila. Ahora, si se unen las puntas, podria rotar la fila n veces y seguiria siendo la misma ronda, por lo tanto dividiendo por n obtengo la respuesta: \textbf{(n-1)!}.} 
+La complejidad en el peor caso de este algoritmo surge inmediatamente al hacer pruebas. Dependiendo de las entradas elegidas, el programa podría tener que 
+recorrer casi todas las ramas del árbol hasta poder decir que no hay solución. En este caso, podríamos entonces solo acotar el peor caso por la función $f(n) = c.(n-1)! + b$ 
+(donde b y c son constantes) ya que la cantidad de formas de armar una ronda con n personas es (n!/n) = (n-1)!\footnote{Se lo puede imaginar como una fila de n personas. Para la primer posición hay n personas disponibles, para la segunda n-1, y así sucesivamente. Por lo tanto hay n*(n-1)*...*1 = n! formas de acomodar las personas en una fila. Ahora, si se unen las puntas, podría rotar la fila n veces y seguiría siendo la misma ronda, por lo tanto dividiendo por n obtengo la respuesta: \textbf{(n-1)!}.} 
 
 \paragraph{}
-Por lo tanto, el algoritmo implementado NO es bueno. Sin embargo, cuando para un conjunto de datos de entrada se puede formar una ronda, el algoritmo no recorre todo el arbol en busca de la solución, sino que al encontrar una termina. Esta propiedad del backtracking y el resto de las mejoras, hace que para ciertos datos de entradas en donde se pueden formar rondas, el algoritmo se comporte como lo haria una solucion polinomial.
+Por lo tanto, el algoritmo implementado NO es bueno. Sin embargo, cuando para un conjunto de datos de entrada se puede formar una ronda, el algoritmo no recorre todo el árbol en busca de la solución, sino que al encontrar una termina. Esta propiedad del backtracking y el resto de las mejoras, hace que para ciertos datos de entradas en donde se pueden formar rondas, el algoritmo se comporte como lo haría una solución polinomial.
 
 \paragraph{}
 En lo que respecta a la complejidad del mejor caso, se puede ver de forma simple que el mismo se da si en el primer intento de formar una ronda se lograra llegar a una respuesta válida. Esto significa que el algoritmo demoró $n$ pasos para unir a las amigas y uno más para verificar que era una ronda válida. Por lo tanto, la complejidad en el mejor caso es \omegade{n}
-%\subsection[Detalles de Implementación}
+
+
+\subsection{Detalles de Implementación}
+\paragraph{}
+Para compilar este programa, sólo hace falta ejecutar el comando make. El modo de uso del mismo es simple: En la carpeta que contiene al ejecutable debe existir un archivo con los datos de entrada llamado ``entrada''. El programa pasará a ejecutarse y una vez que termine, devolverá en un archivo llamado ``salida'' el resultado buscado.
+
+
+
 \subsection{Resultados}
 \label{resultadosej2}
 Aca, ademas de los graficos, podemos mencionar que para algunos casos el algoritmo no termino, pero por decisión nuestra, ya que si las mejoras no servian para cortar antes el algoritmo y justo esa distribucion de amigas no tenia solucion, si las amigas eran muchas el algoritmo demoraria mucho en terminar
