@@ -28,7 +28,43 @@ En su forma básica, la idea de backtracking se asemeja a un recorrido en profun
 \\ \\
 
 En este caso particular, la idea es, seleccionar una persona (P), ingresarla en la ronda, 
-	
+
+gente: lista(chica);
+enRonda: conj(nombre);
+
+\vspace{3cm}
+\incmargin{1em}
+\linesnumbered
+\restylealgo{boxed}
+
+\textbf{resolver()}\\
+\SetKw{Orden}{Complejidad:}
+	\begin{algorithm}[H]
+	\Orden{T(n)}
+		\BlankLine
+		\textbf{var} n : int $\leftarrow$ tam(gente) \\
+		\textbf{var} sonPocas : bool $\leftarrow$ false \\
+		\textbf{var} sonSuficientes : bool $\leftarrow$ false \\
+		
+	  \ForEach{k en gente}{
+		  sonPocas $\leftarrow$ sonPocas or tam(amigas(k)) $<$ 2;\\
+		  sonSuficientes $=$ sonSuficientes $\&\&$ tam(amigas(k)) $==$ n-1);
+	   }
+    \If{(sonSuficientes)}{retornar true}
+    \If{(sonPocas)}{retornar false}
+
+	\textbf{var} solitaria : chica $\leftarrow$ primerElemento(gente);
+
+	insertar(nombre(solitaria),enRonda);
+
+	retornar  probarDistintasRondas(solitaria,solitaria);
+	\BlankLine
+
+
+
+
+	  \end{algorithm}
+	  
 
 %\subsection{Análisis de la complejidad del algoritmo}
 %\subsection[Detalles de Implementación}
