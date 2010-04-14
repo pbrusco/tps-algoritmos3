@@ -19,7 +19,9 @@
 	\usepackage[lined]{algorithm2e}
 	\usepackage{amssymb}			%simbolos matematicos
 	\usepackage{pdfpages}
-	
+
+% Paqute para incluir hypervinculos (falta probarlo bien)
+	%\usepackage{hyperref}
 	
 % Paquete para armar índices
 	\usepackage{makeidx}
@@ -29,13 +31,13 @@
 	\parskip=1.5pt
 
 % Comandos personalizados
-\newcommand{\entero}{\ensuremath{\mathbb{Z}}}
-\newcommand{\titade}[1]{\ensuremath{\Theta(#1)}}
-\newcommand{\omegade}[1]{\ensuremath{\Omega(#1)}}
-\newcommand{\nat}{\ensuremath{\mathbb{N}}}
+	\newcommand{\nat}{\ensuremath{\mathbb{N}}}
+	\newcommand{\entero}{\ensuremath{\mathbb{Z}}}
+	\newcommand{\real}{\ensuremath{\mathbb{R}}}
+	\newcommand{\titade}[1]{\ensuremath{\Theta(#1)}}
+	\newcommand{\omegade}[1]{\ensuremath{\Omega(#1)}}
 
-%para usar hypervinculos (falta probarlo bien)
-%\usepackage{hyperref}
+
 
 \begin{document}
 
@@ -54,6 +56,6 @@
 \newpage	 	\input{Ejercicio1.tex}
 \newpage 	\input{Ejercicio2.tex}
 \newpage 	\input{Ejercicio3.tex}
-%\newpage		\includegraphics[scale=0.9]{2010C1L1.pdf}[c]
+%\newpage		\includegraphics[scale=0.9]{2010C1L1.pdf}[ht]
 
 \end{document}
