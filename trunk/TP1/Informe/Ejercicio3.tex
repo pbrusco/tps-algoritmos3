@@ -52,7 +52,7 @@ A modo de una explicaci\'on m\'as clara que nos acerque un poco m\'as a la imple
 	\incmargin{1em}
 	\linesnumbered
 	\restylealgo{boxed}
-
+	\textbf{int maxCantProgJuntos((int,int) entradas[], (int,int) salidas[])}\\
 	\SetKw{Orden}{Complejidad:}
 		\begin{algorithm}[H]
 			\Orden{O(n)}
@@ -112,6 +112,20 @@ La variable \textit{i} sólo es modificada en el primer while anidado, increment
 \paragraph{}
 Si consideramos la precondición que dice que todos los trabajadores ingresan a la empresa estrictamente antes de egresar, podemos decir entonces que este primer while anidado va a ejecutarse siempre a lo sumo n veces\footnote{Ver condición del primer while anidado}. Por lo tanto, el algoritmo tiene una complejidad de \Ode{n}. Es más, se puede asegurar que el algoritmo nunca va a terminar antes de recorrer toda la lista de ingresos, por lo que el mejor caso es \omegade{n}, es decir, el algoritmo es \titade{n}
 
+\paragraph{}
+Vamos a demostrar ahora que la complejidad del algoritmo es lineal en el tamaño de la entrada.
+
+\paragraph{}
+Para empezar, vamos a decir que $n =\ cantidad\ de\ programadores\ de\ la\ empresa$. Se tiene entonces que:
+\begin{itemize}
+	\item C(I) = \Ode{n}
+	\item E(I) = \Ode{n}
+\end{itemize}
+
+En este caso, podemos ver claramente y sin necesidad de aplicar la definición de la relación entre la complejidad y el tamaño de la entrada, que:
+\begin{equation}
+	C(I) = c' * E(I) \Leftrightarrow C(I) = \Ode{E(I)}
+\end{equation}
 
 
 \subsection{Detalles de Implementación}
