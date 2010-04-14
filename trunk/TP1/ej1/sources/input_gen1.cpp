@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
+#include <cmath>
 #include <time.h>
 #include <cassert>
 #include <algorithm>
@@ -15,6 +16,7 @@ using namespace std;
 
 void MenuPrincipal();
 char LeerOpcion(char desde, char hasta);
+bool esPrimo(long long int n);
 void generarArchivo(int modo);
 
 
@@ -40,7 +42,7 @@ void MenuPrincipal() {
             << "c. b mod (n) = 0" << endl
 
 			// n impar
-            << "d. n impar" << endl
+            << "d. n = 2^k - 1, con 2 <= k <= 30" << endl
 
 			// n primo
             << "e. n primo" << endl
@@ -96,6 +98,36 @@ char LeerOpcion(char desde, char hasta){
     return opt[0];
 }
 
+bool esPrimo(long long int n) {
+	if (n == 1)
+		return 0;
+	
+	else if (n < 4)
+		return 1;							// 2 y 3 son primos
+	
+	else if (n % 2 == 0)
+		return 0;
+
+	else if (n < 9)
+		return 1;  					 		// ya excluimos a 4,6 y 8
+
+	else if (n % 3 == 0)
+		return 0;
+
+	else {
+		long long int r = floor(sqrt(n)); 		// parte entera de la raíz de n
+		long long int f = 5;
+		
+		while (f <= r) {
+		    if ((n % f == 0) or (n % (f + 2) == 0))
+				return 0;
+		    f += 6;
+		}
+	}
+
+	return 1;
+}
+
 void generarArchivo(int modo) {
 	
 	system("clear");
@@ -148,13 +180,12 @@ void generarArchivo(int modo) {
 			}
 		}break;
 
-		// n impar
+		// n = 2^k -1
 		case 4: {
 			forn(i, cant_casos) {
 				b = (rand() % 1000000);
-				n = (1 + rand() % 1000000);
-				while(n % 2 == 0)
-					n = (1 + rand() % 1000000);
+				n = (1 + rand() % 30);
+				n = pow(2,n) - 1;
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
@@ -164,18 +195,23 @@ void generarArchivo(int modo) {
 			forn(i, cant_casos) {
 				b = (rand() % 100000);
 				n = (1 + rand() % 1000000);
+				while(! esPrimo(n))
+					n = (1 + rand() % 1000000);
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
 
-		// b primo y b cualquiera
+		// b primo y n cualquiera
 		case 6: {
 			forn(i, cant_casos) {
 				b = (rand() % 100000);
 				n = (1 + rand() % 1000000);
+				while(! esPrimo(b))
+					b = (rand() % 100000);
 				outfile << b << "\t" << n << endl;
 			}
 		}break;
+		
 	}
 	outfile << -1 << "\t" << -1 << endl;
 	outfile.close();
