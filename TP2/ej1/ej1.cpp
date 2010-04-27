@@ -21,7 +21,7 @@ int main(){
 	
 	do{
 		sigueArchivo = cargar(v,entrada);
-		mostrar(v);
+
 		if(sigueArchivo) salida << escalerar(v) << endl;
 	}while(sigueArchivo);
 	
