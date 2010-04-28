@@ -1,11 +1,35 @@
 \section{Ejercicio 1}
 
+
 \subsection{Introducción}
+
+\paragraph{}
+El primer problema de este trabajo práctico consistió en dar un algoritmo que sea capaz de decir, dada una secuencia de números, la cantidad de números mínima a eliminar de la misma para que cumpla con cierta propiedad. En este caso, la propiedad que debía cumplir la secuencia  modificada era que la misma sea unimodal. Una secuencia es unimodal si la misma cumple que es creciente desde el primer elemento hasta cierta posición y desde dicha posición es decreciente hasta el final\footnote{Debe ser estrictamente creciente/decreciente}.
+
+\paragraph{}
+Además, se requirió que la complejidad del algoritmo que resolviera el problema antes mencionado, debía ser estrictamente menor que \Ode{n^3}.
+
+\paragraph{}
+Se pensaron varias formas de encarar y resolver este problema, pero se concluyó que lo mejor era aplicar la técnica de \textit{programación dinámica}. En las secciones siguientes, daremos una explicación detallada de cómo se implementó el algoritmo, cuál es su complejidad temporal y cómo se comportó frente a distintos valores y tamaños de entrada.
+
+
+\subsection{Explicación}
+
+\paragraph{}
+Desde el comienzo resultó bastante difícil encontrar dónde se podía aplicar el \textit{principio de optimalidad} para resolver este problema utilizando \textit{programación dinámica}. Luego de mucho observar y releer, se pudo intuir que este problema, podía ser visto como una combinación de otro problema similar: encontrar la subsecuencia creciente/decreciente más larga. Básicamente, el razonamiento fue el siguiente:\\
+Si para cada posición \textit{i} de la secuencia sabemos:
+\begin{itemize}
+	\item Longitud de la subsecuencia creciente más larga desde el principio hasta \textit{i} (que contenga al elemento i-ésimo)
+	\item Longitud de la subsecuencia decreciente más larga desde \textit{i} hasta el final (que contenga al elemento i-ésimo)
+\end{itemize}
+entonces podemos decir cuál es el largo de una secuencia unimodal que tiene como "pivote" u objeto más grande al i-ésimo de la secuencia. Finalmente, sólo bastaría saber cuál es el "pivote" que maximice esa longitud, ya que conocer la longitud de la subsecuencia unimodal más larga es equivalente a encontrar la cantidad mínima de elementos a eliminar para transformar la secuencia dada en una secuencia unimodal, que es el problema que necesitabamos resolver.
+
+\paragraph{}
 
 
 \subsection{Análisis de la complejidad del algoritmo}
-
+\subsection{Detalles de Implementación}
 \subsection{Resultados}
 \label{Resultados1}
-
+\subsection{Debate}
 \subsection{Conclusiones}
