@@ -118,11 +118,13 @@ bool cargar(Grafo &G,ifstream &entrada){
 	int n,cantVecinos,vecino;
 	limpiar(G);
 	entrada >> n;
+	
+
+	if (n == -1) return false;
+		
 	G.matrizAdyNombrada.resize(n);
 	for(int s = 0;s<n;s++) 	G.matrizAdyNombrada[s].resize(n);
 
-		if (n == -1) return false;
-		
 		for(int i = 1;i<=n;i++){
 			entrada >> cantVecinos;
 			for(int j = 1;j<= cantVecinos;j++){
