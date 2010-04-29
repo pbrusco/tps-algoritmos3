@@ -1,25 +1,34 @@
 #include <iostream>
+#include <fstream>
+#include <map>
+#include <set>
+#include <vector>
 
 using namespace std;
 
 
-void insertarResta(set<int>& ejesUsados,const set<int>& vEjesHasta,const set<int>& wEjesHasta);	
-int eje(const Grafo& G, int v1,int v2); //O(1)
 
 struct Grafo{
 	
 	struct datos{
-		int padre = 0;
+		int padre;
 		set<int> vecinos;
 		set<int> ejesHasta;
-		bool visitado = false;
+		bool visitado;
 		};
-		
+	int cant_aristas;
 	set<int> ejesUsados; //EJes percenecientes a ALGUN ciclo.
  	map<int,datos> info;	//DADO UN VERTICE, DA LA INFO (PADRE-VECINOS-EJESHASTA-VISITADO)
 	vector<vector<int> > matrizAdyNombrada;	//es una matriz de adyacencia donde en las intersecciones tiene el nombre del eje que los une.
 
 } //Ver como inicializar
+
+
+void insertarResta(set<int>& ejesUsados,const set<int>& vEjesHasta,const set<int>& wEjesHasta);	
+int eje(const Grafo& G, int v1,int v2); //O(1)
+bool cargar(Grafo &G,ifstream &entrada);
+void limpiar(Grafo &G);
+
 
 
 int main(){
@@ -30,15 +39,16 @@ int main(){
 	
 	entrada.open("Tp2Ej2.in");
 	salida.open("miSaldo.out");
-
+	int n,k;
 	bool sigueArchivo;
 	
 	do{
 		sigueArchivo = cargar(G,entrada);
-
+		n = G.info.size();
+		
 		if(sigueArchivo){ 
 			k = dfs_ciclos(1);
-			if(k < n || G.ejesUsados.size() < m) salida<< "no" << endl;}
+			if(k < n || G.ejesUsados.size() < G.cant_aristas) salida<< "no" << endl;}
 			else salida << "fuertemente conexo" << endl;
 
 	}while(sigueArchivo);
@@ -47,9 +57,9 @@ int main(){
 
 	
 
-	//if(k < n || G.ejesUsados.size() < m) cout << "NO SE PUEDE" << endl;
-	//else cout << "SI SE PUEDE; SI SE PUEDE; SI SE PUEDE" << endl;
-
+	entrada.close();
+	salida.close();
+	
 	return 0;
 }
 
@@ -82,7 +92,7 @@ int dfs_ciclos(int vertice){ //ESTO VA A SER LLAMADO K VECES CON K<=n)
 
 int eje(const Grafo& G, int v1,int v2){ //O(1)
 
-	return G.matrizAdyNombrada[v1][v2];
+	return G.matrizAdyNombrada[v1-1][v2-1];
 	
 	
 }
@@ -104,10 +114,37 @@ void insertarResta(set<int>& ejesUsados,const set<int>& vEjesHasta,const set<int
 
 bool cargar(Grafo &G,ifstream &entrada){
 
+	int k = 1;
+	int n,a;
+	limpiar(G);
+	entrada >> n;
+	matrizAdyNombrada.rezise(n);
+	for(int s = 0;s<n;s++) 	matrizAdyNombrada[s].rezise(n);
+
+		if (n == -1) return false;
+		
+		for(int i = 1;i<=n;i++){
+			entrada >> cantVecinos;
+			for(int j = 1;j<= cantVecinos;j++){
+				entrada >> vecino;
+				if(G.matrizAdyNombrada[i-1][vecino-1] == 0) {G.matrizAdyNombrada[vecino-1][i-1] = k;k++;G.cant_aristas++}
+				else G.matrizAdyNombrada[vecino-1][i-1] = G.matrizAdyNombrada[i-1][vecino-1];
+				G.info[i].vecinos.insert(vecino);
+			}
+			G.info[i].padre = 0;
+			G.info[i].visitado = false;
+				
+		}
+
+	return true;
+}
 
 
-
-
+void limpiar(Grafo &G){
+	G.ejesUsados.clear()
+ 	G.info.clear();
+	matrizAdyNombrada.rezise(0);	
+	G.cant_aristas = 0;
 }
 
 
