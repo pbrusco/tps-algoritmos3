@@ -48,9 +48,9 @@ int main(){
 		
 		if(sigueArchivo){ 
 			k = dfs_ciclos(1,G);
-			if(k < n || G.ejesUsados.size() < G.cant_aristas) salida<< "no" << endl;}
+			if(k < n-1 || G.ejesUsados.size() < G.cant_aristas) salida<< "no" << endl;
 			else salida << "fuertemente conexo" << endl;
-
+		}
 	}while(sigueArchivo);
 	
 
@@ -129,7 +129,7 @@ bool cargar(Grafo &G,ifstream &entrada){
 			entrada >> cantVecinos;
 			for(int j = 1;j<= cantVecinos;j++){
 				entrada >> vecino;
-				if(G.matrizAdyNombrada[i-1][vecino-1] == 0) {G.matrizAdyNombrada[vecino-1][i-1] = k;k++;G.cant_aristas++;}
+				if(G.matrizAdyNombrada[i-1][vecino-1] == 0) {G.matrizAdyNombrada[vecino-1][i-1] = k;k++;G.cant_aristas = G.cant_aristas+1;}
 				else G.matrizAdyNombrada[vecino-1][i-1] = G.matrizAdyNombrada[i-1][vecino-1];
 				G.info[i].vecinos.insert(vecino);
 			}
