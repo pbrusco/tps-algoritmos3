@@ -48,7 +48,7 @@ int main(){
 		
 		if(sigueArchivo){ 
 			k = dfs_ciclos(1,G);
-			if(k < n|| G.ejesUsados.size() < G.cant_aristas) salida<< "no" << endl;
+			if(k < n|| G.ejesUsados.size() < G.cant_aristas || k < 3) salida<< "no" << endl;
 			else salida << "fuertemente conexo" << endl;
 		}
 	}while(sigueArchivo);
