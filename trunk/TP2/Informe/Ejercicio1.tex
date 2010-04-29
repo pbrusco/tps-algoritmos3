@@ -10,7 +10,7 @@ El primer problema de este trabajo práctico consistió en dar un algoritmo que 
 Además, se requirió que la complejidad del algoritmo que resolviera el problema antes mencionado, debía ser estrictamente menor que \Ode{n^3}.
 
 \paragraph{}
-Se pensaron varias formas de encarar y resolver este problema, pero se concluyó que lo mejor era aplicar la técnica de \textit{programación dinámica}. En las secciones siguientes, daremos una explicación detallada de cómo se implementó el algoritmo, cuál es su complejidad temporal y cómo se comportó frente a distintos valores y tamaños de entrada.
+Se pensaron varias formas de encarar y resolver este problema, finalmente se aplicó la técnica de \textit{programación dinámica}. En las secciones siguientes, daremos una explicación detallada de cómo se implementó el algoritmo, cuál es su complejidad temporal y cómo se comportó frente a distintos valores y tamaños de entrada.
 
 
 \subsection{Explicación}
@@ -25,6 +25,52 @@ Si para cada posición \textit{i} de la secuencia sabemos:
 entonces podemos decir cuál es el largo de una secuencia unimodal que tiene como "pivote" u objeto más grande al i-ésimo de la secuencia. Finalmente, sólo bastaría saber cuál es el "pivote" que maximice esa longitud, ya que conocer la longitud de la subsecuencia unimodal más larga es equivalente a encontrar la cantidad mínima de elementos a eliminar para transformar la secuencia dada en una secuencia unimodal, que es el problema que necesitabamos resolver.
 
 \paragraph{}
+Entonces, veamos como conseguimos la subsecuencia creciente más larga desde el principio hasta el pivote con el siguiente pseudocodigo:
+
+
+
+
+
+
+\textbf{void ascenso(v: vector)}\\
+\SetKw{Orden}{Complejidad:}
+	\begin{algorithm}[H]
+	\Orden{O($n^2$)}
+
+     \For{$i = 0;i<= tam(v);i++$}{
+    ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1;}
+  \end{algorithm}
+
+
+\paragraph{}
+Donde ascenso es un arreglo donde se va guardando , en la posicion i, la longitud del mayor ascenso hasta i. La función maximoAsc(ascenso,v,i) indica, dentro del arreglo ascenso, la maxima longitud de un ascenso hasta la posicion i-1 del arreglo tal que cumpla la siguiente propiedad:
+
+
+\paragraph{}
+Si j es el indice del ascenso donde se encuentra el resultado, tiene que ocurrir que:
+
+$$(\forall k \in [0...i) , v[k]<v[i]) ascenso[j] > ascenso[k]$$
+
+
+\paragraph{}
+para lo cual utilizamos el siguiente algoritmo:
+
+
+\paragraph{}
+\textit{nat maximoAsc(ascenso: vector(nat), v: vector(int),i: nat)}\\
+\SetKw{Orden}{Complejidad:}
+	\begin{algorithm}[H]
+	\Orden{O($i$)}
+	
+      \textbf{var} res: nat
+      res $\leftarrow$ 0
+	
+     \For{$k = 0;k < i;k++$}{
+  \lIf{v[j] $<$ v[i] and res $<$ ascenso[j]}{res $\leftarrow$ ascenso[j]}}
+  \end{algorithm}
+
+\vspace*{30cm}
+		
 
 
 \subsection{Análisis de la complejidad del algoritmo}
