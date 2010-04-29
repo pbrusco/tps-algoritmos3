@@ -48,7 +48,7 @@ int main(){
 		
 		if(sigueArchivo){ 
 			k = dfs_ciclos(1,G);
-			if(k < n-1 || G.ejesUsados.size() < G.cant_aristas) salida<< "no" << endl;
+			if(k < n|| G.ejesUsados.size() < G.cant_aristas) salida<< "no" << endl;
 			else salida << "fuertemente conexo" << endl;
 		}
 	}while(sigueArchivo);
@@ -86,7 +86,7 @@ int dfs_ciclos(int vertice,Grafo &G){ //ESTO VA A SER LLAMADO K VECES CON K<=n)
 		}
 		
 	}
-	return 0;
+	return 1;
 }
 	
 
