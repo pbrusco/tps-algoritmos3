@@ -63,10 +63,14 @@ void carcel::cargarCarcel(istream& is, int n, int p, int m){
 	//actualizo todos los valores y tamaños
 	cantHabitaciones = n;
 	llaves->resize(n);
+	llaves->clear();
 	puertas->resize(n);
+	puertas->clear();
 	pasillos->resize(n);
-	for(int i = 0; i < n; i++)	(*pasillos)[i].resize(n);
-	
+	for(int i = 0; i < n; i++){
+		(*pasillos)[i].resize(n);
+		(*pasillos)[i].clear();
+	}
 	
 	for(int i = 0; i < p ; i++){
 	
