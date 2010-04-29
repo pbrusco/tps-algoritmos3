@@ -31,12 +31,12 @@ struct carcel{
 		delete puertas;
 		delete pasillos;	
 	}
-	void vaciar();
 	void cargarCarcel(istream& is, int n, int p, int m);
 	bool sonAdyacentes(int,int) const;
 	bool tienePuerta(int) const;
 	bool tieneLlave(int) const;
 	int dameLlave(int) const;
+	void mostrar() const;
 	
 };
 
@@ -90,9 +90,30 @@ void carcel::cargarCarcel(istream& is, int n, int p, int m){
 	}
 }
 
+void carcel::mostrar() const{
+
+	cout << "llaves" << endl;
+	for(int i = 0; i < cantHabitaciones ; i++){
+		cout << "hab=" << i << "   " << "llave=" << (*llaves)[i] << endl;
+	}
+	
+	cout << endl << "puertas" << endl;
+	for(int i = 0; i < cantHabitaciones ; i++){
+		cout << "hab=" << i << "   " << "tienePuerta=" << (*puertas)[i] << endl;
+	}
+	
+	cout << "matriz de adyacencia" << endl;
+	for(int i = 0; i < cantHabitaciones ; i++){
+		for(int j = 0; j < cantHabitaciones ; j++){
+			cout << (*pasillos)[i][j] << " ";
+		}
+		cout << endl;
+	}
+
+}
 
 bool resolver(const carcel& c);
-void recorrerPorBFS(queue<int>& habitacionesProximas, queue<int>& habitacionesLimites, set<int>& habitacionesYaVisitadas, set<int>& llavesEncontradas, const carcel& c);
+void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, set<int>& habitacionesYaVisitadas, set<int>& llavesEncontradas, const carcel& c);
 
 
 
@@ -134,6 +155,8 @@ int main(int argc, char** args){
 	
 		c.cargarCarcel(is,n,p,m);
 		
+		c.mostrar();
+		
 		//resuelvo y guardo
 		res = resolver(c);
 		
@@ -174,20 +197,19 @@ bool resolver(const carcel& c){
 	
 	set<int> llavesEncontradas;
 	
-	//aca guardo las habitaciones en las que se debe hacer BFS
-	queue<int> habitacionesProximas;
-	
+	int proximaHabitacion;
+
 	bool puedoSeguir = true;
 	int contador;
 	
 	
 	//arranco a hacer BFS con la primer habitacion
-	habitacionesProximas.push(0);
+	proximaHabitacion = 0;
 	
 	do{
 		
 		//luego de este llamado, habitacionesProximas == []
-		recorrerPorBFS(habitacionesProximas, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c);
+		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c);
 
 		
 		if(!habitacionesLimites.empty()){
@@ -204,12 +226,15 @@ bool resolver(const carcel& c){
 				if(contador == 0)	puedoSeguir = false;
 			}
 			
-			habitacionesProximas.push(habitacionesLimites.front());
+			proximaHabitacion = habitacionesLimites.front();
 			habitacionesLimites.pop();
+		}
+		else{
+			proximaHabitacion = 0;
 		}
 	
 	
-	}while(puedoSeguir && (!habitacionesProximas.empty() || !llavesEncontradas.empty()));
+	}while( puedoSeguir && (proximaHabitacion != 0) );
 	
 	
 	if(habitacionesYaVisitadas.count(c.cantHabitaciones-1) == 1)	return true;
@@ -220,7 +245,7 @@ bool resolver(const carcel& c){
 }
 
 
-void recorrerPorBFS(queue<int>& habitacionesProximas, queue<int>& habitacionesLimites, set<int>& habitacionesYaVisitadas, set<int>& llavesEncontradas, const carcel& c){
+void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, set<int>& habitacionesYaVisitadas, set<int>& llavesEncontradas, const carcel& c){
 
 /*
 La idea de esta funcion es que sea una funcion boba.
@@ -235,7 +260,9 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 */
 
 
-
+	queue<int> habitacionesProximas;
+	habitacionesProximas.push(proximaHabitacion);
+		
 	int actual;
 	
 	do{
@@ -244,8 +271,11 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 		actual = habitacionesProximas.front();	
 		habitacionesProximas.pop();
 		habitacionesYaVisitadas.insert(actual);
-		if(c.tieneLlave(actual))	llavesEncontradas.insert(c.dameLlave(actual));
-
+		
+		if(c.tieneLlave(actual)){
+			llavesEncontradas.insert(c.dameLlave(actual));
+		}
+		
 		for(int i = 0; i<c.cantHabitaciones; i++){
 	
 			//si son vecinas y no visite a la iesima
