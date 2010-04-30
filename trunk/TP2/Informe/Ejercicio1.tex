@@ -69,8 +69,35 @@ para lo cual utilizamos el siguiente algoritmo:
   \lIf{v[j] $<$ v[i] and res $<$ ascenso[j]}{res $\leftarrow$ ascenso[j]}}
   \end{algorithm}
 
+
+Ejemplo:
+$S = \left\lbrace 9,5,2,8,7,3,1,6,4\right\rbrace$ 
+
+Las subsecuencias más largas son $\left\lbrace 2,3,4\right\rbrace$ o $\left\lbrace 2,3,6\right\rbrace$
+\\
+Para construir un algoritmo de programación dinámica definimos:
+
+$ascenso_i$ = longitud de la secuencia creciente más larga que termina con el número $v_i$
+
+Relación de recurrencia:
+
+$ascenso_0 = 0$
+$ascenso_i  = max_{j<i}  ascenso_j + 1 \;      con v_j < v_i  $
+
+La solución al problema la da
+$max_{1\leq i\leq n} ascenso_i$
+
+
+
 \vspace*{30cm}
 		
+
+
+
+
+
+
+
 
 
 \subsection{Análisis de la complejidad del algoritmo}
