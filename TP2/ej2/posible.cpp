@@ -28,7 +28,7 @@ void insertarResta(set<int>& ejesUsados,const set<int>& vEjesHasta,const set<int
 int eje(const Grafo& G, int v1,int v2); //O(1)
 bool cargar(Grafo &G,ifstream &entrada);
 void limpiar(Grafo &G);
-void dfs_ciclos(int vertice,Grafo &G,int cuenta);
+void dfs_ciclos(int vertice,Grafo &G,int &cuenta);
 
 int main(){
 
@@ -38,14 +38,16 @@ int main(){
 	
 	entrada.open("Tp2Ej2.in");
 	salida.open("miSaldo.out");
-	int n,cuenta;
+	int n;
+	int cuenta;
 	bool sigueArchivo;
 	
 	do{
 		sigueArchivo = cargar(G,entrada);
 		n = G.info.size();
 		
-		if(sigueArchivo){ 
+		if(sigueArchivo){
+			cuenta = 0; 
 			dfs_ciclos(1,G,cuenta);
 			if(cuenta < n || G.ejesUsados.size() < G.cant_aristas  || cuenta < 3) salida<< "no" << endl;
 			else salida << "fuertemente conexo" << endl;
@@ -64,7 +66,7 @@ int main(){
 
 
 
-void dfs_ciclos(int vertice,Grafo &G,int cuenta){ //ESTO VA A SER LLAMADO K VECES CON K<=n)
+void dfs_ciclos(int vertice,Grafo &G,int& cuenta){ //ESTO VA A SER LLAMADO K VECES CON K<=n)
 cuenta = cuenta + 1;
 cout << endl << vertice;
 	G.info[vertice].ejesHasta = G.info[G.info[vertice].padre].ejesHasta;  // Linear on sizes (destruction, copy construction). O(n).(recordar que los ejes hasta son la misma cant que los nodos visitados)
