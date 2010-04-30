@@ -205,24 +205,27 @@ bool resolver(const carcel& c){
 
 	bool puedoSeguir = true;
 	int contador;
-	
+	bool termine;
 	
 	//arranco a hacer BFS con la primer habitacion
 	proximaHabitacion = 0;
 	
 	do{
 		
-		//luego de este llamado, habitacionesProximas == []
-		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c);
-
 		
-		if(!habitacionesLimites.empty()){
+		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c);//O(n^2)
+		//postcondicion: habitacionesProximas == []
+		
+		
+		//me fijo si ya recorri todas las habitaciones (digo todas porque se que no hay mas encoladas en habitacionesProximas)
+		termine = habitacionesLimites.empty();
+		if(!termine){//O(1)
 			
-			contador = habitacionesLimites.size();
+			contador = habitacionesLimites.size();//O(1)
 			
 			//lo que hago aca es dejar como primer habitacion dentro de las "limite" a una de la cual tenga llave
-			//si no tengo llave para ninguna puerta, entonces no hay solucion			
-			while(  puedoSeguir && (llavesEncontradas.count(habitacionesLimites.front()) == 0) ) {
+			//si no tengo llave para ninguna puerta, entonces veo si encontre solucion o no		
+			while(  puedoSeguir && (llavesEncontradas.count(habitacionesLimites.front()) == 0) ) {//O(n)
 				
 				habitacionesLimites.push(habitacionesLimites.front());
 				habitacionesLimites.pop();
@@ -233,15 +236,14 @@ bool resolver(const carcel& c){
 			proximaHabitacion = habitacionesLimites.front();
 			habitacionesLimites.pop();
 		}
-		else{
-			proximaHabitacion = 0;
-		}
+			
+	
+	}while( puedoSeguir && (!termine) );//¿O(1)?
+	//Esto corta cuando se recorrieron todas las habitaciones o cuando no hay llaves disponibles para las que quedaron sin recorrer
+	//Esto se balancea con recorrerPorBFS, haciendo que la complejidad nunca supere O(n^2), ya que si por ej,BFS recorre todos los nodos va a tener complejidad n^2, pero entonces el do-while solo se ejecuta una sola vez.
 	
 	
-	}while( puedoSeguir && (proximaHabitacion != 0) );
-	
-	
-	if(habitacionesYaVisitadas.count(c.cantHabitaciones-1) == 1)	return true;
+	if(habitacionesYaVisitadas.count(c.cantHabitaciones-1) == 1)	return true;//O(log n)
 	
 	
 	return false;
@@ -280,7 +282,7 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 			llavesEncontradas.insert(c.dameLlave(actual));
 		}
 		
-		for(int i = 0; i<c.cantHabitaciones; i++){
+		for(int i = 0; i<c.cantHabitaciones; i++){//O(n)
 	
 			//si son vecinas y no visite a la iesima
 			if(c.sonAdyacentes(actual,i) && habitacionesYaVisitadas.count(i) == 0){
@@ -301,7 +303,7 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 	
 		}//end for
 		
-	}while(!habitacionesProximas.empty());
+	}while(!habitacionesProximas.empty());//O(n) porque recorro una sola vez cada nodo
 
 
 
