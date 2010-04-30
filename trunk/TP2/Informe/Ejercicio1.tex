@@ -43,13 +43,15 @@ Para construir un algoritmo de programación dinámica definimos:
 
 	
 \item la solucion final: $max_{1\leq i\leq n} \{ascenso_i\}$
+\end{itemize}
+ \vspace*{0.5cm}
+Veamos el pseudocódigo de ascenso para entender el mecanismo:
+\vspace*{1cm}
 
-Veamos el pseudocódigo:
-
-\textbf{void ascenso(v: vector)}\\
+void  \textbf{ascenso}(v: vector)\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
-	\Orden{O($n^2$)}
+	\Orden{O($tam(v)^2$)}
 
      \For{$i = 0;i<= tam(v);i++$}{
     ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1;}
@@ -62,33 +64,91 @@ Donde ascenso es un vector donde se va guardando , en la posicion i, la longitud
 
 \vspace*{1cm}
 
-Si j es el indice del ascenso donde se encuentra el resultado, tiene que ocurrir que:
+Si j es el indice del ascenso donde se encuentra el resultado, tiene que ocurrir que: \footnote{ver pseudocódigo en el anexo}
 
-$$(\forall k \in [0...i) , v[k]<v[i]) \  ascenso[j] > ascenso[k]$$\footnote{ver pseudocódigo en el anexo}
+$$(\forall k \in [0...i) , v[k]<v[i]) \  ascenso[j] > ascenso[k]$$
 
 
 Por lo tanto, de esta manera podemos obtener para cada pivote, la longitud del mayor ascenso hasta esa posición.
 
-Veamos un ejemplo:
+\vspace*{1cm}
+Veamos un \textit{ejemplo}:
 
 $v = \left\lbrace 9,5,2,8,7,3,1,6,4\right\rbrace$ 
 
-Las subsecuencias más largas son $\left\lbrace 2,3,4\right\rbrace$ o $\left\lbrace 2,3,6\right\rbrace$
+Las subsecuencias ascendentes más largas son $\left\lbrace 2,3,4\right\rbrace$ o $\left\lbrace 2,3,6\right\rbrace$
+
+\begin{center}
+   \begin{tabular}{| l | c | c |c |c |c |c |c |c |c | }
+     \hline
+     sucesión & 9 & 5 & 2 & 8 & 7 & 3 & 1 & 6 & 4 \\ \hline
+     longitud & 1& 1& 1& 2& 2& 2& 1 &3 & 3 \\ \hline
+     
+     \hline
+   \end{tabular}
+ \end{center}
+
+Aquí podemos observar que en cada posición de la fila longitud, se encuentra la longitud de la secuencia creciente más larga hasta ese punto.
+
+\paragraph{}
+Una vez realizado este proceso, podemos obtener, ejecutando un algoritmo equivalente (pero desde el final hacia el principio) que obtenga, para cada posición, la longitud de la secuencia decreciente más larga desde la posición hacia el final. Al ejecutar esté proceso sobre el ejemplo obtendríamos:
+
+\begin{center}
+   \begin{tabular}{| l | c | c |c |c |c |c |c |c |c | }
+     \hline
+     sucesión & 9 & 5 & 2 & 8 & 7 & 3 & 1 & 6 & 4 \\ \hline
+     ascendente & 1& 1& 1& 2& 2& 2& 1 &3 & 3 \\ \hline
+     descendente & 5& 3& 2& 4& 3& 2& 1 &2 & 1 \\ \hline
+          \hline
+   \end{tabular}
+ \end{center}
+
+Luego, para decidir cual es el mejor pivot, nos basamos en dos filas extra implicitas que podemos ver a continuación :
+
+\begin{center}
+   \begin{tabular}{| l | c | c |c |c |c |c |c |c |c | }
+     \hline
+     sucesión 		& 9& 5& 2& 8& 7& 3& 1 &6 & 4 \\ \hline
+     ascendente 	& 1& 1& 1& 2& 2& 2& 1 &3 & 3 \\ \hline
+     descendente 	& 5& 3& 2& 4& 3& 2& 1 &2 & 1 \\ \hline
+     suma	 	& 5& 3& 2& 5& 4& 3& 1 &4 & 3 \\ \hline
+     tam(S) - suma;	& 4& 6& 7& 4& 5& 6& 8 &5 & 6 \\ \hline
+     
+          \hline
+   \end{tabular}
+ \end{center}
 
 
+\paragraph{}
+Donde $suma_i = ascendente_i + descendente_i - 1 \; \forall i \in [ 1..tam(s)]$ \\(esto quiere decir, la suma de las longitudes de la secuencia de mayor longitud creciente hasta i + la longitud de la secuencia de mayor longitud decreciente desde i). Se le resta 1 porque ambas secuencias incluyen al elemento de la posición i.
+
+La fila tam(S)-suma representa, cuantos elementos NO fueron usados para esta ``escalera''. 
 
 
-\end{itemize}
+\paragraph{}
+Por lo tanto se busca el máximo valor de la fila suma, lo que es equivalente a buscar el mínimo en la fila tam(s)-suma que representa la cantidad minima de borrados a realizar para lograr formar la secuencia unimodal y ese es el resultado devuelto por nuestra función.
 
+\subsection{Anexo: Pseudocódigos}
+\label{pseudocodigos1}
 
-
-\subsection*{anexo}
 
 \vspace*{1cm}
-	
-para lo cual utilizamos el algoritmo explicado con el siguiente pseudocódigo:
-	
-\textbf{nat maximoAsc(ascenso: vector(nat), v: vector(int),i: nat)}\\
+Pseudocódigo de la función descenso y maximoAsc:
+\\
+\\
+
+void \textbf{descenso}(v: vector)\\
+\SetKw{Orden}{Complejidad:}
+	\begin{algorithm}[H]
+	\Orden{O($tam(v)^2$)}
+
+     \For{$i = tam(v);i \geq 0;i--$}{
+    descenso[i] $\leftarrow$ maximoDes(descenso,v,i) + 1;}
+  \end{algorithm}
+
+\vspace*{1cm}
+
+nat  \textbf{maximoAsc}(ascenso: vector(nat), v: vector(int),i: nat)\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
 	\Orden{O($i$)}
@@ -99,5 +159,6 @@ para lo cual utilizamos el algoritmo explicado con el siguiente pseudocódigo:
      \For{$k = 0;k < i;k++$}{
   \lIf{v[j] $<$ v[i] and res $<$ ascenso[j]}{res $\leftarrow$ ascenso[j]}}
   \end{algorithm}
+
 
 
