@@ -28,8 +28,7 @@ void insertarResta(set<int>& ejesUsados,const set<int>& vEjesHasta,const set<int
 int eje(const Grafo& G, int v1,int v2); //O(1)
 bool cargar(Grafo &G,ifstream &entrada);
 void limpiar(Grafo &G);
-int dfs_ciclos(int vertice,Grafo &G);
-
+void dfs_ciclos(int vertice,Grafo &G,int cuenta);
 
 int main(){
 
@@ -39,7 +38,7 @@ int main(){
 	
 	entrada.open("Tp2Ej2.in");
 	salida.open("miSaldo.out");
-	int n,k;
+	int n,cuenta;
 	bool sigueArchivo;
 	
 	do{
@@ -47,10 +46,10 @@ int main(){
 		n = G.info.size();
 		
 		if(sigueArchivo){ 
-			k = dfs_ciclos(1,G);
-			if(k < n|| G.ejesUsados.size() < G.cant_aristas || k < 3) salida<< "no" << endl;
+			dfs_ciclos(1,G,cuenta);
+			if(cuenta < n || G.ejesUsados.size() < G.cant_aristas  || cuenta < 3) salida<< "no" << endl;
 			else salida << "fuertemente conexo" << endl;
-		}
+	}
 	}while(sigueArchivo);
 	
 
@@ -65,17 +64,17 @@ int main(){
 
 
 
-int dfs_ciclos(int vertice,Grafo &G){ //ESTO VA A SER LLAMADO K VECES CON K<=n)
-
+void dfs_ciclos(int vertice,Grafo &G,int cuenta){ //ESTO VA A SER LLAMADO K VECES CON K<=n)
+cuenta = cuenta + 1;
+cout << endl << vertice;
 	G.info[vertice].ejesHasta = G.info[G.info[vertice].padre].ejesHasta;  // Linear on sizes (destruction, copy construction). O(n).(recordar que los ejes hasta son la misma cant que los nodos visitados)
 	G.info[vertice].ejesHasta.insert(eje(G,vertice,G.info[vertice].padre)); //( set.insert(x) ), logarithmic. + C(eje(v1,v2))
 	G.info[vertice].visitado = true;	//O(1)
 	
 	for(set<int>::iterator it = G.info[vertice].vecinos.begin(); it != G.info[vertice].vecinos.end();it++){ //Recorre los vecinos del vertice actual //Puede ejecutarse hasta n-1 veces
-	
-		if(not G.info[*it].visitado){				//Si el vecino no esta visitado (O(1))
+		if(G.info[*it].visitado == false){				//Si el vecino no esta visitado (O(1))
 			G.info[*it].padre = vertice;			//O(1)
-			return dfs_ciclos(*it,G) + 1;				//lo visito
+			dfs_ciclos(*it,G,cuenta);				//lo visito
 		}
 		else{							//Si el vecino esta visitado
 		
@@ -86,7 +85,6 @@ int dfs_ciclos(int vertice,Grafo &G){ //ESTO VA A SER LLAMADO K VECES CON K<=n)
 		}
 		
 	}
-	return 1;
 }
 	
 
@@ -129,7 +127,7 @@ bool cargar(Grafo &G,ifstream &entrada){
 			entrada >> cantVecinos;
 			for(int j = 1;j<= cantVecinos;j++){
 				entrada >> vecino;
-				if(G.matrizAdyNombrada[i-1][vecino-1] == 0) {G.matrizAdyNombrada[vecino-1][i-1] = k;k++;G.cant_aristas = G.cant_aristas+1;}
+				if(G.matrizAdyNombrada[i-1][vecino-1] == 0) {G.matrizAdyNombrada[vecino-1][i-1] = k;k++;G.cant_aristas++;}
 				else G.matrizAdyNombrada[vecino-1][i-1] = G.matrizAdyNombrada[i-1][vecino-1];
 				G.info[i].vecinos.insert(vecino);
 			}
