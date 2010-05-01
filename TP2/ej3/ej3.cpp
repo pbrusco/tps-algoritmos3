@@ -159,8 +159,6 @@ int main(int argc, char** args){
 	
 		c.cargarCarcel(is,n,p,m);
 		
-		c.mostrar();
-		
 		//resuelvo y guardo
 		res = resolver(c);
 		
@@ -265,10 +263,9 @@ Los parametros se modifican asi:
 Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puerta o tiene puerta pero tengo su llave
 */
 
-
 	queue<int> habitacionesProximas;
 	habitacionesProximas.push(proximaHabitacion);
-		
+	habitacionesYaVisitadas.insert(proximaHabitacion);
 	int actual;
 	
 	do{
@@ -276,8 +273,7 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 	
 		actual = habitacionesProximas.front();	
 		habitacionesProximas.pop();
-		habitacionesYaVisitadas.insert(actual);
-		
+				
 		if(c.tieneLlave(actual)){
 			llavesEncontradas.insert(c.dameLlave(actual));
 		}
@@ -290,9 +286,11 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 				//si tiene puerta y no tengo su llave
 				if(c.tienePuerta(i) && llavesEncontradas.count(i) == 0){
 					habitacionesLimites.push(i);
+					habitacionesYaVisitadas.insert(i);
 				}
 				else{
 					habitacionesProximas.push(i);
+					habitacionesYaVisitadas.insert(i);
 					
 					//si tenia su llave, la elimino
 					llavesEncontradas.erase(i);			

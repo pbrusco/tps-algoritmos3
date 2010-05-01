@@ -1,3 +1,44 @@
 \section{Ejercicio 3}
 
 \subsection{Introducción}
+
+\paragraph{}
+El tercer y último ejercicio de este trabajo práctico, consistía en dado un modelo de una prisión decidir si una persona condenada podía escapar o no de la misma. Este modelo fue dado de tal manera que se pudiera representar utilizando un grafo. La idea general del modelo de esta prisión, fue que en la misma haya habitaciones y pasillos. Cada pasillo conectaba dos habitaciones y no había más de un pasillo conectando dos habitaciones. Además, cada habitación podía estar vacía, tener una puerta o tener una llave. Para pasar por una habitación que tenía una puerta había que tener su respectiva llave.
+
+\paragraph{}
+Como requerimiento para este problema, se especificó que su solución debía tener una complejidad estrictamente menor que \Ode{n^3}, con n igual a la cantidad de habitaciones.
+
+
+\subsection{Explicación}
+
+\paragraph{}
+En primer instancia, se pensó en alguna forma de recorrer el grafo de manera que la misma sirviera para solucionar el problema planteado. Inmediatamente, surgió la idea de utilizar el método BFS para dicho fin.
+
+\paragraph{}
+Seguidamente, se realizaron algunos ejemplos en papel, para ver de que forma se iba a comportar el método elegido para este modelo en cuestión, ya que se no podía utilizar un BFS normal por las restricciones con las que se contaba. Luego de observar este comportamiento, se encontró una forma de resolver el problema utilizando BFS, la cuál se explica a continuación.
+
+\paragraph{}
+La idea utilizada para este ejercicio resultó bastante simple. La misma consiste en los siguientes pasos:
+\begin{itemize}
+	\item Se comienza a realizar BFS desde la primer habitación.
+	\item Cada vez que se encuentra una habitación con una llave, ésta se guarda en un conjunto de llaves.
+	\item Cada vez que se encuentra una habitación con puerta pueden suceder 2 cosas:
+	\begin{itemize}
+		\item Si ya se había encontrado su llave, se la recorre como si no tuviese puerta.
+		\item Si no se había encontrado su llave, se la ingresa a una cola donde se alojaran las habitaciones con estas características, sin aplicar BFS en ella.
+	\end{itemize}
+	\item Cuando el recorrido BFS termina, puede darse por dos motivos:
+	\begin{itemize}
+		\item Que se hayan recorrido todas las habitaciones.
+		\item Que queden habitaciones sin recorrer en la cola de aquellas que tienen puerta y no se encontró su llave.
+	\end{itemize}
+\end{itemize}
+
+Una vez terminado el primer BFS, se verifica si ya se recorrieron todas las habitaciones o, caso contrario, si quedan habitaciones que se puedan visitar\footnote{esto es equivalente a ver si de todas las habitaciones que quedaron encoladas por tener una puerta a la cuál no se tenía acceso, ahora hay alguna de las que sí se tenga llave ahora}. Si sucede lo segundo, entonces se repiten todos los pasos antes mencionados tomando como primer habitación para recorrer con BFS alguna de las que se habían encolado por no tener la llave necesaria para abrirla.\\
+Si sucede que se recorrieron todas las habitaciones o que no hay ninguna llave disponible que abra las habitaciones encoladas, entonces se sale de la recursión y se verifica si se visitó o no la última habitación (o habitación de salida). Si se visitó entonces significa que hay forma de salir de la prisión y sino, significa lo contrario.
+
+\subsection{Análisis de la complejidad del algoritmo}
+\subsection{Detalles de Implementación}
+\subsection{Resultados}
+\subsection{Debate}
+\subsection{Conclusiones}
