@@ -37,8 +37,61 @@ La idea utilizada para este ejercicio resultó bastante simple. La misma consist
 Una vez terminado el primer BFS, se verifica si ya se recorrieron todas las habitaciones o, caso contrario, si quedan habitaciones que se puedan visitar\footnote{esto es equivalente a ver si de todas las habitaciones que quedaron encoladas por tener una puerta a la cuál no se tenía acceso, ahora hay alguna de las que sí se tenga llave ahora}. Si sucede lo segundo, entonces se repiten todos los pasos antes mencionados tomando como primer habitación para recorrer con BFS alguna de las que se habían encolado por no tener la llave necesaria para abrirla.\\
 Si sucede que se recorrieron todas las habitaciones o que no hay ninguna llave disponible que abra las habitaciones encoladas, entonces se sale de la recursión y se verifica si se visitó o no la última habitación (o habitación de salida). Si se visitó entonces significa que hay forma de salir de la prisión y sino, significa lo contrario.
 
+\paragraph{}
+A continuación se adjunta, a modo de pseudocódigo, los algoritmos utilizados para resolver el problema descrito anteriormente.
+
+bool resolver(const carcel$\&$ c)\\
+
+\SetKw{Orden}{Complejidad:}
+\begin{algorithm}[H]
+	\Orden{\Ode{n^3}}
+	
+	set$<int>$ habitacionesYaVisitadas
+	
+	queue$<int>$ habitacionesLimites
+	
+	set$<int>$ llavesEncontradas
+	
+	int proximaHabitacion
+
+	bool puedoSeguir = true
+	int contador
+	bool termine = false
+	
+	proximaHabitacion = 0
+	
+	\While{(puedoSeguir $\wedge$ $\neg$termine)}{
+
+		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c) \tcp{\Ode{n^2}}
+		
+		termine = habitacionesLimites.empty();
+		
+		\If{($\neg$termine)\tcp{\Ode{1}}}{
+		
+			contador = habitacionesLimites.size()\tcp{\Ode{1}}
+			
+			\While{(puedoSeguir $\&\&$ (llavesEncontradas.count(habitacionesLimites.front()) == 0))\tcp{\Ode{n.log(n)}}}{
+				
+				habitacionesLimites.push(habitacionesLimites.front())
+				habitacionesLimites.pop()
+				contador--
+				if(contador == 0)	puedoSeguir = false
+			}
+			
+			proximaHabitacion = habitacionesLimites.front()
+			habitacionesLimites.pop()		
+			
+			
+		}	
+	}
+
+	\eIf{(habitacionesYaVisitadas.count(c.cantHabitaciones-1) == 1)\tcp{\Ode{log(n)}}}{return true}{return false}
+     
+\end{algorithm}
+
+
 \subsection{Análisis de la complejidad del algoritmo}
-\subsection{Detalles de Implementación}
+\subsection{Detalles de implementación}
 \subsection{Resultados}
 \subsection{Debate}
 \subsection{Conclusiones}
