@@ -3,121 +3,15 @@
 #include <vector>
 #include <set>
 #include <queue>
+#include "carcel.h"
 
 using namespace std;
 
 
-struct carcel{
-	int cantHabitaciones;
-	vector<int> *llaves;	//la posicion i me dice que en la habitacion i, esta la llave de la habitacion llaves[i]. Si es 0, entonces no tiene.
-	vector<bool> *puertas;	//la posicion i me dice si la habitacion i tiene puerta o no
-	vector< vector<bool> > *pasillos; //matriz de adyacencia
-	
-	//constructor
-	carcel(int n){
-		cantHabitaciones = n;
-		llaves = new vector<int>;
-		puertas = new vector<bool>;
-		pasillos = new vector<vector<bool> >;
-		llaves->resize(n);
-		puertas->resize(n);
-		pasillos->resize(n);
-		for(int i = 0; i < n; i++)	(*pasillos)[i].resize(n);
-	}
-	
-	//destructor
-	~carcel(){
-		delete llaves;
-		delete puertas;
-		delete pasillos;	
-	}
-	void cargarCarcel(istream& is, int n, int p, int m);
-	bool sonAdyacentes(int,int) const;
-	bool tienePuerta(int) const;
-	bool tieneLlave(int) const;
-	int dameLlave(int) const;
-	void mostrar() const;
-	
-};
-
-bool carcel::sonAdyacentes(int a,int b) const{
-	return (*pasillos)[a][b];
-}
-
-bool carcel::tienePuerta(int a) const{
-	return (*puertas)[a];
-}
-
-bool carcel::tieneLlave(int a) const{
-	return (*llaves)[a] != 0;
-}
-
-int carcel::dameLlave(int a) const{
-	return (*llaves)[a];
-}
-
-void carcel::cargarCarcel(istream& is, int n, int p, int m){
-
-	int habConLlave,hab,hab2;
-
-	//actualizo todos los valores y tamaños
-	cantHabitaciones = n;
-	llaves->resize(n);
-	llaves->clear();
-	puertas->resize(n);
-	puertas->clear();
-	pasillos->resize(n);
-	for(int i = 0; i < n; i++){
-		(*pasillos)[i].resize(n);
-		(*pasillos)[i].clear();
-	}
-	
-	for(int i = 0; i < p ; i++){
-	
-		//cargo la habitacion que contiene una llave, y el numero de la habitacion de dicha llave
-		is >> habConLlave;
-		is >> hab;
-		//actualizo la estructura
-		(*llaves)[habConLlave-1] = hab-1;
-		(*puertas)[hab-1] = true;
-	}
-	
-	for(int i = 0; i < m ; i++){
-	
-		//cargo las habitaciones vecinas
-		is >> hab;
-		is >> hab2;
-		//actualizo la estructura
-		(*pasillos)[hab-1][hab2-1] = true;	
-		(*pasillos)[hab2-1][hab-1] = true;
-	
-	}
-}
-
-void carcel::mostrar() const{
-
-	cout << "llaves" << endl;
-	for(int i = 0; i < cantHabitaciones ; i++){
-		cout << "hab=" << i << "   " << "llave=" << (*llaves)[i] << endl;
-	}
-	
-	cout << endl << "puertas" << endl;
-	for(int i = 0; i < cantHabitaciones ; i++){
-		cout << "hab=" << i << "   " << "tienePuerta=" << (*puertas)[i] << endl;
-	}
-	
-	cout << "matriz de adyacencia" << endl;
-	for(int i = 0; i < cantHabitaciones ; i++){
-		for(int j = 0; j < cantHabitaciones ; j++){
-			cout << (*pasillos)[i][j] << " ";
-		}
-		cout << endl;
-	}
-
-}
 
 bool resolver(const carcel& c);
-void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, set<int>& habitacionesYaVisitadas, set<int>& llavesEncontradas, const carcel& c);
+
+void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, vector<bool>& habitacionesYaVisitadas, vector<bool>& llavesEncontradas, const carcel& c);
 
 
 
@@ -129,7 +23,7 @@ int main(int argc, char** args){
 	
 	if(argc == 1){
 		entrada = "Tp2Ej3.in";
-		salida  = "Tp2Ej3.out";
+		salida  = "Tp2Ej3NUESTRO.out";
 	}
 	else if(argc == 3){
 		entrada = args[1];
@@ -192,12 +86,12 @@ int main(int argc, char** args){
 
 bool resolver(const carcel& c){
 
-	set<int> habitacionesYaVisitadas;
+	vector<bool> habitacionesYaVisitadas(c.cantHabitaciones);
 	
 	//aca me voy a guardar aquellas habitaciones que no pude visitar porque tenian una puerta de la cual aún no se tiene llave
 	queue<int> habitacionesLimites;
 	
-	set<int> llavesEncontradas;
+	vector<bool> llavesEncontradas(c.cantHabitaciones);
 	
 	int proximaHabitacion;
 
@@ -211,11 +105,9 @@ bool resolver(const carcel& c){
 	do{
 		
 		
-		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c);//O(n^2)
-		//postcondicion: habitacionesProximas == []
+		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c);//O(n^2)		
 		
-		
-		//me fijo si ya recorri todas las habitaciones (digo todas porque se que no hay mas encoladas en habitacionesProximas)
+		//me fijo si ya recorri todas las habitaciones
 		termine = habitacionesLimites.empty();
 		if(!termine){//O(1)
 			
@@ -223,7 +115,7 @@ bool resolver(const carcel& c){
 			
 			//lo que hago aca es dejar como primer habitacion dentro de las "limite" a una de la cual tenga llave
 			//si no tengo llave para ninguna puerta, entonces veo si encontre solucion o no		
-			while(  puedoSeguir && (llavesEncontradas.count(habitacionesLimites.front()) == 0) ) {//O(n)
+			while(  puedoSeguir && (!llavesEncontradas[habitacionesLimites.front()]) ) {//O(n)
 				
 				habitacionesLimites.push(habitacionesLimites.front());
 				habitacionesLimites.pop();
@@ -241,7 +133,7 @@ bool resolver(const carcel& c){
 	//Esto se balancea con recorrerPorBFS, haciendo que la complejidad nunca supere O(n^2), ya que si por ej,BFS recorre todos los nodos va a tener complejidad n^2, pero entonces el do-while solo se ejecuta una sola vez.
 	
 	
-	if(habitacionesYaVisitadas.count(c.cantHabitaciones-1) == 1)	return true;//O(log n)
+	if(habitacionesYaVisitadas[c.cantHabitaciones-1])	return true;
 	
 	
 	return false;
@@ -249,7 +141,7 @@ bool resolver(const carcel& c){
 }
 
 
-void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, set<int>& habitacionesYaVisitadas, set<int>& llavesEncontradas, const carcel& c){
+void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, vector<bool>& habitacionesYaVisitadas, vector<bool>& llavesEncontradas, const carcel& c){
 
 /*
 La idea de esta funcion es que sea una funcion boba.
@@ -265,7 +157,7 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 
 	queue<int> habitacionesProximas;
 	habitacionesProximas.push(proximaHabitacion);
-	habitacionesYaVisitadas.insert(proximaHabitacion);
+	habitacionesYaVisitadas[proximaHabitacion] = true;
 	int actual;
 	
 	do{
@@ -275,28 +167,22 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 		habitacionesProximas.pop();
 				
 		if(c.tieneLlave(actual)){
-			llavesEncontradas.insert(c.dameLlave(actual));
+			llavesEncontradas[c.dameLlave(actual)] = true;
 		}
 		
 		for(int i = 0; i<c.cantHabitaciones; i++){//O(n)
 	
 			//si son vecinas y no visite a la iesima
-			if(c.sonAdyacentes(actual,i) && habitacionesYaVisitadas.count(i) == 0){
+			if(c.sonAdyacentes(actual,i) && !habitacionesYaVisitadas[i]){
 		
 				//si tiene puerta y no tengo su llave
-				if(c.tienePuerta(i) && llavesEncontradas.count(i) == 0){
+				if(c.tienePuerta(i) && !llavesEncontradas[i]){
 					habitacionesLimites.push(i);
-					habitacionesYaVisitadas.insert(i);
 				}
 				else{
 					habitacionesProximas.push(i);
-					habitacionesYaVisitadas.insert(i);
-					
-					//si tenia su llave, la elimino
-					llavesEncontradas.erase(i);			
 				}
-				
-		
+				habitacionesYaVisitadas[i] = true;
 			}
 	
 		}//end for
