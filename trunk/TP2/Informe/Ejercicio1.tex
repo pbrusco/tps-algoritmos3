@@ -45,14 +45,14 @@ Para construir un algoritmo de programación dinámica definimos:
 \item la solucion final: $max_{1\leq i\leq n} \{ascenso_i\}$
 \end{itemize}
  \vspace*{0.5cm}
-Veamos el pseudocódigo de ascenso para entender el mecanismo:
+Veamos el pseudocódigo de completar\_ascensos para entender el mecanismo:
 \vspace*{1cm}
 
-void  \textbf{ascenso}(v: vector)\\
+void  \textbf{completar\_ascensos}(ascenso: vector<nat>, v: vector<int>)\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
 	\Orden{O($tam(v)^2$)}
-
+\BlankLine		
      \For{$i = 0;i<= tam(v);i++$}{
     ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1;}
   \end{algorithm}
@@ -128,6 +128,38 @@ La fila tam(S)-suma representa, cuantos elementos NO fueron usados para esta ``e
 \paragraph{}
 Por lo tanto se busca el máximo valor de la fila suma, lo que es equivalente a buscar el mínimo en la fila tam(s)-suma que representa la cantidad minima de borrados a realizar para lograr formar la secuencia unimodal y ese es el resultado devuelto por nuestra función.
 
+
+
+\subsection{Análisis de la complejidad del algoritmo}
+
+\paragraph{}
+A continuación se calculará la complejidad del algortimo implementado en la función \textit{escalerar}, que es el que resuelve el problema que se planteo. Primero veamos el pseudocódigo de la función completa:
+\vspace*{30pt}
+void \textbf{escalerar}(v: vector$\langle$int$\rangle$)\\
+\SetKw{Orden}{Complejidad:}
+	\begin{algorithm}[H]
+	\Orden{O($tam(v)^2$)} 
+\BlankLine		
+      \textbf{var} max: nat;\\
+      \textbf{var} ascenso: vector$\langle$nat$\rangle$(tam(v));\\
+      \textbf{var} descenso: vector$\langle$nat$\rangle$(tam(v));\\
+\BlankLine		
+      completar\_ascensos(ascenso,v);\\
+      completar\_descensos(descenso,v);\\	
+\BlankLine		
+      \For{$i = 0;i \leq tam(v);i++$}{
+	\lIf(ascenso[i] $+$ descenso[i] $\geq$ max) max $\leftarrow$ ascenso[i] $+$ descenso[i];\\
+	} 
+\BlankLine		
+	retornar  tam(v) $-$ max $+$ 1;\\
+
+
+
+\end{algorithm}
+
+
+
+
 \subsection{Anexo: Pseudocódigos}
 \label{pseudocodigos1}
 
@@ -137,25 +169,25 @@ Pseudocódigo de la función descenso y maximoAsc:
 \\
 \\
 
-void \textbf{descenso}(v: vector)\\
+void \textbf{completar\_descensos}(descenso: vector$\langle$nat$\rangle$, v: vector$\langle$int$\rangle$)\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
 	\Orden{O($tam(v)^2$)}
-
+\BlankLine		
      \For{$i = tam(v);i \geq 0;i--$}{
     descenso[i] $\leftarrow$ maximoDes(descenso,v,i) + 1;}
   \end{algorithm}
 
 \vspace*{1cm}
 
-nat  \textbf{maximoAsc}(ascenso: vector(nat), v: vector(int),i: nat)\\
+nat  \textbf{maximoAsc}(ascenso: vector$\langle$nat$\rangle$, v: vector$\langle$int$\rangle$,i: nat)\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
 	\Orden{O($i$)}
-	
+	\BlankLine		
       \textbf{var} res: nat
       res $\leftarrow$ 0
-	
+	\BlankLine		
      \For{$k = 0;k < i;k++$}{
   \lIf{v[j] $<$ v[i] and res $<$ ascenso[j]}{res $\leftarrow$ ascenso[j]}}
   \end{algorithm}
