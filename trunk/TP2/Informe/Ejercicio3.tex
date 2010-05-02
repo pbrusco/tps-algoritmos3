@@ -3,13 +3,14 @@
 \subsection{Introducción}
 
 \paragraph{}
-El tercer y último ejercicio de este trabajo práctico, consistía en dado un modelo de una prisión decidir si una persona condenada podía escapar o no de la misma. Este modelo fue dado de tal manera que se pudiera representar utilizando un grafo. La idea general del modelo de esta prisión, fue que en la misma haya habitaciones y pasillos. Cada pasillo conectaba dos habitaciones y no había más de un pasillo conectando dos habitaciones. Además, cada habitación podía estar vacía, tener una puerta o tener una llave. Para pasar por una habitación que tenía una puerta había que tener su respectiva llave.
+El tercer y último ejercicio de este trabajo práctico, consistía en dado un modelo de una prisión decidir si una persona condenada podía escapar o no de la misma. Este modelo fue dado de tal manera que se pudiera representar utilizando un grafo. La idea general del modelo de esta prisión, fue que en la misma haya habitaciones y pasillos. Cada pasillo conectaba dos habitaciones y no había más de un pasillo conectando dos habitaciones. Además, cada habitación podía estar vacía, tener una puerta o tener una llave. Para pasar por una habitación que tuviera una puerta había que tener su respectiva llave.
 
 \paragraph{}
 Como requerimiento para este problema, se especificó que su solución debía tener una complejidad estrictamente menor que \Ode{n^3}, con n igual a la cantidad de habitaciones.
 
 
 \subsection{Explicación}
+\label{explicacion3}
 
 \paragraph{}
 En primer instancia, se pensó en alguna forma de recorrer el grafo de manera que la misma sirviera para solucionar el problema planteado. Inmediatamente, surgió la idea de utilizar el método BFS para dicho fin.
@@ -38,60 +39,126 @@ Una vez terminado el primer BFS, se verifica si ya se recorrieron todas las habi
 Si sucede que se recorrieron todas las habitaciones o que no hay ninguna llave disponible que abra las habitaciones encoladas, entonces se sale de la recursión y se verifica si se visitó o no la última habitación (o habitación de salida). Si se visitó entonces significa que hay forma de salir de la prisión y sino, significa lo contrario.
 
 \paragraph{}
-A continuación se adjunta, a modo de pseudocódigo, los algoritmos utilizados para resolver el problema descrito anteriormente.
+A continuación se adjunta, a modo de pseudocódigo, los algoritmos utilizados para resolver el problema descrito anteriormente:
 
-bool resolver(const carcel$\&$ c)\\
 
 \SetKw{Orden}{Complejidad:}
+\textbf{bool} resolver(const carcel$\&$ c)\\
 \begin{algorithm}[H]
-	\Orden{\Ode{n^3}}
-	
-	set$<int>$ habitacionesYaVisitadas
-	
-	queue$<int>$ habitacionesLimites
-	
-	set$<int>$ llavesEncontradas
-	
-	int proximaHabitacion
+\Orden{\Ode{n^2}}\\
 
-	bool puedoSeguir = true
-	int contador
-	bool termine = false
 	
-	proximaHabitacion = 0
+	$vector<bool>$ habitacionesYaVisitadas(c.cantHabitaciones)\tcp*{\Ode{n}}
+	
+	$queue<int>$ habitacionesLimites;
+	
+	$vector<bool>$ llavesEncontradas(c.cantHabitaciones)\tcp*{\Ode{n}}
+	
+	int proximaHabitacion;
+
+	bool puedoSeguir = true\tcp*{\Ode{1}}
+	
+	int contador;
+	
+	bool termine = false\tcp*{\Ode{1}}
+	
+	proximaHabitacion = 0\tcp*{\Ode{1}}
 	
 	\While{(puedoSeguir $\wedge$ $\neg$termine)}{
 
-		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c) \tcp{\Ode{n^2}}
+		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c)\tcp*{\Ode{n^2}}
 		
-		termine = habitacionesLimites.empty();
+		termine = habitacionesLimites.empty()\tcp*{\Ode{1}}
 		
-		\If{($\neg$termine)\tcp{\Ode{1}}}{
+		\If{($\neg$termine)\tcp*{\Ode{1}}}{
 		
-			contador = habitacionesLimites.size()\tcp{\Ode{1}}
+			contador = habitacionesLimites.size()\tcp*{\Ode{1}}
 			
-			\While{(puedoSeguir $\&\&$ (llavesEncontradas.count(habitacionesLimites.front()) == 0))\tcp{\Ode{n.log(n)}}}{
+			\While{(puedoSeguir $\&\&$ ($\neg$llavesEncontradas[habitacionesLimites.front()]))\tcp*{\Ode{n}}}{
 				
-				habitacionesLimites.push(habitacionesLimites.front())
-				habitacionesLimites.pop()
-				contador--
-				if(contador == 0)	puedoSeguir = false
+				habitacionesLimites.push(habitacionesLimites.front())\tcp*{\Ode{1}}
+				
+				habitacionesLimites.pop()\tcp*{\Ode{1}}
+				
+				contador--\tcp*{\Ode{1}}
+				
+				\If{(contador == 0)\tcp*{\Ode{1}}}{puedoSeguir = false\tcp*{\Ode{1}}}
 			}
 			
-			proximaHabitacion = habitacionesLimites.front()
-			habitacionesLimites.pop()		
+			proximaHabitacion = habitacionesLimites.front()\tcp*{\Ode{1}}
+			
+			habitacionesLimites.pop()\tcp*{\Ode{1}}
 			
 			
 		}	
 	}
 
-	\eIf{(habitacionesYaVisitadas.count(c.cantHabitaciones-1) == 1)\tcp{\Ode{log(n)}}}{return true}{return false}
-     
+	\eIf{(habitacionesYaVisitadas[c.cantHabitaciones-1])\tcp*{\Ode{1}}}{return true}{return false}
 \end{algorithm}
 
 
+\textbf{void} recorrerPorBFS(int proximaHabitacion, $queue<int>\&$ habitacionesLimites, vector$<bool>\&$ habitacionesYaVisitadas, vector$<bool>\&$ llavesEncontradas, carcel$\&$ c)\\
+\begin{algorithm}[H]
+\Orden{\Ode{n^2}}\\
+	$queue<int>$ habitacionesProximas
+	
+	habitacionesProximas.push(proximaHabitacion)
+	
+	habitacionesYaVisitadas[proximaHabitacion] = true\tcp*{\Ode{1}}
+	
+	int actual
+	
+	\While{(!habitacionesProximas.empty())\tcp*{\Ode{n}}}{
+	
+		actual = habitacionesProximas.front()\tcp*{\Ode{1}}
+		
+		habitacionesProximas.pop()\tcp*{\Ode{1}}
+				
+		\If{(c.tieneLlave(actual))\tcp*{\Ode{1}}}{
+			llavesEncontradas[c.dameLlave(actual)] = true\tcp*{\Ode{1}}
+		}
+		
+		\For{ (int i = 0; i$<$c.cantHabitaciones; i++)\tcp*{\Ode{n}}} {
+	
+			\If{(c.sonAdyacentes(actual,i) $\wedge$ $\neg$habitacionesYaVisitadas[i])\tcp*{\Ode{1}}}{
+		
+				\eIf{(c.tienePuerta(i) $\wedge$ $\neg$llavesEncontradas[i])\tcp*{\Ode{1}}}{
+					habitacionesLimites.push(i)\tcp*{\Ode{1}}
+				}{
+					habitacionesProximas.push(i)\tcp*{\Ode{1}}
+				}
+				habitacionesYaVisitadas[i] = true\tcp*{\Ode{1}}
+			}
+		}
+		
+	}
+
+
+
+\end{algorithm}
+
+
+
 \subsection{Análisis de la complejidad del algoritmo}
+
+\paragraph{}
+Para el análisis de complejidad de los algoritmos que resuelven el problema dado, vamos a remitirnos a los pseudocódigos propuestos en la sección [\ref{explicacion3}]. Como aclaración, cabe decir que en los siguientes párrafos vamos a referirnos a \textit{n} como la cantidad de habitaciones en la prisión (cantidad de nodos del grafo).\\
+En primer instancia vamos a analizar el pseudocódigo del algoritmo \textit{recorrerPorBFS}. La complejidad del mismo está dada por un flujo \textit{for} anidado dentro de otro flujo \textit{while}. Es claramente visible que el flujo \textit{for} tiene una complejidad \titade{n} ya que todas las operaciones dentro suyo son de complejidad \Ode{1} y el mismo se ejecuta n veces. Quizás no sea tan claro por qué el flujo \textit{while} tiene complejidad igual a \Ode{n}. Esto se debe a la naturaleza del algoritmo BFS. En BFS se recorre cada nodo una única vez, y si vemos cuándo es que termina de ejecutarse dicho flujo, veremos que lo hace cuando se vacía la cola \textit{proximasHabitaciones}. Esta cola puede tener un largo de hasta n habitaciones (por lo dicho previamente sobre el método BFS) por lo que este flujo se ejecutará como máximo tantas veces como habitaciones haya.
+
+\paragraph{}
+Una vez realizado el análisis del algoritmo \textit{recorrerPorBFS} sólo nos queda verificar qué complejidad cumple el algoritmo \textit{resolver}. Si se observa con atención, puede notarse que la complejidad del mismo está dada por el llamado a la función \textit{recorrerPorBFS}. Pero no sólo basta con decir esto. También hay un flujo \textit{while} más adelante, el cuál solo tiene complejidad \Ode{n}. Esto se debe a que dicho flujo se va a ejecutar a lo sumo tantas veces como elementos haya en la cola \textit{habitacionesLimites}. Para saber cuántos elementos hay a lo sumo en esta cola debemos remitirnos a la función \textit{recorrerPorBFS} y ver que aquí sólo se alojaran aquellas habitaciones en las cuales haya una puerta de la que no se tenga la llave correspondiente. Por esto podemos ver que claramente en esta cola habrá a lo sumo n habitaciones.\\
+Sólo basta una aclaración para que la complejidad de este algoritmo quede completa y ésta hace referencia al flujo \textit{while} que engloba a los flujos antes descritos. En un primer acercamiento, uno podría decir que este ciclo se ejecuta a lo sumo n veces, arrojando una complejidad de \Ode{n}, haciendo que la complejidad total sea \Ode{n^3} si recordamos que este engloba a una llamada a \textit{recorrerPorBFS} cuya complejidad había resultado ser \Ode{n^2}. Pero en realidad, si se mira más detalladamente se puede observar que este flujo va a ejecutarse tantas veces como haga falta para que \textit{recorrerPorBFS} pase por todos las habitaciones (o nodos), es decir, si por ejemplo en el primer llamado a la función \textit{recorrerPorBFS} se pasa por todos los nodos, entonces el ciclo en cuestión va a ejecutarse una única vez. Este análisis entonces nos permite ver que en este algoritmo, la complejidad esta dada por la de la función antes mencionada.
+
 \subsection{Detalles de implementación}
+
+\paragraph{}
+Para compilar el programa sólo hace falta ejecutar el comando make en consola.
+
+\paragraph{Modo de Uso}
+En consola, utilizar el comando: \texttt{./3\_ej [entrada] [salida]}.\\
+Los parámetros ``entrada'' y ``salida'' son opcionales. Si no se los utiliza, el programa toma por default los archivos ``Tp2Ej3.in'' como entrada y ``Tp2Ej3NUESTRO.out'' como salida. En el caso que se los utilice, se le deben pasar 2 nombres de archivos de entrada y salida respectivamente. El archivo de entrada debe existir y debe tener un formato válido, es decir, debe tener el formato descrito en el enunciado de este trabajo práctico. El archivo de salida puede existir o no. En caso de existir, este será completamente sobreescrito.
+
+
 \subsection{Resultados}
 \subsection{Debate}
 \subsection{Conclusiones}
