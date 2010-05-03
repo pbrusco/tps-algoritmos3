@@ -55,7 +55,8 @@ Para entender el algoritmo principal, se presenta el pseudocódigo de la funció
 	\SetKw{Orden}{Complejidad:}
 	\Orden{$\theta$($tam(v)^2$)}
 	\BlankLine		
-    \For{$i = 0;i<= tam(v);i++$}{ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1;}
+    \For{($i = 0;i<= tam(v);i++$)\tcp*{$\theta$($tam(v)^2$))}}
+{ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1\tcp*{$\theta$($i$) $\subseteq$ $\theta$($tam(v)$)}}
 \end{algorithm}
 	
 
@@ -133,6 +134,7 @@ Por lo tanto se busca el máximo valor de la fila suma, lo que es equivalente a 
 
 \paragraph{}
 A continuación se calculará la complejidad del algortimo implementado en la función \textit{escalerar}, que es el que resuelve el problema que se planteo. Primero veamos el pseudocódigo de la función completa:
+
 \vspace*{30pt}
 void \textbf{escalerar}(v: vector$\langle$int$\rangle$)\\
 \SetKw{Orden}{Complejidad:}
@@ -168,7 +170,7 @@ void \textbf{completar\_descensos}(descenso: vector$\langle$nat$\rangle$, v: vec
 	\Orden{$\theta$($tam(v)^2$)}
 \BlankLine		
      \For{($i = tam(v);i \geq 0;i--$) \tcp*{$\theta$($tam(v)^2$)}}
-      {descenso[i] $\leftarrow$ maximoDes(descenso,v,i) + 1\tcp*{$\theta$($tam(v) - i$) $\in$ $\theta$($tam(v)$)}}
+      {descenso[i] $\leftarrow$ maximoDes(descenso,v,i) + 1\tcp*{$\theta$($tam(v) - i$) $\subseteq$ $\theta$($tam(v)$)}}
   \end{algorithm}
 
 \vspace*{1cm}
@@ -184,5 +186,17 @@ nat  \textbf{maximoAsc}(ascenso: vector$\langle$nat$\rangle$, v: vector$\langle$
       res $\leftarrow$ 0 \tcp*{$\theta$(1)}
 	\BlankLine		
      \For{($k = 0;k < i;k++$)\tcp*{$\theta$($i$)}}{
-  \lIf{(v[j] $<$ v[i] and res $<$ ascenso[j])}{res $\leftarrow$ ascenso[j]}\tcp*{$\theta$(1)}}
+  \lIf{(v[j] $<$ v[i] and res $<$ ascenso[j])}{res$\leftarrow$ascenso[j]}\tcp*{$\theta$(1)}}
   \end{algorithm}
+
+\vspace*{1cm}
+
+\paragraph{}
+\underline{Aclaración:} el pseudocódigo de la función competar\_ascensos() se encuentra en la sección ``Explicación'' y la función maximoDes() es analoga a maximoAsc().
+
+\paragraph{}
+Como se ve en los pseudocódigos, sin depender de los valores ingresados en el vector v, la cantidad de operaciones es la misma para un mismo tamaño de entrada. Por lo tanto, podemos decir que esta función esta acotada por arriba y por abajo por una función cuadratica a partir de un $n_0$ es decir, escalerar() $\in \titade{tam(v)^2}$
+
+\paragraph{}
+En conclución, nuestro algoritmo esta siempre acotado por arriba y por abajo por una función cuadratica en el tamaño de la entrada (tam(v)).
+
