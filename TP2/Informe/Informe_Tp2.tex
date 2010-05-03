@@ -14,15 +14,18 @@
 	\usepackage[spanish]{babel}
 
 % Paquetes especiales para el TP
-	\usepackage{caratula}
-	\usepackage{algo2symb}
-	\usepackage[lined]{algorithm2e}
+	\usepackage{./otros/caratula}
+	\usepackage{./otros/algo2symb}
+	\usepackage[lined]{./otros/algorithm2e}
 	\usepackage{amssymb}			%simbolos matematicos
 	\usepackage{pdfpages}
 
-% Paqute para incluir hypervinculos (falta probarlo bien)
-	%\usepackage{hyperref}
-	
+% Paqute para incluir hypervinculos
+	\usepackage{color}
+	\usepackage{url}
+	\definecolor{lnk}{rgb}{0,0,0.4}
+	\usepackage[colorlinks=true,linkcolor=lnk,citecolor=blue,urlcolor=blue]{hyperref}
+
 % Paquete para armar índices
 	\usepackage{makeidx}
 	\makeindex
@@ -36,7 +39,6 @@
 	\newcommand{\real}{\ensuremath{\mathbb{R}}}
 	\newcommand{\titade}[1]{\ensuremath{\Theta(#1)}}
 	\newcommand{\omegade}[1]{\ensuremath{\Omega(#1)}}
-
 
 
 \begin{document}
@@ -56,8 +58,5 @@
 \newpage	 	\input{Ejercicio1.tex}
 \newpage 	\input{Ejercicio2.tex}
 \newpage 	\input{Ejercicio3.tex}
-
-
-
 
 \end{document}			
