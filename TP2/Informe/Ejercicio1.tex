@@ -53,7 +53,7 @@ Para entender el algoritmo principal, se presenta el pseudocódigo de la funció
 	\BlankLine		
 	\BlankLine		
 	\SetKw{Orden}{Complejidad:}
-	\Orden{O($tam(v)^2$)}
+	\Orden{$\theta$($tam(v)^2$)}
 	\BlankLine		
     \For{$i = 0;i<= tam(v);i++$}{ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1;}
 \end{algorithm}
@@ -129,7 +129,6 @@ La fila tam(S)-suma representa, cuantos elementos NO fueron usados para esta ``e
 Por lo tanto se busca el máximo valor de la fila suma, lo que es equivalente a buscar el mínimo en la fila tam(s)-suma que representa la cantidad minima de borrados a realizar para lograr formar la secuencia unimodal y ese es el resultado devuelto por nuestra función.
 
 
-
 \subsection{Análisis de la complejidad del algoritmo}
 
 \paragraph{}
@@ -138,56 +137,52 @@ A continuación se calculará la complejidad del algortimo implementado en la fu
 void \textbf{escalerar}(v: vector$\langle$int$\rangle$)\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
-	\Orden{O($tam(v)^2$)} 
+	\Orden{$\theta$($tam(v)^2$)} 
 \BlankLine		
       \textbf{var} max: nat;\\
-      \textbf{var} ascenso: vector$\langle$nat$\rangle$(tam(v));\\
-      \textbf{var} descenso: vector$\langle$nat$\rangle$(tam(v));\\
+      \textbf{var} ascenso: vector$\langle$nat$\rangle$(tam(v))\tcp*{$\theta$($tam(v)$)}
+      \textbf{var} descenso: vector$\langle$nat$\rangle$(tam(v))\tcp*{$\theta$($tam(v)$)}
 \BlankLine		
-      completar\_ascensos(ascenso,v);\\
-      completar\_descensos(descenso,v);\\	
+      completar\_ascensos(ascenso,v)\tcp*{$\theta$($tam(v)^2$)}
+      completar\_descensos(descenso,v)\tcp*{$\theta$($tam(v)^2$)}	
 \BlankLine		
-      \For{$i = 0;i \leq tam(v);i++$}{
-	\lIf(ascenso[i] $+$ descenso[i] $\geq$ max) max $\leftarrow$ ascenso[i] $+$ descenso[i];\\
+      \For{($i = 0;i \leq tam(v);i++$) \tcp*{$\theta$($tam(v)$)}}{
+	\lIf{(ascenso[i] $+$ descenso[i] $\geq$ max)} {max $\leftarrow$ ascenso[i] $+$ descenso[i]\tcp*{$\theta$(1)}}	
 	} 
 \BlankLine		
-	retornar  tam(v) $-$ max $+$ 1;\\
+	retornar  tam(v) $-$ max $+$ 1\tcp*{$\theta$(1)}	
 
 
 
 \end{algorithm}
 
 
-
-
-\subsection{Anexo: Pseudocódigos}
-\label{pseudocodigos1}
-
-
 \vspace*{1cm}
-Pseudocódigo de la función descenso y maximoAsc:
+Pseudocódigo de la función completar\_descensos:
 \\
 \\
 
 void \textbf{completar\_descensos}(descenso: vector$\langle$nat$\rangle$, v: vector$\langle$int$\rangle$)\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
-	\Orden{O($tam(v)^2$)}
+	\Orden{$\theta$($tam(v)^2$)}
 \BlankLine		
-     \For{$i = tam(v);i \geq 0;i--$}{
-    descenso[i] $\leftarrow$ maximoDes(descenso,v,i) + 1;}
+     \For{($i = tam(v);i \geq 0;i--$) \tcp*{$\theta$($tam(v)^2$)}}
+      {descenso[i] $\leftarrow$ maximoDes(descenso,v,i) + 1\tcp*{$\theta$($tam(v) - i$) $\in$ $\theta$($tam(v)$)}}
   \end{algorithm}
 
 \vspace*{1cm}
-
+Pseudocódigo de la función maximoAsc:
+\\
+\\
 nat  \textbf{maximoAsc}(ascenso: vector$\langle$nat$\rangle$, v: vector$\langle$int$\rangle$,i: nat)\\
 \SetKw{Orden}{Complejidad:}
 	\begin{algorithm}[H]
-	\Orden{O($i$)}
+	\Orden{$\theta$($i$)}
 	\BlankLine		
-      \textbf{var} res: nat
-      res $\leftarrow$ 0
+      \textbf{var} res: nat \tcp*{$\theta$(1)}
+      res $\leftarrow$ 0 \tcp*{$\theta$(1)}
 	\BlankLine		
-     \For{$k = 0;k < i;k++$}{
-  \lIf{v[j] $<$ v[i] and res $<$ ascenso[j]}{res $\leftarrow$ ascenso[j]}}
+     \For{($k = 0;k < i;k++$)\tcp*{$\theta$($i$)}}{
+  \lIf{(v[j] $<$ v[i] and res $<$ ascenso[j])}{res $\leftarrow$ ascenso[j]}\tcp*{$\theta$(1)}}
   \end{algorithm}
