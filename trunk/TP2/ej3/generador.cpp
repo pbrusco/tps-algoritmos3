@@ -10,8 +10,8 @@
 
 using namespace std;
 
-void generarEntrada(int cantCarceles, ostream& os);
-void generarCarcel(int n, ostream& os);
+void generarEntrada(int cantCarceles, ostream& os, int pe, int pl);
+void generarCarcel(int n, ostream& os, int pe, int pl);
 void generarEjes(int n,carcel& c,int porcentaje);
 void generarLlaves(int n, carcel& c,int porcentaje);
 int numeroAlAzar(int desde, int hasta, int x);
@@ -19,17 +19,16 @@ set<pair<int,int> > ejesAlAzar(int desde, int hasta, int cant);
 set<pair<int,int> > llavesAlAzar(int desde, int hasta, int cant);
 void guardar(carcel& c, ostream& os);
 
-int tiempo = 2;
+
 
 int main(){
 
-	
-	srand(tiempo);
+	srand(time(NULL));
 
 	ofstream os;
 	os.open("entrada");
 
-	generarEntrada(100,os);
+	generarEntrada(100,os,30/* %ejes */,40/* %llaves */);
 
 	os.close();
 
@@ -38,23 +37,23 @@ int main(){
 	return 0;
 }
 
-void generarEntrada(int cantCarceles, ostream& os){
+void generarEntrada(int cantCarceles, ostream& os, int pe, int pl){
 
 	int n = 5;
 	for(int i = 0; i<cantCarceles; i++){
-		generarCarcel(n+i,os);
-		tiempo++;
-		srand(tiempo);
+		generarCarcel(n+i,os,pe,pl);
 	}
-	os << -1 << " " << -1 << " " << -1;
+	os << -1 << " " << -1 << " " << -1 << endl << endl;
+	os << pe << "% " << "ejes" << endl;
+	os << pl << "% " << "llaves" << endl;
+	
 }
 
 
-void generarCarcel(int n, ostream& os){
-
+void generarCarcel(int n, ostream& os, int pe, int pl){
 	carcel c(n);
-	generarEjes(n,c,50);
-	generarLlaves(n,c,40);
+	generarEjes(n,c,pe);
+	generarLlaves(n,c,pl);
 	guardar(c,os);
 }
 
@@ -73,8 +72,8 @@ void generarEjes(int n,carcel& c,int porcentaje){
 
 void generarLlaves(int n, carcel& c,int porcentaje){
 
-	int cant = n * porcentaje / 100;
-	set<pair<int,int> > llaves = llavesAlAzar(1,n-1,cant);
+	int cant = (n/2) * porcentaje / 100;
+	set<pair<int,int> > llaves = llavesAlAzar(1,n-2,cant);
 	set<pair<int,int> >::iterator it;
 
 	for(it = llaves.begin();it != llaves.end();it++){
@@ -86,7 +85,6 @@ void generarLlaves(int n, carcel& c,int porcentaje){
 int numeroAlAzar(int desde, int hasta, int x){
 
 	int a = x;
-
 	while(a == x){
 		a = (rand() % (hasta-desde)) + desde;
 	}
@@ -112,12 +110,7 @@ set<pair<int,int> > ejesAlAzar(int desde, int hasta, int cant){
 			aux2.first = b;
 			aux2.second = a;
 		}
-		if(res.count(aux1) == 0){
-			res.insert(aux1);
-		}
-		else{
-			res.insert(aux2);
-		}
+		res.insert(aux1);
 	}
 	return res;
 }
@@ -125,26 +118,37 @@ set<pair<int,int> > ejesAlAzar(int desde, int hasta, int cant){
 
 set<pair<int,int> > llavesAlAzar(int desde, int hasta, int cant){
 
-	int a = numeroAlAzar(desde,hasta,hasta);
-	int b = numeroAlAzar(desde,hasta,a);
+	int a;
 	pair<int,int> aux1;
 	
 	set<pair<int,int> > res;
-	set<int> habsConLlave,habsConPuerta;
+	set<int> habitaciones;
+	set<int>::iterator it;
 
-//HACER ALGO PARA QUE ENCUENTRE RAPIDO 2 HABITACIONES DISPONIBLES!!!
-	
-	for(int i = 0; i<cant; i++){
-		while( (habsConLlave.count(a) != 0 || habsConPuerta.count(b) != 0) || (habsConLlave.count(b) != 0 || habsConPuerta.count(a) != 0) ){
-			a = numeroAlAzar(desde,hasta,hasta);
-			b = numeroAlAzar(desde,hasta,a);
-		}
-		aux1.first = a;
-		aux1.second = b;
-		res.insert(aux1);
-		habsConLlave.insert(a);
-		habsConPuerta.insert(b);
+	for(int i = 1; i <= hasta ; i++){
+		habitaciones.insert(i);
 	}
+
+	while(res.size() < cant){
+		it = habitaciones.begin();
+		a = numeroAlAzar(0,habitaciones.size(),habitaciones.size());
+		for(int i = 1;i<a;i++){
+			it++;
+		}
+		aux1.first = *it;
+		habitaciones.erase(*it);
+
+		it = habitaciones.begin();
+		a = numeroAlAzar(0,habitaciones.size(),habitaciones.size());
+		for(int i = 1;i<a;i++){
+			it++;
+		}
+		aux1.second = *it;
+		habitaciones.erase(*it);
+		res.insert(aux1);		
+	}
+
+
 	return res;
 }
 
