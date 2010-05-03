@@ -8,8 +8,8 @@ void mostrar(const vector<int >& v);
 unsigned int escalerar(vector<int>& v);
 unsigned int maximoDes(vector<unsigned int>& descenso,vector<int>& v,unsigned int i);
 unsigned int maximoAsc(vector<unsigned int>& ascenso,vector<int>& v,unsigned int i);
-void completar_descensos(vector<unsigned int>& descenso, vector<int>& v){
-void completar_ascensos(vector<unsigned int>& ascenso, vector<int>& v){
+void completar_descensos(vector<unsigned int>& descenso, vector<int>& v);
+void completar_ascensos(vector<unsigned int>& ascenso, vector<int>& v);
 bool cargar(vector<int>& v,ifstream &entrada);
 
 int main(){
