@@ -3,14 +3,14 @@
 #include <vector>
 #include <set>
 #include <queue>
-#include "carcel.h"
+#include "../carcel.h"
 #include <sys/time.h>
 
 using namespace std;
 
 
 
-bool resolver(const carcel& c);
+bool resolver(const carcel& c, int& cantOp);
 
 void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, vector<bool>& habitacionesYaVisitadas, vector<bool>& llavesEncontradas, const carcel& c);
 
@@ -49,28 +49,18 @@ int main(int argc, char** args){
 	is >> m;
 	
 	carcel c(n);
-
-	//declaro variables para el tiempo
-	struct timeval t1,t2;
-	double tiempo;
-	int repes = 10;
-	int tiempoTotal = 0;
+	int cantOp = 0;
 
 	while(n != -1 && p != -1 && m != -1){
 	
 		c.cargarCarcel(is,n,p,m);
 		
 		//resuelvo y guardo
-		//tomo un promedio del tiempo que tarda (promedio por "repes" veces)
-		for(int i = 0; i < repes ; i++){
-			gettimeofday(&t1,NULL);
-			res = resolver(c);
-			gettimeofday(&t2,NULL);
-			tiempo = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t1.tv_usec);
-			tiempoTotal = tiempoTotal + tiempo;
-		}
-		os << n << "	" << tiempoTotal/repes << endl;
-		tiempoTotal = 0;
+		res = resolver(c,cantOp);
+
+		os << n << "	" << cantOp << endl;
+		
+		cantOp = 0;
 		
 		is >> n;
 		is >> p;
@@ -96,7 +86,7 @@ int main(int argc, char** args){
 
 
 
-bool resolver(const carcel& c){
+bool resolver(const carcel& c, int& cantOp){
 
 	vector<bool> habitacionesYaVisitadas(c.cantHabitaciones);
 	

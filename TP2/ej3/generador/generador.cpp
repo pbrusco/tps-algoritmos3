@@ -28,7 +28,7 @@ int main(){
 	ofstream os;
 	os.open("entrada");
 
-	generarEntrada(100,os,30/* %ejes */,40/* %llaves */);
+	generarEntrada(50,os,10/* %ejes */,35/* %llaves */);
 
 	os.close();
 
@@ -41,11 +41,13 @@ void generarEntrada(int cantCarceles, ostream& os, int pe, int pl){
 
 	int n = 5;
 	for(int i = 0; i<cantCarceles; i++){
-		generarCarcel(n+i,os,pe,pl);
+		generarCarcel(n,os,pe,pl);
+		n = n + 20;
 	}
 	os << -1 << " " << -1 << " " << -1 << endl << endl;
 	os << pe << "% " << "ejes" << endl;
 	os << pl << "% " << "llaves" << endl;
+	os << "NO esta unido el primero con el ultimo" << endl;
 	
 }
 
@@ -102,7 +104,8 @@ set<pair<int,int> > ejesAlAzar(int desde, int hasta, int cant){
 	set<pair<int,int> > res;
 	
 	for(int i = 0; i<cant; i++){
-		while(res.count(aux1) != 0 || res.count(aux2) != 0){
+		//mientras ese eje ya este en el grafo o quiera conectar al primero con el ultimo
+		while(res.count(aux1) != 0 || res.count(aux2) != 0 || ( ((a == desde) && (b == hasta-1)) || ((a == hasta-1) && (b == desde)) )   ){
 			a = numeroAlAzar(desde,hasta,hasta);
 			b = numeroAlAzar(desde,hasta,a);
 			aux1.first = a;
