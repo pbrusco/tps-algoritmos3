@@ -3,63 +3,64 @@
 \subsection{Introducción}
 
 \paragraph{}
-El primer problema de este trabajo práctico consistió en dar un algoritmo que sea capaz de decir, dada una secuencia de números, la cantidad de números mínima a eliminar de la misma para que cumpla con cierta propiedad. En este caso, la propiedad que debía cumplir la secuencia  modificada era que la misma sea unimodal. Una secuencia es unimodal si la misma cumple que es creciente desde el primer elemento hasta cierta posición y desde dicha posición es decreciente hasta el final\footnote{Debe ser estrictamente creciente/decreciente}.
+El primer problema de este trabajo práctico consistió en dar un algoritmo que sea capaz de decir, dada una secuencia de números, la mínima cantidad de números a eliminar de la misma para que ésta sea unimodal. Esto es, que la secuencia cumple que es creciente desde el primer elemento hasta cierta posición y desde dicha posición es decreciente hasta el final\footnote{Debe ser estrictamente creciente/decreciente}.
 
 \paragraph{}
-Además, se requirió que la complejidad del algoritmo que resolviera el problema antes mencionado, debía ser estrictamente menor que \Ode{n^3} (donde n es el tamaño de la secuencia).
+Además, se estableció como requerimiento que la complejidad del algoritmo en cuestión fuera estrictamente menor que \Ode{n^3}, siendo n el tamaño de la secuencia.
 
 \paragraph{}
-Se pensaron varias formas de encarar y resolver este problema, finalmente se aplicó la técnica de \textit{programación dinámica}. En las secciones siguientes, daremos una explicación detallada de cómo se implementó el algoritmo, cuál es su complejidad temporal y cómo se comportó frente a distintos valores y tamaños de entrada.
+Se pensaron varias formas de encarar y resolver este problema, finalmente se aplicó la técnica de \textit{programación dinámica}. En las sucesivas secciones, daremos una explicación detallada de cómo se implementó el algoritmo, cuál es su complejidad temporal y cómo se comportó frente a distintos valores y tamaños de entrada.
 
 
 \subsection{Explicación}
 
 \paragraph{}
-Desde el comienzo resultó bastante difícil encontrar dónde se podía aplicar el \textit{principio de optimalidad} para resolver este problema utilizando \textit{programación dinámica}. Luego, se pudo intuir que este problema, podía ser visto como una combinación de otro problema similar: encontrar la subsecuencia creciente/decreciente más larga. Básicamente, el razonamiento fue el siguiente:\\
+Desde un comienzo se pensó que el problema podía resolverse usando \textit{programación dinámica}, sin embargo comprender de qué forma debía aplicarse \textit{principio de optimalidad} no fue, en principio, nada trivial. Tras un tiempo de analizar el problema, se pudo vislumbrar que el mismo podía ser visto como una variación de otro problema similar: el de encontrar dentro de una secuencia la subsecuencia creciente/decreciente más larga. \\
+Básicamente, el razonamiento empleado fue el siguiente:\\
 
-Si para cada posición \textit{i} de la secuencia sabemos:
+Si para cada posición \textit{i} de la secuencia se conoce:
 \begin{itemize}
 	\item Longitud de la subsecuencia creciente más larga desde el principio hasta \textit{i} (que contenga al elemento i-ésimo)
 	\item Longitud de la subsecuencia decreciente más larga desde \textit{i} hasta el final (que contenga al elemento i-ésimo)
 \end{itemize}
 
-entonces podemos decir cuál es el largo de una secuencia unimodal que tiene como ``pivote'' u objeto más grande al i-ésimo de la secuencia. Finalmente, sólo bastaría saber cuál es el ``pivote'' que maximice esa longitud, ya que conocer la longitud de la subsecuencia unimodal más larga es equivalente a encontrar la cantidad mínima de elementos a eliminar para transformar la secuencia dada en una secuencia unimodal, que es el problema que necesitabamos resolver.
+entonces es posible decir cuál es el largo de una secuencia unimodal que tiene como ``pivote'' u objeto más grande al i-ésimo de la secuencia. Finalmente, sólo bastaría averiguar cuál es el ``pivote'' que maximice esa longitud para de ésta forma resolver el problema.\\
+\textbf{Cabe observar, que determinar la longitud de la subsecuencia unimodal más larga es equivalente a encontrar la cantidad mínima de elementos a eliminar para transformar la secuencia dada en una secuencia unimodal. Este dado será tenido en cuenta a la hora de implementar el algoritmo.}
 
 \paragraph{}
-Entonces, veamos como conseguimos la subsecuencia creciente más larga desde el principio hasta el pivote:
+A continuación se desarrolla el funcionamiento del algoritmo mediante el cual se logra resolver el problema planteado.\\
 
-
-Para construir un algoritmo de programación dinámica definimos:
+Para construir el algoritmo de programación dinámica se definieron:
 \begin{itemize}
-	
-\item $ascenso_i$ = longitud de la secuencia creciente más larga que termina con el número $v_i$
-	
-\item Relación de recurrencia:	 
-  
-  * $ascenso_0 = 0$
-
-  * $ascenso_i  = max_{j<i} \left\lbrace ascenso_j + 1\right\rbrace  \;      $ (con $ v_j < v_i  $)
-
-	
-\item la solucion final: $max_{1\leq i\leq n} \{ascenso_i\}$
+	\item un vector denominado \textit{ascenso} donde se va guardando, en la i-ésima posicion, la longitud de la subsecuencia más larga desde el inicio de la secuencia original hasta la posición i. Esto es: \\ $ascenso_i$ = longitud de la secuencia creciente más larga que termina con el número $v_i$
+	\item la siguiente relación de recurrencia:	 
+	\begin{itemize} 
+		\item $ascenso_0 = 0$
+		\item $ascenso_i  = max_{j<i} \left\lbrace ascenso_j + 1\right\rbrace  \;      $ (con $ v_j < v_i  $)
+	\end{itemize}
+	\item y la solucion final: $max_{1\leq i\leq n} \{ascenso_i\}$
 \end{itemize}
- \vspace*{0.5cm}
-Veamos el pseudocódigo de completar\_ascensos para entender el mecanismo:
-\vspace*{1cm}
 
-void  \textbf{completar\_ascensos}(ascenso: vector<nat>, v: vector<int>)\\
-\SetKw{Orden}{Complejidad:}
-	\begin{algorithm}[H]
+\paragraph{}
+Para entender el algoritmo principal, se presenta el pseudocódigo de la función \textit{completar\_ascensos}, la cual completa el vector \textit{ascenso} con los valores correspondientes.
+
+\incmargin{1em}
+\linesnumbered
+\restylealgo{boxed}
+
+\begin{algorithm}[H]
+	void  \textbf{completar\_ascensos}(ascenso: vector$<nat>$, v: vector$<int>$)\\
+	\BlankLine		
+	\BlankLine		
+	\SetKw{Orden}{Complejidad:}
 	\Orden{O($tam(v)^2$)}
-\BlankLine		
-     \For{$i = 0;i<= tam(v);i++$}{
-    ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1;}
-  \end{algorithm}
-
+	\BlankLine		
+    \For{$i = 0;i<= tam(v);i++$}{ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1;}
+\end{algorithm}
 	
 
 \paragraph{}
-Donde ascenso es un vector donde se va guardando , en la posicion i, la longitud del mayor ascenso hasta i. La función maximoAsc(ascenso,v,i) indica, dentro del vector ascenso, la maxima longitud de un ascenso hasta la posicion i-1 del vector tal que cumpla la siguiente propiedad:
+La función maximoAsc(ascenso,v,i) indica, dentro del vector ascenso, la maxima longitud de un ascenso hasta la posicion i-1 del vector tal que cumpla la siguiente propiedad:
 
 \vspace*{1cm}
 
