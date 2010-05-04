@@ -140,7 +140,7 @@ bool resolver(const carcel& c){
 		}
 			
 	
-	}while( puedoSeguir && (!termine) );//¿O(1)?
+	}while( puedoSeguir && (!termine) && !habitacionesYaVisitadas[c.cantHabitaciones-1]);
 	//Esto corta cuando se recorrieron todas las habitaciones o cuando no hay llaves disponibles para las que quedaron sin recorrer
 	//Esto se balancea con recorrerPorBFS, haciendo que la complejidad nunca supere O(n^2), ya que si por ej,BFS recorre todos los nodos va a tener complejidad n^2, pero entonces el do-while solo se ejecuta una sola vez.
 	
@@ -199,7 +199,7 @@ Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puert
 	
 		}//end for
 		
-	}while(!habitacionesProximas.empty());//O(n) porque recorro una sola vez cada nodo
+	}while(!habitacionesProximas.empty() && !habitacionesYaVisitadas[c.cantHabitaciones-1]);
 
 
 
