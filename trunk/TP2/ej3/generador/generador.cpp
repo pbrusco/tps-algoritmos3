@@ -28,7 +28,7 @@ int main(){
 	ofstream os;
 	os.open("entrada");
 
-	generarEntrada(50,os,10/* %ejes */,35/* %llaves */);
+	generarEntrada(50,os,6/* %ejes */,35/* %llaves */);
 
 	os.close();
 
@@ -47,7 +47,7 @@ void generarEntrada(int cantCarceles, ostream& os, int pe, int pl){
 	os << -1 << " " << -1 << " " << -1 << endl << endl;
 	os << pe << "% " << "ejes" << endl;
 	os << pl << "% " << "llaves" << endl;
-	os << "NO esta unido el primero con el ultimo" << endl;
+	os << "Ninguno unido al ultimo" << endl;
 	
 }
 
