@@ -913,14 +913,14 @@ WindowLabel	/media/MUSICA/Mariano/Uba/Algoritmos III/tps-algoritmos3/TP2/ej3/con
 </table>
 <multiLayer>
 Graph1	1	1	04/05/10 12:49
-geometry	241	17	885	628	active
+geometry	maximized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	418	324
 Alignement	0	0
 <graph>
-ggeometry	8	6	859	564
+ggeometry	12	7	1258	690
 PlotTitle	Análisis de casos con solución trivial VS. función lineal	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -932,15 +932,15 @@ AxesTitles	Cantidad de habitaciones	Cantidad de operaciones
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	18	75	0	0	0
-ScaleFont0	Sans	15	75	0	0	0
-ScaleFont1	Sans	15	75	0	0	0
-ScaleFont2	Sans	15	75	0	0	0
-ScaleFont3	Sans	15	75	0	0	0
-AxisFont0	Sans	15	50	0	0	0
-AxisFont1	Sans	15	50	0	0	0
-AxisFont2	Sans	15	50	0	0	0
-AxisFont3	Sans	15	50	0	0	0
+TitleFont	Sans	22	75	0	0	0
+ScaleFont0	Sans	18	75	0	0	0
+ScaleFont1	Sans	18	75	0	0	0
+ScaleFont2	Sans	18	75	0	0	0
+ScaleFont3	Sans	18	75	0	0	0
+AxisFont0	Sans	18	50	0	0	0
+AxisFont1	Sans	18	50	0	0	0
+AxisFont2	Sans	18	50	0	0	0
+AxisFont3	Sans	18	50	0	0	0
 EnabledTickLabels	1	1	1	1	
 AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#444444	#444444	#444444	#444444
@@ -984,14 +984,14 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>66.125</x>
 <y>7079.0322580645</y>
-<right>139.620596205962</right>
-<bottom>6569.74522292994</bottom>
+<right>131.094147582697</right>
+<bottom>6584.375</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1) 7.8x + 200
 \l(2) Implementación
 </Text>
-<Font>Sans	15	50	0	0	0</Font>
+<Font>Sans	18	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
 <Background>#ffffff</Background>
 <Alpha>0</Alpha>
