@@ -198,5 +198,46 @@ nat  \textbf{maximoAsc}(ascenso: vector$\langle$nat$\rangle$, v: vector$\langle$
 Como se ve en los pseudocódigos, sin depender de los valores ingresados en el vector v, la cantidad de operaciones es la misma para un mismo tamaño de entrada. Por lo tanto, podemos decir que esta función esta acotada por arriba y por abajo por una función cuadratica a partir de un $n_0$ es decir, escalerar() $\in \titade{tam(v)^2}$
 
 \paragraph{}
-En conclución, nuestro algoritmo esta siempre acotado por arriba y por abajo por una función cuadratica en el tamaño de la entrada (tam(v)).
+En conclusión, nuestro algoritmo esta siempre acotado por arriba y por abajo por una función cuadratica en el tamaño de la entrada (tam(v)).
+
+
+
+\subsection{Detalles de implementación}
+
+\paragraph{}
+Para compilar el programa sólo hace falta ejecutar el comando make en consola.
+
+\paragraph{Modo de Uso}
+
+
+\pagebreak[4]
+\clearpage
+
+\subsection{Resultados}
+\label{resultadosej1}
+
+\paragraph{}
+A continuación veremos gráficos que muestran el comportamiento del algoritmo utilizado
+
+
+	\begin{table}[h!] %ubicacion de la tabla
+		\centering %centra la tabla
+			\begin{tabular}{c}
+				\includegraphics[scale=0.7]{../ej1/graficos/tiempo100.pdf} \\
+				\includegraphics[scale=0.7]{../ej1/graficos/operaciones100.pdf}
+				\end{tabular}
+				\caption{Estos gráficos muestran el tiempo de ejecución y cantidad de operaciones en secuencias de 1 hasta 100 elementos comparados con funciones cuadraticas} %titulo de la tabla
+				\label{tiempoEj1a} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+	\end{table}
+
+
+ 
+				  \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/operaciones250.pdf}
+
+				Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con una funcion cuadratica (notar que es la misma función cuadratica que en el gráfico anterior).
+
+
+
+\subsection{Debate}
+\subsection{Conclusiones}
 

@@ -125,7 +125,7 @@ LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
 ggeometry	5	5	491	371
-PlotTitle	Comparación con una función cuadratica	#000000	4228
+PlotTitle	Medición del tiempo VS. Función cuadratica	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
 Margin	0
@@ -188,8 +188,8 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>5.25</x>
 <y>18033.898305085</y>
-<right>34.5</right>
-<bottom>14983.0508474576</bottom>
+<right>26.8472906403941</right>
+<bottom>17337.8839590444</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Algoritmo
