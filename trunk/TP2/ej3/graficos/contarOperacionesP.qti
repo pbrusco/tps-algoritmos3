@@ -1,0 +1,178 @@
+QtiPlot 0.9.7 project file
+<scripting-lang>	muParser
+<windows>	2
+<table>
+Table1	50	2	04/05/10 15:40
+geometry	0	0	445	220	
+header	1[X]	2[Y]
+ColWidth	100	100	
+<com>
+</com>
+ColType	0;0/13	0;0/13
+ReadOnlyColumn	0	0
+HiddenColumn	0	0
+Comments			
+WindowLabel	/media/MUSICA/Mariano/Uba/Algoritmos III/tps-algoritmos3/TP2/ej3/contarOperaciones/contarOperacionesP	2
+<data>
+0	5.00000000000000e+00	5.90000000000000e+01
+1	2.50000000000000e+01	1.99000000000000e+02
+2	4.50000000000000e+01	6.23000000000000e+02
+3	6.50000000000000e+01	1.12460000000000e+04
+4	8.50000000000000e+01	1.19920000000000e+04
+5	1.05000000000000e+02	2.68100000000000e+03
+6	1.25000000000000e+02	2.42500000000000e+03
+7	1.45000000000000e+02	1.36130000000000e+04
+8	1.65000000000000e+02	1.19720000000000e+04
+9	1.85000000000000e+02	1.14710000000000e+04
+10	2.05000000000000e+02	3.07740000000000e+04
+11	2.25000000000000e+02	7.98700000000000e+03
+12	2.45000000000000e+02	6.01400000000000e+03
+13	2.65000000000000e+02	5.60390000000000e+04
+14	2.85000000000000e+02	6.88280000000000e+04
+15	3.05000000000000e+02	1.73640000000000e+04
+16	3.25000000000000e+02	3.38430000000000e+04
+17	3.45000000000000e+02	2.12840000000000e+04
+18	3.65000000000000e+02	6.90300000000000e+03
+19	3.85000000000000e+02	7.28100000000000e+03
+20	4.05000000000000e+02	3.13680000000000e+04
+21	4.25000000000000e+02	1.27340000000000e+04
+22	4.45000000000000e+02	2.52590000000000e+04
+23	4.65000000000000e+02	3.64080000000000e+04
+24	4.85000000000000e+02	9.12500000000000e+03
+25	5.05000000000000e+02	1.22040000000000e+04
+26	5.25000000000000e+02	2.96090000000000e+04
+27	5.45000000000000e+02	5.08110000000000e+04
+28	5.65000000000000e+02	7.64500000000000e+03
+29	5.85000000000000e+02	1.02763000000000e+05
+30	6.05000000000000e+02	9.07430000000000e+04
+31	6.25000000000000e+02	4.84530000000000e+04
+32	6.45000000000000e+02	1.06604000000000e+05
+33	6.65000000000000e+02	4.11610000000000e+04
+34	6.85000000000000e+02	4.93190000000000e+04
+35	7.05000000000000e+02	9.30500000000000e+03
+36	7.25000000000000e+02	2.36631000000000e+05
+37	7.45000000000000e+02	3.44870000000000e+04
+38	7.65000000000000e+02	1.64939000000000e+05
+39	7.85000000000000e+02	1.49310000000000e+05
+40	8.05000000000000e+02	8.77610000000000e+04
+41	8.25000000000000e+02	4.67320000000000e+04
+42	8.45000000000000e+02	4.79200000000000e+04
+43	8.65000000000000e+02	1.15650000000000e+04
+44	8.85000000000000e+02	1.81935000000000e+05
+45	9.05000000000000e+02	2.68090000000000e+04
+46	9.25000000000000e+02	1.43998000000000e+05
+47	9.45000000000000e+02	2.29310000000000e+04
+48	9.65000000000000e+02	5.97930000000000e+04
+49	9.85000000000000e+02	3.46040000000000e+04
+</data>
+</table>
+<multiLayer>
+Graph1	1	1	04/05/10 15:11
+geometry	460	14	742	560	active
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	418	324
+Alignement	0	0
+<graph>
+ggeometry	5	5	719	499
+PlotTitle	Análisis de casos aleatorios VS. función cuadrática y lineal	#000000	4228
+<Antialiasing>1</Antialiasing>
+Background	#ffffff	255
+Margin	0
+Border	0	#000000
+grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
+EnabledAxes	1	0	1	0	
+AxesTitles	Cantidad de habitaciones	Cantidad de operaciones			
+AxesTitleColors	#000000	#000000	#000000	#000000	
+AxesTitleAlignment	5124	4	5124	4
+AxesTitleDistance	2	-1	2	-1
+TitleFont	Sans	16	75	0	0	0
+ScaleFont0	Sans	13	75	0	0	0
+ScaleFont1	Sans	13	75	0	0	0
+ScaleFont2	Sans	13	75	0	0	0
+ScaleFont3	Sans	13	75	0	0	0
+AxisFont0	Sans	13	50	0	0	0
+AxisFont1	Sans	13	50	0	0	0
+AxisFont2	Sans	13	50	0	0	0
+AxisFont3	Sans	13	50	0	0	0
+EnabledTickLabels	1	1	1	1	
+AxesColors	#000000	#000000	#000000	#000000
+AxesNumberColors	#444444	#444444	#444444	#444444
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffff	255
+<Function>
+<Type>0</Type>
+<Title>F1</Title>
+<Expression>350*x + 2000</Expression>
+<Variable>x</Variable>
+<Range>0	1050</Range>
+<Points>1050</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#ff0000</Color>
+	<Style>0</Style>
+	<Width>1</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+<Function>
+<Type>0</Type>
+<Title>F2</Title>
+<Expression>5.1*x^2 + 200000</Expression>
+<Variable>x</Variable>
+<Range>0	1000</Range>
+<Points>1000</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#00ff00</Color>
+	<Style>0</Style>
+	<Width>1</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+curve	Table1_1	Table1_2	1	0	#0000ff	0	1	5	1	#000000	#000000	0	#000000	14	1	2	0	0	49	1
+scale	0	0	2500000	0	8	5	0	0
+scale	1	0	2500000	0	8	5	0	0
+scale	2	0	1100	0	8	5	0	0
+scale	3	0	1100	0	8	5	0	0
+LabelsFormat	1	0	0	4	0	4	0	4	
+AxisType	0	0	0	0	
+MajorTicks	1	1	1	1	
+MinorTicks	1	1	1	1	
+TicksLength	5	9
+DrawAxesBackbone	1
+AxesLineWidth	1
+LabelsRotation	0	0
+<Legend>
+<Frame>2</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>22.335025380711</x>
+<y>2486945.1697128</y>
+<right>482.064297800338</right>
+<bottom>1932114.88250653</bottom>
+<attachTo>0</attachTo>
+<Text>
+\l(2) 5.1*x^2 + 200000
+\l(1) 350*x + 2000
+\l(3) Implementación
+</Text>
+<Font>Sans	14	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+</graph>
+</multiLayer>
+<open>1</open>
