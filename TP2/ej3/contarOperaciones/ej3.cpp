@@ -12,7 +12,7 @@ using namespace std;
 
 bool resolver(const carcel& c, int& cantOp);
 
-void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, vector<bool>& habitacionesYaVisitadas, vector<bool>& llavesEncontradas, const carcel& c);
+void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, vector<bool>& habitacionesYaVisitadas, vector<bool>& llavesEncontradas, const carcel& c, int& cantOp);
 
 
 
@@ -104,37 +104,72 @@ bool resolver(const carcel& c, int& cantOp){
 	//arranco a hacer BFS con la primer habitacion
 	proximaHabitacion = 0;
 	
+	/*TOMO CANTOP*/
+	cantOp = c.cantHabitaciones * 2 + 8;
+
+
 	do{
 		
 		
-		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c);//O(n^2)		
+		recorrerPorBFS(proximaHabitacion, habitacionesLimites, habitacionesYaVisitadas, llavesEncontradas, c,cantOp);
+			
 		
 		//me fijo si ya recorri todas las habitaciones
 		termine = habitacionesLimites.empty();
+
+		/*TOMO CANTOP*/
+		cantOp += 2;
+
 		if(!termine){//O(1)
 			
-			contador = habitacionesLimites.size();//O(1)
+			contador = habitacionesLimites.size();
+
+			/*TOMO CANTOP*/
+			cantOp++;
 			
-			//lo que hago aca es dejar como primer habitacion dentro de las "limite" a una de la cual tenga llave
-			//si no tengo llave para ninguna puerta, entonces veo si encontre solucion o no		
-			while(  puedoSeguir && (!llavesEncontradas[habitacionesLimites.front()]) ) {//O(n)
+			
+			while(  puedoSeguir && (!llavesEncontradas[habitacionesLimites.front()]) ) {
 				
 				habitacionesLimites.push(habitacionesLimites.front());
 				habitacionesLimites.pop();
 				contador--;
-				if(contador == 0)	puedoSeguir = false;
+				
+				/*TOMO CANTOP*/
+				cantOp += 6;
+				
+				if(contador == 0){
+					puedoSeguir = false;
+
+					/*TOMO CANTOP*/
+					cantOp += 2;
+				}
+
+				/*TOMO CANTOP*/
+				cantOp++;
+
 			}
+
+			/*TOMO CANTOP*/
+			cantOp += 2;
 			
 			proximaHabitacion = habitacionesLimites.front();
 			habitacionesLimites.pop();
+
+			/*TOMO CANTOP*/
+			cantOp += 3;
 		}
+
+		/*TOMO CANTOP*/
+		cantOp++;
 			
 	
-	}while( puedoSeguir && (!termine) );//¿O(1)?
-	//Esto corta cuando se recorrieron todas las habitaciones o cuando no hay llaves disponibles para las que quedaron sin recorrer
-	//Esto se balancea con recorrerPorBFS, haciendo que la complejidad nunca supere O(n^2), ya que si por ej,BFS recorre todos los nodos va a tener complejidad n^2, pero entonces el do-while solo se ejecuta una sola vez.
+	}while( puedoSeguir && (!termine) );
+
+	/*TOMO CANTOP*/
+	cantOp += 3;
+		
 	
-	
+
 	if(habitacionesYaVisitadas[c.cantHabitaciones-1])	return true;
 	
 	
@@ -143,55 +178,68 @@ bool resolver(const carcel& c, int& cantOp){
 }
 
 
-void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, vector<bool>& habitacionesYaVisitadas, vector<bool>& llavesEncontradas, const carcel& c){
+void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, vector<bool>& habitacionesYaVisitadas, vector<bool>& llavesEncontradas, const carcel& c, int& cantOp){
 
-/*
-La idea de esta funcion es que sea una funcion boba.
-Solo se dedica a recorrer las habitaciones encoladas como proximas, actualizando todos los parametros segun corresponda, hasta que la cola de "proximas" se vacie.
-Los parametros se modifican asi:
-1) habitacionesProximas: una vez finalizada la funcion, termina vacia.
-2) habitacionesLimites: se agregan las habitaciones que resultaron vecinas de alguna de las que se visito, pero que tienen puerta y no se tiene su llave aun
-3) habitacionesYaVisitadas: cuando visito una habitacion, la agrego al conjunto para no pasar 2 veces por la misma habitacion
-4) llavesEncontradas: aqui voy agregando las llaves que encuentre en el camino y voy eliminando aquellas que ya use
 
-Requiere: habitacionesProximas.front() sea "visitable", es decir, no tiene puerta o tiene puerta pero tengo su llave
-*/
 
 	queue<int> habitacionesProximas;
 	habitacionesProximas.push(proximaHabitacion);
 	habitacionesYaVisitadas[proximaHabitacion] = true;
 	int actual;
+
+	/*TOMO CANTOP*/
+	cantOp += 4;
 	
 	do{
-		//invariante: habitacionesProximas.front() es "visitable"
 	
 		actual = habitacionesProximas.front();	
 		habitacionesProximas.pop();
+
+		/*TOMO CANTOP*/
+		cantOp += 3;
+
 				
 		if(c.tieneLlave(actual)){
 			llavesEncontradas[c.dameLlave(actual)] = true;
+			/*TOMO CANTOP*/
+			cantOp += 3;
 		}
+
+		/*TOMO CANTOP*/
+		cantOp ++;
 		
-		for(int i = 0; i<c.cantHabitaciones; i++){//O(n)
+		for(int i = 0; i<c.cantHabitaciones; i++){
 	
-			//si son vecinas y no visite a la iesima
+			/*TOMO CANTOP*/
+			cantOp  += 2;
+
 			if(c.sonAdyacentes(actual,i) && !habitacionesYaVisitadas[i]){
+				/*TOMO CANTOP*/
+				cantOp  += 3;
 		
-				//si tiene puerta y no tengo su llave
 				if(c.tienePuerta(i) && !llavesEncontradas[i]){
 					habitacionesLimites.push(i);
 				}
 				else{
 					habitacionesProximas.push(i);
+
 				}
 				habitacionesYaVisitadas[i] = true;
+
+				/*TOMO CANTOP*/
+				cantOp  += 6;
 			}
 	
-		}//end for
-		
-	}while(!habitacionesProximas.empty());//O(n) porque recorro una sola vez cada nodo
+			/*TOMO CANTOP*/
+			cantOp  += 3;
 
+		}
+		/*TOMO CANTOP*/
+		cantOp  ++;
+	}while(!habitacionesProximas.empty());
 
+	/*TOMO CANTOP*/
+	cantOp  ++;
 
 }
 

@@ -3,7 +3,7 @@
 #include <vector>
 #include <set>
 #include <queue>
-#include "carcel.h"
+#include "../carcel.h"
 #include <sys/time.h>
 
 using namespace std;
@@ -53,7 +53,7 @@ int main(int argc, char** args){
 	//declaro variables para el tiempo
 	struct timeval t1,t2;
 	double tiempo;
-	int repes = 10;
+	int repes = 20;
 	int tiempoTotal = 0;
 
 	while(n != -1 && p != -1 && m != -1){
