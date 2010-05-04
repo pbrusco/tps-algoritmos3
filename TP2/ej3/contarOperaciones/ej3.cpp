@@ -163,7 +163,7 @@ bool resolver(const carcel& c, int& cantOp){
 		cantOp++;
 			
 	
-	}while( puedoSeguir && (!termine) );
+	}while( puedoSeguir && (!termine) && !habitacionesYaVisitadas[c.cantHabitaciones-1]);
 
 	/*TOMO CANTOP*/
 	cantOp += 3;
@@ -236,7 +236,7 @@ void recorrerPorBFS(int proximaHabitacion, queue<int>& habitacionesLimites, vect
 		}
 		/*TOMO CANTOP*/
 		cantOp  ++;
-	}while(!habitacionesProximas.empty());
+	}while(!habitacionesProximas.empty() && !habitacionesYaVisitadas[c.cantHabitaciones-1]);
 
 	/*TOMO CANTOP*/
 	cantOp  ++;
