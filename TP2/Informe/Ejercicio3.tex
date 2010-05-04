@@ -160,5 +160,63 @@ Los parámetros ``entrada'' y ``salida'' son opcionales. Si no se los utiliza, e
 
 
 \subsection{Resultados}
+
+\paragraph{}
+Para poder analizar el comportamiento del algoritmo propuesto como solución al problema dado fue necesario encontrar una forma de generar de manera automática grafos que lo modelen. Esto resulta de una gran dificultad y se torna mucho más complicado si se quieren generar grafos lo modelen y que además cumplan con ciertas características. Por lo tanto, para generar los casos de prueba se recurrió a un método que utilice números aleatorios. Esto no nos permite elegir alguna característica particular para el modelo final, pero facilita mucho la construcción del generador automático.
+
+\paragraph{}
+Luego de realizar un análisis sobre el comportamiento de los algoritmos \textit{resolver} y \textit{recorrerPorBFS} notamos que en general siempre se van a obtener resultados similares. Para ello se realizaron distintas pruebas: 
+\begin{itemize}
+  \item Se generaron casos en los que la primer habitación estuviese conectada con la última. Esta se realiza debido a que ambos algoritmos dejan de iterar si, entre otras condiciones, ya se visitó la última habitación.
+  \item Para otros casos, se puso la restricción que ninguna habitación podía estar conectada con la última. Esto significa que no había solución posible.
+  \item Por último, se generaron casos completamente azarosos, con la única precaución que la primer y última habitación no estuviesen unidas entre sí (de otra forma, esto sería igual al primer item).
+\end{itemize}
+
+
+
+\paragraph{}
+Finalmente, del análisis antes realizado podemos decir que se desprenden algunas hipótesis, las cuales enunciaremos a continuación:
+\begin{enumerate}
+  \item Para los casos en los cuales no exista una comunicación directa entre la habitación 1 y la n-ésima, el algoritmo va a presentar una complejidad cuadrática.
+  \item En los casos en que exista un pasillo que comunique directamente la primer habitación con la última, el algoritmo debería arrojar una complejidad lineal.
+  \item En aquellos casos azarosos, la complejidad debería ser cuadrática pero en promedio será posible acotarla por una función lineal.
+\end{enumerate}
+
+\paragraph{}
+A continuación presentamos los gráficos provenientes de las pruebas realizadas:
+
+	\begin{table}[t] %ubicacion de la tabla
+		\centering %centra la tabla
+		\begin{tabular}{c}
+			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesC.pdf} \\
+			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoC.pdf}
+		\end{tabular}
+		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas de modo que no exista un resultado posible, es decir, que ninguna habitación este conectada con la última.} %titulo de la tabla
+		\label{3contarC} %con esto puedo referenciar a la tabla
+		
+	\end{table}
+
+	\begin{table}[b] %ubicacion de la tabla
+		\centering %centra la tabla
+		\begin{tabular}{c}
+			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesL.pdf} \\
+			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoL.pdf}
+		\end{tabular}
+		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas de modo que haya un resultado trivial, es decir, que la primer habitación este conectada con la última.} %titulo de la tabla
+			\label{3contarL} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+	\end{table}
+
+	\begin{table}[t] %ubicacion de la tabla
+		\centering %centra la tabla
+		\begin{tabular}{c}
+			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesP.pdf} \\
+			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoP.pdf}
+			\end{tabular}
+		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas al azar pero sin que exista un resultado trivial.} %titulo de la tabla
+		\label{3contarP} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+	\end{table}
+
+
+
 \subsection{Debate}
 \subsection{Conclusiones}
