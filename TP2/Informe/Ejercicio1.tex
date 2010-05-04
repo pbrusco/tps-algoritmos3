@@ -55,8 +55,9 @@ Para entender el algoritmo principal, se presenta el pseudocódigo de la funció
 	\SetKw{Orden}{Complejidad:}
 	\Orden{$\theta$($tam(v)^2$)}
 	\BlankLine		
-    \For{($i = 0;i<= tam(v);i++$)\tcp*{$\theta$($tam(v)^2$))}}
-{ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1\tcp*{$\theta$($i$) $\subseteq$ $\theta$($tam(v)$)}}
+
+
+    \For{($i = 0;i<= tam(v);i++$)\tcp*{$\theta(tam(v)^2))$ \ \ \footnote{esta complejidad se da ya que $\displaystyle\sum_{i=0}^{tam(v)} (i)  = \frac{tam(v)*(tam(v)-1)}{2} \in \theta(tam(v)^2)$}}}{ascenso[i] $\leftarrow$ maximoAsc(ascenso,v,i) + 1\tcp*{$\theta$($i$)}}
 \end{algorithm}
 	
 
@@ -169,8 +170,8 @@ void \textbf{completar\_descensos}(descenso: vector$\langle$nat$\rangle$, v: vec
 	\begin{algorithm}[H]
 	\Orden{$\theta$($tam(v)^2$)}
 \BlankLine		
-     \For{($i = tam(v);i \geq 0;i--$) \tcp*{$\theta$($tam(v)^2$)}}
-      {descenso[i] $\leftarrow$ maximoDes(descenso,v,i) + 1\tcp*{$\theta$($tam(v) - i$) $\subseteq$ $\theta$($tam(v)$)}}
+     \For{($i = tam(v);i \geq 0;i--$) \tcp*{$\theta(tam(v)^2)$ \ \ \footnote{esta complejidad se da ya que $\displaystyle\sum_{i=tam(v)}^0 (tam(v) - i)  = \displaystyle\sum_{i=0}^{tam(v)} (i)  = \frac{tam(v)*(tam(v)-1)}{2} \in \theta(tam(v)^2)$}}}
+     {descenso[i] $\leftarrow$ maximoDes(descenso,v,i) + 1\tcp*{$\theta$($tam(v) - i$)}}
   \end{algorithm}
 
 \vspace*{1cm}
@@ -226,15 +227,14 @@ A continuación veremos gráficos que muestran el comportamiento del algoritmo u
 				\includegraphics[scale=0.7]{../ej1/graficos/tiempo100.pdf} \\
 				\includegraphics[scale=0.7]{../ej1/graficos/operaciones100.pdf}
 				\end{tabular}
-				\caption{Estos gráficos muestran el tiempo de ejecución y cantidad de operaciones en secuencias de 1 hasta 100 elementos comparados con funciones cuadraticas} %titulo de la tabla
 				\label{tiempoEj1a} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
 	\end{table}
-
+Estos gráficos muestran el tiempo de ejecución y cantidad de operaciones en secuencias de 1 hasta 100 elementos comparados con funciones cuadraticas.
 
  
 				  \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/operaciones250.pdf}
 
-				Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con una funcion cuadratica (notar que es la misma función cuadratica que en el gráfico anterior).
+Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con una funcion cuadratica (notar que es la misma función cuadratica que en el gráfico anterior más alla de ser diferentes casos de pruebas).
 
 
 
