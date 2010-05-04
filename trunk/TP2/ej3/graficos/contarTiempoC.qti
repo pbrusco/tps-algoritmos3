@@ -68,14 +68,14 @@ WindowLabel	/media/MUSICA/Mariano/Uba/Algoritmos III/tps-algoritmos3/TP2/ej3/con
 </table>
 <multiLayer>
 Graph1	1	1	04/05/10 01:46
-geometry	457	10	757	512	active
+geometry	maximized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	418	324
 Alignement	0	0
 <graph>
-ggeometry	6	5	734	452
+ggeometry	10	8	1254	685
 PlotTitle	Análisis de casos sin solución VS. función cuadrática	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -87,15 +87,15 @@ AxesTitles	Cantidad de habitaciones	Tiempo(microsegundos)
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	14	75	0	0	0
-ScaleFont0	Sans	12	75	0	0	0
-ScaleFont1	Sans	12	75	0	0	0
-ScaleFont2	Sans	12	75	0	0	0
-ScaleFont3	Sans	12	75	0	0	0
-AxisFont0	Sans	12	50	0	0	0
-AxisFont1	Sans	12	50	0	0	0
-AxisFont2	Sans	12	50	0	0	0
-AxisFont3	Sans	12	50	0	0	0
+TitleFont	Sans	21	75	0	0	0
+ScaleFont0	Sans	18	75	0	0	0
+ScaleFont1	Sans	18	75	0	0	0
+ScaleFont2	Sans	18	75	0	0	0
+ScaleFont3	Sans	18	75	0	0	0
+AxisFont0	Sans	18	50	0	0	0
+AxisFont1	Sans	18	50	0	0	0
+AxisFont2	Sans	18	50	0	0	0
+AxisFont3	Sans	18	50	0	0	0
 EnabledTickLabels	1	1	1	1	
 AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#444444	#444444	#444444	#444444
@@ -146,7 +146,7 @@ LabelsRotation	0	0
 \l(1) Implementación
 \l(2) 0.08x² + 8000
 </Text>
-<Font>Sans	12	50	0	0	0</Font>
+<Font>Sans	18	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
 <Background>#ffffff</Background>
 <Alpha>0</Alpha>

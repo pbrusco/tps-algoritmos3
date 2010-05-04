@@ -68,14 +68,14 @@ WindowLabel	/media/MUSICA/Mariano/Uba/Algoritmos III/tps-algoritmos3/TP2/ej3/con
 </table>
 <multiLayer>
 Graph1	1	1	04/05/10 15:11
-geometry	460	14	742	560	active
+geometry	maximized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	418	324
 Alignement	0	0
 <graph>
-ggeometry	5	5	719	499
+ggeometry	9	7	1254	687
 PlotTitle	Análisis de casos aleatorios VS. función cuadrática y lineal	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -87,15 +87,15 @@ AxesTitles	Cantidad de habitaciones	Cantidad de operaciones
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	16	75	0	0	0
-ScaleFont0	Sans	13	75	0	0	0
-ScaleFont1	Sans	13	75	0	0	0
-ScaleFont2	Sans	13	75	0	0	0
-ScaleFont3	Sans	13	75	0	0	0
-AxisFont0	Sans	13	50	0	0	0
-AxisFont1	Sans	13	50	0	0	0
-AxisFont2	Sans	13	50	0	0	0
-AxisFont3	Sans	13	50	0	0	0
+TitleFont	Sans	22	75	0	0	0
+ScaleFont0	Sans	18	75	0	0	0
+ScaleFont1	Sans	18	75	0	0	0
+ScaleFont2	Sans	18	75	0	0	0
+ScaleFont3	Sans	18	75	0	0	0
+AxisFont0	Sans	18	50	0	0	0
+AxisFont1	Sans	18	50	0	0	0
+AxisFont2	Sans	18	50	0	0	0
+AxisFont3	Sans	18	50	0	0	0
 EnabledTickLabels	1	1	1	1	
 AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#444444	#444444	#444444	#444444
@@ -157,15 +157,15 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>22.335025380711</x>
 <y>2486945.1697128</y>
-<right>482.064297800338</right>
-<bottom>1932114.88250653</bottom>
+<right>192.117465224111</right>
+<bottom>2222222.22222222</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(2) 5.1*x^2 + 200000
 \l(1) 350*x + 2000
 \l(3) Implementación
 </Text>
-<Font>Sans	14	50	0	0	0</Font>
+<Font>Sans	19	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
 <Background>#ffffff</Background>
 <Alpha>0</Alpha>
