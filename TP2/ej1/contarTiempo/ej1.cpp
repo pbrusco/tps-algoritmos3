@@ -2,6 +2,7 @@
 #include <vector>
 #include <math.h>
 #include <fstream>
+#include <sys/time.h>
 
 using namespace std;
 void mostrar(const vector<int >& v);
@@ -16,15 +17,34 @@ int main(){
 	ifstream entrada;
 	entrada.open("Tp2Ej1.in");
 	ofstream salida;
-	salida.open("salida.out");
+	salida.open("tiempos.out");
+	unsigned int res;
+	struct timeval t1,t2;
+	double tiempo,tiempoTotal;
+	cout.precision(10);
+	tiempoTotal = 0;
 	
+		
 	vector<int> v; 
 	bool sigueArchivo;
 	
 	do{
 		sigueArchivo = cargar(v,entrada);
+				
+		if(sigueArchivo) {
+			//tomarTiempo.
+			gettimeofday(&t1,NULL);
 
-		if(sigueArchivo) salida << escalerar(v) << endl;
+			res = escalerar(v);
+			//dejarDeTomarTiempo.
+			gettimeofday(&t2,NULL);
+
+			tiempo = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t1.tv_usec);
+			tiempoTotal = tiempoTotal + tiempo;
+			salida.precision(0);
+			salida << fixed << v.size() << " " <<  tiempoTotal << endl;
+
+		}
 	}while(sigueArchivo);
 	
 	
@@ -121,5 +141,9 @@ void mostrar(const vector<int>& v){
 	cout << "]" << endl;
 
 }
+
+
+
+
 
 
