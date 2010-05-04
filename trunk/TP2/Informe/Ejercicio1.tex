@@ -218,9 +218,38 @@ Para compilar el programa sólo hace falta ejecutar el comando make en consola.
 \label{resultadosej1}
 
 \paragraph{}
+Para poder analizar el comportamiento del algoritmo, se desarrolló un generador de secuencias de tamaños determinados con valores enteros en un rango determinado.
+
+\paragraph{}
+Al realizar el análisis sobre la complejidad del algoritmo, notamos que sin importar los valores en la secuencia ni la cantidad de elementos a sacar para convertirla en unimodal, debería comportarse de manera identica para tamaños de secuencia similares.
+
+\paragraph{}
+Por lo tanto, veamos que entradas generamos:
+\begin{enumerate}
+  \item 100 secuencias de tamaños desde 1 hasta 99 con elementos aleatorios entre -1000000 y 1000000.
+  \item 250 secuencias de tamaños desde 1 hasta 250 con elementos aleatorios entre -1000000 y 1000000.
+  \item 100 secuencias de tamaños desde 1 hasta 250 con elementos iguales a cero, de manera que el resultado sea eliminar todos menos un elemento para convertirla en unimodal.
+\end{enumerate}
+
+
+
+\paragraph{}
+Entonces, se desprenden algunas hipótesis, las cuales enunciaremos a continuación:
+\begin{itemize}
+  
+  \item La cantidad de operaciones no debería ser afectada por la cantidad de elementos a borrar para convertir la secuencia.
+
+  \item Para tamaños de entradas identicos, el algoritmo debería realizar exactamente la misma cantidad de operaciones.
+
+\end{itemize}
+
+
+
+
+\paragraph{}
 A continuación veremos gráficos que muestran el comportamiento del algoritmo utilizado
 
-
+\newpage
 	\begin{table}[h!] %ubicacion de la tabla
 		\centering %centra la tabla
 			\begin{tabular}{c}
@@ -229,12 +258,13 @@ A continuación veremos gráficos que muestran el comportamiento del algoritmo u
 				\end{tabular}
 				\label{tiempoEj1a} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
 	\end{table}
-Estos gráficos muestran el tiempo de ejecución y cantidad de operaciones en secuencias de 1 hasta 100 elementos comparados con funciones cuadraticas.
+
+Estos gráficos muestran el tiempo de ejecución y cantidad de operaciones en secuencias de 1 hasta 100 elementos aleatorios comparados con funciones cuadraticas (se corresponden con la entrada generada ``1''  de las explicadas anteriormente).
 
  
-				  \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/operaciones250.pdf}
+\hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/operaciones250.pdf}
 
-Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con una funcion cuadratica (notar que es la misma función cuadratica que en el gráfico anterior más alla de ser diferentes casos de pruebas).
+Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con una funcion cuadratica (notar que es la misma función cuadratica que en el gráfico anterior más alla de ser diferentes casos de pruebas, se corresponde con la entrada generada ``2'' de las explicadas anteriormente).
 
 
 
