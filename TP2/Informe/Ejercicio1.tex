@@ -264,22 +264,39 @@ Estos gráficos muestran el tiempo de ejecución y cantidad de operaciones en se
  \vspace*{1cm}
 \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/operaciones250.pdf}
 
-Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos aleatorios comparados con una funcion cuadratica (se corresponde con la entrada generada número ``2'' de las enunciadas anteriormente).
+Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos aleatorios comparados con funciones cuadraticas (se corresponde con la entrada generada número ``2'' de las enunciadas anteriormente).
 
  \vspace*{1cm}
 \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/operaciones0.pdf}
 
-Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos iguales a cero comparados con una funcion cuadratica (se corresponde con la entrada generada número ``3'' de las enunciadas anteriormente).
+Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos iguales a cero comparados con funciones cuadraticas (se corresponde con la entrada generada número ``3'' de las enunciadas anteriormente).
 
  \vspace*{1cm}
 \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/tiempo0.pdf}
 
-Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con una funcion cuadratica (se corresponde con la entrada generada número ``3'' de las enunciadas anteriormente).
+Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con funciones cuadraticas (se corresponde con la entrada generada número ``3'' de las enunciadas anteriormente).
 
-Notar que para el mismo tipo de gráficos (de tiempo o de cantidad de operaciones), se utiliza la misma función cuadratica para gráficar la cota superior que en el resto más alla de ser diferentes casos de pruebas. 
+Notar que para el mismo tipo de gráficos (de tiempo o de cantidad de operaciones), se utiliza las mismas funciónes cuadraticas para gráficar la cota superior e inferior que en el resto más alla de ser diferentes casos de pruebas. 
+
 
 
 
 \subsection{Debate}
+\paragraph{}
+Se puede apreciar en los gráficos propuestos en la sección [\ref{resultadosej1}] que en general la implementación realizada se comporta como se esperaba que en teoría lo hiciera. Es decir, durante el desarrollo del informe sobre este ejercicio, entre otras cosas, se postuló la hipótesis de que la complejidad del algoritmo tenía un costo de $\theta(tam(v)^2)$, donde $tam(v)$ es la cantidad de números en la secuencia.
+
+\paragraph{}
+Se puede identificar en cada gráfico una marcada similitud entre los resultados arrojados en las distintas mediciones que se hicieron sobre la implementación unas parabola (o funciónes cuadráticas) cuyas pendientes no varian para cada caso (medidos de la misma manera).
+
+
+\paragraph{}
+
+
 \subsection{Conclusiones}
+\paragraph{}
+Luego de describir el funcionamiento del algoritmo, de realizar las pruebas y gráficos pertinentes y de analizarlos detalladamente, podemos realizar algunas conclusiones.\\
+Podemos asegurar fehacientemente que la complejidad del algoritmo propuesto es cuadratico y que la misma es \titade{n} donde $n$ es la cantidad de trabajadores. Esto no sólo se desprende del análisis teórico realizado anteriormente, sino también de las sucesivas pruebas realizadas. Claramente se puede observar en todos los gráficos presentados cómo el comportamiento de la implementación se asemeja a una función lineal sobre los datos de entrada.
+
+\paragraph{}
+Finalmente, si hacemos una comparación entre los resultados obtenidos al aplicarse el algoritmo sobre datos de entrada azarosos y datos de entrada que se condicen con el peor caso, se puede observar que la constante que acompaña a la complejidad para el peor caso es considerablemente mayor a la constante que aparece en el caso azaroso. Como una conclusión poco menos significativa entonces, se puede decir que los casos en que los horarios de los trabajadores son todos disjuntos son los peores casos para este algoritmo.
 
