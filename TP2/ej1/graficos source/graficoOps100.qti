@@ -125,14 +125,14 @@ LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
 ggeometry	5	5	491	371
-PlotTitle	Cantidad de operaciones VS. tamaño de la secuencia	#000000	4228
+PlotTitle	Algoritmo VS. Función cuadratica <br>(Cantidad de operaciones)	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
 Margin	0
 Border	0	#000000
 grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
 EnabledAxes	1	0	1	0	
-AxesTitles	tamaño de la secuencia	Operaciones			
+AxesTitles	tamaño de la secuencia	Cantidad de operaciones			
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
@@ -154,7 +154,7 @@ curve	Table1_1	Table1_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
-<Expression>200 + 1.1*x^2</Expression>
+<Expression>1000 + 1.05*x^2</Expression>
 <Variable>x</Variable>
 <Range>0	100</Range>
 <Points>100</Points>
@@ -171,8 +171,8 @@ curve	Table1_1	Table1_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	
 </Function>
 scale	0	0	12000	0	8	5	0	0
 scale	1	0	12000	0	8	5	0	0
-scale	2	0	100	0	8	5	0	0
-scale	3	0	100	0	8	5	0	0
+scale	2	0	105	0	8	5	0	0
+scale	3	0	105	0	8	5	0	0
 LabelsFormat	1	0	0	4	0	4	0	4	
 AxisType	0	0	0	0	
 MajorTicks	1	1	1	1	
@@ -186,14 +186,14 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>5.25</x>
-<y>10820.338983051</y>
-<right>37.5</right>
-<bottom>8989.83050847458</bottom>
+<x>5.3519417475728</x>
+<y>10821.818181818</y>
+<right>27.3150357995227</right>
+<bottom>10291.9708029197</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Algoritmo
-\l(2)200 + 1.1x²
+\l(2)1000 + 1.05x²
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
