@@ -267,26 +267,26 @@ WindowLabel	/home/pablo/Escritorio/tps-algoritmos3/TP2/ej1/contarOperaciones/ope
 </table>
 <multiLayer>
 Graph1	1	1	04/05/10 01:42
-geometry	0	0	851	430	active
+geometry	maximized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	9	5	834	372
-PlotTitle	Algoritmo VS función cuadratica <br>(Cantidad de operaciones)	#000000	4228
+ggeometry	12	5	994	389
+PlotTitle	Algoritmo VS Funciónes cuadráticas <br>(Cantidad de operaciones)	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
 Margin	0
-Border	0	#000000
+Border	0	#ff0000
 grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
 EnabledAxes	1	0	1	0	
 AxesTitles	Tamaño de la secuencia	Cantidad de operaciones			
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	12	75	0	0	0
+TitleFont	Sans	13	75	0	0	0
 ScaleFont0	Sans	10	75	0	0	0
 ScaleFont1	Sans	10	75	0	0	0
 ScaleFont2	Sans	10	75	0	0	0
@@ -300,29 +300,47 @@ AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#1a1a1a	#1a1a1a	#1a1a1a	#1a1a1a
 AxesBaseline	0	0	0	0	
 CanvasBackground	#ffffff	255
-curve	Table2_1	Table2_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	0	248	1
+curve	Table2_1	Table2_2	3	1	#ff8000	0	1	7	0	#000000	#000000	1	#ff8000	0	0	0	2	0	0	248	1
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
-<Expression>1000 + 1.05*x^2</Expression>
+<Expression>1500 + 1.03*x^2</Expression>
 <Variable>x</Variable>
 <Range>0	250</Range>
 <Points>100</Points>
-<Style>15</Style>
-<LineStyle>6</LineStyle>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
 <Pen>
 	<Color>#ff0000</Color>
-	<Style>0</Style>
-	<Width>1</Width>
+	<Style>1</Style>
+	<Width>2.7</Width>
 </Pen>
 <xAxis>2</xAxis>
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	70000	0	8	5	0	0
+<Function>
+<Type>0</Type>
+<Title>F2</Title>
+<Expression>1.03*x^2 - 2000</Expression>
+<Variable>x</Variable>
+<Range>0	250</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#000000</Color>
+	<Style>0</Style>
+	<Width>2</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	70000	0	9	5	0	0
 scale	1	0	70000	0	8	5	0	0
-scale	2	0	255	0	8	5	0	0
-scale	3	0	255	0	8	5	0	0
+scale	2	0	254	0	8	5	0	0
+scale	3	0	254	0	8	5	0	0
 LabelsFormat	1	0	0	4	1	0	0	4	
 AxisType	0	0	0	0	
 MajorTicks	1	1	1	1	
@@ -336,14 +354,15 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>4.7159841479524</x>
-<y>67259.786476868</y>
-<right>53.560105680317</right>
-<bottom>57046.2633451957</bottom>
+<x>4.7099337748344</x>
+<y>67220.216606498</y>
+<right>29.6423982869379</right>
+<bottom>60454.5454545455</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Algoritmo
-\l(2)1000 + 1.05x²
+\l(2)1500 + 1.03x²
+\l(3)- 2000 +1.03x²
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>

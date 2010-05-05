@@ -117,14 +117,14 @@ WindowLabel	/home/pablo/Escritorio/tps-algoritmos3/TP2/ej1/contarOperaciones/ope
 </table>
 <multiLayer>
 Graph1	1	1	04/05/10 01:17
-geometry	445	0	510	430	active
+geometry	maximized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	5	5	491	371
+ggeometry	10	5	994	389
 PlotTitle	Algoritmo VS. Función cuadratica <br>(Cantidad de operaciones)	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -136,7 +136,7 @@ AxesTitles	tamaño de la secuencia	Cantidad de operaciones
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	12	75	0	0	0
+TitleFont	Sans	13	75	0	0	0
 ScaleFont0	Sans	10	75	0	0	0
 ScaleFont1	Sans	10	75	0	0	0
 ScaleFont2	Sans	10	75	0	0	0
@@ -193,7 +193,7 @@ LabelsRotation	0	0
 <attachTo>0</attachTo>
 <Text>
 \l(1)Algoritmo
-\l(2)1000 + 1.05x²
+\l(2)1500 + 1.03x²
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>

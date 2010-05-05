@@ -117,14 +117,14 @@ WindowLabel	/home/pablo/Escritorio/tps-algoritmos3/TP2/ej1/contarTiempo/tiempos.
 </table>
 <multiLayer>
 Graph1	1	1	04/05/10 00:56
-geometry	0	0	510	430	active
+geometry	maximized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	5	5	491	371
+ggeometry	10	5	994	389
 PlotTitle	Algoritmo VS. Función cuadratica <br>(Tiempo)	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -136,7 +136,7 @@ AxesTitles	tamaño de la secuencia	tiempo (microsegundos)
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	12	75	0	0	0
+TitleFont	Sans	13	75	0	0	0
 ScaleFont0	Sans	10	75	0	0	0
 ScaleFont1	Sans	10	75	0	0	0
 ScaleFont2	Sans	10	75	0	0	0
@@ -150,7 +150,7 @@ AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#1a1a1a	#1a1a1a	#1a1a1a	#1a1a1a
 AxesBaseline	0	0	0	0	
 CanvasBackground	#ffffff	255
-curve	Table2_1	Table2_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	0	98	1
+curve	Table2_1	Table2_2	3	1	#ff8000	0	1	7	0	#000000	#000000	1	#ff8000	0	0	0	2	0	0	98	1
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
@@ -158,30 +158,12 @@ curve	Table2_1	Table2_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	
 <Variable>x</Variable>
 <Range>0	100</Range>
 <Points>100</Points>
-<Style>15</Style>
-<LineStyle>6</LineStyle>
-<Pen>
-	<Color>#0000ff</Color>
-	<Style>1</Style>
-	<Width>1</Width>
-</Pen>
-<xAxis>2</xAxis>
-<yAxis>0</yAxis>
-<Visible>1</Visible>
-</Function>
-<Function>
-<Type>0</Type>
-<Title>F2</Title>
-<Expression>1.76*x^2</Expression>
-<Variable>x</Variable>
-<Range>0	100</Range>
-<Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
 <Pen>
-	<Color>#ff0000</Color>
-	<Style>0</Style>
-	<Width>1</Width>
+	<Color>#0000ff</Color>
+	<Style>1</Style>
+	<Width>3</Width>
 </Pen>
 <xAxis>2</xAxis>
 <yAxis>0</yAxis>
@@ -189,8 +171,8 @@ curve	Table2_1	Table2_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	
 </Function>
 scale	0	0	40000	0	6	5	0	0
 scale	1	0	40000	0	8	5	0	0
-scale	2	0	110	0	8	5	0	0
-scale	3	0	110	0	8	5	0	0
+scale	2	0	105	0	8	5	0	0
+scale	3	0	105	0	8	5	0	0
 LabelsFormat	1	0	0	4	0	4	0	4	
 AxisType	0	0	0	0	
 MajorTicks	1	1	1	1	
@@ -204,15 +186,14 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>5.6067961165049</x>
-<y>36067.796610169</y>
-<right>28.6157517899761</right>
-<bottom>34675.7679180887</bottom>
+<x>5.3018660812294</x>
+<y>36027.397260274</y>
+<right>19.4785949506037</right>
+<bottom>29863.0136986301</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Algoritmo
 \l(2)3.5x²
-\l(3)1.76x²
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>

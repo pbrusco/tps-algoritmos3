@@ -531,15 +531,15 @@ WindowLabel	/home/pablo/Escritorio/tps-algoritmos3/TP2/ej1/graficos source/tiemp
 </table>
 <multiLayer>
 Graph1	1	1	04/05/10 21:52
-geometry	425	7	510	430	
+geometry	maximized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	5	5	495	368
-PlotTitle	Algoritmo VS. Función cuadratica <br>(Tiempo)	#000000	4228
+ggeometry	10	5	994	389
+PlotTitle	Algoritmo VS. Funciónes cuadráticas <br>(Tiempo)	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
 Margin	0
@@ -550,21 +550,21 @@ AxesTitles	tamaño de la secuencia	Tiempo (microsegundos)
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	12	75	0	0	0
-ScaleFont0	Sans	10	75	0	0	0
-ScaleFont1	Sans	10	75	0	0	0
-ScaleFont2	Sans	10	75	0	0	0
-ScaleFont3	Sans	10	75	0	0	0
-AxisFont0	Sans	10	50	0	0	0
-AxisFont1	Sans	10	50	0	0	0
-AxisFont2	Sans	10	50	0	0	0
-AxisFont3	Sans	10	50	0	0	0
+TitleFont	Sans	13	75	0	0	0
+ScaleFont0	Sans	11	75	0	0	0
+ScaleFont1	Sans	11	75	0	0	0
+ScaleFont2	Sans	11	75	0	0	0
+ScaleFont3	Sans	11	75	0	0	0
+AxisFont0	Sans	11	50	0	0	0
+AxisFont1	Sans	11	50	0	0	0
+AxisFont2	Sans	11	50	0	0	0
+AxisFont3	Sans	11	50	0	0	0
 EnabledTickLabels	1	1	1	1	
 AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#1a1a1a	#1a1a1a	#1a1a1a	#1a1a1a
 AxesBaseline	0	0	0	0	
 CanvasBackground	#ffffff	255
-curve	Table3_1	Table3_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	0	248	1
+curve	Table3_1	Table3_2	3	1	#ff8000	0	1	7	0	#000000	#000000	1	#ff8000	0	0	0	2	0	0	248	1
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
@@ -576,14 +576,32 @@ curve	Table3_1	Table3_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	
 <LineStyle>1</LineStyle>
 <Pen>
 	<Color>#ff0000</Color>
-	<Style>0</Style>
-	<Width>1</Width>
+	<Style>1</Style>
+	<Width>2.4</Width>
 </Pen>
 <xAxis>2</xAxis>
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	250000	0	7	5	0	0
+<Function>
+<Type>0</Type>
+<Title>F2</Title>
+<Expression>-70000 + 3.5*x^2</Expression>
+<Variable>x</Variable>
+<Range>0	250</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#8000ff</Color>
+	<Style>0</Style>
+	<Width>2.2</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	250000	0	8	5	0	0
 scale	1	0	250000	0	8	5	0	0
 scale	2	0	255	0	8	5	0	0
 scale	3	0	255	0	8	5	0	0
@@ -600,16 +618,17 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>8.1984478935698</x>
-<y>241438.35616438</y>
-<right>42.9711751662971</right>
-<bottom>202910.95890411</bottom>
+<x>8.2166666666667</x>
+<y>241408.9347079</y>
+<right>53.8333333333333</right>
+<bottom>182989.690721649</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Algoritmo
 \l(2)3.5x²
+\l(3)-70000 + 3.5x²
 </Text>
-<Font>Sans	10	50	0	0	0</Font>
+<Font>Sans	11	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
 <Background>#ffffff</Background>
 <Alpha>0</Alpha>
@@ -621,15 +640,15 @@ LabelsRotation	0	0
 </multiLayer>
 <multiLayer>
 Graph2	1	1	04/05/10 21:52
-geometry	3	-19	510	430	active
+geometry	0	0	1024	425	hidden
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	5	5	495	368
-PlotTitle	Algoritmo VS. Función cuadratica <br>(Cantidad de Operaciones)	#000000	4228
+ggeometry	10	5	994	389
+PlotTitle	Algoritmo VS. Funciónes cuadráticas <br>(Cantidad de Operaciones)	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
 Margin	0
@@ -640,43 +659,61 @@ AxesTitles	Tamaño de la secuencia	Cantidad de operaciones
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	12	75	0	0	0
-ScaleFont0	Sans	10	75	0	0	0
-ScaleFont1	Sans	10	75	0	0	0
-ScaleFont2	Sans	10	75	0	0	0
-ScaleFont3	Sans	10	75	0	0	0
-AxisFont0	Sans	10	50	0	0	0
-AxisFont1	Sans	10	50	0	0	0
-AxisFont2	Sans	10	50	0	0	0
-AxisFont3	Sans	10	50	0	0	0
+TitleFont	Sans	13	75	0	0	0
+ScaleFont0	Sans	11	75	0	0	0
+ScaleFont1	Sans	11	75	0	0	0
+ScaleFont2	Sans	11	75	0	0	0
+ScaleFont3	Sans	11	75	0	0	0
+AxisFont0	Sans	11	50	0	0	0
+AxisFont1	Sans	11	50	0	0	0
+AxisFont2	Sans	11	50	0	0	0
+AxisFont3	Sans	11	50	0	0	0
 EnabledTickLabels	1	1	1	1	
 AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#1a1a1a	#1a1a1a	#1a1a1a	#1a1a1a
 AxesBaseline	0	0	0	0	
 CanvasBackground	#ffffff	255
-curve	Table2_1	Table2_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	0	248	1
+curve	Table2_1	Table2_2	3	1	#ff8000	0	0.7	7	0	#000000	#000000	1	#ff8000	0	0	0	2	0	0	248	1
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
-<Expression>1000 + 1.05*x^2</Expression>
+<Expression>1500 + 1.03*x^2</Expression>
 <Variable>x</Variable>
 <Range>0	250</Range>
 <Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
 <Pen>
-	<Color>#ff0000</Color>
-	<Style>0</Style>
-	<Width>1</Width>
+	<Color>#0000ff</Color>
+	<Style>1</Style>
+	<Width>2.5</Width>
 </Pen>
 <xAxis>2</xAxis>
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	70000	0	8	5	0	0
+<Function>
+<Type>0</Type>
+<Title>F2</Title>
+<Expression>-2000 + 1.03*x^2</Expression>
+<Variable>x</Variable>
+<Range>0	250</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#000000</Color>
+	<Style>0</Style>
+	<Width>2.5</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	70000	0	9	5	0	0
 scale	1	0	70000	0	8	5	0	0
-scale	2	0	255	0	8	5	0	0
-scale	3	0	255	0	8	5	0	0
+scale	2	0	254	0	8	5	0	0
+scale	3	0	254	0	8	5	0	0
 LabelsFormat	1	0	0	4	0	4	0	4	
 AxisType	0	0	0	0	
 MajorTicks	1	1	1	1	
@@ -690,16 +727,17 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>5.625</x>
-<y>63118.644067797</y>
-<right>67.1376811594203</right>
-<bottom>60036.496350365</bottom>
+<x>5.5885588558856</x>
+<y>63024.054982818</y>
+<right>29.785016286645</right>
+<bottom>60454.5454545455</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Algoritmo
-\l(2)1000 + 1.05x²
+\l(2)1500 + 1.03x²
+\l(3)-2000 + 1.03x²
 </Text>
-<Font>Sans	10	50	0	0	0</Font>
+<Font>Sans	11	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
 <Background>#ffffff</Background>
 <Alpha>0</Alpha>
