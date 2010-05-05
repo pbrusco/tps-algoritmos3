@@ -3,11 +3,11 @@ GXXFLAGS = -w -o
 
 .PHONY=clean all
 
-generador: generador.cpp
+1_ej: ej1.cpp
 	$(GXX) $(GXXFLAGS) $@ $<
 
-all: clean generador
+all: clean 1_ej
 
 clean:
-	rm generador
+	rm 1_ej
 
