@@ -228,13 +228,13 @@ Por lo tanto, veamos que entradas generamos:
 \begin{enumerate}
   \item 100 secuencias de tamaños desde 1 hasta 99 con elementos aleatorios entre -1000000 y 1000000.
   \item 250 secuencias de tamaños desde 1 hasta 250 con elementos aleatorios entre -1000000 y 1000000.
-  \item 100 secuencias de tamaños desde 1 hasta 250 con elementos iguales a cero, de manera que el resultado sea eliminar todos menos un elemento para convertirla en unimodal.
+  \item 250 secuencias de tamaños desde 1 hasta 250 con elementos iguales a cero, de manera que el resultado sea eliminar todos menos un elemento para convertirla en unimodal.
 \end{enumerate}
 
 
 
 \paragraph{}
-Entonces, se desprenden algunas hipótesis, las cuales enunciaremos a continuación:
+Luego, se desprenden algunas hipótesis, las cuales enunciaremos a continuación:
 \begin{itemize}
   
   \item La cantidad de operaciones no debería ser afectada por la cantidad de elementos a borrar para convertir la secuencia.
@@ -259,12 +259,24 @@ A continuación veremos gráficos que muestran el comportamiento del algoritmo u
 				\label{tiempoEj1a} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
 	\end{table}
 
-Estos gráficos muestran el tiempo de ejecución y cantidad de operaciones en secuencias de 1 hasta 100 elementos aleatorios comparados con funciones cuadraticas (se corresponden con la entrada generada ``1''  de las explicadas anteriormente).
+Estos gráficos muestran el tiempo de ejecución y cantidad de operaciones en secuencias de 1 hasta 100 elementos aleatorios comparados con funciones cuadraticas (se corresponden con la entrada generada número ``1''  de las enunciadas anteriormente).
 
- 
+ \vspace*{1cm}
 \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/operaciones250.pdf}
 
-Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con una funcion cuadratica (notar que es la misma función cuadratica que en el gráfico anterior más alla de ser diferentes casos de pruebas, se corresponde con la entrada generada ``2'' de las explicadas anteriormente).
+Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos aleatorios comparados con una funcion cuadratica (se corresponde con la entrada generada número ``2'' de las enunciadas anteriormente).
+
+ \vspace*{1cm}
+\hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/operaciones0.pdf}
+
+Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos iguales a cero comparados con una funcion cuadratica (se corresponde con la entrada generada número ``3'' de las enunciadas anteriormente).
+
+ \vspace*{1cm}
+\hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/tiempo0.pdf}
+
+Este gráfico muestra la cantidad de operaciones en secuencias de 1 hasta 250 elementos comparados con una funcion cuadratica (se corresponde con la entrada generada número ``3'' de las enunciadas anteriormente).
+
+Notar que para el mismo tipo de gráficos (de tiempo o de cantidad de operaciones), se utiliza la misma función cuadratica para gráficar la cota superior que en el resto más alla de ser diferentes casos de pruebas. 
 
 
 
