@@ -196,22 +196,21 @@ nat  \textbf{maximoAsc}(ascenso: vector$\langle$nat$\rangle$, v: vector$\langle$
 \underline{Aclaración:} el pseudocódigo de la función competar\_ascensos() se encuentra en la sección ``Explicación'' y la función maximoDes() es analoga a maximoAsc().
 
 \paragraph{}
-Como se ve en los pseudocódigos, sin depender de los valores ingresados en el vector v, la cantidad de operaciones es la misma para un mismo tamaño de entrada. Por lo tanto, podemos decir que esta función esta acotada por arriba y por abajo por una función cuadratica a partir de un $n_0$ es decir, escalerar() $\in \titade{tam(v)^2}$
+Como se ve en los pseudocódigos, sin depender de los valores ingresados en el vector v, la cantidad de operaciones es la misma para un mismo tamaño de entrada. Por lo tanto, podemos presumir que esta función esta acotada por arriba y por abajo por una función cuadratica a partir de un $n_0$ es decir, escalerar() $\in \titade{tam(v)^2}$
 
 \paragraph{}
-En conclusión, nuestro algoritmo esta siempre acotado por arriba y por abajo por una función cuadratica en el tamaño de la entrada (tam(v)).
+En conclusión, creemos que nuestro algoritmo esta siempre acotado por arriba y por abajo por una función cuadratica en el tamaño de la entrada (tam(v)). Veremos al realizar las pruebas si esto se cumple en la practica.
 
 
 
 \subsection{Detalles de implementación}
 
 \paragraph{}
-Para compilar el programa sólo hace falta ejecutar el comando make en consola.
+Para compilar el programa sólo hace falta ejecutar el comando make en consola desde la carpeta principal del ejercicio.
 
 \paragraph{Modo de Uso}
+El programa lee un archivo de entrada en la misma carpeta que el ejecutable con el nombre ``Tp2Ej1.in'' y genera un archivo llamado ``salida.out'' con la solucion.
 
-
-\pagebreak[4]
 \clearpage
 
 \subsection{Resultados}
@@ -297,8 +296,8 @@ Se puede identificar en cada gráfico una marcada similitud entre los resultados
 \subsection{Conclusiones}
 \paragraph{}
 Luego de describir el funcionamiento del algoritmo, de realizar las pruebas y gráficos pertinentes y de analizarlos detalladamente, podemos realizar algunas conclusiones.\\
-Podemos asegurar fehacientemente que la complejidad del algoritmo propuesto es cuadratico y que la misma es \titade{n} donde $n$ es la cantidad de trabajadores. Esto no sólo se desprende del análisis teórico realizado anteriormente, sino también de las sucesivas pruebas realizadas. Claramente se puede observar en todos los gráficos presentados cómo el comportamiento de la implementación se asemeja a una función lineal sobre los datos de entrada.
+Podemos asegurar fehacientemente que la complejidad del algoritmo propuesto es cuadratico y que la misma es $\theta(tam(v)^2)$ donde $tam(v)$ es la cantidad de elementos en la secuencia. Esto no sólo se desprende del análisis teórico realizado anteriormente, sino también de las sucesivas pruebas realizadas. Claramente se puede observar en todos los gráficos presentados cómo el comportamiento de la implementación se asemeja a una función cuadrática sobre el tamaño de los datos de entrada.
 
 \paragraph{}
-Finalmente, si hacemos una comparación entre los resultados obtenidos al aplicarse el algoritmo sobre datos de entrada azarosos y datos de entrada que se condicen con el peor caso, se puede observar que la constante que acompaña a la complejidad para el peor caso es considerablemente mayor a la constante que aparece en el caso azaroso. Como una conclusión poco menos significativa entonces, se puede decir que los casos en que los horarios de los trabajadores son todos disjuntos son los peores casos para este algoritmo.
+Finalmente, si hacemos una comparación entre los resultados obtenidos al aplicarse el algoritmo sobre datos de entrada azarosos y datos de entrada que se condicen con lo que parecería ser un peor caso (todos ceros por ejemplo), se puede observar que la constante que acompaña a la complejidad para el peor caso es exactamente igual a la constante que aparece en el caso azaroso. Como una conclusión poco menos significativa entonces, se puede decir que todos los casos son mejor y peor caso para este algoritmo.
 
