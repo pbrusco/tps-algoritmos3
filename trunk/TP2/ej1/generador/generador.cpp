@@ -17,7 +17,7 @@ int main(){
 	for(int tamSecuencia = 1;tamSecuencia < 250;tamSecuencia++){
 		salida << tamSecuencia << " ";
 		for(int j = 0;j<tamSecuencia;j++){		
-			salida << numeroAlAzar(-1000000, 1000000, 0)<<" ";			
+			salida << numeroAlAzar(-1000000, 1000000, 0) <<" ";			
 		}
 		salida << endl;
 	}
