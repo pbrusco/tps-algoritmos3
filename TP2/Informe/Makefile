@@ -1,6 +1,6 @@
 all: Informe_Tp2.pdf clean
 
-Informe_Tp2.pdf: Informe_Tp2.tex Ejercicio*.tex  ./otros/*
+Informe_Tp2.pdf: Informe_Tp2.tex Ejercicio*.tex  Anexos.tex ./otros/*
 	(pdflatex Informe_Tp2.tex; pdflatex Informe_Tp2.tex); (reset; echo 'PDF COMPILADO!')
         
 clean:

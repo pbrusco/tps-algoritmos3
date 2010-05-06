@@ -1,28 +1,47 @@
 \section{Ejercicio 2}
 
 \subsection{Introducción}
-\label{introej2}
+\label{intro2}
+
+\paragraph{}
+El segundo problema que se propone en este trabajo práctico es el de, dado el trazado de calles de una ciudad compueto por esquinas y calles, decidir si es posible orientar las calles de forma tal que dadas dos esquinas cualesquiera resulte posible llegar de la primera a la segunda.
+
+\paragraph{}
+Mediante un modelado con grafos, el problema puede ser representado de forma que los nodos de un grafo correspondan a las esquinas de la ciudad y las aristas a las calles que unen cada par de esquinas entre sí. \\
+Entonces, para poder estudiar el problema con el modelo planteado es preciso primero establecer algunas definiciones:
+\begin{itemize}
+	\item \textbf{Def$_1$:} Un digrafo es ...
+	\item \textbf{Def$_2$:} Un digrafo es \textit{fuertemente conexo} ...
+	\item \textbf{Def$_3$:} Un grafo $G$ es \textit{fuertemente orientable} si existe una asignación de direcciones a los ejes del conjunto de ejes del grafo $G$ tal que el digrafo resultante es fuertemente conexo. 
+	\item \textbf{Def$_4$:} \textit{un puente o arista de corte} es una arista que al eliminarse de un grafo incrementa el número de componentes conexos de éste. Equivalentemente, una arista es un puente si y sólo si no está contenido en ningún ciclo.
+\end{itemize}
+
+\paragraph{}
+A partir de las definiciones anteriores, se desprende que para resolver el problema en cuestión se debe determinar si el grafo que modela el trazado de las calles es fuertemente orientable. Esto es, establecer si es posible para cada instancia del problema orientar el grafo dado para obtener así un digrafo fuertemente conexo de modo que sea posible llegar de cualquier nodo a cualquier otro.
+
+\paragraph{}
+El algoritmo desarrollado para dar solución al problema planteado recorre los ejes del grafo evaluando cierta propiedad que se explicará más adelante. Para ello, el mimos, se basa los algoritmos tradicionales de recorrido de grafos, como son BFS y DFS. En la sección contigua se expone de forma detallada las ideas que dieron lugar al algoritmo así como también el algoritmo en sí.
+
 	
 \subsection{Explicación}
+\label{exp2}
 
 \paragraph{}
-Primero, algunas definiciones:
+Tal como se expuso en la introducción de este informe, el algoritmo a implementar debía ser capaz de decidir si el grafo que modela el trazado de la ciudad es orientable de modo que dos nodos cualesquiera estén conectados.
 
 \paragraph{}
-\textbf{Def$_1$:}
-\\
-Un grafo $G$ es fuertemente orientable si existe una asignación de direcciones a los ejes del conjunto de ejes del grafo $G$ tal que el digrafo resultante es fuertemente conexo. 
+De un primer análisis se desprende que el hecho de que cualquier par de nodos esté conectado implica necesariamente que el grafo sea conexo, ya que de no serlo existiría al menos un nodo no accesible desde alguno de los nodos restantes.
 
-\paragraph{}
-\textbf{Def$_2$:}
-\\
-un puente, \textbf{arista de corte} o istmo es una arista que al eliminarse de un grafo incrementa el número de componentes conexos de éste. Equivalentemente, una arista es un puente si y sólo si no está contenido en ningún ciclo.
+\begin{center}
+grafo explicativo
+\end{center}
 
-\paragraph{}
-\textbf{Teorema} [Robbins, 1939] :\\
-Un grafo conexo $G$ es fuertemente orientable si y solo si $G$ no tiene puentes (Demostración en el anexo).
+Por otra parte, de existir una orientación del grafo de manera que cualquier par de nodos \textit{a}, \textit{b} esté conectado, eso a su vez implica que existen por lo menos dos caminos que unen a ambos. Uno dirigido de a a b y otro dirigido de b a a.
+se dijo también en la introducción al pretender encontrar un digrafo a partir del  grafo original, es preciso que se pueda establecer un 
 
-
+\underline{Teorema (Robbins, 1939) :}\\
+Un grafo conexo G es fuertemente orientable si y solo si G no tiene puentes \footnote{Véase la demotración del teorema en la sección Anexos}.
+\label{robbins}
 
 \paragraph{} 
 Con esté teorema podemos ver que si encontramos al menos 1 puente en nuestro grafo, significa que no podremos orientarlo como queremos, y de lo contrario, si encontramos que no hay ningun puente, podremos orientarlo. Por lo tanto, el algoritmo utilizado realiza exactamente esa comprobación. Veamos como trabaja:
@@ -59,64 +78,17 @@ RecorridoSinEje(eje,G) es una funcion que recorre el grafo $G$  (con BFS o DFS) 
 Cuando eje = 0, representa, recorrer a G completo con todos sus nodos. En este punto podria pasar que G no sea conexo y esta función devolvería el resultado correspondiente.
 
 
-\subsection{Anexo: Demostraciones}
-\label{demostraciones2}
+\subsection{Análisis de la complejidad del algoritmo}
+\label{complejidad2}
 
+\subsection{Detalles de implementación}
+\label{imp2}
 
-\paragraph{}
-\textbf{Teorema} [Robbins, 1939]:\\
-Un grafo conexo $G$ es fuertemente orientable si y solo si $G$ no tiene puentes.
+\subsection{Resultados}
+\label{res2}
 
+\subsection{Debate}
+\label{deb2}
 
-\paragraph{} 
-\textbf{Demostración:} \underline{\textbf{$\rightarrow$)}}
-
-Utilizando el contrareciproco, supongamos que el grafo $G$ tiene una arista de corte $e$ que une a los vertices $u$ y $v$. Entonces el unico camino entre $u$ y $v$  o $v$ y $u$ en el grafo $G$ es $e$ (ver figura). Por lo tanto para cualquier asignacion de direcciones, el nodo cola($e$) nunca va a poder ser alcanzada por el nodo cabeza($e$) (ver cuadro 1).
-
-	\begin{table}[h!] %ubicacion de la tabla
-		\centering %centra la tabla
-			\begin{tabular}{c}
-				\includegraphics[scale=0.7]{./otros/figura1.jpg} 
-
-				\end{tabular}
-				\caption{} %titulo de la tabla
-				\label{} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
-	\end{table}
-
-\paragraph{} 
-\textbf{Demostración:} \underline{\textbf{$\leftarrow$)}}
-
-Supongamos que $G$ es un nodo conexo sin aristas de corte. Por esto toda arista en $G$ cae en un circuito de $G$.
-Para hacer que $G$ sea fuertemente orientable, empezaremos con cualquier circuito ($D_0$) de $G$ y dirigiremos sus ejes en una dirección (obteniendo un circuito dirigido). Si el ciclo $D_0$ contiene todos los nodos de $G$, entonces la orientación esta completa (ya que $D_0$ es fuertemente conexo). De lo contrario, hay que elegir cualquier eje $e$ uniendo a un vertice $u$ en $D_0$ y a un vertice $v$ en $V_G - V_{D_0}$ (ese eje existe ya que $G$ es conexo). Sea C = $\left\langle u,e,v,...,u  \right\rangle$ un ciclo que contiene al eje $e$, y sea $w$ el primer vertice luego de v en $C$ que cae en el ciclo $D_0$ (ver cuadro 2).
-
-	\begin{table}[h!] %ubicacion de la tabla
-		\centering %centra la tabla
-			\begin{tabular}{c}
-				\includegraphics[scale=0.7]{./otros/figura2.jpg} 
-
-				\end{tabular}
-				\caption{} %titulo de la tabla
-				\label{} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
-	\end{table}
-
-\paragraph{}
-A continuación, direccionamos los ejes de este camino entre $v$ a $w$, obteniendo el camino dirigido $v-w$ que llamaremos $P$. Luego direccionamos el eje $e$ desde $u$ hasta $v$ y consideramos el digrafo $D_1$ que se forma agregando el eje dirigido $e$ a $D_0$ y todos los vertices y ejes dirigidos del camino $P$. Como $D_0$ es fuertemente conexo, entonces hay un camino dirigido de $w$ a $u$ ($Q$) en $D_0$ (ver cuadro 3). La concatenación de $P$ con $Q$ y el eje dirigido $e$ forman un circuito simple direccionado que contiene $u$ y los nuevos vertices de $D_1$. (si los vertices $u$ y $w$ son el mismo, entonces $P$ satiface ser un circuito simple dirigido)
-
-
-
-\paragraph{}
-Por lo tanto, el vertice $u$ y todos estos nuevos vetices son mutuamente alcanzables en $D_1$ y además $u$ y cada vectice del digrafo $D_0$ tambien son mutuamente alcanzables, y, por lo tanto , el digrafo $D_1$ es fuertemente conexo. Este proceso puede continuar hasta que el digrafo $D_1$ para algun $l$ $\geq$ 1, contenga todos los vertices de $G$. En este punto, cualquier asignacion de direcciones hacia las aristas sin direccion restantes completaran la orientación de $G$, puesto que contendrá el digrafo fuertemente conexo $D_l$ como subdigrafo.
-
-
-%\clearpage
-
-	\begin{table}[h!] %ubicacion de la tabla
-		\centering %centra la tabla
-			\begin{tabular}{c}
-				\includegraphics[scale=0.7]{./otros/figura3.jpg} 
-
-				\end{tabular}
-				\caption{} %titulo de la tabla
-				\label{} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
-	\end{table}
-
+\subsection{Conclusiones}
+\label{conc2}
