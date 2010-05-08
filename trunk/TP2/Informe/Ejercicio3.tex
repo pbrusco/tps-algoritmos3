@@ -160,9 +160,9 @@ Los parámetros ``entrada'' y ``salida'' son opcionales. Si no se los utiliza, e
 
 
 \subsection{Resultados}
-
+\label{resultados3}
 \paragraph{}
-Para poder analizar el comportamiento del algoritmo propuesto como solución al problema dado fue necesario encontrar una forma de generar de manera automática grafos que lo modelen. Esto resulta de una gran dificultad y se torna mucho más complicado si se quieren generar grafos lo modelen y que además cumplan con ciertas características. Por lo tanto, para generar los casos de prueba se recurrió a un método que utilice números aleatorios. Esto no nos permite elegir alguna característica particular para el modelo final, pero facilita mucho la construcción del generador automático.
+Para poder analizar el comportamiento del algoritmo propuesto como solución al problema dado fue necesario encontrar una forma de generar de manera automática grafos que lo modelen. Esto resulta de una gran dificultad y se torna mucho más complicado si se quieren generar grafos que lo modelen y que además cumplan con ciertas características. Por lo tanto, para generar los casos de prueba se recurrió a un método que utilice números aleatorios. Esto no nos permite elegir de manera flexible alguna característica particular para el modelo final, pero facilita mucho la construcción del generador automático.
 
 \paragraph{}
 Luego de realizar un análisis sobre el comportamiento de los algoritmos \textit{resolver} y \textit{recorrerPorBFS} notamos que en general siempre se van a obtener resultados similares. Para ello se realizaron distintas pruebas: 
@@ -172,10 +172,11 @@ Luego de realizar un análisis sobre el comportamiento de los algoritmos \textit
   \item Por último, se generaron casos completamente azarosos, con la única precaución que la primer y última habitación no estuviesen unidas entre sí (de otra forma, esto sería igual al primer item).
 \end{itemize}
 
-
+\paragraph{}
+Cabe aclarar que para los casos en los que se analizó el tiempo que necesitaba la implementación para resolver el problema, se hicieron varias corridas por cada caso y luego se tomó un promedio del tiempo total. Esto se realizó para evitar en mayor medida algún outlier que pudiera aparecer por cualquier evento ajeno al algoritmo.
 
 \paragraph{}
-Finalmente, del análisis antes realizado podemos decir que se desprenden algunas hipótesis, las cuales enunciaremos a continuación:
+Finalmente, del análisis antes realizado se desprenden algunas hipótesis, las cuales enunciaremos a continuación:
 \begin{enumerate}
   \item Para los casos en los cuales no exista una comunicación directa entre la habitación 1 y la n-ésima, el algoritmo va a presentar una complejidad cuadrática.
   \item En los casos en que exista un pasillo que comunique directamente la primer habitación con la última, el algoritmo debería arrojar una complejidad lineal.
@@ -185,38 +186,121 @@ Finalmente, del análisis antes realizado podemos decir que se desprenden alguna
 \paragraph{}
 A continuación presentamos los gráficos provenientes de las pruebas realizadas:
 
-	\begin{table}[t] %ubicacion de la tabla
-		\centering %centra la tabla
-		\begin{tabular}{c}
-			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesC.pdf} \\
-			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoC.pdf}
-		\end{tabular}
-		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas de modo que no exista un resultado posible, es decir, que ninguna habitación este conectada con la última.} %titulo de la tabla
-		\label{3contarC} %con esto puedo referenciar a la tabla
+%	\begin{table}[t] %ubicacion de la tabla
+%		\centering %centra la tabla
+%		\begin{tabular}{c}
+%			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesC.pdf} \\
+%			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoC.pdf}
+%		\end{tabular}
+%		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas de modo que no exista un resultado posible, es decir, que ninguna habitación este conectada con la última.} %titulo de la tabla
+%		\label{3contarC} %con esto puedo referenciar a la tabla
 		
-	\end{table}
+%	\end{table}
 
-	\begin{table}[b] %ubicacion de la tabla
-		\centering %centra la tabla
-		\begin{tabular}{c}
-			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesL.pdf} \\
-			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoL.pdf}
-		\end{tabular}
-		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas de modo que haya un resultado trivial, es decir, que la primer habitación este conectada con la última.} %titulo de la tabla
-			\label{3contarL} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
-	\end{table}
+%	\begin{table}[b] %ubicacion de la tabla
+%		\centering %centra la tabla
+%		\begin{tabular}{c}
+%			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesL.pdf} \\
+%			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoL.pdf}
+%		\end{tabular}
+%		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas de modo que haya un resultado trivial, es decir, que la primer habitación este conectada con la última.} %titulo de la tabla
+%			\label{3contarL} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+%	\end{table}
 
-	\begin{table}[t] %ubicacion de la tabla
-		\centering %centra la tabla
-		\begin{tabular}{c}
-			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesP.pdf} \\
-			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoP.pdf}
-			\end{tabular}
-		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas al azar pero sin que exista un resultado trivial.} %titulo de la tabla
-		\label{3contarP} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
-	\end{table}
+%	\begin{table}[t] %ubicacion de la tabla
+%		\centering %centra la tabla
+%		\begin{tabular}{c}
+%			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarOperacionesP.pdf} \\
+%			\includegraphics[scale=0.5]{../ej3/graficos/3_ej_contarTiempoP.pdf}
+%			\end{tabular}
+%		\caption{Muestran el comportamiento de la cantidad de habitaciones contra la cantidad de operaciones y contra el tiempo respectivamente. Las entradas fueron creadas al azar pero sin que exista un resultado trivial.} %titulo de la tabla
+%		\label{3contarP} %con esto puedo referenciar a la tabla \ref{Tiempo metodos}
+%	\end{table}
 
+%primeras 2 imagenes
+\begin{figure}[htb]
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{../ej3/graficos/3_ej_contarOperacionesC.pdf}
+		\caption{Muestra el comportamiento del algoritmo comparando cantidad de habitaciones contra cantidad de operaciones. Las entradas fueron creadas de modo que no exista un resultado posible, es decir, que ninguna habitación este conectada con la última.}
+		\label{3contarOpC}
+	\end{center}
+    \end{minipage}
+
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{../ej3/graficos/3_ej_contarTiempoC.pdf}
+		\caption{Muestra el comportamiento del algoritmo comparando cantidad de habitaciones contra tiempo de resolución. Las entradas fueron creadas del mismo modo que en la figura (\ref{3contarOpC}).}
+		\label{3contarTiempoC}
+	\end{center}
+    \end{minipage}
+
+\end{figure}
+
+%segundas dos imagenes
+
+\begin{figure}[htb]
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{../ej3/graficos/3_ej_contarOperacionesL.pdf}
+		\caption{Muestra el comportamiento del algoritmo comparando cantidad de habitaciones contra cantidad de operaciones. Las entradas fueron creadas de modo que exista un resultado trivial, es decir, que la primer habitación este conectada con la última.}
+		\label{3contarOpL}
+	\end{center}
+    \end{minipage}
+
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{../ej3/graficos/3_ej_contarTiempoL.pdf}
+		\caption{Muestra el comportamiento del algoritmo comparando cantidad de habitaciones contra cantidad de operaciones. Las entradas fueron creadas del mismo modo que en la figura (\ref{3contarOpL}).}
+		\label{3contarTiempoL}
+	\end{center}
+    \end{minipage}
+
+\end{figure}
+
+%terceras dos imagenes
+
+\begin{figure}[htb]
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{../ej3/graficos/3_ej_contarOperacionesP.pdf}
+		\caption{Muestra el comportamiento del algoritmo comparando cantidad de habitaciones contra cantidad de operaciones. Las entradas fueron creadas al azar pero de modo que no exista un resultado trivial, es decir, que la primer habitación no estuviera conectada con la última.}
+		\label{3contarOpP}
+	\end{center}
+    \end{minipage}
+
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{../ej3/graficos/3_ej_contarTiempoP.pdf}
+		\caption{Muestra el comportamiento del algoritmo comparando cantidad de habitaciones contra cantidad de operaciones. Las entradas fueron creadas del mismo modo que en la figura (\ref{3contarOpP}).}
+		\label{3contarTiempoP}
+	\end{center}
+    \end{minipage}
+
+\end{figure}
 
 
 \subsection{Debate}
+
+\paragraph{}
+De los resultados adjuntos en la sección anterior podemos observar algunos comportamientos particulares del algoritmo.\\
+En los gráficos provenientes de los casos generados sin solución, se puede notar gran similitud entre los resultados arrojados durante la ejecución de la implementación y una función cuadrática. Esto puede deberse a que el algoritmo necesariamente va a recorrer todas las habitaciones posibles hasta concluir que no se visitó la última.
+
+\paragraph{}
+En el análisis de casos en los que hay una solución trivial, es decir en aquellos en los que la primer y última habitación son vecinas, los resultados tanto de tiempo como de cantidad de operaciones de la implementación parecieran estar acotados por una función lineal. Este comportamiento podría remitirse a cómo está implementado el algoritmo, en el cuál una vez que se visita a la última habitación no se continúan evaluando otras opciones sino que simplemente se devuelve un resultado positivo.
+
+\paragraph{}
+Por último tenemos aquellos casos en los que la disposición de las habitaciones y pasillos estaba totalmente realizada al azar salvo porque se ``prohibía'' la solución trivial. En estos gráficos se puede notar una disposición menos uniforme de los resultados provenientes de la implementación. Aquí se observa cómo estos pudieron ser acotados también por una función lineal.
+
+
 \subsection{Conclusiones}
+
+\paragraph{}
+Si realizamos un análisis general de todo lo referente a este problema, podemos sacar algunas conclusiones. En general, en todos los casos de prueba que se analizaron, la implementación se comportó como se esperaba.\\
+Se ve claramente cómo en el caso de las pruebas realizadas sobre entradas que no tenían solución, el algoritmo debe realizar muchas más operaciones que en los demás casos, ya que sólo deja de ejecutarse cuando se recorrieron todas las habitaciones alcanzables desde la primera. La cantidad de operaciones crece polinomialmente en comparación a la cantidad de habitaciones totales y por lo tanto también lo hace el tiempo que demora el algoritmo. Esto se debe a la forma en que se comporta el método BFS, cuya complejidad es \Ode{n^2}, con n igual a la cantidad de nodos del grafo (en este caso, a la cantidad de habitaciones). Por esto, podemos decir que la primer hipótesis realizada fue correcta.
+
+\paragraph{}
+En el caso de la segunda hipótesis, pasa algo similar a lo anterior. Esta hace referencia al comportamiento del algoritmo cuando se utilizan entradas que contienen una solución trivial. En este contexto, es claro que por el modo de operar de la implementación, se encuentra una solución ni bien se analizan todas las habitaciones vecinas a la primera, ya que entre ellas se encuentra la última. Por lo tanto, es fácil ver aquí que el peor caso se da cuando la primer habitación está conectada con todas (este es el peor caso en este contexto, es decir, en el que existe solución trivial). Esto puede observarse además en los gráficos de la sección [\ref{resultados3}], donde los datos arrojados por la implementación son claramente acotados por una función lineal.
+
+\paragraph{}
+En última instancia, no podríamos decir que la tercer hipótesis fue corroborada, ya que para ello se debería realizar un análisis mucho más complejo y teórico sobre los datos de entrada, y esto excede los fines de este trabajo práctico. Sin embargo, sí se pudo comprobar que para todos los casos analizados los resultados fueron los esperados.
