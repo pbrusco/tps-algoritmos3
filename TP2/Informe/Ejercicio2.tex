@@ -4,7 +4,8 @@
 \label{intro2}
 
 \paragraph{}
-El segundo problema que se propone en este trabajo práctico es el de, dado el trazado de calles de una ciudad compueto por esquinas y calles, decidir si es posible orientar las calles de forma tal que dadas dos esquinas cualesquiera resulte posible llegar de la primera a la segunda.
+El segundo problema que se propone en este trabajo práctico es el de, dado el trazado de calles de una ciudad compueto por esquinas y calles, decidir si es posible orientar las calles de forma tal que dadas dos esquinas cualesquiera resulte posible llegar de la primera a la segunda.\\
+Se pide además que la complejidad temporal para este problema, medida con modelo uniforme, sea estrictamente menor a \Ode{n^4}.
 
 \paragraph{}
 Mediante un modelado con grafos, el problema puede ser representado de forma que los nodos de un grafo correspondan a las esquinas de la ciudad y las aristas a las calles que unen cada par de esquinas entre sí. \\
@@ -17,65 +18,83 @@ Entonces, para poder estudiar el problema con el modelo planteado es preciso pri
 \end{itemize}
 
 \paragraph{}
-A partir de las definiciones anteriores, se desprende que para resolver el problema en cuestión se debe determinar si el grafo que modela el trazado de las calles es fuertemente orientable. Esto es, establecer si es posible para cada instancia del problema orientar el grafo dado para obtener así un digrafo fuertemente conexo de modo que sea posible llegar de cualquier nodo a cualquier otro.
+A partir de las definiciones anteriores, se desprende que la solución al problema en cuestión debe establecer si el grafo que modela el trazado de las calles es fuertemente orientable. Esto es, decidir si es posible para cada instancia del problema orientar el grafo que la modela, para obtener así un digrafo fuertemente conexo de modo que sea posible llegar desde cualquier nodo hasta cualquier otro.
 
 \paragraph{}
-El algoritmo desarrollado para dar solución al problema planteado recorre los ejes del grafo evaluando cierta propiedad que se explicará más adelante. Para ello, el mimos, se basa los algoritmos tradicionales de recorrido de grafos, como son BFS y DFS. En la sección contigua se expone de forma detallada las ideas que dieron lugar al algoritmo así como también el algoritmo en sí.
+El algoritmo desarrollado para dar solución al problema planteado recorre los ejes del grafo evaluando si es posible o no orientarlo para que cumpla lo requerido. Para ello, el mimo, se basa los algoritmos tradicionales de recorrido de grafos, como son BFS y DFS. En la sección contigua se expone de forma detallada las ideas que dieron lugar al algoritmo así como también el algoritmo en sí.
 
 	
 \subsection{Explicación}
 \label{exp2}
 
 \paragraph{}
-Tal como se expuso en la introducción de este informe, el algoritmo a implementar debía ser capaz de decidir si el grafo que modela el trazado de la ciudad es orientable de modo que dos nodos cualesquiera estén conectados.
+Tal como se expuso en la introducción de este informe, el algoritmo a implementar debía ser capaz de decidir si el grafo que modela el trazado de la ciudad es orientable de modo que sea factible conectar cualquier nodo con cualquiera de los nodos restantes; es decir, que el grafo pueda orientarse para ser un digrafo fuertemente conexo.
 
 \paragraph{}
-De un primer análisis se desprende que el hecho de que cualquier par de nodos esté conectado implica necesariamente que el grafo sea conexo, ya que de no serlo existiría al menos un nodo no accesible desde alguno de los nodos restantes.
+Si se observa la definición de digrafo fuertemente conexo, ésta nos dice que para cualquier par de nodos \textit{a} y \textit{b}, existe al menos un camino orientado desde \textit{a} hasta \textit{b} y al menos otro desde \textit{b} hasta \textit{a}. Esto a su vez, asegura que el grafo es conexo, ya que para cada nodo del grafo existe un camino orientado hacia cada uno de los nodos restantes.
 
 \begin{center}
 grafo explicativo
 \end{center}
 
-Por otra parte, de existir una orientación del grafo de manera que cualquier par de nodos \textit{a}, \textit{b} esté conectado, eso a su vez implica que existen por lo menos dos caminos que unen a ambos. Uno dirigido de a a b y otro dirigido de b a a.
-se dijo también en la introducción al pretender encontrar un digrafo a partir del  grafo original, es preciso que se pueda establecer un 
+\paragraph{}
+A partir del análisis anterior, es esperable el algoritmo devuelva que no es posible orientar el trazado de calles de la ciudad según lo pedido cuando se da alguna de las siguientes situaciones: 
+\begin{itemize}
+	\item existe al menos un par de nodos que no está unida por un camino de calles, con lo cual el grafo que modela el problema no es conexo;
+	\item se puede llegar de una esquina \textit{a} a una esquina \textit{b}, pero no es posible realizar el camino inverso, con lo cual el grafo que modela el problema tiene un puente.
+\end{itemize}
 
-\underline{Teorema (Robbins, 1939) :}\\
-Un grafo conexo G es fuertemente orientable si y solo si G no tiene puentes \footnote{Véase la demotración del teorema en la sección Anexos}.
+Buscando formalizar esta idea se recurrió a distintas fuentes bibliográficas hasta que finalmente se hayo el siguiente teorema:
+
+\begin{quote}
 \label{robbins}
+\underline{Teorema\footnote{Demostrado por Robbins, 1939 - Obtenido del libro ...)} :}\\ \vspace{7pt}
+Un grafo conexo G es fuertemente orientable si y solo si G no tiene puentes \footnote{Véase la demotración del teorema en la sección Anexos}.
+\end{quote}
 
 \paragraph{} 
-Con esté teorema podemos ver que si encontramos al menos 1 puente en nuestro grafo, significa que no podremos orientarlo como queremos, y de lo contrario, si encontramos que no hay ningun puente, podremos orientarlo. Por lo tanto, el algoritmo utilizado realiza exactamente esa comprobación. Veamos como trabaja:
- 
-\vspace*{3cm}
+Del teorema anterior, se confirma la idea expresada en el analisis previo según la cual, si se verifica que el grafo es inconexo o que el grafo es conexo pero tiene un puente, entonces no es posible darle una orientación para convertirlo en un digrafo fuertemente orientado.\\
+En línea con está idea, el algoritmo que resuelve el problema fue desarrollado con la idea la de verificar que el grafo sea conexo y no tenga puentes. Para ello, el algoritmo va recorriendo el grafo al igual que lo hace el algoritmo DFS\footnote{Para conocer el funcionamiento del algoritmo DFS véase ...}, con la salvedad de que cuando llega a un nodo nuevo, además de marcarlo como visitado, guarda en él la lista de ejes que conforman el camino hasta ese punto. Seguidamente, elije de entre los vecinos del nodo actual (excluyendo al padre), el próximo nodo hacia el cual va a dirigirse. En este paso pueden darse situaciones: 
+\begin{itemize}
+	\item que el nodo elegido no esté marcado
+	\item que el nodo ya esté marcado, y no sea el padre del nodo actual
+\end{itemize}
+En el primer caso, como el nodo no está marcado, el algoritmo lo toma y realiza un paso recursivo sobre el mismo nodo para de este modo seguir recorriendo el grafo en busca de puentes o inconexión . Por el contrario, en el segundo caso, al encontrarse con un nodo marcado pero que no es el padre del nodo actual, el algoritmo se encuentra frente a la prescencia de un ciclo, ya que acaba de encontrar un camino que le permite llegar nuevamente hacia un nodo ya visitado. De ser éste el caso, procede a guardar todos los ejes del ciclo en un conjunto en el cual se van registrando todos los ejes que formen parte de algún ciclo.
+Así, el algoritmo procede hasta haber recorrido y marcado todos los nodos del grafo en cuyo caso finaliza devolviendo el número de nodos visitados y el conjunto con los ejes que pertenecen a algún ciclo. \\
+Finalmente, si el numero de nodos recorridos es menor a la cantidad de nodos del grafo, eso significa que en algún punto el grafo no es conexo, y consecuentemente no es direccionable. De igual modo, si el conjunto de ejes que pertenecen a algún ciclo no es igual al conjunto de ejes del grafo, eso representa que existe al menos un eje que no forma parte de ningún ciclo, con lo cual es un puete y el grafo no puede ser dirigido según lo pedido..
 
-%segundo algoritmo:
+A continuación se presenta el pseudocódigo del mismo: \\
+
 \incmargin{1em}
 \linesnumbered
 \restylealgo{boxed}
 
-\textbf{comprobación(Grafo G)}\\
-\SetKw{Orden}{Complejidad:}
-	\begin{algorithm}[H]
-	\Orden{O($n^3$)}
+void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
+\begin{algorithm}[H]
+	\SetKw{Orden}{Complejidad:}
+	\Orden{T(n)}
+	\BlankLine
+	cuenta $\leftarrow$ cuenta + 1 \tcp*{O(1)}
+	G.info[vertice].ejesHasta $\leftarrow$ G.info[G.info[vertice].padre].ejesHasta 
+	ANTERIOR + eje(G,vertice,G.info[vertice].padre) \tcp*{O(n)}
+	G.info[vertice].visitado $\leftarrow$ true \tcp*{O(1)}
+	\BlankLine
+	\textbf{var} it*: it\_secu \textless \nat \textgreater \ $\leftarrow $ G.info[vertice].vecinos.begin() \tcp*{O(?)}
+	\BlankLine
+	\For{(it; it = G.info[vertice].vecinos.end(); it++)}{ 
+		%if
+		\eIf{(G.info[*it].visitado = false)}
+			{G.info[*it].padre $\leftarrow$ vertice \\ 
+			dfs\_ciclos(*it,G,cuenta)}
+		%else	
+			%if
+			{\lIf{(G.info[vertice].padre != (*it))}
+				{insertarResta(G.ejesUsados,G.info[vertice].ejesHasta,G.info[*it].ejesHasta) \\	
+				G.ejesUsados.insert(eje(G,*it,vertice))}}
+	}
 
-    \textbf{var} eje : int $\leftarrow$ 0 \\
-    \textbf{var} n : int $\leftarrow$ cantNodos(G) \\
-				
-
-
-     \While{eje $\leq$ m}{
-      k $\leftarrow$ RecorridoSinEje(eje,G)\\
-
-      \lIf{k $\neq$ n}{\textbf{return} no se puede} \\ eje $\leftarrow$ eje $+$ 1} \textbf{return} fuertemente conexo
-
-  \end{algorithm}
-
-RecorridoSinEje(eje,G) es una funcion que recorre el grafo $G$  (con BFS o DFS) sin utilizar la arista $eje$ y retorna la cantidad de nodos visitados, $k$. Como la forma de recorrer utilizada, solo recorre nodos conectados a la raiz (es decir, al nodo donde comienza el recorrido), quiere decir que el resultado k va a ser n (la cantidad total de nodos de $G$) si $G$ es conexo. De lo contrario, si k es menor que $n$, estamos en presencia de 2 componentes conexas (o más en el caso de $eje = 0$). Por lo tanto, el eje sacado, era un puente. 
-
-\paragraph{}
-\underline{Aclaración: }
-\\
-Cuando eje = 0, representa, recorrer a G completo con todos sus nodos. En este punto podria pasar que G no sea conexo y esta función devolvería el resultado correspondiente.
+	\caption{Pseudocódigo de la función \textit{dfs\_ciclos} con el costo de cada instrucción en el modelo uniforme}
+\end{algorithm}
 
 
 \subsection{Análisis de la complejidad del algoritmo}
@@ -83,6 +102,23 @@ Cuando eje = 0, representa, recorrer a G completo con todos sus nodos. En este p
 
 \subsection{Detalles de implementación}
 \label{imp2}
+
+\paragraph{}
+Dentro de la carpeta \textit{./ej2/}, se puede encontrar el archivo ejecutable \textit{ejercicio\_2} compilado para GNU-Linux, el cual resuelve el problema anteriormente descripto. Este programa se ejecuta por consola mediante el comando \texttt{./ejercicio\_2}, y recibe como parámetro los archivos de entrada \textit{".in"} a procesar. Puede recibir tantos nombres de archivo como se desee, pero en caso de no recibir ninguno, el programa procesará el archivo \textit{Tp2Ej2.in} que se encuentra incluído dentro de la misma carpeta. \\
+Una vez ejecutado, el algoritmo procesa la cola de archivos que recibió como parámertos de a uno por vez generando para cada uno de ellos dos archivos:
+	\begin{itemize}
+		\item{Un archivo \textit{".out"} omónimo con la solucion a cada instancia del problema contenidos en el archivo de entrada. Este archivo se guarda en la misma carpeta en la que se encuentra el ejecutable \textit{ejercicio\_2}}.
+		\item{Un archivo omónimo con el sufijo \textit{"\_grafico.out"}, en el cual registra ???????????????????. Este archivo se guarda en la carpeta \textit{./ej2/info graficos}, y tiene por objetivo facilitar la tarea de cargar los datos en el programa de análisis gráfico \textit{QtiPlot}}.
+	\end{itemize}
+
+\paragraph{}		
+Por otra parte, en la misma carpeta, hay un Makefile el cual permite recompilar los archivos ejecutables con tan solo ejecutar el comando \texttt{make} en la consola. Además, ejecutando el comando \texttt{make clean} se pueden eliminar los archivos ejecutables y todos los archivos de extensión \textit{".out"}.
+
+\paragraph{}
+Luego, en la carpeta \textit{./ej2/sources} se encuentran el codigo fuente dell ejecutable antes descripto escrito en lenguaje C++ y cometando para simplificar la comprensión. Asímismo, en esta carpeta se puede hallar el script \textit{input\_gen2.py} para ser ejecutado desde la consola con el intérprete de Python mediante el comando \texttt{python input\_gen2.py} . Al correr este programa se despliega un menú de opciones para generar distintos tipos de archivos \textit{".in"} para ser resueltos por el ejecutable \textit{ejercicio\_2}. Una vez elegido el tipo de entrada a crear, el programa solicita que se ingrese la cantidad de casos a generar. Acto seguido guarda el archivo generado en la carpeta \textit{./ej2/tests}.
+
+\paragraph{}
+Finalmente, en \textit{./ej2/} se hayan los archivos \textit{.Tp2Ej2.in} y \textit{Tp2Ej2.out} que vienen junto con en el enunciado de este Trabajo Práctico, y se haya también la carpeta \textit{./ej2/test} la cual contiene los archivos \textit{".in"} generados para probar el algortimo junto con sus correspondientes gráficos de \textit{n} vs. \textit{cantidad de operaciones}.
 
 \subsection{Resultados}
 \label{res2}
