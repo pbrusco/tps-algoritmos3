@@ -62,13 +62,13 @@ Para entender el algoritmo principal, se presenta el pseudocódigo de la funció
 	
 
 \paragraph{}
-La función maximoAsc(ascenso,v,i) indica, dentro del vector ascenso, la maxima longitud de un ascenso hasta la posicion i-1 del vector tal que cumpla la siguiente propiedad:
+La función maximoAsc(ascenso,v,i) indica, conciderando el vector ascenso y el vector v, la maxima longitud de un ascenso hasta la posicion i-1 del vector tal que cumpla la siguiente propiedad:
 
 \vspace*{1cm}
 
 Si j es el indice del ascenso donde se encuentra el resultado, tiene que ocurrir que: \footnote{ver pseudocódigo en el anexo}
 
-$$(\forall k \in [0...i) , v[k]<v[i]) \  ascenso[j] > ascenso[k]$$
+$$(\forall k \in [0...i) , v[k]<v[i]) \rightarrow  ascenso[j] > ascenso[k]$$
 
 
 Por lo tanto, de esta manera podemos obtener para cada pivote, la longitud del mayor ascenso hasta esa posición.
@@ -246,7 +246,15 @@ Luego, se desprenden algunas hipótesis, las cuales enunciaremos a continuación
 
 
 \paragraph{}
-A continuación veremos gráficos que muestran el comportamiento del algoritmo utilizado
+A continuación veremos gráficos que muestran el comportamiento del algoritmo utilizado, en donde, utilizaremos las mismas funciones para acotar el algoritmo bajo el mismo método de medición. Es decir, si lo que medimos es cantidad de operaciones por ejemplo, utilizaremos las funciones 
+
+$$f(x) = 1500 + 1.03x^2 \ \ \ (como\ cota\ superior)$$
+$$g(x) = -2000 + 1.03x^2 \ \ \  (como\ cota\ inferior)$$
+
+Y si lo que medimos es tiempo utilizaremos 
+
+$$f(x) = 3.5x^2 \ \ \ (como\ cota\ superior)$$
+$$g(x) = -70000 + 3.5x^2 \ \ \  (como\ cota\ inferior)$$
 
 
  \vspace*{1cm}
@@ -257,7 +265,7 @@ A continuación veremos gráficos que muestran el comportamiento del algoritmo u
  \vspace*{1cm}
 \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/tiempo100.pdf}
 
-\underline{Gráfico 2:} Tiempo de procesamiento en secuencias de 1 hasta 100 elementos aleatorios comparados con funciones cuadráticas (se corresponde con la entrada generada número ``1'' de las enunciadas anteriormente). La cota inferior no fue marcada ya que no era significativa en este gráfico (ver el siguiente gráfico).
+\underline{Gráfico 2:} Tiempo de procesamiento en secuencias de 1 hasta 100 elementos aleatorios comparados con funciones cuadráticas (se corresponde con la entrada generada número ``1'' de las enunciadas anteriormente). La cota inferior propuesta no fue marcada ya que no era significativa en este gráfico (ver el siguiente gráfico).
 
  \vspace*{1cm}
 \hspace*{-2.1cm}\includegraphics[width=475pt]{../ej1/graficos/tiempo0.pdf}
