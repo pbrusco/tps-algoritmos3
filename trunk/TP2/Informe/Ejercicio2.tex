@@ -89,8 +89,7 @@ void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 				{\BlankLine
 insertarResta(G.ejesUsados,G.info[vertice].ejesHasta\\
 ,G.info[*it].ejesHasta)\tcp*{\Ode{n*log(n)}}
-				G.ejesUsados.insert(eje(G,*it,vertice))\tcp*{\Ode{log(n)}}}}
-	}
+	G.ejesUsados.insert(eje(G,*it,vertice))\tcp*{\Ode{log(tam(ejesUsados))} $\subseteq$ \Ode{log(m)} $\subseteq$ \Ode{log(n^2)} $\subseteq$ \Ode{log(n)}}}}}
 
 	\caption{Pseudocódigo de la función \textit{dfs\_ciclos} con el costo de cada instrucción en el modelo uniforme}
 \end{algorithm}
