@@ -7,10 +7,13 @@ all: ejercicio_2
 ejercicio_2: ./sources/ej2.cpp
 	$(CC) $(GCCFLAGS) $@ $<
 
+
+run:
+	python ej2.py
+
 clean:
-	rm ejercicio_2
-#	rm tests/*
-	rm *.out
+	rm tests/*
+	rm *-bis.out *_grafico.out ejercicio_2
 
 
 
