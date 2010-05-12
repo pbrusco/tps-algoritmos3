@@ -51,7 +51,7 @@ def accionarMenu(opcion):
 	'b': (randint(1,100), 0),
 	'c': (randint(1,10), 1),
 	'd': (randint(1,10), 0)
-	}.get(opcion, (randint(1,50), randint(0,49)))
+	}.get(opcion, (randint(1,50), randint(0,1)))
 
 
 def generador(n, m, f):

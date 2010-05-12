@@ -21,7 +21,7 @@ Entonces, para poder estudiar el problema con el modelo planteado es preciso pri
 A partir de las definiciones anteriores, se desprende que la solución al problema en cuestión debe establecer si el grafo que modela el trazado de las calles es fuertemente orientable. Esto es, decidir si es posible para cada instancia del problema orientar el grafo que la modela, para obtener así un digrafo fuertemente conexo de modo que sea posible llegar desde cualquier nodo hasta cualquier otro.
 
 \paragraph{}
-El algoritmo desarrollado para dar solución al problema planteado recorre los ejes del grafo evaluando si es posible o no orientarlo para que cumpla lo requerido. Para ello, el mimo, se basa los algoritmos tradicionales de recorrido de grafos, como son BFS y DFS. En la sección contigua se expone de forma detallada las ideas que dieron lugar al algoritmo así como también el algoritmo en sí.
+El algoritmo desarrollado para dar solución al problema planteado recorre los ejes del grafo evaluando si es posible o no orientarlo para que cumpla lo requerido. Para ello, el mismo, se basa los algoritmos tradicionales de recorrido de grafos, como son BFS y DFS. En la sección contigua se expone de forma detallada las ideas que dieron lugar al algoritmo así como también el algoritmo en sí.
 
 	
 \subsection{Explicación}
@@ -38,9 +38,9 @@ grafo explicativo
 \end{center}
 
 \paragraph{}
-A partir del análisis anterior, es esperable el algoritmo devuelva que no es posible orientar el trazado de calles de la ciudad según lo pedido cuando se da alguna de las siguientes situaciones: 
+A partir del análisis anterior, es esperable que el algoritmo devuelva que no es posible orientar el trazado de calles de la ciudad según lo pedido cuando se da alguna de las siguientes situaciones: 
 \begin{itemize}
-	\item existe al menos un par de nodos que no está unida por un camino de calles, con lo cual el grafo que modela el problema no es conexo;
+	\item existe al menos un par de nodos que no están unidos por un camino de calles, con lo cual el grafo que modela el problema no es conexo;
 	\item se puede llegar de una esquina \textit{a} a una esquina \textit{b}, pero no es posible realizar el camino inverso, con lo cual el grafo que modela el problema tiene un puente.
 \end{itemize}
 
@@ -48,20 +48,20 @@ Buscando formalizar esta idea se recurrió a distintas fuentes bibliográficas h
 
 \begin{quote}
 \label{robbins}
-\underline{Teorema\footnote{Demostrado por Robbins, 1939 - Obtenido del libro ...)} :}\\ \vspace{7pt}
+\underline{Teorema: }\footnote{Demostrado por Robbins, 1939 - Obtenido del libro ...)}\\ \vspace{7pt}
 Un grafo conexo G es fuertemente orientable si y solo si G no tiene puentes \footnote{Véase la demotración del teorema en la sección Anexos}.
 \end{quote}
 
 \paragraph{} 
 Del teorema anterior, se confirma la idea expresada en el analisis previo según la cual, si se verifica que el grafo es inconexo o que el grafo es conexo pero tiene un puente, entonces no es posible darle una orientación para convertirlo en un digrafo fuertemente orientado.\\
-En línea con está idea, el algoritmo que resuelve el problema fue desarrollado con la idea la de verificar que el grafo sea conexo y no tenga puentes. Para ello, el algoritmo va recorriendo el grafo al igual que lo hace el algoritmo DFS\footnote{Para conocer el funcionamiento del algoritmo DFS véase ...}, con la salvedad de que cuando llega a un nodo nuevo, además de marcarlo como visitado, guarda en él la lista de ejes que conforman el camino hasta ese punto. Seguidamente, elije de entre los vecinos del nodo actual (excluyendo al padre), el próximo nodo hacia el cual va a dirigirse. En este paso pueden darse situaciones: 
+En línea con está pensamiento, el algoritmo que resuelve el problema fue desarrollado con la idea la de verificar que el grafo sea conexo y no tenga puentes. Para ello, el algoritmo va recorriendo el grafo al igual que lo hace el algoritmo DFS\footnote{Para conocer el funcionamiento del algoritmo DFS véase ...}, con la salvedad de que cuando llega a un nodo nuevo, además de marcarlo como visitado, guarda en él la lista de ejes que conforman el camino hasta ese punto. Seguidamente, elije de entre los vecinos del nodo actual (excluyendo al padre), el próximo nodo hacia el cual va a dirigirse. En este paso pueden darse dos situaciones: 
 \begin{itemize}
 	\item que el nodo elegido no esté marcado
 	\item que el nodo ya esté marcado, y no sea el padre del nodo actual
 \end{itemize}
-En el primer caso, como el nodo no está marcado, el algoritmo lo toma y realiza un paso recursivo sobre el mismo nodo para de este modo seguir recorriendo el grafo en busca de puentes o inconexión . Por el contrario, en el segundo caso, al encontrarse con un nodo marcado pero que no es el padre del nodo actual, el algoritmo se encuentra frente a la presencia de un ciclo, ya que acaba de encontrar un camino que le permite llegar nuevamente hacia un nodo ya visitado. De ser éste el caso, procede a guardar todos los ejes del ciclo en un conjunto en el cual se van registrando todos los ejes que formen parte de algún ciclo.
+En el primer caso, como el nodo no está marcado, el algoritmo lo toma y realiza un paso recursivo sobre el mismo nodo para de este modo seguir recorriendo el grafo en busca de puentes o de inconexiónes . Por el contrario, en el segundo caso, al encontrarse con un nodo marcado pero que no es el padre del nodo actual, el algoritmo se encuentra frente a la presencia de un ciclo, ya que acaba de encontrar un camino que le permite llegar nuevamente hacia un nodo ya visitado. De ser éste el caso, procede a guardar todos los ejes del ciclo en un conjunto en el cual se van registrando todos los ejes que formen parte de algún ciclo.
 Así, el algoritmo procede hasta haber recorrido y marcado todos los nodos del grafo en cuyo caso finaliza devolviendo el número de nodos visitados y el conjunto con los ejes que pertenecen a algún ciclo. \\
-Finalmente, si el numero de nodos recorridos es menor a la cantidad de nodos del grafo, eso significa que en algún punto el grafo no es conexo, y consecuentemente no es direccionable. De igual modo, si el conjunto de ejes que pertenecen a algún ciclo no es igual al conjunto de ejes del grafo, eso representa que existe al menos un eje que no forma parte de ningún ciclo, con lo cual es un puete y el grafo no puede ser dirigido según lo pedido..
+Finalmente, si el numero de nodos recorridos es menor a la cantidad de nodos del grafo, eso significa que en algún punto el grafo no es conexo, y consecuentemente no es direccionable. De igual modo, si el conjunto de ejes que pertenecen a algún ciclo no es igual al conjunto de ejes del grafo, eso representa que existe al menos un eje que no forma parte de ningún ciclo, con lo cual es un puente y el grafo no puede ser dirigido según lo pedido.
 
 A continuación se presenta el pseudocódigo del mismo, en el cuál usaremos a \textit{n} como la cantidad de esquinas (o nodos) y a \textit{m} como la cantidad de calles (o aristas): \\
 
@@ -104,14 +104,14 @@ insertarResta(G.ejesUsados,G.info[vertice].ejesHasta,G.info[*it].ejesHasta)\tcp*
 Para el análisis de la complejidad de este algoritmo, vamos a remitirnos a los pseudocódigos de las funciones \textit{dfs\_ciclos} y \textit{insertarResta} adjuntos en las secciones [\ref{exp2}] y [\ref{PseudoInsResta}] respectivamente. En este caso se utilizará la misma notación para la cantidad de nodos y aristas que se utilizó en el pseudocódigo de la sección [\ref{exp2}].
 
 \paragraph{}
-Si observamos las distintas complejidades que se dan dentro del algoritmo, podemos ver algunas que sobresalen sobre el resto. Es en estas en las que recae la complejidad total del algoritmo, por lo cuál el análisis se realizará sobre estas instrucciones.\\
-Como primer caso de análisis, se puede ver en la tercer línea que la complejidad de la instrucción es \Ode{n}. Esto se debe a que la asignación de conjuntos implementada en la \textit{STL} tiene esta complejidad (destrucción y copia de un conjunto).
+Si se observan las distintas complejidades que se dan dentro del algoritmo, se puede ver algunas que sobresalen sobre el resto. Es en estas en las que recae la complejidad total del algoritmo, por lo cuál el análisis se realizará sobre estas instrucciones.\\
+Como primer caso de análisis, se puede observar en la tercer línea que la complejidad de la instrucción es \Ode{n}. Esto se debe a que la asignación de conjuntos implementada en la \textit{STL} tiene esta complejidad (destrucción y copia de un conjunto).
 
 \paragraph{}
-La siguiente complejidad a analizar es la que aparece en la línea 6 del código, la cuál pertenece a la ejecución del ciclo \textit{for}. Si se observa más detalladamente, se puede concluir que dicho ciclo se va a ejecutar tantas veces como vecinos tenga esa esquina (o nodo) los cuáles a lo sumo pueden ser todos los demás, es decir, \textit{n-1}. Con lo cuál se ejecutará \Ode{n} veces.
+La siguiente complejidad a analizar es la que aparece en la línea seis del código, la cuál pertenece a la ejecución del ciclo \textit{for}. Si se observa más detalladamente, se puede concluir que dicho ciclo se va a ejecutar tantas veces como vecinos tenga esa esquina (o nodo) los cuáles a lo sumo pueden ser todos los demás, es decir, \textit{n-1}. Con lo cuál se ejecutará \Ode{n} veces.
 
 \paragraph{}
-Dentro de este ciclo, hay una sentencia condicional. En la parte del \textit{if}, hay una llamada recursiva a la función \textit{dfs\_ciclos}. En el \textit{else}, hay una llamada a la función \textit{insertarResta} y un insertar en un conjunto. En el caso de la llamada recursiva, podemos pensar que en realidad se apila un nodo del grafo para luego ser recorrido, por lo que dicha complejidad puede pensarse en este caso como constante, es decir, \Ode{1}. En cambio, en caso de ejecutarse la sentencia \textit{else}, hay un llamado a \textit{insertarResta} cuya complejidad es \Ode{m*log(m)}\footnote{Ver análisis en la sección [\ref{PseudoInsResta}]} y además, se realiza una inserción en un conjunto, pero dicha complejidad es solamente de \Ode{log(m)}. Por lo tanto, la complejidad total en peor caso del ciclo \textit{for} es \Ode{n*m*log(m)}, ya que se ejecutará a lo sumo \textit{n-1} veces la sentencia \textit{else} cuya complejidad es \Ode{m*log(m)}. De esta forma, la complejidad de este algoritmo es \Ode{n*m*log(m)}.
+Dentro de este ciclo, hay una sentencia condicional. En la parte del \textit{if}, hay una llamada recursiva a la función \textit{dfs\_ciclos}. En el \textit{else}, hay una llamada a la función \textit{insertarResta} y un insertar en un conjunto. En el caso de la llamada recursiva, se puede pensar que en realidad se apila un nodo del grafo para luego ser recorrido, por lo que dicha complejidad puede pensarse en este caso como constante, es decir, \Ode{1}. En cambio, en caso de ejecutarse la sentencia \textit{else}, hay un llamado a \textit{insertarResta} cuya complejidad es \Ode{m*log(m)}\footnote{Ver análisis en la sección [\ref{PseudoInsResta}]} y además, se realiza una inserción en un conjunto, pero dicha complejidad es solamente de \Ode{log(m)}. Por lo tanto, la complejidad total en peor caso del ciclo \textit{for} es \Ode{n*m*log(m)}, ya que se ejecutará a lo sumo \textit{n-1} veces la sentencia \textit{else} cuya complejidad es \Ode{m*log(m)}. De esta forma, la complejidad de este algoritmo es \Ode{n*m*log(m)}.
 
 
 \subsection{Detalles de implementación}
@@ -121,21 +121,64 @@ Dentro de este ciclo, hay una sentencia condicional. En la parte del \textit{if}
 Dentro de la carpeta \textit{./ej2/}, se puede encontrar el archivo ejecutable \textit{ejercicio\_2} compilado para GNU-Linux, el cual resuelve el problema anteriormente descripto. Este programa se ejecuta por consola mediante el comando \texttt{./ejercicio\_2}, y recibe como parámetro los archivos de entrada \textit{".in"} a procesar. Puede recibir tantos nombres de archivo como se desee, pero en caso de no recibir ninguno, el programa procesará el archivo \textit{Tp2Ej2.in} que se encuentra incluído dentro de la misma carpeta. \\
 Una vez ejecutado, el algoritmo procesa la cola de archivos que recibió como parámertos de a uno por vez generando para cada uno de ellos dos archivos:
 	\begin{itemize}
-		\item{Un archivo \textit{".out"} omónimo con la solucion a cada instancia del problema contenidos en el archivo de entrada. Este archivo se guarda en la misma carpeta en la que se encuentra el ejecutable \textit{ejercicio\_2}}.
-		\item{Un archivo omónimo con el sufijo \textit{"\_grafico.out"}, en el cual registra ???????????????????. Este archivo se guarda en la carpeta \textit{./ej2/info graficos}, y tiene por objetivo facilitar la tarea de cargar los datos en el programa de análisis gráfico \textit{QtiPlot}}.
+		\item{Un archivo \textit{".out"} omónimo con la solucion a cada instancia del problema contenidos en el archivo de entrada.}
+		\item{Un archivo omónimo con el sufijo \textit{"\_grafico.out"}, en el cual registra para cada instancia la cantidad de ejes del grafo que modela el problema y el tiempo promedio que tardó el algoritmo en resolverlo. Este archivo tiene objetivo facilitar la tarea de cargar los datos en el programa de análisis gráfico \textit{QtiPlot}}.
 	\end{itemize}
 
+Ambos archivos son guardados en la misma carpeta de origen que la del archivo \textit{'.in'}.
+
 \paragraph{}		
-Por otra parte, en la misma carpeta, hay un Makefile el cual permite recompilar los archivos ejecutables con tan solo ejecutar el comando \texttt{make} en la consola. Además, ejecutando el comando \texttt{make clean} se pueden eliminar los archivos ejecutables y todos los archivos de extensión \textit{".out"}.
+Por otra parte, en la misma carpeta, hay un Makefile el cual permite recompilar los archivos ejecutables con tan solo ejecutar el comando \texttt{make} en la consola. Además, ejecutando el comando \texttt{make clean} se pueden eliminar los archivos ejecutables y todos los archivos contenidos en la caperta \textit{'test/'}. 
 
 \paragraph{}
-Luego, en la carpeta \textit{./ej2/sources} se encuentran el codigo fuente dell ejecutable antes descripto escrito en lenguaje C++ y cometando para simplificar la comprensión. Asímismo, en esta carpeta se puede hallar el script \textit{input\_gen2.py} para ser ejecutado desde la consola con el intérprete de Python mediante el comando \texttt{python input\_gen2.py} . Al correr este programa se despliega un menú de opciones para generar distintos tipos de archivos \textit{".in"} para ser resueltos por el ejecutable \textit{ejercicio\_2}. Una vez elegido el tipo de entrada a crear, el programa solicita que se ingrese la cantidad de casos a generar. Acto seguido guarda el archivo generado en la carpeta \textit{./ej2/tests}.
+Luego, en la carpeta \textit{./ej2/sources} se encuentran el codigo fuente dell ejecutable antes descripto escrito en lenguaje C++ y cometando para simplificar la comprensión. Asímismo, en esta carpeta se puede hallar el script \textit{input\_gen2.py} para ser ejecutado desde la consola con el intérprete de Python mediante el comando \texttt{python input\_gen2.py} . Al correr este programa se despliega un menú de opciones para generar distintos tipos de archivos \textit{".in"} para ser resueltos por el ejecutable \textit{ejercicio\_2}. Una vez elegido el tipo de entrada a crear, el programa solicita que se ingrese la cantidad de casos a generar. Acto seguido guarda el archivo generado en la carpeta \textit{./ej2/tests}. Se recomienda, una vez generados varios archivos de prueba, ejecutar el comando \texttt{./ejercicio\_2 tests/} para que el programa \textit{ejercicio\_2} resuelva todos los archivos de ese directorio con una única ejecución.
 
 \paragraph{}
-Finalmente, en \textit{./ej2/} se hayan los archivos \textit{.Tp2Ej2.in} y \textit{Tp2Ej2.out} que vienen junto con en el enunciado de este Trabajo Práctico, y se haya también la carpeta \textit{./ej2/test} la cual contiene los archivos \textit{".in"} generados para probar el algortimo junto con sus correspondientes gráficos de \textit{n} vs. \textit{cantidad de operaciones}.
+Finalmente, en \textit{./ej2/} se hayan los archivos \textit{.Tp2Ej2.in} y \textit{Tp2Ej2.out} que vienen junto con en el enunciado de este Trabajo Práctico, y se haya también la carpeta \textit{./ej2/pruebas\_graficos} la cual contiene los archivos \textit{".in"} generados para la exprimentacion que se presenta en este informe, junto con sus correspondientes archivos \textit{".out"} y sus gráficos de \textit{m} vs. \textit{Tiempo}.
+
 
 \subsection{Resultados}
 \label{res2}
+
+\paragraph{}
+El programa \textit{input\_gen2.py} fue desarrollado para poder crear 5 (cinco) casos posibles de archivos input de distintas características, cada uno con un número de instancias dado por el usuario. Allí, cada instancia corresponde a un posible trazado de la ciudad caracterizado por la cantidad de esquinas y la cantidad de calles adyacentes a cada una de ellas. \\
+A continuación se describen cuáles son esos casos y se explica brevemente que se esperaba observar en cada uno de ellos\footnote{Cabe aclarar que en todos los casos, tanto el número de nodos, como el grado de los mismos se generan de forma aleatoria, pero siempre dentro de los rangos establecidos por cada uno de los casos.}:
+	\begin{itemize}
+		\item[\texttt{a.-}]{\texttt{Casos con $0 \leq n \leq 100$ y $d(v_i) \geq\ \frac{n-1}{2},\ \forall\ 0 \leq i \leq n$:} \\
+		Se pensó en este tipo de casos para poder evaluar el comportamiento del algoritmo frente al que se presupone el peor caso posible (ya que en este caso están incluídos los grafos completos). Este es, el de instancias donde los grafos que las modelen tengan un gran número de nodos y sea sumamente densos (ya que cada nodo tiene al menos $\frac{n-1}{2}$ nodos incidentes).} 
+		\item[\texttt{b.-}]{\texttt{Casos con $0 \leq n \leq 100$ y $d(v_i) \leq\ \frac{n-1}{2},\ \forall\ 0 \leq i \leq n$:} \\
+		Se pensó en este tipo de casos para poder evaluar el comportamiento del algoritmo frente grafos con un gran número de nodos, pero no tan densos como el del caso previo (ya que cada nodo tiene a lo sumo $\frac{n-1}{2}$ nodos incidentes).} 
+		\item[\texttt{c.-}]{\texttt{Casos con $0 \leq n \leq 10$ y $d(v_i) \geq\ \frac{n-1}{2},\ \forall\ 0 \leq i \leq n$:} \\
+		Se pensó en este tipo de casos para poder evaluar el comportamiento del algoritmo frente a grafos con un reducido número de nodos, pero con muchas conexiones entre sí.}
+		\item[\texttt{d.-}]{\texttt{Casos con $0 \leq n \leq 10$ y $d(v_i) \leq\ \frac{n-1}{2},\ \forall\ 0 \leq i \leq n$:} \\
+		Se pensó en este tipo de casos para poder evaluar el comportamiento del algoritmo frente al que se presupone el mejor caso posible. Este es el de grafos con un pequeño número de nodos y escazamente densos.} 
+		\item[\texttt{e.-}]{\texttt{Casos con $0 \leq n \leq 50$ y $d(v_i) \leq\ \frac{n-1}{2},$ ó $d(v_i) \geq\ \frac{n-1}{2},\ \forall\ 0 \leq i \leq n$:} \\ 
+		Finalmente, se pensó en este caso, para ver el comportamiento del algoritmo frente al caso de grafos con un número de nodos medio y con una densidad alta o baja establecida de manera aleatoria.}
+	\end{itemize}  
+
+\paragraph{}
+Mediante cada uno de estos casos se buscó estudiar el comportamiento del algoritmo para luego establecer su complejidad real, valiéndose para ello de la medición del tiempo (en microsegundos) que demora el algoritmo en resolver el cada instancia del problema. 
+No obstante, puesto que este tipo de medición sufre de varias impresiciones propias del instrumento usado para medir se debió buscar una manera de acotar ese error\footnote{Esto se debe a que mientras el ordenador está contando el tiempo de ejecución pueden tener lugar varios eventos como pueden ser las interrupciones al sistema operativo, llamados a memoria, etc., que detengan la ejecución del algoritmo en cuestión, pero no así la del contador de tiempo.}. \\
+Para subsanar este inconveniente, en cada uno de los archivos de pruebas utilizados durante la experimentación, se ejecutaron 100 (cien) veces cada una de sus instancias, acumulando los tiempos de cada ejecución y calculando luego el tiempo promedio. De esta forma, se logró obtener un valor de estable y representativo del tiempo requerido por el algoritmo para resolver cada una de las intancias propuestas.
+
+\paragraph{}
+Seguidamente, y previo al momento de la experimentación, se formularon varias hipótesis en cuanto a cuál era el comportamiento esperable del algoritmo frente a cada uno de los tipos de inputs elegidos para su estudio. Las mismas son presentadas a continuación:
+	\begin{itemize}
+		\item[1)]{En el caso \texttt{c}, dado que el algoritmo realiza 2 asignaciones y una única cuenta (la de calcular el resto de \textit{b} módulo \textit{n}), resulta esperable que la complejidad real sea de valor constante 3.}
+		\item[2)]{Para los casos \texttt{a} y \texttt{b} sabemos que la complejidad teórica del algoritmo es \Ode{log_2(n)}. No obstante, como los \textit{n's} del caso \texttt{a} son del orden de $10^9$, mientras que los \textit{n's} del caso \texttt{b} son del orden de $10^6$ cabría esperar que la cantidad de operaciones para los \textit{n's} del caso \texttt{a} sean mayores que los del caso \texttt{b}}. 
+		\item[3)]{El caso de \texttt{e} es análogo al de \texttt{a}, ya que en ambos casos los \textit{n's} son del orden de $10^9$, y la complejidad teórica del algoritmono varía. Sin embargo, se podría suponer a priori que por tratarse \textit{n's} primos, la cantidad de operaciones del caso \texttt{e} sea ligeramente mayor a la cantidad de operaciones del caso \texttt{a}.}
+		\item[4)]{Por último, en el caso \texttt{d}, cada llamado recursivo del algoritmo siempre ingresa al blóque de código de los exponentes impares. Por ende, como realiza exactamente q operaciones $log_2$(n) veces es presumible que \texttt{d} sea el peor caso de este algoritmo.}
+	\end{itemize}
+
+\paragraph{}
+En lo que respecta a la experimentación propiamente dicha, se generaron 5 (cinco) archivos correspondientes a cada uno de los tipos descriptos, cada uno con 100 (cien) instancias (posibles trazados de la ciudad) del problema. Seguidamente, se procedió a correrlos con el programa \textit{ejercicio\_2},  obteniéndose para cada uno de ellos un archivo \textit{"NombreDeArchivo.out"} y un archivo \textit{"NombreDeArchivo\_grafico.out"}; siendo este último el archivo en el cual se registraron de cada instancia del archivo original, la cantidad de aristas (\textit{m}) y el tiempo promedio necesario para ser resuelta por el algoritmo. \\
+Finalmente, haciendo uso de esos archivos se generaron, usando el programa de análisis gráfico \textit{QtiPlot}, diversos gráficos de \textit{m} vs. \textit{Tiempo} en los cuales se contrasta la curva de resultados con una función 
+	$$f: \nat_0 \rightarrow \real / f(n)\ =\ c * m * \sqrt{m} * log(m),\ c \in \real^+$$
+para poder estudiar si la complejidad real se ajusta a la complejidad teórica.
+
+\paragraph{}
+A continuación se presentan los gráficos realizados para cada caso:
+
 
 \subsection{Debate}
 \label{deb2}
