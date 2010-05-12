@@ -45,7 +45,7 @@ bool cargar(Grafo &G,ifstream &entrada);
 void limpiar(Grafo &G);
 void dfs_ciclos(int vertice,Grafo &G,int &cuenta);
 void insertarResta(set<int>& ejesEnCiclos,const set<int>& vEjesHasta,const set<int>& wEjesHasta);	
-void resolverInput(string& filename, double cant_veces);
+void resolverInput(string& filename, int cant_veces);
 double timeval_diff(struct timeval& a, struct timeval& b);
 
 
@@ -59,7 +59,7 @@ double timeval_diff(struct timeval& a, struct timeval& b) {
   
 }
 
-void resolverInput(string& filename, double cant_veces) {
+void resolverInput(string& filename, int cant_veces) {
 
 	/* Abro el archivo con los datos de entrada */	
 	ifstream infile; 
@@ -249,7 +249,7 @@ void limpiar(Grafo &G){
 int main(int argc, char** argv) {
 
 	char opcion;
-	double cant_veces = 1;		
+	int cant_veces = 1;		
 	string filename = "Tp2Ej2.in";
 
 	system("clear");
