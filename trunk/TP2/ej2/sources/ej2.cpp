@@ -32,13 +32,7 @@ struct Grafo{
 	set<int> ejesEnCiclos;			/* contiene los ejes percenecientes a algun ciclo. */
  	diccNodo info;			 		/* diccionario que la información de cada nodo  (padre, vecinos, ejes hasta él, visitado, etc) */
 	matriz mAdy;			 		/* matriz de adyacencia donde se registra para cada par de nodos el eje que los une */
-	
-	
 }; 
-
-struct timeval t1,t2;				/* variables para medir el tiempo de ejecución del algoritmo */
-double tiempo = 0.0; 
-double tiempoTotal = 0.0;
 
 
 
@@ -50,25 +44,34 @@ bool cargar(Grafo &G,ifstream &entrada);
 void limpiar(Grafo &G);
 void dfs_ciclos(int vertice,Grafo &G,int &cuenta);
 void insertarResta(set<int>& ejesEnCiclos,const set<int>& vEjesHasta,const set<int>& wEjesHasta);	
-void resolverInput(string& filename);
-
+void resolverInput(string& filename, int cant_veces);
+double timeval_diff(struct timeval& a, struct timeval& b);
 
 
 /*######################################################################################################################
 #													Implementación de funciones													   # ######################################################################################################################*/
 
-void resolverInput(string& filename) {
+/* retorna "a - b " en microsegundos */
+double timeval_diff(struct timeval& a, struct timeval& b) {
+  return (a.tv_sec + - b.tv_sec)*1000000 + (a.tv_usec  - b.tv_usec);
+}
+
+void resolverInput(string& filename, int cant_veces) {
 
 	/* Abro el archivo con los datos de entrada */	
 	ifstream infile; 
 	infile.open(filename.c_str()); 
 	assert(infile.is_open());
 
-	/* Creo el nombre del archivo de salida*/
-	string filename2 = (filename.substr(0, filename.size()-3) + ".out");	
+	/* Creo el nombre del archivo de salida el nombre del archivo con los datos necesios para graficar */
 
-	/* Creo el nombre del archivo con los datos necesios para graficar */
-	string filename3 = ("./info\ graficos/" + filename.substr(0, filename.size()-3) + "_grafico.out");
+	string filename2;
+	string filename3;
+	
+	if (filename == "Tp2Ej2.in") filename2 = "Tp2Ej2-bis.out";
+	else filename2 = (filename.substr(0, filename.size()-3) + ".out");	
+	filename3 = (filename.substr(0, filename.size()-3) + "_grafico.out");
+	
 
 	/* Abro el archivo para guardar las respuestas*/
 	ofstream outfile;
@@ -80,49 +83,61 @@ void resolverInput(string& filename) {
 	data_grafico.open(filename3.c_str());
 	assert(data_grafico.is_open());
 
+	/* variables para medir el tiempo de ejecución del algoritmo */
+	struct timeval t1, t2;	
+	double tiempo = 0.0; 
+	double tiempoTotal = 0.0;
+
 	Grafo G; 
 	int n, cuenta;
 	bool sigueArchivo;
 	
-	/* para cada instancia del problema en el archivo ".in" genero un grafo y la resuelvo */
+	/* para cada instancia del problema en el archivo ".in" genero cargo los datos y la resuelvo */
 	do{
 		sigueArchivo = cargar(G,infile);
 		n = G.info.size();
 		
-		if(sigueArchivo){
+		if (sigueArchivo ) {
 			cuenta = 0; 
-
-			/* medit tiempo inicial */
-			gettimeofday(&t1,NULL);
+	
+			/* resuelvo cant_veces cada instancia para calcular luego su tiempo promedio (por defecto cant_veces = 1) */
+			for(int i = 0; i < cant_veces; ++i){
 			
-			dfs_ciclos(1,G,cuenta);
+				/* medit tiempo inicial */
+				gettimeofday(&t1,NULL);
+			
+				dfs_ciclos(1,G,cuenta);
 
-			/* medir tiempo final */
-			gettimeofday(&t2,NULL);
-
-			/* calcular tiempo de resolución */
-			tiempo = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t1.tv_usec);
+				/* medir tiempo final */
+				gettimeofday(&t2,NULL);
+					
+				/* calcular tiempo de resolución */
+				tiempo += timeval_diff(t2, t1);
+			}
 			
 			/* lo sumo al acumulador total de tiempo */
 			tiempoTotal = tiempoTotal + tiempo;
 
 			/* escribo lo resultados en los archivos ".out" */
-			if (cuenta < n || G.ejesEnCiclos.size() < G.cant_aristas  || cuenta < 3) 
-				outfile << "no" << endl;
-			else 
-				outfile << "fuertemente conexo" << endl;
+			if (cuenta < n || G.ejesEnCiclos.size() < G.cant_aristas  || cuenta < 3) outfile << "no" << endl;
+			else outfile << "fuertemente conexo" << endl;
+
+			/* escribo en *_grafico.out la cantidad de aristas de la instancia y el tiempo promedio en resolverla cant_veces */
 			data_grafico << G.cant_aristas << '\t' << tiempo << endl;		
 		}
 	}while(sigueArchivo);
-
-	printf ("El algoritmo tardó %f microsegundos en resolver todas las instancias.\n", tiempoTotal);
 
 	/* Cierro los archivos abiertos */
 	infile.close();
 	outfile.close();
 	data_grafico.close();
-}
 
+	if (cant_veces == 1) printf ("El algoritmo tardó %.000f microsegundos en resolver todas las instancias del archivo %s.\n", tiempoTotal, filename.c_str());
+
+	else printf ("El algoritmo tardó en promedio %.000f microsegundos en resolver %d veces todas las instancias del archivo %s.\n", tiempoTotal, cant_veces, filename.c_str());
+	
+}
+	
 
 void dfs_ciclos(int vertice,Grafo& G,int& cuenta) { 
 	/* agrego al camino del nodo actual los ejes del camino hasta su padre  */
@@ -222,15 +237,43 @@ void limpiar(Grafo &G){
 
 int main(int argc, char** argv) {
 
+	char opcion;
+	int cant_veces = 1;		
 	string filename = "Tp2Ej2.in";
 
-	if (argc > 1) {
-		forn(i, argc-1) {
-			filename = argv[i+1];
-			resolverInput(filename);
-		}
-	}else resolverInput(filename);
+	
+	system("clear");
+	cout << "Indique qué acción desea realizar" << endl << endl
+		 << "a.- Resolver el caso de prueba" << endl
+		 << "b.- Resolver los archivos de entrada generados" << endl
+		 << "c.- Salir sin resolver ningún archivo de entrada" << endl << endl
+		 << "Ingrese una opción [a-c]: ";
+		 
+	switch(opcion) {
+		case 'a': {
+			resolverInput(filename, cant_veces);
+			cout << endl << "Las soluciones al archivo de prueaba fue creada en esta misma carpeta."
+				 << endl << "La información para realizar su grafico se encuentra en la carpeta './info graficos'. " << endl << endl;
+		}break;
+
+		case 'b': {
+    		if (argc > 1) {
+				cout << "Ingrese el número de veces que desea resolver cada instancia de cada uno de los archivos:  ";
+				cin >> cant_veces; cout << endl;
+			
+				forn(i, argc-1) {
+					filename = argv[i+1];
+					resolverInput(filename, cant_veces);
+				}		
 		
+				cout << endl << "Las soluciones a los problemas planteados se encuentran en la carpeta '/tests'."
+					 << endl << "La información para realizar los graficos se encuentra en la carpeta './info graficos'. " << endl;
+			}
+        }break;
+        
+       	case 'c':
+       	break; 
+ 	}
 	return 0;	
 }
 
