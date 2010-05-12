@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
-#include <map>
 #include <set>
+#include <list>
+#include <map>
 #include <vector>
 #include <cassert>
 #include <sys/time.h>
@@ -44,7 +45,7 @@ bool cargar(Grafo &G,ifstream &entrada);
 void limpiar(Grafo &G);
 void dfs_ciclos(int vertice,Grafo &G,int &cuenta);
 void insertarResta(set<int>& ejesEnCiclos,const set<int>& vEjesHasta,const set<int>& wEjesHasta);	
-void resolverInput(string& filename, int cant_veces);
+void resolverInput(string& filename, double cant_veces);
 double timeval_diff(struct timeval& a, struct timeval& b);
 
 
@@ -53,10 +54,12 @@ double timeval_diff(struct timeval& a, struct timeval& b);
 
 /* retorna "a - b " en microsegundos */
 double timeval_diff(struct timeval& a, struct timeval& b) {
-  return (a.tv_sec + - b.tv_sec)*1000000 + (a.tv_usec  - b.tv_usec);
+//  return (a.tv_sec + - b.tv_sec)*1000000 + (a.tv_usec  - b.tv_usec);
+  return (a.tv_sec*1000 + a.tv_usec/1000) - (b.tv_sec*1000 + b.tv_usec/1000);
+  
 }
 
-void resolverInput(string& filename, int cant_veces) {
+void resolverInput(string& filename, double cant_veces) {
 
 	/* Abro el archivo con los datos de entrada */	
 	ifstream infile; 
@@ -72,7 +75,6 @@ void resolverInput(string& filename, int cant_veces) {
 	else filename2 = (filename.substr(0, filename.size()-3) + ".out");	
 	filename3 = (filename.substr(0, filename.size()-3) + "_grafico.out");
 	
-
 	/* Abro el archivo para guardar las respuestas*/
 	ofstream outfile;
 	outfile.open(filename2.c_str());
@@ -91,7 +93,7 @@ void resolverInput(string& filename, int cant_veces) {
 	Grafo G; 
 	int n, cuenta;
 	bool sigueArchivo;
-	
+	list<pair<int, double> > grafico;	
 	/* para cada instancia del problema en el archivo ".in" genero cargo los datos y la resuelvo */
 	do{
 		sigueArchivo = cargar(G,infile);
@@ -114,6 +116,9 @@ void resolverInput(string& filename, int cant_veces) {
 				/* calcular tiempo de resolución */
 				tiempo += timeval_diff(t2, t1);
 			}
+
+			/* calculo el tiempo promedio */
+			tiempo = tiempo / cant_veces;
 			
 			/* lo sumo al acumulador total de tiempo */
 			tiempoTotal = tiempoTotal + tiempo;
@@ -123,18 +128,23 @@ void resolverInput(string& filename, int cant_veces) {
 			else outfile << "fuertemente conexo" << endl;
 
 			/* escribo en *_grafico.out la cantidad de aristas de la instancia y el tiempo promedio en resolverla cant_veces */
-			data_grafico << G.cant_aristas << '\t' << tiempo << endl;		
+			grafico.push_back(make_pair(G.cant_aristas, tiempo));
 		}
 	}while(sigueArchivo);
+
+	grafico.sort();
+	forall(it, grafico)
+		data_grafico << it ->first << '\t' << it -> second << endl;
 
 	/* Cierro los archivos abiertos */
 	infile.close();
 	outfile.close();
 	data_grafico.close();
 
-	if (cant_veces == 1) printf ("El algoritmo tardó %.000f microsegundos en resolver todas las instancias del archivo %s.\n", tiempoTotal, filename.c_str());
+	
+	if (cant_veces == 1) printf ("El algoritmo tardó %.000f milisegundos en resolver todas las instancias del archivo %s.\n", tiempoTotal, filename.c_str());
 
-	else printf ("El algoritmo tardó en promedio %.000f microsegundos en resolver %d veces todas las instancias del archivo %s.\n", tiempoTotal, cant_veces, filename.c_str());
+	else printf ("El algoritmo tardó en promedio %.000f milisegundos en resolver %d veces todas las instancias del archivo %s.\n", tiempoTotal, cant_veces, filename.c_str());
 	
 }
 	
@@ -238,42 +248,30 @@ void limpiar(Grafo &G){
 int main(int argc, char** argv) {
 
 	char opcion;
-	int cant_veces = 1;		
+	double cant_veces = 1;		
 	string filename = "Tp2Ej2.in";
 
-	
 	system("clear");
-	cout << "Indique qué acción desea realizar" << endl << endl
-		 << "a.- Resolver el caso de prueba" << endl
-		 << "b.- Resolver los archivos de entrada generados" << endl
-		 << "c.- Salir sin resolver ningún archivo de entrada" << endl << endl
-		 << "Ingrese una opción [a-c]: ";
-		 
-	switch(opcion) {
-		case 'a': {
-			resolverInput(filename, cant_veces);
-			cout << endl << "Las soluciones al archivo de prueaba fue creada en esta misma carpeta."
-				 << endl << "La información para realizar su grafico se encuentra en la carpeta './info graficos'. " << endl << endl;
-		}break;
 
-		case 'b': {
-    		if (argc > 1) {
-				cout << "Ingrese el número de veces que desea resolver cada instancia de cada uno de los archivos:  ";
-				cin >> cant_veces; cout << endl;
-			
-				forn(i, argc-1) {
-					filename = argv[i+1];
-					resolverInput(filename, cant_veces);
-				}		
+	if (argc > 1) {
+		cout << "Ingrese el número de veces que desea resolver cada instancia de cada uno de los archivos:  ";
+		cin >> cant_veces; cout << endl;
+	
+		forn(i, argc-1) {
+			filename = argv[i+1];
+			resolverInput(filename, cant_veces);
+		}		
+
+		cout << endl << "Las soluciones a los problemas planteados se encuentran en la carpeta '/tests'."
+			 << endl << "La información para realizar los graficos se encuentra en la carpeta './info graficos'. " << endl;
+	}
+
+	else {
+		resolverInput(filename, cant_veces);
+		cout << endl << "Las soluciones al archivo de prueaba fue creada en esta misma carpeta."
+			 << endl << "La información para realizar su grafico se encuentra en la carpeta './info graficos'. " << endl << endl;
+	}
 		
-				cout << endl << "Las soluciones a los problemas planteados se encuentran en la carpeta '/tests'."
-					 << endl << "La información para realizar los graficos se encuentra en la carpeta './info graficos'. " << endl;
-			}
-        }break;
-        
-       	case 'c':
-       	break; 
- 	}
 	return 0;	
 }
 
