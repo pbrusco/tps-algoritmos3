@@ -33,10 +33,6 @@ Tal como se expuso en la introducción de este informe, el algoritmo a implement
 \paragraph{}
 Si se observa la definición de digrafo fuertemente conexo, ésta nos dice que para cualquier par de nodos \textit{a} y \textit{b}, existe al menos un camino orientado desde \textit{a} hasta \textit{b} y al menos otro desde \textit{b} hasta \textit{a}. Esto a su vez, asegura que el grafo es conexo, ya que para cada nodo del grafo existe un camino orientado hacia cada uno de los nodos restantes.
 
-\begin{center}
-grafo explicativo
-\end{center}
-
 \paragraph{}
 A partir del análisis anterior, es esperable que el algoritmo devuelva que no es posible orientar el trazado de calles de la ciudad según lo pedido cuando se da alguna de las siguientes situaciones: 
 \begin{itemize}
@@ -164,10 +160,9 @@ Para subsanar este inconveniente, en cada uno de los archivos de pruebas utiliza
 \paragraph{}
 Seguidamente, y previo al momento de la experimentación, se formularon varias hipótesis en cuanto a cuál era el comportamiento esperable del algoritmo frente a cada uno de los tipos de inputs elegidos para su estudio. Las mismas son presentadas a continuación:
 	\begin{itemize}
-		\item[1)]{ Tal como se explicó [\ref{complejidad2}], la parde mas costosa del algoritmo está dada por la rama \textit{else} del ciclo \textit{for} en  \texttt{c} }
-		\item[2)]{} 
-		\item[3)]{}
-		\item[4)]{}
+		\item[1)]{Tal como se explicó [\ref{complejidad2}], la parte mas costosa del algoritmo está dada por la rama \textit{else} del ciclo \textit{for} del algoritmo \textit{dfs\_ciclos}. Esta rama es accedida cuando alguna arista del nodo sobre el que se está iterando incide sobre un nodo ya recorrido distinto del padre; es decir, cuando se encuentra una arista que es parte de algún ciclo. Luego si se desea estudiar el caso en que el algoritmo tiene la peor complejidad posible, es deseable que para el grafo a procesar cuente con muchos ciclos; más aún que el grafo sea completo. Por estos motivos, es de esperase que los archivos del caso \texttt{a} sean los que tarden más tiempo en resolverse, ya que son los de instancias con un gran número de nodos y una alta densidad.}
+		\item[2)]{Del mismo modo, y debido a su gran cantidad de nodos, resulta esperable que las instancias de los archivos del caso \texttt{b} tarde un tiempo considerable en resolverse, aunque menor que los del caso anterior.} 
+		\item[3)]{Finalmente, se podría presuponer que debido a que tienen un n pequeño, en los grafos de las instancias de los archivos del caso \texttt{c} y \texttt{d} el grado de cada nodo también será un valor chico, disminuyendo así la posibilidad de formar ciclos y consecuentemente disminuyendo la posibilidad de entrar en la rama costosa del algoritmo. En conclusión, se puede pensar a priori que el algoritmo para estos casos resolverá las instancias a una velocidad aceptable/acelerada.}
 	\end{itemize}
 
 \paragraph{}
@@ -187,8 +182,18 @@ A continuación se presentan los gráficos realizados para cada caso:
 Como primera observación de los gráficos expuestos en la sección anterior, cabe decir que la complejidad real se ajustó a la complejidad teórica, ya que en todos los casos se pudo hallar una constante $c \in\ \real$ tal que a partir de algún $n_0$ el gráfico de $c*m*sqrt{m}*log$(m) pasa a acotar superiormente a la cantidad de operaciones realizadas por el algoritmo.
 
 \paragraph{}
-En lo que respecta a la las hipótesis postuladas en la sección \ref{Resultados2}, analicemos una a una su veracidad en función de los gráficos obtenidos.\\
+En lo que respecta a la las hipótesis postuladas en la sección [\ref{res2}], analicemos una a una su veracidad en función de los gráficos obtenidos.\\
+Cotejando el gráfico \ref{graficoA} con los gráficos restantes se corrobora la hipótesis 1 ya que para las instancias del caso \texttt{a} los microsegundos consumidos por el algoritmo son del orden de los 3700$\mu$ s aproximadamente, mientras que el del caso más próximo en tiempo insumido (el caso \texttt{b}) no traspasa la barrera de los 1700$\mu$s.\\
+De esta última observación, también se puede inferir que la hipótesis 2 se ve corroborada de manera empírica.
+
+\paragraph{}
+En cuanto a la hipótesis 3, la comparación de los gráficos \ref{graficoC} y \ref{graficoD} contra los de los gráficos \ref{graficoA} y \ref{graficoB} evidencia que los tiempos necesarios para resolver los archivos de los primeros son significativamente menor a los tiempos necesarios para resolver los archivos de los segundos. Esto en principio, parecería corroborar la hipótesis 3.\\
+No obstante, se puede apreciar también que, si bien se puede encontrar una curva que acote estos gráficos a partir de un cierto punto, esta curva no se ajusta tan bien como las curvas que acotan los gráficos \ref{graficoA} y \ref{graficoB}. Asímismo, se puede ver que la curva de \textit{m vs. Tiempo} de los gráficos \ref{graficoC} y \ref{graficoD} es mucho más irregular y oscilante que la de los gráficos \ref{graficoA} y \ref{graficoB}. Una comparación de los primeros con el gráfico \ref{graficoE}, arroja resultados similares, ya que si bien tiene valores de tiempo menor, este último gráfico se asemeja más a los gráficos de \ref{graficoA} y \ref{graficoB}.\\
+En síntesis, si bien el resultado de la hipótesis 3 se cumple, las causas por las que esto ocurre no resultan del todo claras, y en principio no resulta correcto afirmar la hipótesis de que un número pequeño de nodos disminuye la posibilidad de formar ciclos y consecuentemente la posibilidad de entrar en la rama costosa del algoritmo.
 
 
 \subsection{Conclusiones}
 \label{conc2}
+%En base analizado en la sección [\ref{deb2}], es digno de remarcar el como conclusión hecho de que la complejidad medida en la realidad se asemeja bastante a las complejidades teóricas estimadas. Asímismo, el hecho de que las hipótesis 1 y 2 fueran corroboradas en base a los resultados arrojados por la experimentación. No obstante, en el caso en que \textit{b} sea un múltiplo de \textit{n}, el algoritmo será capaz de resolver el problema en un número constante de operaciones, aunque no así de tiempo, ya que el tiempo que demore en realizar las operaciones dependerá del tamaño de \textit{n}.
+%Por último, se puede concluir que el hecho de que \textit{n} sea un número primo no conlleva a un aumento significativo en la cantidad de operaciones, por lo que la complejidad real en esos casos se mantiene consistente a la complejidad teórica.
+
