@@ -41,7 +41,7 @@ Si sucede que se recorrieron todas las habitaciones o que no hay ninguna llave d
 \paragraph{}
 A continuación se adjunta, a modo de pseudocódigo, los algoritmos utilizados para resolver el problema descrito anteriormente. En los mismos usaremos a \textit{n} como la cantidad de habitaciones (o nodos).
 
-
+\newpage
 \SetKw{Orden}{Complejidad:}
 \textbf{bool} resolver(carcel c)\\
 \begin{algorithm}[H]
@@ -96,7 +96,7 @@ A continuación se adjunta, a modo de pseudocódigo, los algoritmos utilizados p
 	\eIf{(habitacionesYaVisitadas[c.cantHabitaciones-1])\tcp*{\Ode{1}}}{return true}{return false}
 \end{algorithm}
 
-
+\newpage
 \textbf{void} recorrerPorBFS(int proximaHabitacion, $queue<int>\&$ habitacionesLimites, vector$<bool>\&$ habitacionesYaVisitadas, vector$<bool>\&$ llavesEncontradas, carcel$\&$ c)\\
 \begin{algorithm}[H]
 \Orden{\Ode{n^2}}\\
