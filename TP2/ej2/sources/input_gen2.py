@@ -4,6 +4,56 @@ import sys, os, random
 from random import randint
 
 
+def main(*args):
+	""" Algortimo principal """
+	random.seed()
+	exit = False	
+
+	while not exit:
+		opcion = mostrarMenu()
+		if opcion in ['f', 'F']:
+			exit = True
+			break
+		else:
+			in_f = open('../tests/'+str(randint(1,100))+'.in', 'w')
+			os.system('clear')
+			nro_casos = int(raw_input("Cuantas instancias del problema desea generar?:  "))
+			for _ in range(nro_casos):
+				n, m = accionarMenu(opcion)
+				generador(n, m, in_f)
+			in_f.write(str(-1))
+			in_f.close()	 
+
+	return 0
+
+	
+def mostrarMenu():
+	""" Muestra un menu de opciones en pantalla """
+
+	os.system('clear')
+	print
+	print "Por favor seleccione el tipo de archivo de entrada que desea generar y presione Enter", '\n'
+	print "a - Muchas esquinas conectadas por muchas calles"
+	print "b - Muchas esquinas conectadas por pocas calles"
+	print "c - Pocas esquinas conectadas por muchas calles"
+	print "d - Pocas esquinas conectadas por pocas calles"
+	print "e - Aleatorio"
+	print "f - Salir del programa"
+	opcion = raw_input("Ingrese una opcion [a-f]:  ")		
+	return opcion
+
+
+def accionarMenu(opcion):
+	""" Devuelve valores distintos de n y m segun la opcion elegida en el menu """
+	
+	return {
+	'a': (randint(1,100), 1),  
+	'b': (randint(1,100), 0),
+	'c': (randint(1,10), 1),
+	'd': (randint(1,10), 0)
+	}.get(opcion, (randint(1,50), randint(0,49)))
+
+
 def generador(n, m, f):
 	"""Genera un tantos grafos de n nodos y de al menos m aristas como se establezca en nro_ casos y los graba en el archivo f"""
 
@@ -25,56 +75,7 @@ def generador(n, m, f):
 		f.write('\t' + str(len(grafo[nodo])) + '\t') 
 		for x in grafo[nodo]: f.write(str(x) + " ") 
 		f.write('\n')
-	
 
 
-def menu():
-	""" Muestra un menu de opciones en pantalla """
-
-	os.system('clear')
-	print
-	print "Por favor seleccione el tipo de archivo de entrada que desea generar y presione Enter", '\n'
-	print "a - muchas esquinas conectadas por muchas calles"
-	print "b - muchas esquinas conectadas por pocas calles"
-	print "c - pocas esquinas conectadas por muchas calles"
-	print "d - pocas esquinas conectadas por pocas calles"
-	print "e - aleatorio"
-	print "f - Salir del programa"
-	opcion = raw_input("Ingrese una opcion [a-f]:  ")		
-	return opcion
-
-
-def menuAction(opcion):
-	""" Devuelve valores distintos de n y m segun la opcion elegida en el menu """
-	
-	return {
-	'a': (randint(1,100), 1),  
-	'b': (randint(1,100), 0),
-	'c': (randint(1,10), 1),
-	'd': (randint(1,10), 0)
-	}.get(opcion, (randint(1,50), randint(0,49)))
-
-
-def main(*args):
-
-	random.seed()
-	exit = False	
-
-	while not exit:
-		opcion = menu()
-		if opcion in ['f', 'F']:
-			exit = True
-			break
-		else:
-			in_f = open('../info graficos/'+str(randint(1,100))+'.in', 'w')
-			os.system('clear')
-			nro_casos = int(raw_input("Cuantas instancias del problema desea generar?:  "))
-			for _ in range(nro_casos):
-				n, m = menuAction(opcion)
-				generador(n, m, in_f)
-			in_f.write(str(-1))
-			in_f.close()	 
-
-	return 0
 
 if __name__ == '__main__': main(sys.argv)
