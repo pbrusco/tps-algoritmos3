@@ -54,8 +54,8 @@ double timeval_diff(struct timeval& a, struct timeval& b);
 
 /* retorna "a - b " en microsegundos */
 double timeval_diff(struct timeval& a, struct timeval& b) {
-//  return (a.tv_sec + - b.tv_sec)*1000000 + (a.tv_usec  - b.tv_usec);
-  return (a.tv_sec*1000 + a.tv_usec/1000) - (b.tv_sec*1000 + b.tv_usec/1000);
+  return (a.tv_sec + - b.tv_sec)*1000000 + (a.tv_usec  - b.tv_usec);
+//  return (a.tv_sec*1000 + a.tv_usec/1000) - (b.tv_sec*1000 + b.tv_usec/1000);
   
 }
 
@@ -101,7 +101,8 @@ void resolverInput(string& filename, double cant_veces) {
 		
 		if (sigueArchivo ) {
 			cuenta = 0; 
-	
+			tiempo = 0.0;
+			
 			/* resuelvo cant_veces cada instancia para calcular luego su tiempo promedio (por defecto cant_veces = 1) */
 			for(int i = 0; i < cant_veces; ++i){
 			
@@ -142,9 +143,9 @@ void resolverInput(string& filename, double cant_veces) {
 	data_grafico.close();
 
 	
-	if (cant_veces == 1) printf ("El algoritmo tardó %.000f milisegundos en resolver todas las instancias del archivo %s.\n", tiempoTotal, filename.c_str());
+	if (cant_veces == 1) printf ("El algoritmo tardó %.000f microsegundos en resolver todas las instancias del archivo %s.\n", tiempoTotal, filename.c_str());
 
-	else printf ("El algoritmo tardó en promedio %.000f milisegundos en resolver %d veces todas las instancias del archivo %s.\n", tiempoTotal, cant_veces, filename.c_str());
+	else printf ("El algoritmo tardó en promedio %.000f microsegundos en resolver %d veces todas las instancias del archivo %s.\n", tiempoTotal, cant_veces, filename.c_str());
 	
 }
 	
@@ -262,14 +263,13 @@ int main(int argc, char** argv) {
 			resolverInput(filename, cant_veces);
 		}		
 
-		cout << endl << "Las soluciones a los problemas planteados se encuentran en la carpeta '/tests'."
-			 << endl << "La información para realizar los graficos se encuentra en la carpeta './info graficos'. " << endl;
+		cout << endl << "Las soluciones a los problemas planteados y la información para realizar los graficos fueron guardados en la carpeta '/tests'." << endl;
 	}
 
 	else {
 		resolverInput(filename, cant_veces);
-		cout << endl << "Las soluciones al archivo de prueaba fue creada en esta misma carpeta."
-			 << endl << "La información para realizar su grafico se encuentra en la carpeta './info graficos'. " << endl << endl;
+		cout << endl << "Las soluciones al archivo de prueba y la información para realizar su grafico fueron guardados en esta misma carpeta."
+			 << endl << "La  se encuentra en la carpeta './info graficos'. " << endl << endl;
 	}
 		
 	return 0;	
