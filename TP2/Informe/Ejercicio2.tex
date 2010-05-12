@@ -68,7 +68,7 @@ A continuación se presenta el pseudocódigo del mismo, en el cuál usaremos a \
 void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 \begin{algorithm}[H]
 	\SetKw{Orden}{Complejidad:}
-	\Orden{\Ode{n*m*log(m)}}
+	\Orden{\Ode{n^2*log(n)}}
 	\BlankLine
 	cuenta $\leftarrow$ cuenta + 1 \tcp*{\Ode{1}}
 	G.info[vertice].ejesHasta $\leftarrow$ G.info[G.info[vertice].padre].ejesHasta \tcp*{\Ode{n}}
@@ -85,29 +85,54 @@ void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 			%if
 			{\lIf{(G.info[vertice].padre $\neq$ (*it))\tcp*{\Ode{1}}}
 				{\BlankLine
-insertarResta(G.ejesUsados,G.info[vertice].ejesHasta,G.info[*it].ejesHasta)\tcp*{\Ode{m*log(m)}}
-				G.ejesUsados.insert(eje(G,*it,vertice))\tcp*{\Ode{log(m)}}}}
+insertarResta(G.ejesUsados,G.info[vertice].ejesHasta,G.info[*it].ejesHasta)\tcp*{\Ode{n*log(n)}}
+				G.ejesUsados.insert(eje(G,*it,vertice))\tcp*{\Ode{log(n)}}}}
 	}
 
 	\caption{Pseudocódigo de la función \textit{dfs\_ciclos} con el costo de cada instrucción en el modelo uniforme}
 \end{algorithm}
 
 
+\incmargin{1em}
+\linesnumbered
+\restylealgo{boxed}
+
+void \textbf{insertarResta}(ejesEnCilos: set$<$int$>$, vEjesHasta: set$<$int$>$, wEjesHasta: set$<$int$>$) \\
+\begin{algorithm}[H]
+	\SetKw{Orden}{Complejidad:}
+	\Orden{\Ode{n.log(n)}}
+	\BlankLine
+	\For{(it = vEjesHasta.begin(), it $\neq$ vEjesHasta.end(), it++)\tcp*{\Ode{tam(vEjesHasta)} $\subseteq$  \Ode{n} }} {
+		\lIf{ (wEjesHasta.count(*it) == 0)} {ejesEnCiclos.insert(*it)\tcp*{\Ode{log(tam(wEjesHasta))} $\subseteq$ \Ode{log(n)}}}
+	}
+	
+	 
+	\caption{Pseudocódigo de la función \textit{insertarResta}}
+\end{algorithm}
+
 \subsection{Análisis de la complejidad del algoritmo}
 \label{complejidad2}
 
 \paragraph{}
-Para el análisis de la complejidad de este algoritmo, vamos a remitirnos a los pseudocódigos de las funciones \textit{dfs\_ciclos} y \textit{insertarResta} adjuntos en las secciones [\ref{exp2}] y [\ref{PseudoInsResta}] respectivamente. En este caso se utilizará la misma notación para la cantidad de nodos y aristas que se utilizó en el pseudocódigo de la sección [\ref{exp2}].
+Para el análisis de la complejidad de este algoritmo, vamos a remitirnos a los pseudocódigos de las funciones \textit{dfs\_ciclos} y \textit{insertarResta} adjuntos en las secciones [\ref{exp2}] y [\ref{PseudoInsResta}] respectivamente. En este caso se utilizará la misma notación para la cantidad de nodos y aristas que se utilizó en los pseudocódigos de la sección [\ref{exp2}].
 
 \paragraph{}
 Si se observan las distintas complejidades que se dan dentro del algoritmo, se puede ver algunas que sobresalen sobre el resto. Es en estas en las que recae la complejidad total del algoritmo, por lo cuál el análisis se realizará sobre estas instrucciones.\\
 Como primer caso de análisis, se puede observar en la tercer línea que la complejidad de la instrucción es \Ode{n}. Esto se debe a que la asignación de conjuntos implementada en la \textit{STL} tiene esta complejidad (destrucción y copia de un conjunto).
 
 \paragraph{}
-La siguiente complejidad a analizar es la que aparece en la línea seis del código, la cuál pertenece a la ejecución del ciclo \textit{for}. Si se observa más detalladamente, se puede concluir que dicho ciclo se va a ejecutar tantas veces como vecinos tenga esa esquina (o nodo) los cuáles a lo sumo pueden ser todos los demás, es decir, \textit{n-1}. Con lo cuál se ejecutará \Ode{n} veces.
+La siguiente complejidad a analizar es la referente al ciclo \textit{for}. Como hay una llamada recursiva dentro, vamos a hacer un análisis más arraigado a la idea en sí de DFS que al pseudocódigo tal como está. Si pensamos en cómo funciona DFS, sabemos que este visitará a cada nodo a lo sumo una vez (estrictamente una única vez en caso que el grafo sea conexo). Por lo que si se observa detalladamente dentro del \textit{for}, la sentencia \textit{if} sólo se ejecutará\footnote{Se entiende por ``ejecutará'' a que la condición de \true.} n veces. Dentro de esa sentencia, sólo se hacen operaciones de complejidad \Ode{1} y una llamada recursiva. Dicha llamada recursiva en realidad puede pensarse como \Ode{1} ya que si la función fuese iterativa, la recursión equivale a hacer un ``apilar'' de un nodo, y esto cuesta efectivamente \Ode{1}.
 
 \paragraph{}
-Dentro de este ciclo, hay una sentencia condicional. En la parte del \textit{if}, hay una llamada recursiva a la función \textit{dfs\_ciclos}. En el \textit{else}, hay una llamada a la función \textit{insertarResta} y un insertar en un conjunto. En el caso de la llamada recursiva, se puede pensar que en realidad se apila un nodo del grafo para luego ser recorrido, por lo que dicha complejidad puede pensarse en este caso como constante, es decir, \Ode{1}. En cambio, en caso de ejecutarse la sentencia \textit{else}, hay un llamado a \textit{insertarResta} cuya complejidad es \Ode{m*log(m)}\footnote{Ver análisis en la sección [\ref{PseudoInsResta}]} y además, se realiza una inserción en un conjunto, pero dicha complejidad es solamente de \Ode{log(m)}. Por lo tanto, la complejidad total en peor caso del ciclo \textit{for} es \Ode{n*m*log(m)}, ya que se ejecutará a lo sumo \textit{n-1} veces la sentencia \textit{else} cuya complejidad es \Ode{m*log(m)}. De esta forma, la complejidad de este algoritmo es \Ode{n*m*log(m)}.
+Ahora falta ver cuántas veces se ejecutará la otra parte de la sentencia condicional, es decir, el  \textit{else}. La complejidad de ejecutar una vez esta parte de la sentencia está dada por el llamado a la función \textit{insertarResta}, la cuál es \Ode{n*log(n)}. Si se analiza profundamente, se va a entrar a este lado de la sentencia siempre que se intente visitar a un nodo que ya fue visitado. En otras palabras y siendo un poco más formal, a cada nodo a lo sumo se va a intentar entrar tantas veces como ejes incidan en él, es decir, d(v) veces (donde v es algún nodo perteneciente al grafo). La primer vez que se lo visite entrará en el \textit{if} y el resto de las d(v)-1 veces entrará en el \textit{else}.\\
+Sabemos que $\sum_{i=1}^{n} d(v_i) = 2*m$. Como el grado de un nodo puede ser a lo sumo n-1, entonces para cada nodo voy a estar ejecutando una vez el \textit{if} y n-2 veces el \textit{else}. Si contamos con que la complejidad de ejecutar el \textit{if} es \Ode{1} y la del \textit{else} es \Ode{n*log(n)} y que por cada nodo se van a ejecutar una vez y n-2 veces cada una respectivamente (sin olvidarnos de la sumatoria antes mencionada), entonces se puede decir que en total, la complejidad de ejecutar el \textit{if} es \Ode{n} y la del \textit{else} es \Ode{2*m*n*log(n)} $==$ \Ode{m*n*log(n)}.
+
+\paragraph{}
+Finalmente entonces, la complejidad total del algoritmo es \Ode{n + m*n*log(n)} $\subseteq$ \Ode{m*n*log(n)}.
+
+\paragraph{}
+Hasta aquí hicimos el análisis suponiendo que la complejidad de \textit{insertarResta} era \Ode{n*log(n)}. Pero para que la complejidad quede bien justificada, queda analizar que dicho algoritmo cumpla esta complejidad.\\
+La función consta de tres operaciones costosas. En primer instancia está el ciclo \textit{for}, el cuál se va a ejecutar a lo sumo n-1 veces. Esto se debe a que dicho conjunto hace referencia a los ejes que pertenecen al camino simple raiz$\rightarrow$ $v_i$ (con $v_i$ cualquiera de los vértices pertenecientes al grafo original), por lo que la cantidad de ejes es a lo sumo n-1, es decir, \Ode{n}. Luego, hay una sentencia condicional, para la cuál se hace una búsqueda sobre un conjunto, el cuál, al igual que el conjunto perteneciente al ciclo, tiene a lo sumo n-1 ejes por lo que dicha complejidad es \Ode{log(n)}. Finalmente, se realiza una inserción en otro conjunto. Este conjunto es el que va acumulando todos los ejes del grafo original que pertenecen a algún ciclo, por lo que a lo sumo puede contener todos los ejes del grafo, es decir m, por lo que la inserción cuesta \Ode{log(m)}. Pero m es a lo sumo $n^2$, es decir que: \Ode{log(m)} $\subseteq$ \Ode{log(n^2)} $==$ \Ode{log(n^2)} (por propiedades del logaritmo y de $O$). Es decir que por cada eje del primer conjunto, se ejecutan dos instrucciones de complejidad \Ode{log(n)}, por lo que la complejidad final de la función \textit{insertarResta} sería \Ode{n*log(n)}.
 
 
 \subsection{Detalles de implementación}
