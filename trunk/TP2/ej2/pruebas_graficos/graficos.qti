@@ -3,7 +3,7 @@ QtiPlot 0.9.7 project file
 <windows>	10
 <table>
 CasoA	100	2	5/12/10 3:23 AM
-geometry	0	430	-1	-1	minimized	
+geometry	0	430	445	220	minimized	
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -118,7 +118,7 @@ WindowLabel		2
 </table>
 <table>
 CasoB	100	2	5/12/10 3:37 AM
-geometry	196	430	-1	-1	minimized	
+geometry	196	430	445	220	minimized	
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -233,7 +233,7 @@ WindowLabel		0
 </table>
 <table>
 CasoC	100	2	5/12/10 4:47 AM
-geometry	392	430	-1	-1	minimized	
+geometry	392	430	445	220	minimized	
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -463,7 +463,7 @@ WindowLabel		2
 </table>
 <multiLayer>
 GraphA	1	1	5/12/10 3:30 AM
-geometry	784	430	-1	-1	minimized	
+geometry	784	430	510	430	minimized	
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
@@ -502,7 +502,7 @@ curve	CasoA_1	CasoA_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <Title>F2</Title>
 <Expression>0.1*x*sqrt(x)*log(2)</Expression>
 <Variable>x</Variable>
-<Range>0	3500</Range>
+<Range>1	3500</Range>
 <Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
@@ -515,9 +515,9 @@ curve	CasoA_1	CasoA_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	4000	0	8	5	0	0
+scale	0	0	4000	0	6	5	0	0
 scale	1	0	4000	0	8	5	0	0
-scale	2	0	3500	0	10	5	0	0
+scale	2	0	3500	0	9	5	0	0
 scale	3	0	3500	0	8	5	0	0
 LabelsFormat	0	4	0	4	0	4	0	4	
 AxisType	0	0	0	0	
@@ -534,12 +534,12 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>87.939698492462</x>
 <y>3835.0515463918</y>
-<right>963.383838383838</right>
-<bottom>3460.20761245675</bottom>
+<right>1952.26130653266</right>
+<bottom>3216.49484536082</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1) Método implementado
-\l(2)0,1*m*sqrt(m)*log(m)
+\l(2)0.1*m*sqrt(m)*log(m)
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
@@ -553,7 +553,7 @@ LabelsRotation	0	0
 </multiLayer>
 <multiLayer>
 GraphB	1	1	5/12/10 4:13 AM
-geometry	0	406	-1	-1	minimized	
+geometry	0	406	510	430	minimized	
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
@@ -592,7 +592,7 @@ curve	CasoB_1	CasoB_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <Title>F1</Title>
 <Expression>0.012*x*sqrt(x)*log(x)</Expression>
 <Variable>x</Variable>
-<Range>0	1600</Range>
+<Range>1	1600</Range>
 <Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
@@ -605,7 +605,7 @@ curve	CasoB_1	CasoB_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	2000	0	6	5	0	0
+scale	0	0	2000	0	7	5	0	0
 scale	1	0	2000	0	8	5	0	0
 scale	2	0	1500	0	6	5	0	0
 scale	3	0	1500	0	8	5	0	0
@@ -622,14 +622,14 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>37.313432835821</x>
-<y>1803.3898305085</y>
-<right>412.878787878788</right>
-<bottom>1730.10380622837</bottom>
+<x>37.688442211055</x>
+<y>1800.6872852234</y>
+<right>874.371859296482</right>
+<bottom>1491.4089347079</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Método implementado
-\l(2)0.012*x*sqrt(x)*log(x)
+\l(2)0.012*m*sqrt(m)*log(m)
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
@@ -643,14 +643,14 @@ LabelsRotation	0	0
 </multiLayer>
 <multiLayer>
 GraphC	1	1	5/12/10 4:52 AM
-geometry	196	406	-1	-1	minimized	
+geometry	196	406	510	430	minimized	
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	5	5	491	371
+ggeometry	5	5	487	367
 PlotTitle	c.in	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -682,7 +682,7 @@ curve	CasoC_1	CasoC_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <Title>F1</Title>
 <Expression>0.45*x*sqrt(x)*log(x)</Expression>
 <Variable>x</Variable>
-<Range>0	35</Range>
+<Range>1	35</Range>
 <Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
@@ -695,9 +695,9 @@ curve	CasoC_1	CasoC_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	50	0	8	5	0	0
-scale	1	0	50	0	8	5	0	0
-scale	2	0	35	0	9	5	0	0
+scale	0	0	60	0	10	5	0	0
+scale	1	0	60	0	8	5	0	0
+scale	2	0	35	0	10	5	0	0
 scale	3	0	35	0	8	5	0	0
 LabelsFormat	0	4	0	4	0	4	0	4	
 AxisType	0	0	0	0	
@@ -712,10 +712,10 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>17.905092592593</x>
-<y>11.016949152542</y>
-<right>9.30487804878049</right>
-<bottom>43.3447098976109</bottom>
+<x>17.908878504673</x>
+<y>13.19587628866</y>
+<right>35.4088785046729</right>
+<bottom>3.91752577319588</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Método implementado
@@ -733,14 +733,14 @@ LabelsRotation	0	0
 </multiLayer>
 <multiLayer>
 GraphD	1	1	5/12/10 5:04 AM
-geometry	392	406	-1	-1	minimized	
+geometry	392	406	510	430	minimized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	5	5	491	371
+ggeometry	5	5	487	367
 PlotTitle	d.in	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -770,9 +770,9 @@ curve	CasoD_1	CasoD_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
-<Expression>x*sqrt(x)*log(x)</Expression>
+<Expression>1.8*x*sqrt(x)*log(x)</Expression>
 <Variable>x</Variable>
-<Range>0	20</Range>
+<Range>1	20</Range>
 <Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
@@ -785,8 +785,8 @@ curve	CasoD_1	CasoD_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	100	0	8	5	0	0
-scale	1	0	100	0	8	5	0	0
+scale	0	0	60	0	7	5	0	0
+scale	1	0	60	0	8	5	0	0
 scale	2	0	20	0	7	5	0	0
 scale	3	0	20	0	8	5	0	0
 LabelsFormat	0	4	0	4	0	4	0	4	
@@ -802,14 +802,14 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>0.47169811320755</x>
-<y>90.169491525424</y>
-<right>5.31707317073171</right>
-<bottom>86.6894197952218</bottom>
+<x>10.841121495327</x>
+<y>54.020618556701</y>
+<right>20.5607476635514</right>
+<bottom>44.7422680412371</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Método implementado
-\l(2)m*sqrt(m)*log(m)
+\l(2)1.8*m*sqrt(m)*log(m)
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
@@ -822,8 +822,8 @@ LabelsRotation	0	0
 </graph>
 </multiLayer>
 <table>
-CasoE	100	2	5/12/10 9:13 AM
-geometry	0	0	445	220	active
+CaseE	100	2	5/12/10 11:30 AM
+geometry	588	406	445	220	minimized	
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -937,15 +937,15 @@ WindowLabel		2
 </data>
 </table>
 <multiLayer>
-GraphE	1	1	5/12/10 9:13 AM
-geometry	588	406	510	430	minimized	
+GraphE	1	1	5/12/10 11:30 AM
+geometry	784	406	510	430	minimized	
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	5	5	495	369
+ggeometry	5	5	491	371
 PlotTitle	e.in	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -971,13 +971,13 @@ AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#3a3935	#3a3935	#3a3935	#3a3935
 AxesBaseline	0	0	0	0	
 CanvasBackground	#ffffff	255
-curve	CasoE_1	CasoE_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
+curve	CaseE_1	CaseE_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
-<Expression>0.03*x*sqrt(x)*log(x)</Expression>
+<Expression>0.015*x*sqrt(x)*log(x)</Expression>
 <Variable>x</Variable>
-<Range>0	800</Range>
+<Range>1	800</Range>
 <Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
@@ -990,10 +990,10 @@ curve	CasoE_1	CasoE_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	1000	0	8	5	0	0
-scale	1	0	1000	0	8	5	0	0
-scale	2	-200	1000	0	8	5	0	0
-scale	3	-200	1000	0	8	5	0	0
+scale	0	0	800	0	7	5	0	0
+scale	1	0	800	0	8	5	0	0
+scale	2	0	800	0	7	5	0	0
+scale	3	0	800	0	8	5	0	0
 LabelsFormat	0	4	0	4	0	4	0	4	
 AxisType	0	0	0	0	
 MajorTicks	1	1	1	1	
@@ -1007,14 +1007,14 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>-188.17733990148</x>
-<y>1000</y>
-<right>444.334975369458</right>
-<bottom>846.41638225256</bottom>
+<x>41.904761904762</x>
+<y>721.35593220339</y>
+<right>464.761904761905</right>
+<bottom>599.322033898305</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Método implementado
-\l(2)0,03*m*sqrt(m)*log(m)
+\l(2)0.015*m*sqrt(m)*log(m)
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
