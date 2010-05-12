@@ -204,27 +204,22 @@ A continuación se presentan los gráficos realizados para cada caso:
 
 \begin{center}
 \vspace*{1.5cm}
-\label{graficoA}
 \hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphA.pdf} \\
 \underline{Gráfico A} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso A
 
 \vspace*{1.5cm}
-\label{graficoB}
 \hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphB.pdf} \\
 \underline{Gráfico B} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso B
 
 \vspace*{1.5cm}
-\label{graficoC}
 \hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphC.pdf} \\
 \underline{Gráfico C} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso C
 
 \vspace*{1.5cm}
-\label{graficoD}
 \hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphD.pdf} \\
 \underline{Gráfico D} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso D
 
 \vspace*{1.5cm}
-\label{graficoE}
 \hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphE.pdf} \\
 \underline{Gráfico E} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso E
 \end{center}
@@ -240,18 +235,18 @@ Como primera observación de los gráficos expuestos en la sección anterior, ca
 
 \paragraph{}
 En lo que respecta a la las hipótesis postuladas en la sección [\ref{res2}], analicemos una a una su veracidad en función de los gráficos obtenidos.\\
-Cotejando el gráfico \ref{graficoA} con los gráficos restantes se corrobora la hipótesis 1 ya que para las instancias del caso \texttt{a} los microsegundos consumidos por el algoritmo son del orden de los 3700$\mu$ s aproximadamente, mientras que el del caso más próximo en tiempo insumido (el caso \texttt{b}) no traspasa la barrera de los 1700$\mu$s.\\
+Cotejando el gráfico A con los gráficos restantes se corrobora la hipótesis 1 ya que para las instancias del caso \texttt{a} los microsegundos consumidos por el algoritmo son del orden de los 3700$\mu$ s aproximadamente, mientras que el del caso más próximo en tiempo insumido (el caso \texttt{b}) no traspasa la barrera de los 1700$\mu$s.\\
 De esta última observación, también se puede inferir que la hipótesis 2 se ve corroborada de manera empírica.
 
 \paragraph{}
-En cuanto a la hipótesis 3, la comparación de los gráficos \ref{graficoC} y \ref{graficoD} contra los de los gráficos \ref{graficoA} y \ref{graficoB} evidencia que los tiempos necesarios para resolver los archivos de los primeros son significativamente menor a los tiempos necesarios para resolver los archivos de los segundos. Esto en principio, parecería corroborar la hipótesis 3.\\
-No obstante, se puede apreciar también que, si bien se puede encontrar una curva que acote estos gráficos a partir de un cierto punto, esta curva no se ajusta tan bien como las curvas que acotan los gráficos \ref{graficoA} y \ref{graficoB}. Asímismo, se puede ver que la curva de \textit{m vs. Tiempo} de los gráficos \ref{graficoC} y \ref{graficoD} es mucho más irregular y oscilante que la de los gráficos \ref{graficoA} y \ref{graficoB}. Una comparación de los primeros con el gráfico \ref{graficoE}, arroja resultados similares, ya que si bien tiene valores de tiempo menor, este último gráfico se asemeja más a los gráficos de \ref{graficoA} y \ref{graficoB}.\\
+En cuanto a la hipótesis 3, la comparación de los gráficos B y D contra los de los gráficos A y B evidencia que los tiempos necesarios para resolver los archivos de los primeros son significativamente menor a los tiempos necesarios para resolver los archivos de los segundos. Esto en principio, parecería corroborar la hipótesis 3.\\
+No obstante, se puede apreciar también que, si bien se puede encontrar una curva que acote estos gráficos a partir de un cierto punto, esta curva no se ajusta tan bien como las curvas que acotan los gráficos A y B. Asímismo, se puede ver que la curva de \textit{m vs. Tiempo} de los gráficos C y D es mucho más irregular y oscilante que la de los gráficos A y B. Una comparación de los primeros con el gráfico E, arroja resultados similares, ya que si bien tiene valores de tiempo menor, este último gráfico se asemeja más a los gráficos de A y B.\\
 En síntesis, si bien el resultado de la hipótesis 3 se cumple, las causas por las que esto ocurre no resultan del todo claras, y en principio no resulta correcto afirmar la hipótesis de que un número pequeño de nodos disminuye la posibilidad de formar ciclos y consecuentemente la posibilidad de entrar en la rama costosa del algoritmo.
 
 
 \subsection{Conclusiones}
 \label{conc2}
 En base analizado en la sección [\ref{deb2}], cabe remarcar como conclusión el hecho de que la complejidad medida en la realidad se asemeje bastante a las complejidades teóricas estimadas. Asímismo, el hecho de que las hipótesis 1 y 2 fueran corroboradas en base a los resultados arrojados por la experimentación. \\ 
-Por último, se puede concluir que el hecho de que si bien se cumple el resultado de la hipótesis 3, las causas por lo que esto ocurre no se evidencian a partir de la experimentación. En consecuencia, no se puede afirmar la hipóteisis 3, pero tampoco se la puede descartar llanamente. Como hipótesis alternativa se puede plantear que la oscilación en las curvas de los gráficos  \ref{graficoC} y \ref{graficoD}, o bien se debe al pequeño número de nodos del grafo (tal como se postuló en la hipótesis 3), o bien puede deberse al error producido al medir el tiempo aún pese haber tomado como medición representativa el tiempo promedio.
+Por último, se puede concluir que el hecho de que si bien se cumple el resultado de la hipótesis 3, las causas por lo que esto ocurre no se evidencian a partir de la experimentación. En consecuencia, no se puede afirmar la hipóteisis 3, pero tampoco se la puede descartar llanamente. Como hipótesis alternativa se puede plantear que la oscilación en las curvas de los gráficos  C y D, o bien se debe al pequeño número de nodos del grafo (tal como se postuló en la hipótesis 3), o bien puede deberse al error producido al medir el tiempo aún pese haber tomado como medición representativa el tiempo promedio.
 
 
