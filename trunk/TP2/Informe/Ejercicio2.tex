@@ -44,7 +44,7 @@ Buscando formalizar esta idea se recurrió a distintas fuentes bibliográficas h
 
 \begin{quote}
 \label{robbins}
-\underline{Teorema: }\footnote{Demostrado por Robbins, 1939 - Obtenido del libro ...)}\\ \vspace{7pt}
+\underline{Teorema: }\footnote{Demostrado por Robbins, 1939 - Gross \& Yellen "Graph Theory", Teorema 11.1.4}\\ \vspace{7pt}
 Un grafo conexo G es fuertemente orientable si y solo si G no tiene puentes \footnote{Véase la demotración del teorema en la sección Anexos}.
 \end{quote}
 
@@ -94,6 +94,7 @@ insertarResta(G.ejesUsados,G.info[vertice].ejesHasta\\
 	\caption{Pseudocódigo de la función \textit{dfs\_ciclos} con el costo de cada instrucción en el modelo uniforme}
 \end{algorithm}
 
+\vspace{11pt}
 
 \incmargin{1em}
 \linesnumbered
@@ -105,12 +106,12 @@ void \textbf{insertarResta}(ejesEnCilos: set$<$int$>$, vEjesHasta: set$<$int$>$,
 	\Orden{\Ode{n.log(n)}}
 	\BlankLine
 	\For{(it = vEjesHasta.begin(), it $\neq$ vEjesHasta.end(), it++)\tcp*{\Ode{tam(vEjesHasta)} $\subseteq$  \Ode{n} }} {
-		\If{ (wEjesHasta.count(*it) == 0)\tcp*{\Ode{log(tam(wEjesHasta))} $\subseteq$ \Ode{log(n)}}} {ejesEnCiclos.insert(*it)\tcp*{\Ode{log(tam(ejesEnCiclos))} $\subseteq$ \Ode{log(m)} $\subseteq$ \Ode{log(n^2)} $\subseteq$ \Ode{log(n)} }}
+		\lIf{ (wEjesHasta.count(*it) == 0)} {ejesEnCiclos.insert(*it)\tcp*{\Ode{log(tam(wEjesHasta))} $\subseteq$ \Ode{log(n)}}}
 	}
 	
-	 
 	\caption{Pseudocódigo de la función \textit{insertarResta}}
 \end{algorithm}
+
 
 \subsection{Análisis de la complejidad del algoritmo}
 \label{complejidad2}
@@ -164,7 +165,7 @@ Finalmente, en \textit{./ej2/} se hayan los archivos \textit{.Tp2Ej2.in} y \text
 \label{res2}
 
 \paragraph{}
-El programa \textit{input\_gen2.py} fue desarrollado para poder crear 5 (cinco) casos posibles de archivos input de distintas características, cada uno con un número de instancias dado por el usuario. Allí, cada instancia corresponde a un posible trazado de la ciudad caracterizado por la cantidad de esquinas y la cantidad de calles adyacentes a cada una de ellas. \\
+El programa \textit{input\_gen2.py} fue desarrollado para poder crear cinco casos posibles de archivos input de distintas características, cada uno con un número de instancias dado por el usuario. Allí, cada instancia corresponde a un posible trazado de la ciudad caracterizado por la cantidad de esquinas y la cantidad de calles adyacentes a cada una de ellas. \\
 A continuación se describen cuáles son esos casos y se explica brevemente que se esperaba observar en cada uno de ellos\footnote{Cabe aclarar que en todos los casos, tanto el número de nodos, como el grado de los mismos se generan de forma aleatoria, pero siempre dentro de los rangos establecidos por cada uno de los casos.}:
 	\begin{itemize}
 		\item[\texttt{a.-}]{\texttt{Casos con $0 \leq n \leq 100$ y $d(v_i) \geq\ \frac{n-1}{2},\ \forall\ 0 \leq i \leq n$:} \\
@@ -182,18 +183,18 @@ A continuación se describen cuáles son esos casos y se explica brevemente que 
 \paragraph{}
 Mediante cada uno de estos casos se buscó estudiar el comportamiento del algoritmo para luego establecer su complejidad real, valiéndose para ello de la medición del tiempo (en microsegundos) que demora el algoritmo en resolver el cada instancia del problema. 
 No obstante, puesto que este tipo de medición sufre de varias impresiciones propias del instrumento usado para medir se debió buscar una manera de acotar ese error\footnote{Esto se debe a que mientras el ordenador está contando el tiempo de ejecución pueden tener lugar varios eventos como pueden ser las interrupciones al sistema operativo, llamados a memoria, etc., que detengan la ejecución del algoritmo en cuestión, pero no así la del contador de tiempo.}. \\
-Para subsanar este inconveniente, en cada uno de los archivos de pruebas utilizados durante la experimentación, se ejecutaron 100 (cien) veces cada una de sus instancias, acumulando los tiempos de cada ejecución y calculando luego el tiempo promedio. De esta forma, se logró obtener un valor de estable y representativo del tiempo requerido por el algoritmo para resolver cada una de las intancias propuestas.
+Para subsanar este inconveniente, en cada uno de los archivos de pruebas utilizados durante la experimentación, se ejecutaron cien veces cada una de sus instancias, acumulando los tiempos de cada ejecución y calculando luego el tiempo promedio. De esta forma, se logró obtener un valor de estable y representativo del tiempo requerido por el algoritmo para resolver cada una de las intancias propuestas.
 
 \paragraph{}
 Seguidamente, y previo al momento de la experimentación, se formularon varias hipótesis en cuanto a cuál era el comportamiento esperable del algoritmo frente a cada uno de los tipos de inputs elegidos para su estudio. Las mismas son presentadas a continuación:
 	\begin{itemize}
-		\item[1)]{Tal como se explicó [\ref{complejidad2}], la parte mas costosa del algoritmo está dada por la rama \textit{else} del ciclo \textit{for} del algoritmo \textit{dfs\_ciclos}. Esta rama es accedida cuando alguna arista del nodo sobre el que se está iterando incide sobre un nodo ya recorrido distinto del padre; es decir, cuando se encuentra una arista que es parte de algún ciclo. Luego si se desea estudiar el caso en que el algoritmo tiene la peor complejidad posible, es deseable que para el grafo a procesar cuente con muchos ciclos; más aún que el grafo sea completo. Por estos motivos, es de esperase que los archivos del caso \texttt{a} sean los que tarden más tiempo en resolverse, ya que son los de instancias con un gran número de nodos y una alta densidad.}
+		\item[1)]{Tal como se explicó en la sección [\ref{complejidad2}], la parte mas costosa del algoritmo está dada por la rama \textit{else} del ciclo \textit{for} del algoritmo \textit{dfs\_ciclos}. Esta rama es accedida cuando alguna arista del nodo sobre el que se está iterando incide sobre un nodo ya recorrido distinto del padre; es decir, cuando se encuentra una arista que es parte de algún ciclo. Luego si se desea estudiar el caso en que el algoritmo tiene la peor complejidad posible, es deseable que para el grafo a procesar cuente con muchos ciclos; más aún que el grafo sea completo. Por estos motivos, es de esperase que los archivos del caso \texttt{a} sean los que tarden más tiempo en resolverse, ya que son los de instancias con un gran número de nodos y una alta densidad.}
 		\item[2)]{Del mismo modo, y debido a su gran cantidad de nodos, resulta esperable que las instancias de los archivos del caso \texttt{b} tarde un tiempo considerable en resolverse, aunque menor que los del caso anterior.} 
 		\item[3)]{Finalmente, se podría presuponer que debido a que tienen un n pequeño, en los grafos de las instancias de los archivos del caso \texttt{c} y \texttt{d} el grado de cada nodo también será un valor chico, disminuyendo así la posibilidad de formar ciclos y consecuentemente disminuyendo la posibilidad de entrar en la rama costosa del algoritmo. En conclusión, se puede pensar a priori que el algoritmo para estos casos resolverá las instancias a una velocidad aceptable/acelerada.}
 	\end{itemize}
 
 \paragraph{}
-En lo que respecta a la experimentación propiamente dicha, se generaron 5 (cinco) archivos correspondientes a cada uno de los tipos descriptos, cada uno con 100 (cien) instancias (posibles trazados de la ciudad) del problema. Seguidamente, se procedió a correrlos con el programa \textit{ejercicio\_2},  obteniéndose para cada uno de ellos un archivo \textit{"NombreDeArchivo.out"} y un archivo \textit{"NombreDeArchivo\_grafico.out"}; siendo este último el archivo en el cual se registraron de cada instancia del archivo original, la cantidad de aristas (\textit{m}) y el tiempo promedio necesario para ser resuelta por el algoritmo. \\
+En lo que respecta a la experimentación propiamente dicha, se generaron cinco archivos correspondientes a cada uno de los tipos descriptos, cada uno con cien instancias (posibles trazados de la ciudad) del problema. Seguidamente, se procedió a correrlos con el programa \textit{ejercicio\_2},  obteniéndose para cada uno de ellos un archivo \textit{"NombreDeArchivo.out"} y un archivo \textit{"NombreDeArchivo\_grafico.out"}; siendo este último el archivo en el cual se registraron de cada instancia del archivo original, la cantidad de aristas (\textit{m}) y el tiempo promedio necesario para ser resuelta por el algoritmo. \\
 Finalmente, haciendo uso de esos archivos se generaron, usando el programa de análisis gráfico \textit{QtiPlot}, diversos gráficos de \textit{m} vs. \textit{Tiempo} en los cuales se contrasta la curva de resultados con una función 
 	$$f: \nat_0 \rightarrow \real / f(n)\ =\ c * m * \sqrt{m} * log(m),\ c \in \real^+$$
 para poder estudiar si la complejidad real se ajusta a la complejidad teórica.
@@ -201,38 +202,32 @@ para poder estudiar si la complejidad real se ajusta a la complejidad teórica.
 \paragraph{}
 A continuación se presentan los gráficos realizados para cada caso:
 
+\begin{center}
+\vspace*{1.5cm}
+\label{graficoA}
+\hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphA.pdf} \\
+\underline{Gráfico A} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso A
 
+\vspace*{1.5cm}
+\label{graficoB}
+\hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphB.pdf} \\
+\underline{Gráfico B} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso B
 
- \vspace*{1cm}
-\label{GraphA}
-\hspace*{-2.1cm}\includegraphics[width=475pt]{../ej2/pruebas_graficos/GraphA.pdf}
+\vspace*{1.5cm}
+\label{graficoC}
+\hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphC.pdf} \\
+\underline{Gráfico C} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso C
 
-\underline{Gráfico A} Comentar que muestra
+\vspace*{1.5cm}
+\label{graficoD}
+\hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphD.pdf} \\
+\underline{Gráfico D} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso D
 
- \vspace*{1cm}
-\label{GraphB}
-\hspace*{-2.1cm}\includegraphics[width=475pt]{../ej2/pruebas_graficos/GraphB.pdf}
-
-\underline{Gráfico B} Comentar que muestra
-
-
- \vspace*{1cm}
-\label{GraphC}
-\hspace*{-2.1cm}\includegraphics[width=475pt]{../ej2/pruebas_graficos/GraphC.pdf}
-
-\underline{Gráfico C} Comentar que muestra
-
- \vspace*{1cm}
-
-\label{GraphD}
-\hspace*{-2.1cm}\includegraphics[width=475pt]{../ej2/pruebas_graficos/GraphD.pdf}
-
-\underline{Gráfico D} Comentar que muestra
-
-\label{GraphE}
-\hspace*{-2.1cm}\includegraphics[width=475pt]{../ej2/pruebas_graficos/GraphE.pdf}
-
-\underline{Gráfico E} Comentar que muestra
+\vspace*{1.5cm}
+\label{graficoE}
+\hspace*{-2.1cm}\includegraphics[scale = 0.9]{../ej2/pruebas_graficos/GraphE.pdf} \\
+\underline{Gráfico E} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso E
+\end{center}
 
 \clearpage 
 
@@ -241,7 +236,7 @@ A continuación se presentan los gráficos realizados para cada caso:
 \label{deb2}
 
 \paragraph{}
-Como primera observación de los gráficos expuestos en la sección anterior, cabe decir que la complejidad real se ajustó a la complejidad teórica, ya que en todos los casos se pudo hallar una constante $c \in\ \real$ tal que a partir de algún $n_0$ el gráfico de $c*m*sqrt{m}*log$(m) pasa a acotar superiormente a la cantidad de operaciones realizadas por el algoritmo.
+Como primera observación de los gráficos expuestos en la sección anterior, cabe decir que la complejidad real se ajustó a la complejidad teórica, ya que en todos los casos se pudo hallar una constante $c \in\ \real$ tal que a partir de algún $n_0$ el gráfico de $c*m*\sqrt{m}*log(m)$ pasa a acotar superiormente a la cantidad de operaciones realizadas por el algoritmo.
 
 \paragraph{}
 En lo que respecta a la las hipótesis postuladas en la sección [\ref{res2}], analicemos una a una su veracidad en función de los gráficos obtenidos.\\
