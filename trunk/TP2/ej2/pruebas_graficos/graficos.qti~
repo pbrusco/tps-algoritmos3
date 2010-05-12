@@ -3,7 +3,7 @@ QtiPlot 0.9.7 project file
 <windows>	10
 <table>
 CasoA	100	2	5/12/10 3:23 AM
-geometry	0	430	-1	-1	minimized	
+geometry	0	430	445	220	minimized	
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -118,7 +118,7 @@ WindowLabel		2
 </table>
 <table>
 CasoB	100	2	5/12/10 3:37 AM
-geometry	196	430	-1	-1	minimized	
+geometry	196	430	445	220	minimized	
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -232,8 +232,303 @@ WindowLabel		0
 </data>
 </table>
 <table>
+CasoE	100	2	5/12/10 3:37 AM
+geometry	392	430	445	220	minimized	
+header	1[X]	2[Y]
+ColWidth	100	100	
+<com>
+</com>
+ColType	0;0/13	0;0/13
+ReadOnlyColumn	0	0
+HiddenColumn	0	0
+Comments			
+WindowLabel		2
+<data>
+0	0.00000000000000e+00	5.53000000000000e+00
+1	0.00000000000000e+00	5.85000000000000e+00
+2	1.00000000000000e+00	8.18000000000000e+00
+3	2.00000000000000e+00	1.21400000000000e+01
+4	4.00000000000000e+00	1.23200000000000e+01
+5	4.00000000000000e+00	1.24700000000000e+01
+6	9.00000000000000e+00	1.64900000000000e+01
+7	2.40000000000000e+01	3.03700000000000e+01
+8	3.00000000000000e+01	2.78100000000000e+01
+9	3.20000000000000e+01	2.49100000000000e+01
+10	3.80000000000000e+01	4.27100000000000e+01
+11	3.90000000000000e+01	4.10800000000000e+01
+12	4.60000000000000e+01	4.73700000000000e+01
+13	4.90000000000000e+01	4.71600000000000e+01
+14	5.10000000000000e+01	4.00900000000000e+01
+15	5.40000000000000e+01	5.28600000000000e+01
+16	5.70000000000000e+01	5.02500000000000e+01
+17	6.20000000000000e+01	5.18600000000000e+01
+18	6.40000000000000e+01	5.81200000000000e+01
+19	6.60000000000000e+01	4.71400000000000e+01
+20	6.60000000000000e+01	5.62600000000000e+01
+21	6.70000000000000e+01	4.88500000000000e+01
+22	8.30000000000000e+01	6.78800000000000e+01
+23	8.70000000000000e+01	8.71800000000000e+01
+24	8.90000000000000e+01	8.26200000000000e+01
+25	9.20000000000000e+01	7.74400000000000e+01
+26	9.30000000000000e+01	1.13260000000000e+02
+27	9.50000000000000e+01	8.41600000000000e+01
+28	1.03000000000000e+02	8.76700000000000e+01
+29	1.06000000000000e+02	8.29600000000000e+01
+30	1.07000000000000e+02	8.90500000000000e+01
+31	1.12000000000000e+02	7.51000000000000e+01
+32	1.19000000000000e+02	1.02440000000000e+02
+33	1.32000000000000e+02	9.52200000000000e+01
+34	1.39000000000000e+02	9.93400000000000e+01
+35	1.41000000000000e+02	1.02930000000000e+02
+36	1.42000000000000e+02	9.41900000000000e+01
+37	1.43000000000000e+02	9.68400000000000e+01
+38	1.55000000000000e+02	1.02420000000000e+02
+39	1.56000000000000e+02	1.04310000000000e+02
+40	1.66000000000000e+02	1.22780000000000e+02
+41	1.72000000000000e+02	1.33450000000000e+02
+42	1.86000000000000e+02	1.32590000000000e+02
+43	1.88000000000000e+02	1.31400000000000e+02
+44	1.90000000000000e+02	1.24790000000000e+02
+45	2.06000000000000e+02	1.46370000000000e+02
+46	2.26000000000000e+02	1.54840000000000e+02
+47	2.46000000000000e+02	1.58500000000000e+02
+48	2.63000000000000e+02	1.94440000000000e+02
+49	2.64000000000000e+02	1.85100000000000e+02
+50	2.65000000000000e+02	1.77570000000000e+02
+51	2.82000000000000e+02	1.93230000000000e+02
+52	2.87000000000000e+02	1.93280000000000e+02
+53	2.99000000000000e+02	1.82470000000000e+02
+54	3.09000000000000e+02	2.76590000000000e+02
+55	3.20000000000000e+02	2.22730000000000e+02
+56	3.22000000000000e+02	2.15560000000000e+02
+57	3.23000000000000e+02	2.20880000000000e+02
+58	3.26000000000000e+02	2.26920000000000e+02
+59	3.26000000000000e+02	2.28840000000000e+02
+60	3.30000000000000e+02	2.24820000000000e+02
+61	3.31000000000000e+02	2.09850000000000e+02
+62	3.39000000000000e+02	2.20150000000000e+02
+63	3.39000000000000e+02	2.42830000000000e+02
+64	3.43000000000000e+02	2.43110000000000e+02
+65	3.44000000000000e+02	2.55900000000000e+02
+66	3.57000000000000e+02	2.40550000000000e+02
+67	3.67000000000000e+02	2.61930000000000e+02
+68	3.68000000000000e+02	2.49640000000000e+02
+69	3.80000000000000e+02	2.46780000000000e+02
+70	3.81000000000000e+02	2.52820000000000e+02
+71	4.22000000000000e+02	2.88860000000000e+02
+72	4.28000000000000e+02	2.97060000000000e+02
+73	4.37000000000000e+02	3.23760000000000e+02
+74	4.50000000000000e+02	3.22250000000000e+02
+75	5.10000000000000e+02	3.69820000000000e+02
+76	5.27000000000000e+02	3.88130000000000e+02
+77	5.30000000000000e+02	3.63270000000000e+02
+78	5.32000000000000e+02	3.75920000000000e+02
+79	5.45000000000000e+02	5.53300000000000e+02
+80	5.55000000000000e+02	3.85530000000000e+02
+81	5.56000000000000e+02	4.39550000000000e+02
+82	5.70000000000000e+02	4.03320000000000e+02
+83	6.10000000000000e+02	4.58810000000000e+02
+84	6.12000000000000e+02	4.70390000000000e+02
+85	6.54000000000000e+02	4.89380000000000e+02
+86	6.63000000000000e+02	4.89820000000000e+02
+87	6.66000000000000e+02	4.88620000000000e+02
+88	6.72000000000000e+02	4.79860000000000e+02
+89	6.83000000000000e+02	6.65500000000000e+02
+90	7.08000000000000e+02	5.64340000000000e+02
+91	7.08000000000000e+02	8.02270000000000e+02
+92	7.11000000000000e+02	4.95060000000000e+02
+93	7.35000000000000e+02	5.15390000000000e+02
+94	7.37000000000000e+02	5.80360000000000e+02
+95	7.61000000000000e+02	5.48210000000000e+02
+96	7.69000000000000e+02	6.05730000000000e+02
+97	7.80000000000000e+02	5.70150000000000e+02
+98	7.96000000000000e+02	5.96150000000000e+02
+99	8.08000000000000e+02	5.85500000000000e+02
+</data>
+</table>
+<multiLayer>
+GraphA	1	1	5/12/10 3:30 AM
+geometry	588	430	510	430	minimized	active
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	417	324
+Alignement	0	0
+<graph>
+ggeometry	5	5	487	367
+PlotTitle	a.in	#000000	4228
+<Antialiasing>0</Antialiasing>
+Background	#ffffff	255
+Margin	0
+Border	0	#000000
+grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
+EnabledAxes	1	0	1	0	
+AxesTitles	Cantidad de aristas	Tiempo (µs)			
+AxesTitleColors	#000000	#000000	#000000	#000000	
+AxesTitleAlignment	5124	4	5124	4
+AxesTitleDistance	2	-1	2	-1
+TitleFont	Sans	12	75	0	0	0
+ScaleFont0	Sans	10	75	0	0	0
+ScaleFont1	Sans	10	75	0	0	0
+ScaleFont2	Sans	10	75	0	0	0
+ScaleFont3	Sans	10	75	0	0	0
+AxisFont0	Sans	10	50	0	0	0
+AxisFont1	Sans	10	50	0	0	0
+AxisFont2	Sans	10	50	0	0	0
+AxisFont3	Sans	10	50	0	0	0
+EnabledTickLabels	1	1	1	1	
+AxesColors	#000000	#000000	#000000	#000000
+AxesNumberColors	#3a3935	#3a3935	#3a3935	#3a3935
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffff	255
+curve	CasoA_1	CasoA_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
+<Function>
+<Type>0</Type>
+<Title>F2</Title>
+<Expression>0.1*x*sqrt(x)*log(2)</Expression>
+<Variable>x</Variable>
+<Range>0	3500</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#ff0000</Color>
+	<Style>0</Style>
+	<Width>1</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	4000	0	8	5	0	0
+scale	1	0	4000	0	8	5	0	0
+scale	2	0	3500	0	10	5	0	0
+scale	3	0	3500	0	8	5	0	0
+LabelsFormat	0	4	0	4	0	4	0	4	
+AxisType	0	0	0	0	
+MajorTicks	1	1	1	1	
+MinorTicks	1	1	1	1	
+TicksLength	5	9
+DrawAxesBackbone	1
+AxesLineWidth	1
+LabelsRotation	0	0
+<Legend>
+<Frame>1</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>87.939698492462</x>
+<y>3835.0515463918</y>
+<right>1952.26130653266</right>
+<bottom>3216.49484536082</bottom>
+<attachTo>0</attachTo>
+<Text>
+\l(1) Método implementado
+\l(2)0,1*m*sqrt(m)*log(m)
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+</graph>
+</multiLayer>
+<multiLayer>
+GraphB	1	1	5/12/10 4:13 AM
+geometry	784	430	510	430	minimized	
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	417	324
+Alignement	0	0
+<graph>
+ggeometry	5	5	487	367
+PlotTitle	b.in	#000000	4228
+<Antialiasing>1</Antialiasing>
+Background	#ffffff	255
+Margin	0
+Border	0	#000000
+grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
+EnabledAxes	1	0	1	0	
+AxesTitles	Cantidad de aristas	Tiempo (µs)			
+AxesTitleColors	#000000	#000000	#000000	#000000	
+AxesTitleAlignment	5124	4	5124	4
+AxesTitleDistance	2	-1	2	-1
+TitleFont	Sans	12	75	0	0	0
+ScaleFont0	Sans	10	75	0	0	0
+ScaleFont1	Sans	10	75	0	0	0
+ScaleFont2	Sans	10	75	0	0	0
+ScaleFont3	Sans	10	75	0	0	0
+AxisFont0	Sans	10	50	0	0	0
+AxisFont1	Sans	10	50	0	0	0
+AxisFont2	Sans	10	50	0	0	0
+AxisFont3	Sans	10	50	0	0	0
+EnabledTickLabels	1	1	1	1	
+AxesColors	#000000	#000000	#000000	#000000
+AxesNumberColors	#3a3935	#3a3935	#3a3935	#3a3935
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffff	255
+curve	CasoB_1	CasoB_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
+<Function>
+<Type>0</Type>
+<Title>F1</Title>
+<Expression>0.012*x*sqrt(x)*log(x)</Expression>
+<Variable>x</Variable>
+<Range>0	1600</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#ff0000</Color>
+	<Style>0</Style>
+	<Width>1</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	2000	0	6	5	0	0
+scale	1	0	2000	0	8	5	0	0
+scale	2	0	1500	0	6	5	0	0
+scale	3	0	1500	0	8	5	0	0
+LabelsFormat	0	4	0	4	0	4	0	4	
+AxisType	0	0	0	0	
+MajorTicks	1	1	1	1	
+MinorTicks	1	1	1	1	
+TicksLength	5	9
+DrawAxesBackbone	1
+AxesLineWidth	1
+LabelsRotation	0	0
+<Legend>
+<Frame>1</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>37.313432835821</x>
+<y>1803.3898305085</y>
+<right>408.75</right>
+<bottom>1733.78839590444</bottom>
+<attachTo>0</attachTo>
+<Text>
+\l(1)Método implementado
+\l(2)0.012*x*sqrt(x)*log(x)
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+</graph>
+</multiLayer>
+<table>
 CasoC	100	2	5/12/10 4:47 AM
-geometry	392	430	-1	-1	minimized	
+geometry	0	406	445	220	minimized	
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -346,9 +641,99 @@ WindowLabel		2
 99	3.30000000000000e+01	3.91300000000000e+01
 </data>
 </table>
+<multiLayer>
+GraphC	1	1	5/12/10 4:52 AM
+geometry	196	406	510	430	minimized	
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	417	324
+Alignement	0	0
+<graph>
+ggeometry	5	5	491	371
+PlotTitle	c.in	#000000	4228
+<Antialiasing>1</Antialiasing>
+Background	#ffffff	255
+Margin	0
+Border	0	#000000
+grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
+EnabledAxes	1	0	1	0	
+AxesTitles	Cantidad de aristas	Tiempo (µs)			
+AxesTitleColors	#000000	#000000	#000000	#000000	
+AxesTitleAlignment	5124	4	5124	4
+AxesTitleDistance	2	-1	2	-1
+TitleFont	Sans	12	75	0	0	0
+ScaleFont0	Sans	10	75	0	0	0
+ScaleFont1	Sans	10	75	0	0	0
+ScaleFont2	Sans	10	75	0	0	0
+ScaleFont3	Sans	10	75	0	0	0
+AxisFont0	Sans	10	50	0	0	0
+AxisFont1	Sans	10	50	0	0	0
+AxisFont2	Sans	10	50	0	0	0
+AxisFont3	Sans	10	50	0	0	0
+EnabledTickLabels	1	1	1	1	
+AxesColors	#000000	#000000	#000000	#000000
+AxesNumberColors	#3a3935	#3a3935	#3a3935	#3a3935
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffff	255
+curve	CasoC_1	CasoC_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
+<Function>
+<Type>0</Type>
+<Title>F1</Title>
+<Expression>0.45*x*sqrt(x)*log(x)</Expression>
+<Variable>x</Variable>
+<Range>0	35</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#ff0000</Color>
+	<Style>0</Style>
+	<Width>1</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	50	0	8	5	0	0
+scale	1	0	50	0	8	5	0	0
+scale	2	0	35	0	9	5	0	0
+scale	3	0	35	0	8	5	0	0
+LabelsFormat	0	4	0	4	0	4	0	4	
+AxisType	0	0	0	0	
+MajorTicks	1	1	1	1	
+MinorTicks	1	1	1	1	
+TicksLength	5	9
+DrawAxesBackbone	1
+AxesLineWidth	1
+LabelsRotation	0	0
+<Legend>
+<Frame>1</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>17.905092592593</x>
+<y>11.016949152542</y>
+<right>35.2430555555556</right>
+<bottom>3.38983050847458</bottom>
+<attachTo>0</attachTo>
+<Text>
+\l(1)Método implementado
+\l(2)0.45*m*sqrt(m)*log(m)
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+</graph>
+</multiLayer>
 <table>
 CasoD	100	2	5/12/10 4:59 AM
-geometry	588	430	-1	-1	minimized	
+geometry	392	406	445	220	minimized	
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -462,278 +847,8 @@ WindowLabel		2
 </data>
 </table>
 <multiLayer>
-GraphA	1	1	5/12/10 3:30 AM
-geometry	784	430	-1	-1	minimized	
-WindowLabel		2
-Margins	5	5	5	5
-Spacing	5	5
-LayerCanvasSize	417	324
-Alignement	0	0
-<graph>
-ggeometry	5	5	487	367
-PlotTitle	a.in	#000000	4228
-<Antialiasing>0</Antialiasing>
-Background	#ffffff	255
-Margin	0
-Border	0	#000000
-grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
-EnabledAxes	1	0	1	0	
-AxesTitles	Cantidad de aristas	Tiempo (µs)			
-AxesTitleColors	#000000	#000000	#000000	#000000	
-AxesTitleAlignment	5124	4	5124	4
-AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	12	75	0	0	0
-ScaleFont0	Sans	10	75	0	0	0
-ScaleFont1	Sans	10	75	0	0	0
-ScaleFont2	Sans	10	75	0	0	0
-ScaleFont3	Sans	10	75	0	0	0
-AxisFont0	Sans	10	50	0	0	0
-AxisFont1	Sans	10	50	0	0	0
-AxisFont2	Sans	10	50	0	0	0
-AxisFont3	Sans	10	50	0	0	0
-EnabledTickLabels	1	1	1	1	
-AxesColors	#000000	#000000	#000000	#000000
-AxesNumberColors	#3a3935	#3a3935	#3a3935	#3a3935
-AxesBaseline	0	0	0	0	
-CanvasBackground	#ffffff	255
-curve	CasoA_1	CasoA_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
-<Function>
-<Type>0</Type>
-<Title>F2</Title>
-<Expression>0.1*x*sqrt(x)*log(2)</Expression>
-<Variable>x</Variable>
-<Range>0	3500</Range>
-<Points>100</Points>
-<Style>0</Style>
-<LineStyle>1</LineStyle>
-<Pen>
-	<Color>#ff0000</Color>
-	<Style>0</Style>
-	<Width>1</Width>
-</Pen>
-<xAxis>2</xAxis>
-<yAxis>0</yAxis>
-<Visible>1</Visible>
-</Function>
-scale	0	0	4000	0	8	5	0	0
-scale	1	0	4000	0	8	5	0	0
-scale	2	0	3500	0	10	5	0	0
-scale	3	0	3500	0	8	5	0	0
-LabelsFormat	0	4	0	4	0	4	0	4	
-AxisType	0	0	0	0	
-MajorTicks	1	1	1	1	
-MinorTicks	1	1	1	1	
-TicksLength	5	9
-DrawAxesBackbone	1
-AxesLineWidth	1
-LabelsRotation	0	0
-<Legend>
-<Frame>1</Frame>
-<Color>#000000</Color>
-<FrameWidth>1</FrameWidth>
-<LineStyle>0</LineStyle>
-<x>87.939698492462</x>
-<y>3835.0515463918</y>
-<right>963.383838383838</right>
-<bottom>3460.20761245675</bottom>
-<attachTo>0</attachTo>
-<Text>
-\l(1) Método implementado
-\l(2)0,1*m*sqrt(m)*log(m)
-</Text>
-<Font>Sans	10	50	0	0	0</Font>
-<TextColor>#000000</TextColor>
-<Background>#ffffff</Background>
-<Alpha>0</Alpha>
-<Angle>0</Angle>
-<AutoUpdate>1</AutoUpdate>
-<TeXOutput>0</TeXOutput>
-</Legend>
-</graph>
-</multiLayer>
-<multiLayer>
-GraphB	1	1	5/12/10 4:13 AM
-geometry	0	406	-1	-1	minimized	
-WindowLabel		2
-Margins	5	5	5	5
-Spacing	5	5
-LayerCanvasSize	417	324
-Alignement	0	0
-<graph>
-ggeometry	5	5	487	367
-PlotTitle	b.in	#000000	4228
-<Antialiasing>1</Antialiasing>
-Background	#ffffff	255
-Margin	0
-Border	0	#000000
-grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
-EnabledAxes	1	0	1	0	
-AxesTitles	Cantidad de aristas	Tiempo (µs)			
-AxesTitleColors	#000000	#000000	#000000	#000000	
-AxesTitleAlignment	5124	4	5124	4
-AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	12	75	0	0	0
-ScaleFont0	Sans	10	75	0	0	0
-ScaleFont1	Sans	10	75	0	0	0
-ScaleFont2	Sans	10	75	0	0	0
-ScaleFont3	Sans	10	75	0	0	0
-AxisFont0	Sans	10	50	0	0	0
-AxisFont1	Sans	10	50	0	0	0
-AxisFont2	Sans	10	50	0	0	0
-AxisFont3	Sans	10	50	0	0	0
-EnabledTickLabels	1	1	1	1	
-AxesColors	#000000	#000000	#000000	#000000
-AxesNumberColors	#3a3935	#3a3935	#3a3935	#3a3935
-AxesBaseline	0	0	0	0	
-CanvasBackground	#ffffff	255
-curve	CasoB_1	CasoB_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
-<Function>
-<Type>0</Type>
-<Title>F1</Title>
-<Expression>0.012*x*sqrt(x)*log(x)</Expression>
-<Variable>x</Variable>
-<Range>0	1600</Range>
-<Points>100</Points>
-<Style>0</Style>
-<LineStyle>1</LineStyle>
-<Pen>
-	<Color>#ff0000</Color>
-	<Style>0</Style>
-	<Width>1</Width>
-</Pen>
-<xAxis>2</xAxis>
-<yAxis>0</yAxis>
-<Visible>1</Visible>
-</Function>
-scale	0	0	2000	0	6	5	0	0
-scale	1	0	2000	0	8	5	0	0
-scale	2	0	1500	0	6	5	0	0
-scale	3	0	1500	0	8	5	0	0
-LabelsFormat	0	4	0	4	0	4	0	4	
-AxisType	0	0	0	0	
-MajorTicks	1	1	1	1	
-MinorTicks	1	1	1	1	
-TicksLength	5	9
-DrawAxesBackbone	1
-AxesLineWidth	1
-LabelsRotation	0	0
-<Legend>
-<Frame>1</Frame>
-<Color>#000000</Color>
-<FrameWidth>1</FrameWidth>
-<LineStyle>0</LineStyle>
-<x>37.313432835821</x>
-<y>1803.3898305085</y>
-<right>412.878787878788</right>
-<bottom>1730.10380622837</bottom>
-<attachTo>0</attachTo>
-<Text>
-\l(1)Método implementado
-\l(2)0.012*x*sqrt(x)*log(x)
-</Text>
-<Font>Sans	10	50	0	0	0</Font>
-<TextColor>#000000</TextColor>
-<Background>#ffffff</Background>
-<Alpha>0</Alpha>
-<Angle>0</Angle>
-<AutoUpdate>1</AutoUpdate>
-<TeXOutput>0</TeXOutput>
-</Legend>
-</graph>
-</multiLayer>
-<multiLayer>
-GraphC	1	1	5/12/10 4:52 AM
-geometry	196	406	-1	-1	minimized	
-WindowLabel		2
-Margins	5	5	5	5
-Spacing	5	5
-LayerCanvasSize	417	324
-Alignement	0	0
-<graph>
-ggeometry	5	5	491	371
-PlotTitle	c.in	#000000	4228
-<Antialiasing>1</Antialiasing>
-Background	#ffffff	255
-Margin	0
-Border	0	#000000
-grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
-EnabledAxes	1	0	1	0	
-AxesTitles	Cantidad de aristas	Tiempo (µs)			
-AxesTitleColors	#000000	#000000	#000000	#000000	
-AxesTitleAlignment	5124	4	5124	4
-AxesTitleDistance	2	-1	2	-1
-TitleFont	Sans	12	75	0	0	0
-ScaleFont0	Sans	10	75	0	0	0
-ScaleFont1	Sans	10	75	0	0	0
-ScaleFont2	Sans	10	75	0	0	0
-ScaleFont3	Sans	10	75	0	0	0
-AxisFont0	Sans	10	50	0	0	0
-AxisFont1	Sans	10	50	0	0	0
-AxisFont2	Sans	10	50	0	0	0
-AxisFont3	Sans	10	50	0	0	0
-EnabledTickLabels	1	1	1	1	
-AxesColors	#000000	#000000	#000000	#000000
-AxesNumberColors	#3a3935	#3a3935	#3a3935	#3a3935
-AxesBaseline	0	0	0	0	
-CanvasBackground	#ffffff	255
-curve	CasoC_1	CasoC_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
-<Function>
-<Type>0</Type>
-<Title>F1</Title>
-<Expression>0.45*x*sqrt(x)*log(x)</Expression>
-<Variable>x</Variable>
-<Range>0	35</Range>
-<Points>100</Points>
-<Style>0</Style>
-<LineStyle>1</LineStyle>
-<Pen>
-	<Color>#ff0000</Color>
-	<Style>0</Style>
-	<Width>1</Width>
-</Pen>
-<xAxis>2</xAxis>
-<yAxis>0</yAxis>
-<Visible>1</Visible>
-</Function>
-scale	0	0	50	0	8	5	0	0
-scale	1	0	50	0	8	5	0	0
-scale	2	0	35	0	9	5	0	0
-scale	3	0	35	0	8	5	0	0
-LabelsFormat	0	4	0	4	0	4	0	4	
-AxisType	0	0	0	0	
-MajorTicks	1	1	1	1	
-MinorTicks	1	1	1	1	
-TicksLength	5	9
-DrawAxesBackbone	1
-AxesLineWidth	1
-LabelsRotation	0	0
-<Legend>
-<Frame>1</Frame>
-<Color>#000000</Color>
-<FrameWidth>1</FrameWidth>
-<LineStyle>0</LineStyle>
-<x>17.905092592593</x>
-<y>11.016949152542</y>
-<right>9.30487804878049</right>
-<bottom>43.3447098976109</bottom>
-<attachTo>0</attachTo>
-<Text>
-\l(1)Método implementado
-\l(2)0.45*m*sqrt(m)*log(m)
-</Text>
-<Font>Sans	10	50	0	0	0</Font>
-<TextColor>#000000</TextColor>
-<Background>#ffffff</Background>
-<Alpha>0</Alpha>
-<Angle>0</Angle>
-<AutoUpdate>1</AutoUpdate>
-<TeXOutput>0</TeXOutput>
-</Legend>
-</graph>
-</multiLayer>
-<multiLayer>
 GraphD	1	1	5/12/10 5:04 AM
-geometry	392	406	-1	-1	minimized	
+geometry	588	406	510	430	minimized	
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
@@ -804,8 +919,8 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>0.47169811320755</x>
 <y>90.169491525424</y>
-<right>5.31707317073171</right>
-<bottom>86.6894197952218</bottom>
+<right>6.0377358490566</right>
+<bottom>74.9152542372881</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Método implementado
@@ -821,131 +936,16 @@ LabelsRotation	0	0
 </Legend>
 </graph>
 </multiLayer>
-<table>
-CasoE	100	2	5/12/10 9:13 AM
-geometry	0	0	445	220	active
-header	1[X]	2[Y]
-ColWidth	100	100	
-<com>
-</com>
-ColType	0;0/13	0;0/13
-ReadOnlyColumn	0	0
-HiddenColumn	0	0
-Comments			
-WindowLabel		2
-<data>
-0	1.00000000000000e+00	8.38000000000000e+00
-1	1.00000000000000e+00	8.41000000000000e+00
-2	1.00000000000000e+00	1.33800000000000e+01
-3	2.00000000000000e+00	1.25000000000000e+01
-4	4.00000000000000e+00	1.52900000000000e+01
-5	6.00000000000000e+00	1.58900000000000e+01
-6	7.00000000000000e+00	1.60200000000000e+01
-7	7.00000000000000e+00	1.90800000000000e+01
-8	9.00000000000000e+00	9.97000000000000e+00
-9	9.00000000000000e+00	1.95100000000000e+01
-10	9.00000000000000e+00	2.83100000000000e+01
-11	1.00000000000000e+01	2.53700000000000e+01
-12	1.30000000000000e+01	1.45800000000000e+01
-13	1.30000000000000e+01	3.79800000000000e+01
-14	1.40000000000000e+01	2.11500000000000e+01
-15	1.40000000000000e+01	2.40400000000000e+01
-16	1.40000000000000e+01	3.89200000000000e+01
-17	1.70000000000000e+01	6.85800000000000e+01
-18	1.80000000000000e+01	7.60200000000000e+01
-19	2.90000000000000e+01	2.82400000000000e+01
-20	3.00000000000000e+01	6.70600000000000e+01
-21	3.30000000000000e+01	4.05000000000000e+01
-22	3.70000000000000e+01	4.42500000000000e+01
-23	3.80000000000000e+01	3.91700000000000e+01
-24	4.00000000000000e+01	3.13700000000000e+01
-25	4.20000000000000e+01	2.43700000000000e+01
-26	4.40000000000000e+01	2.88700000000000e+01
-27	4.50000000000000e+01	3.23700000000000e+01
-28	5.30000000000000e+01	4.44000000000000e+01
-29	5.50000000000000e+01	4.85600000000000e+01
-30	6.50000000000000e+01	5.43700000000000e+01
-31	7.10000000000000e+01	3.73400000000000e+01
-32	7.10000000000000e+01	6.12500000000000e+01
-33	7.30000000000000e+01	8.79900000000000e+01
-34	7.40000000000000e+01	4.83100000000000e+01
-35	8.00000000000000e+01	6.64000000000000e+01
-36	8.80000000000000e+01	1.52420000000000e+02
-37	8.90000000000000e+01	6.69500000000000e+01
-38	9.30000000000000e+01	7.44500000000000e+01
-39	9.40000000000000e+01	4.79100000000000e+01
-40	9.90000000000000e+01	5.30100000000000e+01
-41	9.90000000000000e+01	5.59700000000000e+01
-42	1.01000000000000e+02	7.28100000000000e+01
-43	1.06000000000000e+02	9.61900000000000e+01
-44	1.12000000000000e+02	5.35900000000000e+01
-45	1.13000000000000e+02	1.33710000000000e+02
-46	1.15000000000000e+02	7.61500000000000e+01
-47	1.16000000000000e+02	6.53300000000000e+01
-48	1.17000000000000e+02	1.02250000000000e+02
-49	1.26000000000000e+02	4.97100000000000e+01
-50	1.30000000000000e+02	1.00380000000000e+02
-51	1.33000000000000e+02	1.17250000000000e+02
-52	1.40000000000000e+02	1.04070000000000e+02
-53	1.56000000000000e+02	1.16330000000000e+02
-54	1.72000000000000e+02	1.57190000000000e+02
-55	1.74000000000000e+02	1.21390000000000e+02
-56	1.87000000000000e+02	1.18430000000000e+02
-57	2.05000000000000e+02	1.59680000000000e+02
-58	2.06000000000000e+02	1.50410000000000e+02
-59	2.10000000000000e+02	1.34070000000000e+02
-60	2.11000000000000e+02	1.32640000000000e+02
-61	2.14000000000000e+02	2.04140000000000e+02
-62	2.27000000000000e+02	1.42810000000000e+02
-63	2.28000000000000e+02	1.50210000000000e+02
-64	2.32000000000000e+02	2.27140000000000e+02
-65	2.37000000000000e+02	2.80740000000000e+02
-66	2.46000000000000e+02	1.46630000000000e+02
-67	2.47000000000000e+02	1.69720000000000e+02
-68	2.76000000000000e+02	2.51330000000000e+02
-69	2.78000000000000e+02	1.93050000000000e+02
-70	2.81000000000000e+02	1.96190000000000e+02
-71	2.86000000000000e+02	1.99170000000000e+02
-72	2.94000000000000e+02	1.78960000000000e+02
-73	3.01000000000000e+02	2.11340000000000e+02
-74	3.12000000000000e+02	1.86820000000000e+02
-75	3.14000000000000e+02	2.27990000000000e+02
-76	3.25000000000000e+02	3.92880000000000e+02
-77	3.26000000000000e+02	3.15090000000000e+02
-78	3.32000000000000e+02	2.50400000000000e+02
-79	3.41000000000000e+02	4.46770000000000e+02
-80	3.43000000000000e+02	2.18010000000000e+02
-81	3.53000000000000e+02	2.39520000000000e+02
-82	3.53000000000000e+02	2.70050000000000e+02
-83	3.90000000000000e+02	3.81920000000000e+02
-84	4.12000000000000e+02	2.62120000000000e+02
-85	4.16000000000000e+02	3.90420000000000e+02
-86	4.52000000000000e+02	2.96870000000000e+02
-87	4.67000000000000e+02	3.07240000000000e+02
-88	4.71000000000000e+02	3.17560000000000e+02
-89	4.96000000000000e+02	4.37520000000000e+02
-90	5.00000000000000e+02	3.40520000000000e+02
-91	5.58000000000000e+02	3.69540000000000e+02
-92	5.63000000000000e+02	3.71950000000000e+02
-93	5.64000000000000e+02	5.32150000000000e+02
-94	6.64000000000000e+02	4.82050000000000e+02
-95	7.27000000000000e+02	5.53110000000000e+02
-96	7.34000000000000e+02	5.37350000000000e+02
-97	7.58000000000000e+02	5.74960000000000e+02
-98	7.60000000000000e+02	5.80190000000000e+02
-99	7.87000000000000e+02	8.07900000000000e+02
-</data>
-</table>
 <multiLayer>
-GraphE	1	1	5/12/10 9:13 AM
-geometry	588	406	510	430	minimized	
+GraphE	1	1	5/12/10 5:06 AM
+geometry	784	406	510	430	minimized	
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
-LayerCanvasSize	417	324
+LayerCanvasSize	434	303
 Alignement	0	0
 <graph>
-ggeometry	5	5	495	369
+ggeometry	5	5	492	371
 PlotTitle	e.in	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -953,7 +953,7 @@ Margin	0
 Border	0	#000000
 grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
 EnabledAxes	1	0	1	0	
-AxesTitles	Cantidad de aristas	Tiempo (µs)			
+AxesTitles	Cantidad de aristas	Tiempo(µs)			
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
@@ -971,13 +971,13 @@ AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#3a3935	#3a3935	#3a3935	#3a3935
 AxesBaseline	0	0	0	0	
 CanvasBackground	#ffffff	255
-curve	CasoE_1	CasoE_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
+curve	CasoE_1	CasoE_2	1	0	#00ff00	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	99	1
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
-<Expression>0.03*x*sqrt(x)*log(x)</Expression>
+<Expression>0.015*x*sqrt(x)*log(x)</Expression>
 <Variable>x</Variable>
-<Range>0	800</Range>
+<Range>0	900</Range>
 <Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
@@ -990,10 +990,10 @@ curve	CasoE_1	CasoE_2	1	0	#000000	0	1	7	1	#000000	#000000	0	#000000	14	1	2	0	0	9
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	1000	0	8	5	0	0
-scale	1	0	1000	0	8	5	0	0
-scale	2	-200	1000	0	8	5	0	0
-scale	3	-200	1000	0	8	5	0	0
+scale	0	0	850	0	7	5	0	0
+scale	1	0	850	0	8	5	0	0
+scale	2	0	900	0	7	5	0	0
+scale	3	0	900	0	8	5	0	0
 LabelsFormat	0	4	0	4	0	4	0	4	
 AxisType	0	0	0	0	
 MajorTicks	1	1	1	1	
@@ -1007,14 +1007,14 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>-188.17733990148</x>
-<y>1000</y>
-<right>444.334975369458</right>
-<bottom>846.41638225256</bottom>
+<x>45.727482678984</x>
+<y>751.16279069767</y>
+<right>286.836027713626</right>
+<bottom>624.086378737542</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)Método implementado
-\l(2)0,03*m*sqrt(m)*log(m)
+\l(2)0.15*m*sqrt(m)*log(m)
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>

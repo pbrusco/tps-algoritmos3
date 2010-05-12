@@ -262,16 +262,11 @@ int main(int argc, char** argv) {
 			filename = argv[i+1];
 			resolverInput(filename, cant_veces);
 		}		
-
-		cout << endl << "Las soluciones a los problemas planteados y la información para realizar los graficos fueron guardados en la carpeta '/tests'." << endl;
 	}
 
-	else {
+	else
 		resolverInput(filename, cant_veces);
-		cout << endl << "Las soluciones al archivo de prueba y la información para realizar su grafico fueron guardados en esta misma carpeta."
-			 << endl << "La  se encuentra en la carpeta './info graficos'. " << endl << endl;
-	}
-		
+				
 	return 0;	
 }
 
