@@ -70,6 +70,8 @@ void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 	\SetKw{Orden}{Complejidad:}
 	\Orden{\Ode{m*n*log(n)}}
 	\BlankLine
+	G.info[vertice].ejesHasta $=$ G.info[G.info[vertice].padre].ejesHasta \tcp*{\Ode{tam(ejesHasta)} $\subseteq$ \Ode{n}}
+	G.info[vertice].ejesHasta.insert(eje(G,vertice,G.info[vertice].padre)) \tcp*{\Ode{1}}
 	cuenta $\leftarrow$ cuenta + 1 \tcp*{\Ode{1}}
 	G.info[vertice].ejesHasta $\leftarrow$ G.info[G.info[vertice].padre].ejesHasta \tcp*{\Ode{n}}
 	G.info[vertice].visitado $\leftarrow$ true \tcp*{\Ode{1}}
