@@ -3,7 +3,7 @@ QtiPlot 0.9.7 project file
 <windows>	10
 <table>
 CasoA	100	2	5/12/10 3:23 AM
-geometry	0	430	445	220	minimized	
+geometry	0	430	445	220	minimized	active
 header	1[X]	2[Y]
 ColWidth	100	100	
 <com>
@@ -733,7 +733,7 @@ LabelsRotation	0	0
 </multiLayer>
 <multiLayer>
 GraphD	1	1	5/12/10 5:04 AM
-geometry	392	406	510	430	minimized	active
+geometry	392	406	510	430	minimized	
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
