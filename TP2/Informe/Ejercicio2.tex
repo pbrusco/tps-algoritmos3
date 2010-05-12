@@ -54,7 +54,7 @@ Un grafo conexo G es fuertemente orientable si y solo si G no tiene puentes \foo
 
 \paragraph{} 
 Del teorema anterior, se confirma la idea expresada en el analisis previo según la cual, si se verifica que el grafo es inconexo o que el grafo es conexo pero tiene un puente, entonces no es posible darle una orientación para convertirlo en un digrafo fuertemente orientado.\\
-En línea con está pensamiento, el algoritmo que resuelve el problema fue desarrollado con la idea la de verificar que el grafo sea conexo y no tenga puentes. Para ello, el algoritmo va recorriendo el grafo al igual que lo hace el algoritmo DFS\footnote{Para conocer el funcionamiento del algoritmo DFS véase ...}, con la salvedad de que cuando llega a un nodo nuevo, además de marcarlo como visitado, guarda en él la lista de ejes que conforman el camino hasta ese punto. Seguidamente, elije de entre los vecinos del nodo actual (excluyendo al padre), el próximo nodo hacia el cual va a dirigirse. En este paso pueden darse dos situaciones: 
+En línea con está pensamiento, el algoritmo que resuelve el problema fue desarrollado con la idea la de verificar que el grafo sea conexo y no tenga puentes. Para ello, el algoritmo va recorriendo el grafo al igual que lo hace el algoritmo DFS\footnote{Para conocer el funcionamiento del algoritmo DFS véase \url{http://en.wikipedia.org/wiki/Depth-first_search}}, con la salvedad de que cuando llega a un nodo nuevo, además de marcarlo como visitado, guarda en él la lista de ejes que conforman el camino hasta ese punto. Seguidamente, elije de entre los vecinos del nodo actual (excluyendo al padre), el próximo nodo hacia el cual va a dirigirse. En este paso pueden darse dos situaciones: 
 \begin{itemize}
 	\item que el nodo elegido no esté marcado
 	\item que el nodo ya esté marcado, y no sea el padre del nodo actual
@@ -164,10 +164,10 @@ Para subsanar este inconveniente, en cada uno de los archivos de pruebas utiliza
 \paragraph{}
 Seguidamente, y previo al momento de la experimentación, se formularon varias hipótesis en cuanto a cuál era el comportamiento esperable del algoritmo frente a cada uno de los tipos de inputs elegidos para su estudio. Las mismas son presentadas a continuación:
 	\begin{itemize}
-		\item[1)]{En el caso \texttt{c}, dado que el algoritmo realiza 2 asignaciones y una única cuenta (la de calcular el resto de \textit{b} módulo \textit{n}), resulta esperable que la complejidad real sea de valor constante 3.}
-		\item[2)]{Para los casos \texttt{a} y \texttt{b} sabemos que la complejidad teórica del algoritmo es \Ode{log_2(n)}. No obstante, como los \textit{n's} del caso \texttt{a} son del orden de $10^9$, mientras que los \textit{n's} del caso \texttt{b} son del orden de $10^6$ cabría esperar que la cantidad de operaciones para los \textit{n's} del caso \texttt{a} sean mayores que los del caso \texttt{b}}. 
-		\item[3)]{El caso de \texttt{e} es análogo al de \texttt{a}, ya que en ambos casos los \textit{n's} son del orden de $10^9$, y la complejidad teórica del algoritmono varía. Sin embargo, se podría suponer a priori que por tratarse \textit{n's} primos, la cantidad de operaciones del caso \texttt{e} sea ligeramente mayor a la cantidad de operaciones del caso \texttt{a}.}
-		\item[4)]{Por último, en el caso \texttt{d}, cada llamado recursivo del algoritmo siempre ingresa al blóque de código de los exponentes impares. Por ende, como realiza exactamente q operaciones $log_2$(n) veces es presumible que \texttt{d} sea el peor caso de este algoritmo.}
+		\item[1)]{ Tal como se explicó [\ref{complejidad2}], la parde mas costosa del algoritmo está dada por la rama \textit{else} del ciclo \textit{for} en  \texttt{c} }
+		\item[2)]{} 
+		\item[3)]{}
+		\item[4)]{}
 	\end{itemize}
 
 \paragraph{}
@@ -182,6 +182,13 @@ A continuación se presentan los gráficos realizados para cada caso:
 
 \subsection{Debate}
 \label{deb2}
+
+\paragraph{}
+Como primera observación de los gráficos expuestos en la sección anterior, cabe decir que la complejidad real se ajustó a la complejidad teórica, ya que en todos los casos se pudo hallar una constante $c \in\ \real$ tal que a partir de algún $n_0$ el gráfico de $c*m*sqrt{m}*log$(m) pasa a acotar superiormente a la cantidad de operaciones realizadas por el algoritmo.
+
+\paragraph{}
+En lo que respecta a la las hipótesis postuladas en la sección \ref{Resultados2}, analicemos una a una su veracidad en función de los gráficos obtenidos.\\
+
 
 \subsection{Conclusiones}
 \label{conc2}
