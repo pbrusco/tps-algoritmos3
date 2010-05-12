@@ -59,11 +59,11 @@ En línea con está idea, el algoritmo que resuelve el problema fue desarrollado
 	\item que el nodo elegido no esté marcado
 	\item que el nodo ya esté marcado, y no sea el padre del nodo actual
 \end{itemize}
-En el primer caso, como el nodo no está marcado, el algoritmo lo toma y realiza un paso recursivo sobre el mismo nodo para de este modo seguir recorriendo el grafo en busca de puentes o inconexión . Por el contrario, en el segundo caso, al encontrarse con un nodo marcado pero que no es el padre del nodo actual, el algoritmo se encuentra frente a la prescencia de un ciclo, ya que acaba de encontrar un camino que le permite llegar nuevamente hacia un nodo ya visitado. De ser éste el caso, procede a guardar todos los ejes del ciclo en un conjunto en el cual se van registrando todos los ejes que formen parte de algún ciclo.
+En el primer caso, como el nodo no está marcado, el algoritmo lo toma y realiza un paso recursivo sobre el mismo nodo para de este modo seguir recorriendo el grafo en busca de puentes o inconexión . Por el contrario, en el segundo caso, al encontrarse con un nodo marcado pero que no es el padre del nodo actual, el algoritmo se encuentra frente a la presencia de un ciclo, ya que acaba de encontrar un camino que le permite llegar nuevamente hacia un nodo ya visitado. De ser éste el caso, procede a guardar todos los ejes del ciclo en un conjunto en el cual se van registrando todos los ejes que formen parte de algún ciclo.
 Así, el algoritmo procede hasta haber recorrido y marcado todos los nodos del grafo en cuyo caso finaliza devolviendo el número de nodos visitados y el conjunto con los ejes que pertenecen a algún ciclo. \\
 Finalmente, si el numero de nodos recorridos es menor a la cantidad de nodos del grafo, eso significa que en algún punto el grafo no es conexo, y consecuentemente no es direccionable. De igual modo, si el conjunto de ejes que pertenecen a algún ciclo no es igual al conjunto de ejes del grafo, eso representa que existe al menos un eje que no forma parte de ningún ciclo, con lo cual es un puete y el grafo no puede ser dirigido según lo pedido..
 
-A continuación se presenta el pseudocódigo del mismo: \\
+A continuación se presenta el pseudocódigo del mismo, en el cuál usaremos a \textit{n} como la cantidad de esquinas (o nodos) y a \textit{m} como la cantidad de calles (o aristas): \\
 
 \incmargin{1em}
 \linesnumbered
@@ -72,25 +72,25 @@ A continuación se presenta el pseudocódigo del mismo: \\
 void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 \begin{algorithm}[H]
 	\SetKw{Orden}{Complejidad:}
-	\Orden{T(n)}
+	\Orden{\Ode{n*m*log(m)}}
 	\BlankLine
-	cuenta $\leftarrow$ cuenta + 1 \tcp*{O(1)}
-	G.info[vertice].ejesHasta $\leftarrow$ G.info[G.info[vertice].padre].ejesHasta 
-	ANTERIOR + eje(G,vertice,G.info[vertice].padre) \tcp*{O(n)}
-	G.info[vertice].visitado $\leftarrow$ true \tcp*{O(1)}
+	cuenta $\leftarrow$ cuenta + 1 \tcp*{\Ode{1}}
+	G.info[vertice].ejesHasta $\leftarrow$ G.info[G.info[vertice].padre].ejesHasta \tcp*{\Ode{n}}
+	G.info[vertice].visitado $\leftarrow$ true \tcp*{\Ode{1}}
 	\BlankLine
-	\textbf{var} it*: it\_secu \textless \nat \textgreater \ $\leftarrow $ G.info[vertice].vecinos.begin() \tcp*{O(?)}
+	\textbf{var} it*: it\_secu \textless \nat \textgreater \ $\leftarrow $ G.info[vertice].vecinos.begin() \tcp*{\Ode{1}}
 	\BlankLine
-	\For{(it; it = G.info[vertice].vecinos.end(); it++)}{ 
+	\For{(it; it $\neq$ G.info[vertice].vecinos.end(); it++)\tcp*{\Ode{n}}}{ 
 		%if
-		\eIf{(G.info[*it].visitado = false)}
-			{G.info[*it].padre $\leftarrow$ vertice \\ 
+		\eIf{(G.info[*it].visitado $==$ false)\tcp*{\Ode{1}}}
+			{G.info[*it].padre $\leftarrow$ vertice \tcp*{\Ode{1}}
 			dfs\_ciclos(*it,G,cuenta)}
 		%else	
 			%if
-			{\lIf{(G.info[vertice].padre != (*it))}
-				{insertarResta(G.ejesUsados,G.info[vertice].ejesHasta,G.info[*it].ejesHasta) \\	
-				G.ejesUsados.insert(eje(G,*it,vertice))}}
+			{\lIf{(G.info[vertice].padre $\neq$ (*it))\tcp*{\Ode{1}}}
+				{\BlankLine
+insertarResta(G.ejesUsados,G.info[vertice].ejesHasta,G.info[*it].ejesHasta)\tcp*{\Ode{m*log(m)}}
+				G.ejesUsados.insert(eje(G,*it,vertice))\tcp*{\Ode{log(m)}}}}
 	}
 
 	\caption{Pseudocódigo de la función \textit{dfs\_ciclos} con el costo de cada instrucción en el modelo uniforme}
@@ -99,6 +99,20 @@ void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 
 \subsection{Análisis de la complejidad del algoritmo}
 \label{complejidad2}
+
+\paragraph{}
+Para el análisis de la complejidad de este algoritmo, vamos a remitirnos a los pseudocódigos de las funciones \textit{dfs\_ciclos} y \textit{insertarResta} adjuntos en las secciones [\ref{exp2}] y [\ref{PseudoInsResta}] respectivamente. En este caso se utilizará la misma notación para la cantidad de nodos y aristas que se utilizó en el pseudocódigo de la sección [\ref{exp2}].
+
+\paragraph{}
+Si observamos las distintas complejidades que se dan dentro del algoritmo, podemos ver algunas que sobresalen sobre el resto. Es en estas en las que recae la complejidad total del algoritmo, por lo cuál el análisis se realizará sobre estas instrucciones.\\
+Como primer caso de análisis, se puede ver en la tercer línea que la complejidad de la instrucción es \Ode{n}. Esto se debe a que la asignación de conjuntos implementada en la \textit{STL} tiene esta complejidad (destrucción y copia de un conjunto).
+
+\paragraph{}
+La siguiente complejidad a analizar es la que aparece en la línea 6 del código, la cuál pertenece a la ejecución del ciclo \textit{for}. Si se observa más detalladamente, se puede concluir que dicho ciclo se va a ejecutar tantas veces como vecinos tenga esa esquina (o nodo) los cuáles a lo sumo pueden ser todos los demás, es decir, \textit{n-1}. Con lo cuál se ejecutará \Ode{n} veces.
+
+\paragraph{}
+Dentro de este ciclo, hay una sentencia condicional. En la parte del \textit{if}, hay una llamada recursiva a la función \textit{dfs\_ciclos}. En el \textit{else}, hay una llamada a la función \textit{insertarResta} y un insertar en un conjunto. En el caso de la llamada recursiva, podemos pensar que en realidad se apila un nodo del grafo para luego ser recorrido, por lo que dicha complejidad puede pensarse en este caso como constante, es decir, \Ode{1}. En cambio, en caso de ejecutarse la sentencia \textit{else}, hay un llamado a \textit{insertarResta} cuya complejidad es \Ode{m*log(m)}\footnote{Ver análisis en la sección [\ref{PseudoInsResta}]} y además, se realiza una inserción en un conjunto, pero dicha complejidad es solamente de \Ode{log(m)}. Por lo tanto, la complejidad total en peor caso del ciclo \textit{for} es \Ode{n*m*log(m)}, ya que se ejecutará a lo sumo \textit{n-1} veces la sentencia \textit{else} cuya complejidad es \Ode{m*log(m)}. De esta forma, la complejidad de este algoritmo es \Ode{n*m*log(m)}.
+
 
 \subsection{Detalles de implementación}
 \label{imp2}
