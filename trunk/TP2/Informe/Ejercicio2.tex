@@ -68,7 +68,7 @@ A continuación se presenta el pseudocódigo del mismo, en el cuál usaremos a \
 void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 \begin{algorithm}[H]
 	\SetKw{Orden}{Complejidad:}
-	\Orden{\Ode{n^2*log(n)}}
+	\Orden{\Ode{m*n*log(n)}}
 	\BlankLine
 	cuenta $\leftarrow$ cuenta + 1 \tcp*{\Ode{1}}
 	G.info[vertice].ejesHasta $\leftarrow$ G.info[G.info[vertice].padre].ejesHasta \tcp*{\Ode{n}}
@@ -76,7 +76,7 @@ void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 	\BlankLine
 	\textbf{var} it*: it\_secu \textless \nat \textgreater \ $\leftarrow $ G.info[vertice].vecinos.begin() \tcp*{\Ode{1}}
 	\BlankLine
-	\For{(it; it $\neq$ G.info[vertice].vecinos.end(); it++)\tcp*{\Ode{n}}}{ 
+	\For{(it; it $\neq$ G.info[vertice].vecinos.end(); it++)}{ 
 		%if
 		\eIf{(G.info[*it].visitado $==$ false)\tcp*{\Ode{1}}}
 			{G.info[*it].padre $\leftarrow$ vertice \tcp*{\Ode{1}}
@@ -85,7 +85,8 @@ void \textbf{dfs\_ciclos}(vertice: \nat, G: grafo\&, cuenta: \nat\&) \\
 			%if
 			{\lIf{(G.info[vertice].padre $\neq$ (*it))\tcp*{\Ode{1}}}
 				{\BlankLine
-insertarResta(G.ejesUsados,G.info[vertice].ejesHasta,G.info[*it].ejesHasta)\tcp*{\Ode{n*log(n)}}
+insertarResta(G.ejesUsados,G.info[vertice].ejesHasta\\
+,G.info[*it].ejesHasta)\tcp*{\Ode{n*log(n)}}
 				G.ejesUsados.insert(eje(G,*it,vertice))\tcp*{\Ode{log(n)}}}}
 	}
 
@@ -103,7 +104,7 @@ void \textbf{insertarResta}(ejesEnCilos: set$<$int$>$, vEjesHasta: set$<$int$>$,
 	\Orden{\Ode{n.log(n)}}
 	\BlankLine
 	\For{(it = vEjesHasta.begin(), it $\neq$ vEjesHasta.end(), it++)\tcp*{\Ode{tam(vEjesHasta)} $\subseteq$  \Ode{n} }} {
-		\lIf{ (wEjesHasta.count(*it) == 0)} {ejesEnCiclos.insert(*it)\tcp*{\Ode{log(tam(wEjesHasta))} $\subseteq$ \Ode{log(n)}}}
+		\If{ (wEjesHasta.count(*it) == 0)\tcp*{\Ode{log(tam(wEjesHasta))} $\subseteq$ \Ode{log(n)}}} {ejesEnCiclos.insert(*it)\tcp*{\Ode{log(tam(ejesEnCiclos))} $\subseteq$ \Ode{log(m)} $\subseteq$ \Ode{log(n^2)} $\subseteq$ \Ode{log(n)} }}
 	}
 	
 	 
