@@ -11,10 +11,8 @@ Se pide además que la complejidad temporal para este problema, medida con model
 Mediante un modelado con grafos, el problema puede ser representado de forma que los nodos de un grafo correspondan a las esquinas de la ciudad y las aristas a las calles que unen cada par de esquinas entre sí. \\
 Entonces, para poder estudiar el problema con el modelo planteado es preciso primero establecer algunas definiciones:
 \begin{itemize}
-	\item \textbf{Def$_1$:} Un digrafo es ...
-	\item \textbf{Def$_2$:} Un digrafo es \textit{fuertemente conexo} ...
-	\item \textbf{Def$_3$:} Un grafo $G$ es \textit{fuertemente orientable} si existe una asignación de direcciones a los ejes del conjunto de ejes del grafo $G$ tal que el digrafo resultante es fuertemente conexo. 
-	\item \textbf{Def$_4$:} \textit{un puente o arista de corte} es una arista que al eliminarse de un grafo incrementa el número de componentes conexos de éste. Equivalentemente, una arista es un puente si y sólo si no está contenido en ningún ciclo.
+	\item \textbf{Def$_1$:} Un grafo $G$ es \textit{fuertemente orientable} si existe una asignación de direcciones a los ejes del conjunto de ejes del grafo $G$ tal que el digrafo resultante es fuertemente conexo. 
+	\item \textbf{Def$_2$:} \textit{un puente o arista de corte} es una arista que al eliminarse de un grafo incrementa el número de componentes conexos de éste. Equivalentemente, una arista es un puente si y sólo si no está contenido en ningún ciclo.
 \end{itemize}
 
 \paragraph{}
@@ -117,7 +115,7 @@ void \textbf{insertarResta}(ejesEnCilos: set$<$int$>$, vEjesHasta: set$<$int$>$,
 \label{complejidad2}
 
 \paragraph{}
-Para el análisis de la complejidad de este algoritmo, vamos a remitirnos a los pseudocódigos de las funciones \textit{dfs\_ciclos} y \textit{insertarResta} adjuntos en las secciones [\ref{exp2}] y [\ref{PseudoInsResta}] respectivamente. En este caso se utilizará la misma notación para la cantidad de nodos y aristas que se utilizó en los pseudocódigos de la sección [\ref{exp2}].
+Para el análisis de la complejidad de este algoritmo, vamos a remitirnos a los pseudocódigos de las funciones \textit{dfs\_ciclos} y \textit{insertarResta} adjuntos en las sección [\ref{exp2}]. En este caso se utilizará la misma notación para la cantidad de nodos y aristas que se utilizó en los pseudocódigos de la sección [\ref{exp2}].
 
 \paragraph{}
 Si se observan las distintas complejidades que se dan dentro del algoritmo, se puede ver algunas que sobresalen sobre el resto. Es en estas en las que recae la complejidad total del algoritmo, por lo cuál el análisis se realizará sobre estas instrucciones.\\
@@ -224,7 +222,7 @@ A continuación se presentan los gráficos realizados para cada caso:
 \underline{Gráfico E} Gráfico de \textit{Cantidad de ejes vs. Tiempo} del caso E
 \end{center}
 
-\clearpage 
+%\clearpage 
 
 
 \subsection{Debate}
@@ -239,7 +237,7 @@ Cotejando el gráfico A con los gráficos restantes se corrobora la hipótesis 1
 De esta última observación, también se puede inferir que la hipótesis 2 se ve corroborada de manera empírica.
 
 \paragraph{}
-En cuanto a la hipótesis 3, la comparación de los gráficos B y D contra los de los gráficos A y B evidencia que los tiempos necesarios para resolver los archivos de los primeros son significativamente menor a los tiempos necesarios para resolver los archivos de los segundos. Esto en principio, parecería corroborar la hipótesis 3.\\
+En cuanto a la hipótesis 3, la comparación de los gráficos C y D contra los de los gráficos A y B evidencia que los tiempos necesarios para resolver los archivos de los primeros son significativamente menor a los tiempos necesarios para resolver los archivos de los segundos. Esto en principio, parecería corroborar la hipótesis 3.\\
 No obstante, se puede apreciar también que, si bien se puede encontrar una curva que acote estos gráficos a partir de un cierto punto, esta curva no se ajusta tan bien como las curvas que acotan los gráficos A y B. Asímismo, se puede ver que la curva de \textit{m vs. Tiempo} de los gráficos C y D es mucho más irregular y oscilante que la de los gráficos A y B. Una comparación de los primeros con el gráfico E, arroja resultados similares, ya que si bien tiene valores de tiempo menor, este último gráfico se asemeja más a los gráficos de A y B.\\
 En síntesis, si bien el resultado de la hipótesis 3 se cumple, las causas por las que esto ocurre no resultan del todo claras, y en principio no resulta correcto afirmar la hipótesis de que un número pequeño de nodos disminuye la posibilidad de formar ciclos y consecuentemente la posibilidad de entrar en la rama costosa del algoritmo.
 
