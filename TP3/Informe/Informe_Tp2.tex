@@ -8,21 +8,24 @@
 	\usepackage[utf8]{inputenc}
 
 % Paquete de acentos para windows
-	%\usepackage[latin1]{inputenc}
+%	\usepackage[latin1]{inputenc}
 
 % Paquete para reconocer la separación en sílabas en español
 	\usepackage[spanish]{babel}
 
 % Paquetes especiales para el TP
-	\usepackage{caratula}
-	\usepackage{algo2symb}
-	\usepackage[lined]{algorithm2e}
+	\usepackage{./otros/caratula}
+	\usepackage{./otros/algo2symb}
+	\usepackage[lined]{./otros/algorithm2e}
 	\usepackage{amssymb}			%simbolos matematicos
 	\usepackage{pdfpages}
 
-% Paqute para incluir hypervinculos (falta probarlo bien)
-	%\usepackage{hyperref}
-	
+% Paquete para incluir hypervinculos
+	\usepackage{color}
+	\usepackage{url}
+	\definecolor{lnk}{rgb}{0,0,0.4}
+	\usepackage[colorlinks=true,linkcolor=lnk,citecolor=blue,urlcolor=blue]{hyperref}
+
 % Paquete para armar índices
 	\usepackage{makeidx}
 	\makeindex
@@ -34,11 +37,9 @@
 	\newcommand{\nat}{\ensuremath{\mathbb{N}}}
 	\newcommand{\entero}{\ensuremath{\mathbb{Z}}}
 	\newcommand{\real}{\ensuremath{\mathbb{R}}}
+	\newcommand{\grafo}{\ensuremath{\mathbb{grafo}}}
 	\newcommand{\titade}[1]{\ensuremath{\Theta(#1)}}
 	\newcommand{\omegade}[1]{\ensuremath{\Omega(#1)}}
-
-%con esto tenemos links lindos!
-%\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref} 
 
 
 \begin{document}
@@ -47,19 +48,15 @@
 	\titulo{Primer Trabajo Práctico}
 	\fecha{14 de Abril de 2010}
 	\materia{Algoritmos y Estructuras de Datos III}
-	\grupo{  }
 	\integrante{Bianchi, Mariano}{92/08}{bianchi-mariano@hotmail.com}
 	\integrante{Brusco, Pablo}{527/08}{pablo.brusco@gmail.com}
 	\integrante{Di Pietro, Carlos Augusto Lyon}{126/08}{cdipietro@dc.uba.ar}
 	\maketitle
 
+% Índice
+\newpage \printindex \tableofcontents
 
-\newpage 	\printindex \tableofcontents
-\newpage	 	\input{Ejercicio1.tex}
-\newpage 	\input{Ejercicio2.tex}
-\newpage 	\input{Ejercicio3.tex}
-
-
+% Cuerpo del informe
 
 
 \end{document}
