@@ -12,12 +12,13 @@ struct Grafo{
 	
 	//metodos
 	bool sonAdyacentes(int v1, int v2) const;
-	void cargar(const istream& is);
-	set<int>& maxClique() const;
-	void buscarMaxClique(set<int>& act, Grafo g, set<int>& res);
+	bool vecinoDeTodos(int v, const set<int>& c) const;
+	void cargar(istream& is, int cantNodos);
+	set<int> maxClique() const;
+	void buscarMaxClique(set<int>& act, set<int>& res) const;
 };
 
-
+void guardarRes(ostream& os, set<int> c);
 
 
 
