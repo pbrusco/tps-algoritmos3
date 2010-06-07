@@ -13,8 +13,8 @@ int main(){
 	set<int> cliqueMaximo;
 	ifstream is;
 	ofstream os;
-	os.open("Tp3EXACTO.out");
-	is.open("Tp3.in");
+	os.open("../out/Tp3EXACTO.out");
+	is.open("../in/Tp3.in");
 	is >> cantNodos;
 	
 	while(cantNodos != -1){
