@@ -3,11 +3,11 @@ GXXFLAGS = -w -o
 
 .PHONY=clean all
 
-2_ej: ej2.cpp
+3_ej: ej3.cpp
 	$(GXX) $(GXXFLAGS) $@ $<
 
-all: clean 2_ej
+all: clean 3_ej
 
 clean:
-	rm 2_ej
+	rm 3_ej
 
