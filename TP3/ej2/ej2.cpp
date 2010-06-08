@@ -84,7 +84,7 @@ set<int> Grafo::maxClique() const {
 	
 	for(int v = 0; v < matAd.size(); v++){
 		aux.insert(v);
-		buscarMaxClique(aux,temp);
+		buscarMaxClique(v,aux,temp);
 		aux.erase(v);
 	}
 	return temp;	
@@ -92,13 +92,13 @@ set<int> Grafo::maxClique() const {
 
 
 
-void Grafo::buscarMaxClique(set<int>& act, set<int>& res) const {
+void Grafo::buscarMaxClique(int prim, set<int>& act, set<int>& res) const {
 
-	for(int v = 0; v < matAd.size(); v++){
+	for(int v = prim+1; v < matAd.size(); v++){
 	
 		if(vecinoDeTodos(v,act)){
 			act.insert(v);
-			buscarMaxClique(act,res);
+			buscarMaxClique(prim,act,res);
 			act.erase(v);
 		}
 	}
