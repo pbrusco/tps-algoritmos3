@@ -15,7 +15,7 @@ struct Grafo{
 	bool vecinoDeTodos(int v, const set<int>& c) const;
 	void cargar(istream& is, int cantNodos);
 	set<int> maxClique() const;
-	void buscarMaxClique(set<int>& act, set<int>& res) const;
+	void buscarMaxClique(int prim, set<int>& act, set<int>& res) const;
 };
 
 void guardarRes(ostream& os, set<int> c);
