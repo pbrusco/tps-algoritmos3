@@ -20,7 +20,7 @@ int main(){
 	while(cantNodos != -1){
 	
 		g.cargar(is,cantNodos);
-		cliqueMaximo = g.maxClique();
+		g.maxClique(cliqueMaximo);
 		
 		//guardo o muestro el resultado
 		guardarRes(os,cliqueMaximo);
@@ -78,41 +78,65 @@ void guardarRes(ostream& os, set<int> c){
 }
 
 
-set<int> Grafo::maxClique() const {
-
-	set<int> temp, aux;
+void Grafo::maxClique(set<int>& resultado){
+	int cantPuentesEliminados = 0;	
 	
-	for(int v = 0; v < matAd.size(); v++){
-		aux.insert(v);
-		buscarMaxClique(v,aux,temp);
-		aux.erase(v);
-	}
-	return temp;	
-}
+	set<int> setAux;
 
-
-
-void Grafo::buscarMaxClique(int prim, set<int>& act, set<int>& res) const {
-
-	for(int v = prim+1; v < matAd.size(); v++){
+	list<int>* listaComponentes = vInicialesComponentesConexas();
+	cantPuentesEliminados = limpiarPuentes(listaComponentes);
 	
-		if(vecinoDeTodos(v,act)){
-			act.insert(v);
-			buscarMaxClique(prim,act,res);
-			act.erase(v);
+	if (cantPuentesEliminados > 0)	listaComponentes = vInicialesComponentesConexas();	
+	
+	
+	for(list<int>::iterator comp = listaComponentes->begin(); comp != listaComponentes->end();comp++){
+		maxCliqueEnComp(*comp,resultado);
+		if (resultado.size() > setAux.size()){
+			setAux = resultado;
 		}
 	}
-	if(act.size() > res.size())
-		res = act;
+
+	resultado = setAux;
+
 }
 
-bool Grafo::vecinoDeTodos(int v, const set<int>& c) const {
+int Grafo::limpiarPuentes(list<int>* listaComponentes){
+	int cantPuentesEliminados = 0;
+
+	return cantPuentesEliminados;
+}
+
+
+list<int>* Grafo::vInicialesComponentesConexas(){
 	
-	bool res = true;
-	set<int>::iterator it;
-	for(it = c.begin(); it != c.end(); it++){
-		res = res && sonAdyacentes(v,*it);
+	list<int>* lista = new list<int>();
+
+	for(int i = 0; i<usados.size();i++){
+		if (usados[i] != true){
+			lista->push_back(i);
+			dfs(i);
+		}
 	}
-	return res;
+	
+
+	return lista;
+
 }
 
+void Grafo::dfs(int vi){
+
+	usados[vi] == true;
+	
+	for(int i = 0;i<usados.size();i++){
+		if(usados[i] == false and sonAdyacentes(vi,i)) dfs(i);
+	}
+
+
+
+}
+
+
+void Grafo::maxCliqueEnComp(int v0,set<int> & resultado){
+	
+
+}
