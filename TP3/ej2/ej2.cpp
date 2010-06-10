@@ -7,10 +7,10 @@ using namespace std;
 
 int main(){
 	
-	int cantNodos;
-	int i = 1;
+	int cantNodos,cantComp;
 	Grafo g;
 	set<int> cliqueMaximo;
+	set<int> auxClique;
 	ifstream is;
 	ofstream os;
 	os.open("../out/Tp3EXACTO.out");
@@ -20,12 +20,22 @@ int main(){
 	while(cantNodos != -1){
 	
 		g.cargar(is,cantNodos);
-		g.maxClique(cliqueMaximo);
+		cantComp = g.detectarComponentesConexas();
+		
+				
+		
+		for(int i = 1;i<=cantComp;i++){
+			g.maxClique(i,auxClique,cliqueMaximo.size());
+			if (auxClique.size() > cliqueMaximo.size()){
+				cliqueMaximo = auxClique;			
+			}			
+			auxClique.clear();		
+		}
 		
 		//guardo o muestro el resultado
 		guardarRes(os,cliqueMaximo);
 		
-		i++;
+	
 		cliqueMaximo.clear();
 		is >> cantNodos;
 	}
@@ -50,7 +60,7 @@ void Grafo::cargar(istream& is, int cantNodos){
 	for(int i = 0; i<matAd.size(); i++){
 		matAd[i].resize(0);
 	}
-	matAd.resize(0);
+	matAd.clear();
 	matAd.resize(cantNodos);
 	
 	
@@ -58,8 +68,15 @@ void Grafo::cargar(istream& is, int cantNodos){
 		matAd[i].resize(cantNodos);
 	}
 	
+	componentes.clear();
+	componentes.resize(cantNodos);
+	
+	grados.clear();
+	grados.resize(cantNodos);
+	
 	for(int i = 0; i < cantNodos; i++){
 		is >> cantVecinos;
+		grados[i] = cantVecinos;
 		for(int j = 0; j < cantVecinos; j++){
 			is >> v;
 			matAd[i][v-1] = true;
@@ -78,65 +95,58 @@ void guardarRes(ostream& os, set<int> c){
 }
 
 
-void Grafo::maxClique(set<int>& resultado){
-	int cantPuentesEliminados = 0;	
-	
-	set<int> setAux;
 
-	list<int>* listaComponentes = vInicialesComponentesConexas();
-	cantPuentesEliminados = limpiarPuentes(listaComponentes);
-	
-	if (cantPuentesEliminados > 0)	listaComponentes = vInicialesComponentesConexas();	
-	
-	
-	for(list<int>::iterator comp = listaComponentes->begin(); comp != listaComponentes->end();comp++){
-		maxCliqueEnComp(*comp,resultado);
-		if (resultado.size() > setAux.size()){
-			setAux = resultado;
-		}
-	}
-
-	resultado = setAux;
-
-}
-
-int Grafo::limpiarPuentes(list<int>* listaComponentes){
-	int cantPuentesEliminados = 0;
-
-	return cantPuentesEliminados;
-}
-
-
-list<int>* Grafo::vInicialesComponentesConexas(){
-	
-	list<int>* lista = new list<int>();
-
-	for(int i = 0; i<usados.size();i++){
-		if (usados[i] != true){
-			lista->push_back(i);
-			dfs(i);
+int Grafo::detectarComponentesConexas(){
+	int comp = 1;
+	for(int i = 0; i<componentes.size();i++){
+		if (componentes[i] == 0){
+			dfs(i,comp);
+			comp++;
 		}
 	}
 	
-
-	return lista;
-
+	return comp-1;
 }
 
-void Grafo::dfs(int vi){
-
-	usados[vi] == true;
+void Grafo::dfs(int vi,int comp){
+	componente[vi] = comp;
 	
-	for(int i = 0;i<usados.size();i++){
-		if(usados[i] == false and sonAdyacentes(vi,i)) dfs(i);
+	for(int i = 0;i<componentes.size();i++){
+		if(componentes[i] == 0 and sonAdyacentes(vi,i)) dfs(i);
 	}
 
-
-
 }
 
 
-void Grafo::maxCliqueEnComp(int v0,set<int> & resultado){
-	
+void Grafo::maxClique(int comp,set<int>& maxCliqueComponente,int tamCliqueActual){
+	priority_queue<pair<int,int> > heapGrados;
+	crearHeapGrados(heapGrados,comp);
+	set<int> cliqueAux;
+	int v0,grado_v0;
+	set<int> vecinosFiltrados;
 
+//si no se entiende , ver el pseudo! (pag. 82 de la carpeta 3 de pablo (2))
+	while(not heapGrados.empty() and heapGrados.top().first() > tamCliqueActual)
+	{
+
+		v0 = heapGrados.top().second();
+		grado_v0 = heapGrados.top().first();
+		heapGrados.pop();
+			 
+		for(int i = grado_v0; i > tamCliqueActual;i--){
+			vecinosFiltrados.clear();
+		 	filtrarVecinosMenores(v0,i,vecinosFiltrados);
+		 	
+			cliqueAux.clear();
+			cliqueK(v0,vecinosFiltrados,i,cliqueAux);
+			if(tamCliqueActual < cliqueAux.size()){
+				tamCliqueActual = cliqueAux.size();
+				maxCliqueComponente = cliqueAux;			
+			}
+		}
+	}	 
 }
+void Grafo::filtrarVecinosMenores(int v0,int i,set<int> & vecinosFiltrados);
+void Grafo::cliqueK(int v0,set<int>& vecinosFiltrados, int k, set<int>& resultado);
+void Grafo::crearHeapGrados(priority_queue<pair<int,int> >& ,int comp);
+
