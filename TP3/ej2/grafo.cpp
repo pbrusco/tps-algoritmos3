@@ -67,9 +67,9 @@ void Grafo::maxClique(int nro_cc, int tamCliqueActual, set<int>& res) const{
 
 	crearHeapGrados(nro_cc, heapGrados);
 
-	while(not heapGrados.empty() and heapGrados.top().first() > tamCliqueActual) {
-		v = heapGrados.top().second();
-		grado_v = heapGrados.top().first();
+	while(not heapGrados.empty() and heapGrados.top().first > tamCliqueActual) {
+		v = heapGrados.top().second;
+		grado_v = heapGrados.top().first;
 		heapGrados.pop();
 			 
 		for(int i = grado_v; i>tamCliqueActual; i--) {
@@ -101,7 +101,7 @@ void Grafo::cliqueK(int v, set<int>& vecinosFiltrados, int k, set<int>& res) con
 
 void Grafo::crearHeapGrados(int nro_cc, heap& res) const {
 	forn(i,componentes.size()) {
-		if (componentes[i] == nro_cc) res.push(make_pair<grados[i],i>);
+		if (componentes[i] == nro_cc) res.push(make_pair(grados[i],i));
 	}
 }
 
