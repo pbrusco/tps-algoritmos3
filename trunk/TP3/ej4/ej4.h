@@ -19,7 +19,10 @@ struct Grafo{
 	set<int> losMasFronterizos(int &u, int &v) const;
 	int masRelacionado(const set<int>& frontera) const;
 	set<int> cliqueConstructivo() const;
+
 	void busquedaLocal(set<int> &cliqueMaximo) const;
+	set<int> frontera(const set<int>& clique) const;
+	void cambiarSiMaximiza(set<int>& clique, const set<int>& vecindad, bool &cambio) const;
 };
 
 void guardarRes(ostream& os, set<int> c);

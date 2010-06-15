@@ -13,15 +13,16 @@ int main(){
 	set<int> cliqueMaximo;
 	ifstream is;
 	ofstream os;
-	os.open("../out/Tp3CONSTRUCTIVO.out");
+	os.open("../out/Tp3BUSQUEDALOCAL.out");
 	is.open("../in/Tp3.in");
 	is >> cantNodos;
 	
 	while(cantNodos != -1){
 	
 		g.cargar(is,cantNodos);
+
+		//solucion constructiva
 		cliqueMaximo = g.cliqueConstructivo();
-		
 		
 		//aca empieza la busqueda local
 		g.busquedaLocal(cliqueMaximo);
@@ -164,22 +165,34 @@ set<int> Grafo::cliqueConstructivo() const {
 
 void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 
-	//defino vecindad
+	bool termine = false;
+	bool cambio;
+
+	//defino la vecindad
+	set<int> vecindad = frontera(cliqueMaximo);
 	
 	//mientras no encuentre maximo local
-	
-		//para toda la vecindad
+	while(!termine) {
 		
-			//busco combinacion que maximice el clique
-			
-			//si encuentro una
-				
-				//defino nueva vecindad y comienzo de vuelta a buscar para toda la vecindad
-				
-			//sino
-			
-				//salgo del mientras y finalizo
+		cambio = false;	
+
+		//busco combinacion que maximice el clique
+		cambiarSiMaximiza(cliqueMaximo,vecindad,cambio);
+		
+		//si encuentro una
+		if(cambio){
+			//defino nueva vecindad y comienzo de vuelta a buscar para toda la vecindad
+			vecindad = frontera(cliqueMaximo);
+		}
+		else {
+			termine = true;
+		}
+	}
+
 }
+
+set<int> Grafo::frontera(const set<int>& clique) const{}
+void Grafo::cambiarSiMaximiza(set<int>& clique, const set<int>& vecindad, bool &cambio) const {}
 
 
 void guardarRes(ostream& os, set<int> c){
