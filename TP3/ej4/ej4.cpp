@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "ej3.h"
+#include "ej4.h"
 
 using namespace std;
 
@@ -162,7 +162,7 @@ set<int> Grafo::cliqueConstructivo() const {
 	return res;
 }
 
-void busquedaLocal(set<int> &cliqueMaximo) const{
+void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 
 	//defino vecindad
 	
