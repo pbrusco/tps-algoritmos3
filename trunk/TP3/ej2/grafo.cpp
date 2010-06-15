@@ -65,64 +65,75 @@ int Grafo::detectarCC() {
 void Grafo::dfs(int v, int nro_cc) {
 	componentes[v] = nro_cc;
 	forn(i,componentes.size()) {
-		if (sonAdyacentes(v,i) and componentes[i] == 0) dfs(i, nro_cc);
+		if (sonAdyacentes(v,i) and componentes[i] == 0)
+			dfs(i, nro_cc);
 	}
 }
 
 
-void Grafo::maxClique(int nro_cc, int tamCliqueActual, set<int>& res) const {
-	bool encontre = false;
+void Grafo::maxClique(set<int>& res) {
+
+	int cant_cc = detectarCC();		//aca se guarda la cantidad de componentes conexas distintas y le asigno a cada vertice un numero de componente
+	
+	bool encontre = false;			//se va a usar para saber si ya se encontro una clique del tamaño buscado
 	int v, grado_v;
 	heap heapGrados;
-	set<int> temp, vecinosFiltrados;
+	set<int> tempComponente, vecinosFiltrados;
+	
+	forn(i,cant_cc) {
 
-	/* Creo un heap con los nodos de la cc ordenados por grados */
-	crearHeapGrados(nro_cc, heapGrados);
+		/* Creo un heap con los nodos de la cc ordenados por grados */
+		crearHeapGrados(i+1, heapGrados);
 
-	/* Mientras haya nodos y tengan grado+1 mayor al tamaño de la maxima clique actual... */ 
-	while (not heapGrados.empty() and heapGrados.top().first+1 > tamCliqueActual) {
+		/* Mientras haya nodos y tengan grado mayor o igual al tamaño de la maxima clique actual... */ 
+		while (not heapGrados.empty() and heapGrados.top().first >= (int)res.size()) {
 
-		/* Guardo la info del primer nodo del heap (v) y lo quito  */
-		v = heapGrados.top().second;
-		grado_v = heapGrados.top().first;
-		heapGrados.pop();
+			/* Guardo la info del primer nodo del heap (v) y lo quito  */
+			v = heapGrados.top().second;
+			grado_v = heapGrados.top().first;
+			heapGrados.pop();
 
-		/* Busco si puedo formar una clique de tamaño mayor a la actual que contenga v */	 
-		for (int i = grado_v; i>tamCliqueActual; i--) {
-			temp.clear();
-			vecinosFiltrados.clear();
+			/* Busco si puedo formar una clique de tamaño mayor a la actual que contenga v */	 
+			for (int j = grado_v; j >= (int)res.size() ; j--) {
+				tempComponente.clear();
+				vecinosFiltrados.clear();
 
-			/* Filtro los nodos de la cc con grado igual a v */ 
-		 	filtrarVecinosMenores(v, i, vecinosFiltrados);
+				/* Filtro los nodos de la cc con grado mayor o igual a v */ 
+			 	filtrarVecinosMenores(v, j, vecinosFiltrados);
 
-			/* Si la cantidad de nodos me alcanza ... */			
-			if (vecinosFiltrados.size() == i) {
-				temp.insert(v);
+				/* Si la cantidad de nodos me alcanza ... */			
+				if ((int)vecinosFiltrados.size() >= j) {
+				
+					tempComponente.insert(v);
+					
+					/* ... me fijo si puedo formar una clique con los nodos filtrados y v */
+					cliqueK(encontre, j+1, vecinosFiltrados, tempComponente);
 
-				/* ... me fijo si puedo formar una clique con los nodos filtrados y v */
-				cliqueK(encontre, i+1, vecinosFiltrados, temp);
-
-				/* Si el tamaño de la clique que encontre es mayor que el de la actual la guardo*/
-				if (tamCliqueActual < temp.size()) {
-					tamCliqueActual = temp.size();
-					res = temp;			
+					/* Si el tamaño de la clique que encontre es mayor que el de la actual la guardo*/
+					if (res.size() < tempComponente.size()) {
+						res = tempComponente;
+					}
 				}
 			}
+		
 		}
-	}	 
+		
+		vaciarHeap(heapGrados);
+	}
 }
 
 
 void Grafo::filtrarVecinosMenores(int v, int k, set<int>& res) const {
 	forn(i,matAd.size()) {
-		if (componentes[v] == componentes[i] and sonAdyacentes(v,i) and grados[i] >= k) res.insert(i);
+		if (sonAdyacentes(v,i) and grados[i] >= k) res.insert(i);
 	}
 }
 
 
 void Grafo::crearHeapGrados(int nro_cc, heap& res) const {
 	forn(i,componentes.size()) {
-		if (componentes[i] == nro_cc) res.push(make_pair(grados[i],i));
+		if(componentes[i] == nro_cc)
+			res.push(make_pair(grados[i],i));
 	}
 }
 
@@ -132,10 +143,25 @@ void Grafo::cliqueK(bool& encontre, int tam, const set<int>& vecinosFiltrados, s
 		forall(it,vecinosFiltrados) {
 			if (vecinoDeTodos(*it,res)) {
 				res.insert(*it);
-				if (res.size() == tam) encontre = true;
-				else cliqueK(encontre, tam, vecinosFiltrados, res);
-				if (not encontre) res.erase(*it);
+				if(res.size() == tam){
+					encontre = true;
+				}
+				else{
+					cliqueK(encontre, tam, vecinosFiltrados, res);
+				}
+				
+				if(not encontre){
+					res.erase(*it);
+				}
 			}
 		}
+	}
+}
+
+
+void vaciarHeap(heap& h){
+
+	while(!h.empty()){
+		h.pop();
 	}
 }

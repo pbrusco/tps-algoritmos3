@@ -39,9 +39,9 @@ int main(int argc, char** argv) {
 	
 double resolverExacto(string input, string output) {
 	Grafo g;
-	int n, cant_cc;
-	set<int> res, temp;
-	ifstream is;		is.open(input.c_str());		assert(is.is_open());
+	int n;
+	set<int> res;
+	ifstream is;	is.open(input.c_str());		assert(is.is_open());
 	ofstream os;	os.open(output.c_str());	assert(os.is_open());
 
 	double time = 0.0;
@@ -51,12 +51,9 @@ double resolverExacto(string input, string output) {
 	while(n != -1) {
 		g.cargar(is,n);
 		gettimeofday(&t1,NULL);
-		cant_cc = g.detectarCC();
-		forn(i,cant_cc) {
-			g.maxClique(i, res.size(), temp);
-			if (temp.size() > res.size()) res = temp;			
-			temp.clear();		
-		}
+		
+		g.maxClique(res);
+		
 		gettimeofday(&t2,NULL);
 		time += timeval_diff(t2, t1);
 		printSet(os,res);
