@@ -24,11 +24,10 @@ int main(int argc, char** argv) {
 		time = resolverExacto(input,output);
 		cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
 	}
-
 	else {
 		forn(i, argc-1) {
 			input = argv[i+1];
-			output = (input.substr(0, input.size()-3) + ".out");	
+			output = ("../out" + input.substr(5, input.size()-8) + ".out");
 			time = resolverExacto(input,output);
 			cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
 		}
@@ -41,7 +40,7 @@ double resolverExacto(string input, string output) {
 	Grafo g;
 	int n;
 	set<int> res;
-	ifstream is;	is.open(input.c_str());		assert(is.is_open());
+	ifstream is;		is.open(input.c_str());		assert(is.is_open());
 	ofstream os;	os.open(output.c_str());	assert(os.is_open());
 
 	double time = 0.0;
@@ -51,9 +50,7 @@ double resolverExacto(string input, string output) {
 	while(n != -1) {
 		g.cargar(is,n);
 		gettimeofday(&t1,NULL);
-		
 		g.maxClique(res);
-		
 		gettimeofday(&t2,NULL);
 		time += timeval_diff(t2, t1);
 		printSet(os,res);
