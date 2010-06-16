@@ -86,29 +86,34 @@ void Grafo::maxClique(set<int>& res) {
 		crearHeapGrados(i+1, heapGrados);
 
 		/* Mientras haya nodos y tengan grado mayor o igual al tamaño de la maxima clique actual... */ 
-		while (not heapGrados.empty() and heapGrados.top().first >= (int)res.size()) {
+		while (not heapGrados.empty() and heapGrados.top().first >= res.size()) {
 
 			/* Guardo la info del primer nodo del heap (v) y lo quito  */
 			v = heapGrados.top().second;
 			grado_v = heapGrados.top().first;
 			heapGrados.pop();
-
+			if(i == 4){
+			
+			cout << "hola";
+			}
 			/* Busco si puedo formar una clique de tamaño mayor a la actual que contenga v */	 
-			for (int j = grado_v; j >= (int)res.size() ; j--) {
+			for (int tamCliqueABuscar = grado_v+1; tamCliqueABuscar > (int)res.size() ; tamCliqueABuscar--) {
 				tempComponente.clear();
 				vecinosFiltrados.clear();
 
-				/* Filtro los nodos de la cc con grado mayor o igual a v */ 
-			 	filtrarVecinosMenores(v, j, vecinosFiltrados);
+				/* Filtro los nodos de la cc con grado mayor o igual al tamaño de la clique que busco -1 que sean vecinos de v */
+				/* Menos 1 ya que la si busco una clique de tamaño n, sus nodos deben tener grados mayores a n-1*/
+			 	filtrarVecinosMenores(v, tamCliqueABuscar-1, vecinosFiltrados);
 
-				/* Si la cantidad de nodos me alcanza ... */			
-				if ((int)vecinosFiltrados.size() >= j) {
+				/* Si la cantidad de nodos me alcanza ... +1 por v */			
+				if ((int)vecinosFiltrados.size()+1 >= tamCliqueABuscar) {
 				
 					tempComponente.insert(v);
-					
-					/* ... me fijo si puedo formar una clique con los nodos filtrados y v */
-					cliqueK(encontre, j+1, vecinosFiltrados, tempComponente);
 
+					/* ... me fijo si puedo formar una clique con los nodos filtrados y v */
+					encontre = false;
+					cliqueK(encontre, tamCliqueABuscar, vecinosFiltrados, tempComponente);
+					
 					/* Si el tamaño de la clique que encontre es mayor que el de la actual la guardo*/
 					if (res.size() < tempComponente.size()) {
 						res = tempComponente;
@@ -123,9 +128,9 @@ void Grafo::maxClique(set<int>& res) {
 }
 
 
-void Grafo::filtrarVecinosMenores(int v, int k, set<int>& res) const {
+void Grafo::filtrarVecinosMenores(int v, int gradoMinimo, set<int>& res) const {
 	forn(i,matAd.size()) {
-		if (sonAdyacentes(v,i) and grados[i] >= k) res.insert(i);
+		if (sonAdyacentes(v,i) and grados[i] >= gradoMinimo) res.insert(i);
 	}
 }
 
@@ -137,8 +142,9 @@ void Grafo::crearHeapGrados(int nro_cc, heap& res) const {
 	}
 }
 
-
+/*
 void Grafo::cliqueK(bool& encontre, int tam, const set<int>& vecinosFiltrados, set<int>& res) const {
+	
 	if (not encontre) {
 		forall(it,vecinosFiltrados) {
 			if (vecinoDeTodos(*it,res)) {
@@ -157,6 +163,36 @@ void Grafo::cliqueK(bool& encontre, int tam, const set<int>& vecinosFiltrados, s
 		}
 	}
 }
+*/
+
+void Grafo::cliqueK(bool& encontre, int tam, set<int> vecinosFiltrados, set<int>& res) const {
+	
+
+	int w;
+
+	
+	while(vecinosFiltrados.empty() == false and encontre == false) {
+			
+			
+			w = *vecinosFiltrados.begin();
+			
+			if (vecinoDeTodos(w,res)){	
+				res.insert(w);
+				vecinosFiltrados.erase(w);		
+				if (res.size() < tam) cliqueK(encontre,tam,vecinosFiltrados,res);
+				else encontre = true;
+				
+				if(!encontre) res.erase(w);
+			}
+			else{
+				res.erase(w);
+				vecinosFiltrados.erase(w);
+			}
+	}
+	
+}
+
+
 
 
 void vaciarHeap(heap& h){
