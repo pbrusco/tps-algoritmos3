@@ -191,8 +191,44 @@ void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 
 }
 
-set<int> Grafo::frontera(const set<int>& clique) const{}
-void Grafo::cambiarSiMaximiza(set<int>& clique, const set<int>& vecindad, bool &cambio) const {}
+set<int> Grafo::frontera(const set<int>& clique) const{
+
+	set<int> res;
+	for(set<int>::iterator it = clique.begin(); it != clique.end(); it++){
+		for(int i = 0; i < matAd.size(); i++){
+			if(sonAdyacentes(i,*it) && clique.count(i) == 0){
+				res.insert(i);
+			}
+		}
+	}
+	return res;
+}
+
+void Grafo::cambiarSiMaximiza(set<int>& clique, const set<int>& vecindad, bool &cambio) const {
+	
+	set<int> posibleMejora;
+	const set<int> copiaClique = clique;
+	int elUltimoQueAgregue = matAd;
+
+
+	for(set<int>::iterator itC = copiaClique.begin(); itC != copiaClique.end(); itC++){
+		//saco de a uno de los que esta en la clique, y pruebo si puedo meter alguno/s distinto
+		posibleMejora = copiaClique;
+		posibleMejora.erase(*itC);
+		for(set<int>::iterator itV = vecindad.begin(); itV != vecindad.end(); itV++){
+			if(vecinoDeTodos(*itV,posibleMejora)){
+				posibleMejora.insert(*itV);
+				
+			}
+		}
+
+
+		if(posibleMejora.size() > clique.size()){
+			clique = posibleMejora;
+			cambio = true;
+		}
+	}
+}
 
 
 void guardarRes(ostream& os, set<int> c){
