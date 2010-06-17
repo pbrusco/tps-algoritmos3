@@ -1,7 +1,7 @@
-all: Informe_Tp2.pdf clean
+all: Informe_Tp3.pdf clean
 
-Informe_Tp2.pdf: Informe_Tp2.tex Ejercicio*.tex  Anexos.tex ./otros/*
-	(pdflatex Informe_Tp2.tex; pdflatex Informe_Tp2.tex); (reset; echo 'PDF COMPILADO!')
+Informe_Tp3.pdf: Informe_Tp3.tex Ejercicio*.tex  Anexos.tex ./otros/*
+	(pdflatex Informe_Tp3.tex; pdflatex Informe_Tp3.tex); (reset; echo 'PDF COMPILADO!')
         
 clean:
 	rm -f *.vrb *.nav *.snm *.out *.toc *.aux *.idx *.log *~
