@@ -92,10 +92,6 @@ void Grafo::maxClique(set<int>& res) {
 			v = heapGrados.top().second;
 			grado_v = heapGrados.top().first;
 			heapGrados.pop();
-			if(i == 4){
-			
-			cout << "hola";
-			}
 			/* Busco si puedo formar una clique de tamaño mayor a la actual que contenga v */	 
 			for (int tamCliqueABuscar = grado_v+1; tamCliqueABuscar > (int)res.size() ; tamCliqueABuscar--) {
 				tempComponente.clear();
@@ -142,28 +138,6 @@ void Grafo::crearHeapGrados(int nro_cc, heap& res) const {
 	}
 }
 
-/*
-void Grafo::cliqueK(bool& encontre, int tam, const set<int>& vecinosFiltrados, set<int>& res) const {
-	
-	if (not encontre) {
-		forall(it,vecinosFiltrados) {
-			if (vecinoDeTodos(*it,res)) {
-				res.insert(*it);
-				if(res.size() == tam){
-					encontre = true;
-				}
-				else{
-					cliqueK(encontre, tam, vecinosFiltrados, res);
-				}
-				
-				if(not encontre){
-					res.erase(*it);
-				}
-			}
-		}
-	}
-}
-*/
 
 void Grafo::cliqueK(bool& encontre, int tam, set<int> vecinosFiltrados, set<int>& res) const {
 	
