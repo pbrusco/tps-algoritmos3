@@ -1,5 +1,3 @@
-#include <iostream>
-#include <fstream>
 #include "ej4.h"
 
 using namespace std;
@@ -13,8 +11,8 @@ int main(){
 	set<int> cliqueMaximo;
 	ifstream is;
 	ofstream os;
-	os.open("../out/Tp3BUSQUEDALOCAL.out");
-	is.open("../in/Tp3.in");
+	os.open("../out/prueba2BUSQUEDALOCAL.out");
+	is.open("../in/prueba2.in");
 	is >> cantNodos;
 	
 	while(cantNodos != -1){
@@ -186,13 +184,13 @@ void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 
 }
 
-set<int> Grafo::frontera(const set<int>& clique) const{
+Heap Grafo::frontera(const set<int>& clique) const{
 
-	set<int> res;
+	Heap res;
 	for(set<int>::iterator it = clique.begin(); it != clique.end(); it++){
 		for(int i = 0; i < matAd.size(); i++){
 			if(sonAdyacentes(i,*it) && clique.count(i) == 0){
-				res.insert(i);
+				res.push(make_pair(grados[i],i));
 			}
 		}
 	}
@@ -203,7 +201,7 @@ void Grafo::cambiarSiMaximiza(set<int>& clique, bool &cambio) const {
 	
 	set<int> posibleMejora;
 	const set<int> copiaClique = clique;
-	set<int> vecindad;
+	Heap vecindad;
 
 
 	for(set<int>::iterator itC = copiaClique.begin(); itC != copiaClique.end(); itC++){
@@ -211,13 +209,15 @@ void Grafo::cambiarSiMaximiza(set<int>& clique, bool &cambio) const {
 		posibleMejora = copiaClique;
 		posibleMejora.erase(*itC);
 		
-		//los posibles cambios se realizan sobre los vecinos de los que estan en la clique
+		//los posibles cambios se realizan sobre los vecinos de los nodos que estan en la clique
 		vecindad = frontera(posibleMejora);
 		
-		for(set<int>::iterator itV = vecindad.begin(); itV != vecindad.end(); itV++){
-			if(vecinoDeTodos(*itV,posibleMejora)){
-				posibleMejora.insert(*itV);
+		//voy tomando en orden de grados
+		while(!vecindad.empty()){
+			if(vecinoDeTodos(vecindad.top().second,posibleMejora)){
+				posibleMejora.insert(vecindad.top().second);
 			}
+			vecindad.pop();
 		}
 
 

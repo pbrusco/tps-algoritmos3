@@ -1,10 +1,17 @@
 #ifndef __EJ1__
 #define __EJ1__
 
+#include <iostream>
+#include <fstream>
 #include <vector>
+#include <queue>
+#include <utility>
 #include <set>
 
 using namespace std;
+
+
+typedef priority_queue<pair<int,int> > Heap;
 
 struct Grafo{
 	//atributos
@@ -22,7 +29,7 @@ struct Grafo{
 	set<int> cliqueConstructivo() const;
 
 	void busquedaLocal(set<int> &cliqueMaximo) const;
-	set<int> frontera(const set<int>& clique) const;
+	Heap frontera(const set<int>& clique) const;
 	void cambiarSiMaximiza(set<int>& clique, bool &cambio) const;
 };
 
