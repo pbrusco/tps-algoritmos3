@@ -28,7 +28,7 @@ struct Grafo{
 	void maxClique(set<int>& res);
 	void crearHeapGrados(int nro_cc, heap& res) const;
 	void filtrarVecinosMenores(int v, int k, set<int>& res) const;
-	void cliqueK(bool& encontre, int tam, const set<int>& vecinosFiltrados, set<int>& res) const;
+	void cliqueK(bool& encontre, int tam,  set<int> vecinosFiltrados, set<int>& res) const;
 };
 
 #endif
