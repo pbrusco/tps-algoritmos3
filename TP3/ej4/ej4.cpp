@@ -45,20 +45,6 @@ int main(){
 
 //implementaciones
 
-bool Grafo::sonAdyacentes(int v1, int v2) const {
-	return matAd[v1][v2];
-}
-
-bool Grafo::vecinoDeTodos(int v, const set<int>& c) const {
-	
-	bool res = true;
-	set<int>::iterator it;
-	for(it = c.begin(); it != c.end(); it++){
-		res = res && sonAdyacentes(v,*it);
-	}
-	return res;
-}
-
 void Grafo::cargar(istream& is, int cantNodos){
 
 	int cantVecinos, v;
@@ -74,8 +60,11 @@ void Grafo::cargar(istream& is, int cantNodos){
 		matAd[i].resize(cantNodos);
 	}
 	
+	grados.resize(cantNodos);
+	
 	for(int i = 0; i < cantNodos; i++){
 		is >> cantVecinos;
+		grados[i] = cantVecinos;
 		for(int j = 0; j < cantVecinos; j++){
 			is >> v;
 			matAd[i][v-1] = true;
@@ -84,6 +73,19 @@ void Grafo::cargar(istream& is, int cantNodos){
 
 }
 
+bool Grafo::sonAdyacentes(int v1, int v2) const {
+	return matAd[v1][v2];
+}
+
+bool Grafo::vecinoDeTodos(int v, const set<int>& c) const {
+	
+	bool res = true;
+	set<int>::iterator it;
+	for(it = c.begin(); it != c.end(); it++){
+		res = res && sonAdyacentes(v,*it);
+	}
+	return res;
+}
 
 set<int> Grafo::fronteraEnComun(int u, int v) const {
 
@@ -167,9 +169,6 @@ void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 
 	bool termine = false;
 	bool cambio;
-
-	//defino la vecindad
-	set<int> vecindad = frontera(cliqueMaximo);
 	
 	//mientras no encuentre maximo local
 	while(!termine) {
@@ -177,14 +176,10 @@ void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 		cambio = false;	
 
 		//busco combinacion que maximice el clique
-		cambiarSiMaximiza(cliqueMaximo,vecindad,cambio);
+		cambiarSiMaximiza(cliqueMaximo,cambio);
 		
-		//si encuentro una
-		if(cambio){
-			//defino nueva vecindad y comienzo de vuelta a buscar para toda la vecindad
-			vecindad = frontera(cliqueMaximo);
-		}
-		else {
+		//si no encuentro una, termino
+		if(!cambio){
 			termine = true;
 		}
 	}
@@ -204,21 +199,24 @@ set<int> Grafo::frontera(const set<int>& clique) const{
 	return res;
 }
 
-void Grafo::cambiarSiMaximiza(set<int>& clique, const set<int>& vecindad, bool &cambio) const {
+void Grafo::cambiarSiMaximiza(set<int>& clique, bool &cambio) const {
 	
 	set<int> posibleMejora;
 	const set<int> copiaClique = clique;
-	int elUltimoQueAgregue = matAd;
+	set<int> vecindad;
 
 
 	for(set<int>::iterator itC = copiaClique.begin(); itC != copiaClique.end(); itC++){
 		//saco de a uno de los que esta en la clique, y pruebo si puedo meter alguno/s distinto
 		posibleMejora = copiaClique;
 		posibleMejora.erase(*itC);
+		
+		//los posibles cambios se realizan sobre los vecinos de los que estan en la clique
+		vecindad = frontera(posibleMejora);
+		
 		for(set<int>::iterator itV = vecindad.begin(); itV != vecindad.end(); itV++){
 			if(vecinoDeTodos(*itV,posibleMejora)){
 				posibleMejora.insert(*itV);
-				
 			}
 		}
 

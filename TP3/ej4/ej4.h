@@ -9,6 +9,7 @@ using namespace std;
 struct Grafo{
 	//atributos
 	vector<vector<bool> > matAd;
+	vector<int> grados;
 	
 	//metodos
 	int cantVecinos(int v, const set<int>& vecindad) const;
@@ -22,7 +23,7 @@ struct Grafo{
 
 	void busquedaLocal(set<int> &cliqueMaximo) const;
 	set<int> frontera(const set<int>& clique) const;
-	void cambiarSiMaximiza(set<int>& clique, const set<int>& vecindad, bool &cambio) const;
+	void cambiarSiMaximiza(set<int>& clique, bool &cambio) const;
 };
 
 void guardarRes(ostream& os, set<int> c);
