@@ -1,2 +1,30 @@
 \section{Ejercicio 3}
 
+\subsection{Introducción}
+
+\paragraph{}
+Para la resolución de este ejercicio se debía desarrollar e implementar una heurística constructiva  para resolver el problema de encontrar un \mc dado un grafo simple.
+
+
+\subsection{Explicación}
+
+\paragraph{}
+En una primera aproximación al problema, se pensó un algoritmo bastante sencillo. La idea del mismo radicaba en ir tomando los nodos en orden de grados, es decir, comenzando con los de mayor grado hasta llegar a los de menor grado. De esta forma, uno puede pensar que al tomar primero los vértices de mayor grado, hay mas chances de encontrar una clique de mayor tamaño.
+
+\paragraph{}
+Esto es claramente una heurística válida que utiliza la técnica de algoritmo goloso. Pero es claro también que se pueden encontrar fácilmente ejemplos de grafos en los que dicho algoritmo funcione tan mal como uno quiera.
+
+\paragraph{}
+A fines de evitar en cierto grado muchos casos para los cuales este algoritmo funciona mal, se planteó un nuevo algoritmo, que utiliza la misma idea, pero que la misma no se realiza sobre todos los nodos del grafo, sino que se hace sobre un subconjunto de los mismos, cuya selección se explicará a continuación.\\
+Se revisan todas las combinaciones de 2 vértices distintos (siempre y cuándo haya 2 o más vertices en el grafo) que sean vecinos entre sí y se guarda en un conjunto de vértices aquellos que sean vecinos a ambos vértices y además se guardan los 2 vértices en cuestión. Esto se repite para cada posible combinación de vértices de a 2, guardando siempre el conjunto más grande que se haya encontrado completado de la forma antes mencionada.
+
+\paragraph{}
+
+
+
+
+\subsection{Análisis de la complejidad del algoritmo}
+\subsection{Detalles de implementación}
+\subsection{Resultados}
+\subsection{Debate}
+\subsection{Conclusiones}

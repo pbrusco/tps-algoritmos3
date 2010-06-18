@@ -2,16 +2,31 @@
 \subsection{Introducción}
 
 \paragraph{}
-El problema a resolver en el presente trabajo práctico consiste en dado un grafo simple, encontrar un \cm para dicho grafo. Una clique es un subgrafo completo del grafo original. Un \cm, es una clique tal que no exista otra que contenga más vértices.
+El problema a resolver en el presente trabajo práctico consiste en dado un grafo simple, encontrar un \mc \ para dicho grafo. Una clique es un subgrafo completo del grafo original. Un \mc, es una clique tal que no exista otra que contenga más vértices.
 
 \paragraph{}
-Este problema es muy conocido. Además, no está resuelto computacionalmente y tiene infinidad de aplicaciones en distintos problemas de la vida real, lo que hace que sea un importante objeto de estudio. Algunas de sus aplicaciones más estudiadas provienen de áreas como bioinformática, transporte, diseño de tuberías, diseño de redes energéticas, procesamiento de imágenes, seguridad informática, electrónica, etc.
+Este problema es muy conocido. Además, no está computacionalmente resuelto  y tiene infinidad de aplicaciones en distintos problemas de la vida real, lo que hace que sea un importante objeto de estudio. Algunas de sus aplicaciones más estudiadas provienen de áreas como bioinformática, transporte, diseño de tuberías, diseño de redes energéticas, procesamiento de imágenes, seguridad informática, electrónica, etc.
 
 \subsection{Algunas aplicaciones}
 
 \paragraph{}
-Como primer aplicación podemos situarnos en el siguiente contexto: Imaginemos una
+Una aplicación posible podría darse por ejemplo, en el contexto de una compañía de telefonía móvil. Como bien se conoce, este tipo de empresa ofrece un plan llamado ``plan empresas'' para el cuál todos los teléfonos que se encuentren bajo este, tienen la posibilidad de comunicarse entre sí de forma libre.
 
+\paragraph{}
+Para la empresa, podría ser de interés conocer algún grupo de personas que estén comunicados todos entre sí para ofrecerles un ``plan empresas'' y así beneficiarlos dándole la oportunidad de aumentar el caudal de llamadas entre sí, por un precio más razonable.
+
+\paragraph{}
+Podemos pensar el modelo de la siguiente manera:
+\begin{itemize}
+  \item Vértices: Son los celulares de los clientes de la empresa de telefonía.
+  \item Ejes o aristas: Existe una arista entre dos vértices (o teléfonos) A y B si alguna vez se realizó una llamada entre ambos (A llamó a B o vice versa)\footnote{Sería conveniente elegir un período de tiempo acotado para ver si se produjo dicha llamada o no y así poder armar el grafo.}.
+\end{itemize}
+
+\paragraph{}
+Con este modelo, encontrar una clique de tamaño K significa encontrar un grupo de K celulares que se hayan comunicado todos entre sí alguna vez durante un período de tiempo predeterminado. Pasa lo mismo si se busca un \mc. Esto sería equivalente a encontrar el mayor grupo de personas que estén comunicados todos entre sí\footnote{Una variante sería buscar el \mc durante un año todos los días y quedarse con aquellos que se haya repetido la mayor cantidad de veces.}.
+
+\paragraph{}
+De la misma forma, se puede pensar al revés, y quizás a la empresa le interese conocer grupos de celulares que estén todos comunicados entre sí, para NO ofrecerles el ``plan empresas'' ya que de esa manera ese grupo de personas podría eventualmente bajar el consumo de sus llamadas descendiendo las ganancias de la empresa de telefonía.
 
 
 
