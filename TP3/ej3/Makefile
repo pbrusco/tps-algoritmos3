@@ -1,13 +1,13 @@
-GXX = g++
-GXXFLAGS = -w -o
+CC=g++
+CFLAGS= -g -w -o
+OBJ = grafo.cpp
 
-.PHONY=clean all
+.PHONY: all clean
 
-3_ej: ej3.cpp
-	$(GXX) $(GXXFLAGS) $@ $<
+all: clean ej3
 
-all: clean 3_ej
-
+ej3: main.cpp $(OBJ)
+	$(CC) $(CFLAGS) $@ $^
+	
 clean:
-	rm 3_ej
-
+	rm -f ej3
