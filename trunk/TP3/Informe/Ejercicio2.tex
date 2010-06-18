@@ -26,30 +26,50 @@ arbol implicito de combinaciones posibles.
 \paragraph{}
 De todas maneras, implementar solo un BackTracking parece ser poco con respecto a las mejoras que se pueden lograr. A continuación, 
 se explicara el algoritmo implementado con un pseudocodigo y se verá cada una de las mejoras por separado.
-
-\incmargin{1em}
+\vspace{2em}
+\incmargin{3em}
 \linesnumbered
 \restylealgo{boxed}
-
+\footnotesize 
 \textbf{Algoritmo Exacto}(G: grafo) \\
 \begin{algorithm}[H]
 	\BlankLine
+		CliqueMayor = vacia\\
 		componentesConexas = DetectarComponentesConexas(G)
-		Para cada componente en componentesConexas hacer:
-			heap = CrearHeapDeGrados(G,componente)
-			\BlankLine
-			Mientras hayElementos(heap) y top(heap) $\geq$ tamañoCliqueMaxHastaElMomento
-			hacer
-				v = nodoDeMayorGrado(heap)
-				Para 
-	
-	
-			repetir
-				
-	\caption{Pseudocódigo del algoritmo exacto}
+		\BlankLine
+
+		\textbf{Para cada} componente \textbf{en} componentesConexas \{ 
+		\BlankLine
+
+		\tab\tab heap = crearHeap(G,componentes) \\
+
+		\BlankLine
+		\tab\tab \textbf{Mientras} noVacio(heap) $\wedge$ top(heap) $\geq$ tam(CliqueMayorActual)\{\\
+		\BlankLine
+		\tab\tab\tab v = top(heap)
+		\BlankLine
+		\tab\tab\tab \textbf{Para} tamCliqueABuscar \textbf{desde} grado(v)+1 \textbf{hasta} tam(CliqueMayorActual)+1\{\\
+		\tab\tab\tab\tab vecinosFiltrados = 	filtrarVecinosMenores(v, tamCliqueABuscar-1)\\						
+		\tab\tab\tab\tab \textbf{Si} tam(vecinosFiltrados) +1 $\geq$ tamCliqueABuscar\\ 			
+		\tab\tab\tab\tab\tab temp = BuscoCliqueDeTamañoK(tamCliqueABuscar, vecinosFiltrados)
+		\BlankLine
+		\tab\tab\tab\tab\tab \textbf{Si}  tam(CliqueMayorActual)  $<$ tam(temp)\\ 
+		\tab\tab\tab\tab\tab\tab CliqueMayorActual  = temp\\
+		\tab\tab\tab\}\\
+		\tab\tab\}
+\caption{Pseudocódigo del algoritmo exacto}
 \end{algorithm}
 
-
+\normalsize
 
 \paragraph{}
+Primero, se detectan las componentes conexas del grafo, ya que buscar la max clique en todo el grafo es equivalente a quedarse con la máxima de las max cliques de cada componente conexa.
+
+\paragraph{}
+Luego, para cada componente, se crea un heap que contiene los nodos de la componente ordenados por mayor grado. Esto no parece tener mucha importancia, pero se aclarará a medida que se avanza con la explicación.
+
+\paragraph{}
+
+
+
 
