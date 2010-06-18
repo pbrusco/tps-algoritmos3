@@ -29,12 +29,12 @@ struct Grafo{
 	set<int> cliqueConstructivo() const;
 
 	void busquedaLocal(set<int> &cliqueMaximo) const;
-	Heap frontera(const set<int>& clique) const;
+	void frontera(const set<int>& clique, bool maxHeap, Heap &vecinos) const;
 	void cambiarSiMaximiza(set<int>& clique, bool &cambio) const;
 };
 
 void guardarRes(ostream& os, set<int> c);
-
+void vaciarHeap(Heap& h);
 
 
 
