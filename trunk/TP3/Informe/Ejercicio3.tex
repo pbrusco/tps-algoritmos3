@@ -15,12 +15,66 @@ En una primera aproximación al problema, se pensó un algoritmo bastante sencil
 Esto es claramente una heurística válida que utiliza la técnica de algoritmo goloso. Pero es claro también que se pueden encontrar fácilmente ejemplos de grafos en los que dicho algoritmo funcione tan mal como uno quiera.
 
 \paragraph{}
-A fines de evitar en cierto grado muchos casos para los cuales este algoritmo funciona mal, se planteó un nuevo algoritmo, que utiliza la misma idea, pero que la misma no se realiza sobre todos los nodos del grafo, sino que se hace sobre un subconjunto de los mismos, cuya selección se explicará a continuación.\\
-Se revisan todas las combinaciones de 2 vértices distintos (siempre y cuándo haya 2 o más vertices en el grafo) que sean vecinos entre sí y se guarda en un conjunto de vértices aquellos que sean vecinos a ambos vértices y además se guardan los 2 vértices en cuestión. Esto se repite para cada posible combinación de vértices de a 2, guardando siempre el conjunto más grande que se haya encontrado completado de la forma antes mencionada.
+A fines de evitar en cierto grado muchos casos para los cuales este algoritmo funciona mal, se planteó uno nuevo que utiliza la misma idea pero que la misma no se realiza sobre todos los nodos del grafo sino que se hace sobre un subconjunto de los mismos. Para formar dicho conjunto, se implementó un algoritmo que revisa todas las combinaciones de 2 vértices distintos (siempre y cuándo haya 2 o más vertices en el grafo) que sean vecinos entre sí y se guarda en un conjunto de vértices aquellos que sean vecinos a ambos vértices y además se guardan los 2 vértices en cuestión. Esto se repite para cada posible combinación de vértices de a 2, guardando siempre el conjunto más grande que se haya encontrado completado de la forma antes mencionada.
 
 \paragraph{}
+Una vez encontrado este subgrafo, se procede a realizar el algoritmo goloso antes mencionado pero sobre dicho subgrafo, es decir, se busca el nodo con mayor grado en ese subgrafo y se coloca en un conjunto, el cuál será devuelto como clique al terminar el algoritmo. Luego, para el resto de los nodos del subgrafo, se va tomando de a uno a la vez en orden de mayor a menor grado (considerando sólo los adyacentes que pertenecen al subgrafo) y se verifica que sea adyacente a todos los que pertenecen a la clique. Si lo es, entonces se lo inserta en el conjunto sino se lo descarta. Finalmente, se prosigue con estos pasos hasta haber intentado con todos los nodos del subgrafo devolviendo entonces la clique encontrada.
 
+\paragraph{}
+A continuación se adjunta el pseudocódigo del algoritmo constructivo antes descripto y el de las funciones auxiliares pertinentes.
 
+\vspace{2em}
+\incmargin{3em}
+\linesnumbered
+\restylealgo{boxed}
+\footnotesize 
+\textbf{AlgoritmoConstructivo}(G: grafo) \\
+\begin{algorithm}[H]
+	\BlankLine
+	frontera = mayorFronteraEnComun(G)\\
+	res = $\emptyset$
+	\BlankLine
+
+	\textbf{mientras} frontera $\neq\ \emptyset$\\
+
+		\tab v = elMasRelacionado(G,frontera)\\
+		\tab \textbf{si} esVecinoDeTodos(G,res,v)\\
+			\tab \tab \textbf{insertar} v \textbf{en} res\\
+		\tab \textbf{fin si}\\
+		\tab \textbf{eliminar} v \textbf{de} frontera\\
+	\textbf{fin mientras}\\
+
+	\textbf{si} res $==\ \emptyset$\\
+		\tab \textbf{insertar} $v_0$ \textbf{en} res\\
+	\textbf{fin si}\\
+
+	\textbf{devolver} res
+\caption{Pseudocódigo del algoritmo constructivo}
+\end{algorithm}
+
+\vspace{3em}
+
+\textbf{mayorFronteraEnComun}(G: grafo) \\
+\begin{algorithm}[H]
+	\BlankLine
+	aux = $\emptyset$\\
+	res = $\emptyset$\\
+	\textbf{paratodo} u,v $\in\ V_{G}$ \textbf{tq} (u,v) $\in\ X_{G}$ \\
+		\tab aux = (adyacentes(G,u) $\cap$ adyacentes(G,v)) $\cup$ u $\cup$ v\\
+		\tab \textbf{si} \#aux $>$ \#res\\
+			\tab \tab res = aux\\
+		\tab \textbf{fin si}\\
+	\textbf{fin paratodo}\\
+
+	\textbf{devolver} res
+
+\caption{Pseudocódigo de un algoritmo secundario al constructivo}
+\end{algorithm}
+ 
+\normalsize
+
+\paragraph{}
+Comparando el algoritmo goloso por sí sólo y la combinación entre la preselección y el mismo, se puede decir que se mejora en cierto grado el comportamiento del algoritmo ya que existen muchos casos en el que sólo aplicar el algoritmo goloso no daba buenos resultados y que si se aplica la preselección la heurística devuelve mejores resultados, incluso a veces da resultados exactos. Igualmente, al ser una heurística, también existen casos en los que la misma puede funcionar tan mal como uno quiera.
 
 
 \subsection{Análisis de la complejidad del algoritmo}
