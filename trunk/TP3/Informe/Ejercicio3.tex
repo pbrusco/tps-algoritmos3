@@ -21,7 +21,7 @@ A fines de evitar en cierto grado muchos casos para los cuales este algoritmo fu
 Una vez encontrado este subgrafo, se procede a realizar el algoritmo goloso antes mencionado pero sobre dicho subgrafo, es decir, se busca el nodo con mayor grado en ese subgrafo y se coloca en un conjunto, el cuál será devuelto como clique al terminar el algoritmo. Luego, para el resto de los nodos del subgrafo, se va tomando de a uno a la vez en orden de mayor a menor grado (considerando sólo los adyacentes que pertenecen al subgrafo) y se verifica que sea adyacente a todos los que pertenecen a la clique. Si lo es, entonces se lo inserta en el conjunto sino se lo descarta. Finalmente, se prosigue con estos pasos hasta haber intentado con todos los nodos del subgrafo devolviendo entonces la clique encontrada.
 
 \paragraph{}
-A continuación se adjunta el pseudocódigo del algoritmo constructivo antes descripto y el de las funciones auxiliares pertinentes.
+A continuación se adjunta el pseudocódigo del algoritmo constructivo antes descripto y el de las funciones auxiliares pertinentes. En los mismos, utilizaremos a ``n'' como forma de expresar la cantidad de nodos pertenecientes al grafo.
 
 \vspace{2em}
 \incmargin{3em}
@@ -31,21 +31,21 @@ A continuación se adjunta el pseudocódigo del algoritmo constructivo antes des
 \textbf{AlgoritmoConstructivo}(G: grafo) \\
 \begin{algorithm}[H]
 	\BlankLine
-	frontera = mayorFronteraEnComun(G)\\
-	res = $\emptyset$
+	frontera = mayorFronteraEnComun(G) \tcp*{\Ode{n^3}}
+	res = $\emptyset$\tcp*{\Ode{1}}
 	\BlankLine
 
 	\textbf{mientras} frontera $\neq\ \emptyset$\\
 
-		\tab v = elMasRelacionado(G,frontera)\\
-		\tab \textbf{si} esVecinoDeTodos(G,res,v)\\
-			\tab \tab \textbf{insertar} v \textbf{en} res\\
+		\tab v = elMasRelacionado(G,frontera)\tcp*{\Ode{n^2}}
+		\tab \textbf{si} esVecinoDeTodos(G,res,v)\tcp*{\Ode{n}}
+			\tab \tab \textbf{insertar} v \textbf{en} res\tcp*{\Ode{log(n)}}
 		\tab \textbf{fin si}\\
-		\tab \textbf{eliminar} v \textbf{de} frontera\\
+		\tab \textbf{eliminar} v \textbf{de} frontera\tcp*{\Ode{log(n)}}
 	\textbf{fin mientras}\\
 
-	\textbf{si} res $==\ \emptyset$\\
-		\tab \textbf{insertar} $v_0$ \textbf{en} res\\
+	\textbf{si} res $==\ \emptyset$\tcp*{\Ode{1}}
+		\tab \textbf{insertar} $v_0$ \textbf{en} res\tcp*{\Ode{1}}
 	\textbf{fin si}\\
 
 	\textbf{devolver} res
@@ -57,12 +57,12 @@ A continuación se adjunta el pseudocódigo del algoritmo constructivo antes des
 \textbf{mayorFronteraEnComun}(G: grafo) \\
 \begin{algorithm}[H]
 	\BlankLine
-	aux = $\emptyset$\\
-	res = $\emptyset$\\
+	aux = $\emptyset$\tcp*{\Ode{1}}
+	res = $\emptyset$\tcp*{\Ode{1}}
 	\textbf{paratodo} u,v $\in\ V_{G}$ \textbf{tq} (u,v) $\in\ X_{G}$ \\
-		\tab aux = (adyacentes(G,u) $\cap$ adyacentes(G,v)) $\cup$ u $\cup$ v\\
-		\tab \textbf{si} \#aux $>$ \#res\\
-			\tab \tab res = aux\\
+		\tab aux = (adyacentes(G,u) $\cap$ adyacentes(G,v)) $\cup$ u $\cup$ v\tcp*{\Ode{n}}
+		\tab \textbf{si} \#aux $>$ \#res\tcp*{\Ode{1}}
+			\tab \tab res = aux\tcp*{\Ode{1}}
 		\tab \textbf{fin si}\\
 	\textbf{fin paratodo}\\
 
@@ -74,10 +74,22 @@ A continuación se adjunta el pseudocódigo del algoritmo constructivo antes des
 \normalsize
 
 \paragraph{}
-Comparando el algoritmo goloso por sí sólo y la combinación entre la preselección y el mismo, se puede decir que se mejora en cierto grado el comportamiento del algoritmo ya que existen muchos casos en el que sólo aplicar el algoritmo goloso no daba buenos resultados y que si se aplica la preselección la heurística devuelve mejores resultados, incluso a veces da resultados exactos. Igualmente, al ser una heurística, también existen casos en los que la misma puede funcionar tan mal como uno quiera.
+El pseudocódigo de las funciones \textit{elMasRelacionado, esVecinoDeTodos} y \textit{adyacentes} no se detalla ya que no son algoritmos de gran complejidad. Igualmente, se explicarán brevemente a continuación.\\
+En el caso de \textit{elMasRelacionado}, recibe dos parámetros, un grafo y un conjunto de vértices. Esta función devuelve el vértice de mayor grado del grafo inducido por los vértices de ese conjunto. La función \textit{esVecinoDeTodos} recibe un grafo, un vértice y un conjunto de vértices. Devuelve verdadero si y sólo si el vértice es adyacente a todos los vértices del conjunto. Por último, en el caso de la función \textit{adyacentes}, recibe un grafo y un vértice como parámetros y devuelve el conjunto de todos los vértices adyacentes al pasado como parámetro.
 
 
 \subsection{Análisis de la complejidad del algoritmo}
+
+\paragraph{}
+Para realizar el siguiente análisis de complejidad vamos a remitirnos al pseudocódigo de la función \textit{AlgoritmoConstructivo} adjunto en la sección anterior. Cabe recordar que cada vez que se haga mención a ``n'' nos estaremos refiriendo a la cantidad de nodos del grafo al que se quiere analizar.\\
+En la primer línea se realiza una llamada a la función \textit{mayorFronteraEnComun} y una asignación. Estas 2 operaciones tienen una complejidad de \Ode{n^3}. Más adelante se explicará el por qué de la misma. Luego, dentro del ciclo, la función que mayor complejidad temporal tiene es \textit{elMasRelacionado} y la misma es \Ode{n^2}. Esta complejidad se debe a que para cada vértice del grafo inducido por el conjunto de vértices pasado como parámetro, se debe calcular cuántos vecinos tiene dentro de ese grafo, para lo que se debe recorrer todo el conjunto una vez por cada vértice. Como a lo sumo puede haber ``n'' vértices en ese conjunto, debo recorrerlo ``n'' veces por cada vértice. Entonces, su complejidad es \Ode{n^2}.\\
+Deberiamos ver ahora cuántas veces va a ejecutarse el ciclo. Este finalizará una vez que el conjunto llamado ``frontera'' quede vacío. Este arranca con el valor de la mayor frontera en común, por lo que a lo sumo puede ser de tamaño ``n'', es decir, todos los vértices pueden pertenecer a él en el peor caso. Podemos observar además, que en cada paso del ciclo, su tamaño disminuye en uno (línea 8, al eliminar un vértice del conjunto) , por lo que a lo sumo el ciclo se ejecutará ``n'' veces. Como la función más compleja dentro del ciclo era \textit{elMasRelacionado} con una complejidad de \Ode{n^2} y la misma se ejecutará ``n'' veces, entonces la complejidad total temporal del ciclo es de \Ode{n^3}. Por lo tanto, la complejidad del algoritmo constructivo es de \Ode{n^3}.
+
+\paragraph{}
+Para completar este análisis, falta justificar por qué la función \textit{mayorFronteraEnComun} tiene complejidad \Ode{n^3}.\\
+En el caso de la intersección 
+
+
 \subsection{Detalles de implementación}
 \subsection{Resultados}
 \subsection{Debate}
