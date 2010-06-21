@@ -1,2 +1,99 @@
 \section{Ejercicio 4}
 
+\subsection{Introducción}
+\paragraph{}
+En este ejercicio, nos fue requerida una implementación de un algoritmo que utilice la técnica de búsqueda local para resolver el problema de \mc.
+
+\subsection{Explicación}
+
+\paragraph{}
+La idea general de la búsqueda local es partir de una solución parcial, ya sea una dada por algún algoritmo constructivo o alguna solución trivial y de allí realizar una búsqueda de soluciones vecinas que pueda mejorar la solución parcial encontrada antes.
+
+\paragraph{}
+Para comenzar con el algoritmo, se decidió que la solución de partida sea la que se obtiene a partir del algoritmo constructivo implementado como solución del ejercicio 3, que se detalla en la sección [\ref{ej3}].\\
+Luego, se definió qué iba a ser tomado como vecindad, es decir, qué conjunto de soluciones iban a ser tenidas en cuenta a la hora de realizar la búsqueda local. Para definir esta vecindad, hubo que tener en cuenta que la misma debía ser fácil de calcular. Además, el criterio de parada debía ser cuando se encontrara un máximo local.
+
+\paragraph{}
+Como la vecindad a definir debía ser lo suficientemente simple y debía mantener un espacio de búsqueda de soluciones relativamente pequeño, se optó por definir la siguiente vecindad:\\
+Dada una solución parcial $S$, se saca un nodo $v$ de dicha solución y se obtiene $S_1 = S\ \diagdown\ \{v\}$, y se define un conjunto de candidatos a mejorar la solución parcial $S$. Sea $C$ este conjunto de candidatos, los vértices pertenecientes a $C$ son todos aquellos pertenecientes al grafo original que tienen al menos un vecino dentro de $S_1$. Una vez obtenido el conjunto de candidatos, se los va tomando en orden de grados (de mayor a menor) y se intenta insertarlos en $S_1$ siempre que esa inserción mantenga la propiedad de que $S_1$ sea una clique. Una vez hecho el intento con todos los vértices de $C$ se verifica si se obtuvo o no una mejor solución que $S$, es decir, si $\#S_1\ > \#S$. De ser positivo, esta solución $S_1$ es guardada.\\
+Estos pasos se repiten para todos los vértices pertenecientes a $S$. Una vez finalizado esto, pueden suceder 2 cosas: que se haya encontrado una mejor solución que $S$ o que no. Si se encontró una mejor solución, entonces se repiten todos los pasos antes mencionados pero para esta nueva solución parcial. Sino, significa que se encontró un máximo local, por lo que el algoritmo finaliza. Así como el orden en que se van tomando los vértices de $C$ es de mayor a menor grado, en el caso de los vértices que se van descartando de $S$ se hace en orden inverso, es decir, comenzando por los que tienen menor grado hacia los que tienen mayor grado.
+
+\paragraph{}
+Para graficar mejor este procedimiento, se detalla a continuación el pseudocódigo de las funciones que lo implementan.
+
+\vspace{2em}
+\incmargin{1em}
+\linesnumbered
+\restylealgo{boxed}
+\footnotesize 
+\textbf{busquedaLocal}(G: grafo) \\
+\begin{algorithm}[H]
+	\BlankLine
+	termine = false\\
+
+	maxClique = cliqueConstructivo(G)\\
+	
+	\textbf{mientras} termine $==$ false \textbf{hacer}\\
+		
+		\tab cambio = false\\
+
+		\tab $<$maxClique,cambio$> =$ cambiarSiMaximiza(G,maxClique,cambio)\\
+		
+		\tab \textbf{si} cambio $==$ false\\
+			\tab \tab termine = true\\
+		\tab \textbf{fin si}\\
+	\textbf{fin mientras}\\
+
+	\textbf{devolver} maxClique
+
+\caption{Pseudocódigo del algoritmo de búsqueda local}
+\end{algorithm}
+
+\vspace{3em}
+
+
+\textbf{cambiarSiMaximiza}(G: grafo, maxClique: conjunto, cambio: bool) \\
+\begin{algorithm}[H]
+	\BlankLine
+	copiaClique = maxClique\\
+	cliqueDeMenorAMayor = frontera(copiaClique,false)\\
+
+	\textbf{mientras} cliqueDeMenorAMayor \textbf{no sea un Heap vacío}\\
+
+		\tab posibleMejora = copiaClique $\diagdown$ \{tope(cliqueDeMenorAMayor)\}\\
+
+		\tab candidatos = frontera(posibleMejora,true)\\
+		
+		\tab \textbf{mientras} candidatos \textbf{no sea un Heap vacío}\\
+			\tab \tab \textbf{si} vecinoDeTodos(tope(candidatos),posibleMejora)\\
+				\tab \tab \tab posibleMejora = posibleMejora $\cup$ tope(candidatos)\\
+			\tab \tab \textbf{fin si}\\
+			\tab \tab pop(candidatos)\\
+		\tab \textbf{fin mientras}\\
+
+
+		\tab \textbf{si} $\#$posibleMejora $>\ \#$maxClique\\
+			\tab \tab maxClique = posibleMejora\\
+			\tab \tab cambio = true\\
+		\tab \textbf{fin si}\\
+		\tab pop(cliqueDeMenorAMayor)\\
+	\textbf{fin mientras}\\
+
+\caption{Pseudocódigo del algoritmo cambiarSiMaximiza}
+\end{algorithm}
+
+\vspace{3em}
+
+
+
+
+
+
+
+
+\normalsize
+\subsection{Análisis de la complejidad del algoritmo}
+\subsection{Detalles de implementación}
+\subsection{Resultados}
+\subsection{Debate}
+\subsection{Conclusiones}

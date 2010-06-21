@@ -1,5 +1,5 @@
 \section{Ejercicio 3}
-
+\label{ej3}
 \subsection{Introducción}
 
 \paragraph{}
@@ -28,7 +28,7 @@ A continuación se adjunta el pseudocódigo del algoritmo constructivo antes des
 \linesnumbered
 \restylealgo{boxed}
 \footnotesize 
-\textbf{AlgoritmoConstructivo}(G: grafo) \\
+\textbf{cliqueConstructivo}(G: grafo) \\
 \begin{algorithm}[H]
 	\BlankLine
 	frontera = mayorFronteraEnComun(G) \tcp*{\Ode{n^3}}
@@ -87,7 +87,7 @@ Deberiamos ver ahora cuántas veces va a ejecutarse el ciclo. Este finalizará u
 
 \paragraph{}
 Para completar este análisis, falta justificar por qué la función \textit{mayorFronteraEnComun} tiene complejidad \Ode{n^3}.\\
-En el caso de la intersección 
+En el caso de la intersección, sólo hace falta recorrer una sola vez la lista de todos los vértices para saber cuáles son vecinos a ambos nodos a la vez, y la unión de dicha intersección con los vértices ``u'' y ``v'' tiene complejidad logarítmica, por lo que dicha instrucción tiene complejidad \Ode{n}. Pero esta sentencia se ejecuta tantas veces como se ejecute el ciclo \textit{for}, así que para saber la complejidad total, debemos conocer las veces que se ejecuta el ciclo: éste se ejecuta tantas veces como aristas haya. En el peor caso, si hay ``n'' nodos entonces puede haber hasta ``$n^2$'' aristas. Por lo que el ciclo se ejecutará a lo sumo $n^2$ veces\footnote{La complejidad podría verse como \Ode{m} pero como se eligió una matriz de adyacencia para modelar el grafo, para recorrer todas las aristas es necesario pasar por cada valor de la matriz de adyacencia, por eso es que se toma como complejidad \Ode{n^2} y no \Ode{m}}. Finalmente, la complejidad total de \textit{mayorFronteraEnComun} es \Ode{n^3}. 
 
 
 \subsection{Detalles de implementación}
