@@ -9,6 +9,7 @@ Este problema es muy conocido. Además, no está computacionalmente resuelto  y 
 
 \subsection{Algunas aplicaciones}
 
+\subsubsection{Telefonía Móvil}
 \paragraph{}
 Una aplicación posible podría darse por ejemplo, en el contexto de una compañía de telefonía móvil. Como bien se conoce, este tipo de empresa ofrece un plan llamado ``plan empresas'' para el cuál todos los teléfonos que se encuentren bajo este, tienen la posibilidad de comunicarse entre sí de forma libre.
 
@@ -28,5 +29,22 @@ Con este modelo, encontrar una clique de tamaño K significa encontrar un grupo 
 \paragraph{}
 De la misma forma, se puede pensar al revés, y quizás a la empresa le interese conocer grupos de celulares que estén todos comunicados entre sí, para NO ofrecerles el ``plan empresas'' ya que de esa manera ese grupo de personas podría eventualmente bajar el consumo de sus llamadas descendiendo las ganancias de la empresa de telefonía.
 
+\subsubsection{Planes Sociales}
 
+\paragraph{}
+Imaginemos que el gobierno de la nación quiere lanzar un nuevo plan social y quiere que la entrega de estos sea lo más equitativa posible para la sociedad. En este sentido, quiere entregar planes a la mayor cantidad de personas posibles de forma tal que ninguna persona que reciba el beneficio del plan esté relacionada directamente con otra que también lo reciba. Por relacionada directamente, se entiende que esas personas no tengan un parentesco directo que las una (madre,padre,hijo/a). Podemos pensar el siguiente modelo de grafos:\\
+Los nodos son las personas que pueden verse beneficiadas con el plan (i.e: mayores de 18 años que tengan hijos) y existe un eje que une un par de nodos si existe un parentesco directo que una a las dos personas que representan esos nodos.
+
+\paragraph{}
+Lo que se debería buscar en este modelo entonces es el mayor conjunto de nodos independientes, es decir, un conjunto de nodos tales que para un par cualquiera de esos nodos no exista una arista que los una. Esto no es directamente transferible a un problema de \mc pero lo es si tomamos el complemento del grafo proveniente del modelo anteriormente mencionado. Haciendo esto, sabemos que el grafo resultante tiene ejes donde antes no había y le faltan los ejes que antes existían. Por lo que, si antes había un conjunto de nodos independientes, en el complemento en su lugar hay una clique. Por lo tanto ahora sí podemos ver que encontrar una \mc en el complemento del grafo creado como antes se mencionó es igual a encontrar un grupo de personas no relacionadas entre sí para poder asignarles un plan social.
+
+
+\subsubsection{Buscador Web}
+
+\paragraph{}
+Como bien sabemos, en un buscador web se realizan muchísimas búsquedas diarias. Para la empresa que mantiene un buscador web, puede ser de gran importancia saber cuál es el tema o palabra más buscado/a en algún período de tiempo en particular. Podemos pensar por ejemplo el siguiente modelo para las búsquedas realizadas:\\
+Los nodos representan una palabra o frase que haya sido buscada en el sitio web. Las aristas aparecen entre dos nodos si entre esas frases hay alguna palabra en común (o un cierto porcentaje de palabras en común, por ejemplo, para evitar que dos frases estén relacionadas sólo por tener una preposición en común).
+
+\paragraph{}
+Para este modelo, encontrar una clique significa encontrar un conjunto de frases que (en cierto sentido) hacen referencia a una misma temática. Por lo tanto, encontrar una \mc sería equivalente a conocer cuál es el tema (o palabra) más consultado en el buscador web.
 
