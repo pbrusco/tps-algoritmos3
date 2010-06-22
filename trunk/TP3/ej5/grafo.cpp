@@ -108,21 +108,23 @@ int Grafo::masRelacionado(const set<int>& frontera) const {
 void Grafo::cliqueTabu(set<int>& res) const {
 	cliqueConstructivo(res);
 	bool atascado = true;
-	int cota = definirCota();
+	int stop = matAd.size();
 	set<int> cliqueAux = res;			/* empiezo a partir de la solución constructiva */
 
-	while ((cota > 0) and atascado) {
-
+	while ((stop > 0) and atascado) {
+	
 		/* Busco la clique mas grande que me sea posible haciendo una busqueda Tabu */
 		atascado = busquedaTabu(cliqueAux);
 
-		/* Si, me detuve porque empeoré demasiado, difersifico y busco nuevamente */
-		if (atascado) diversificar(cliqueAux);
-
-		/* Sino, me fijo si la clique encontrada es mejor que la que tenia como respuesta y la actualizo */ 
-		else if (cliqueAux.size() > res.size()) res = cliqueAux;
-
-		cota--;
+		/* Me fijo si la clique encontrada es mejor que la que tenia como respuesta y la actualizo */ 
+		if (cliqueAux.size() > res.size()) res = cliqueAux;
+		
+		/* Si me detuve porque empeoré demasiado, difersifico y busco nuevamente */
+		if (atascado) {
+			cliqueAux.clear();
+			diversificar(cliqueAux);
+		}
+		stop--;
 	} 
 }
 
@@ -134,78 +136,93 @@ int Grafo::definirCota() const {
 
 
 void Grafo::diversificar(set<int>& res) const {
-	//COMPLETAR
+	int n1 = randomNmbr(0, matAd.size());
+	int n2 = randomNmbr(0, matAd.size());
+	while (not sonAdyacentes(n1,n2)) {
+		n1 = randomNmbr(0, matAd.size());
+		n2 = randomNmbr(0, matAd.size());
+	}
+	res.insert(n1);
+	res.insert(n2);
 }
 
 
 bool Grafo::busquedaTabu(set<int>& res) const {
 	bool respuesta = false; 
-	int nodo, empeore=0, n=matAd.size(), cota=definirCota();
+	int v, u, desmejore = 0, n=matAd.size(), stop=definirCota();
 	listaTabu Tabu;
 	Heap vecindad;
 	set<int> agregados, cliqueTemp = res;
 	
-	/* Mientras la clique temporal no esté vacía y no haya empeorado n veces y no haya pasado la cota... */
-	while ((cota > 0) and (empeore < n) and (not cliqueTemp.empty())) {
+	/* Mientras no se cumplan las condiciones de parada... */
+	while ((stop > 0) and (desmejore < n/4) and (not cliqueTemp.empty())) {
 
-		/* Si la lista Tabu tiene n elementos, quito el primero de a lista */
-		if (Tabu.first.size() == n) {
+		/* Busco en la clique temporal el nodo de menor grado que no esté en la lista Tabu-Agregados, */
+		v = nodoConMenorGrado(Tabu, cliqueTemp);			
+		
+		/* Si no puedo sacar ningun nodo incremento el contador de desmejora */
+		if (v == -1) desmejore++;
+		
+		/* Sino ... */
+		else {
+			/* Reseteo el contador de desmejora, y elimino el nodo de la clique */
+			desmejore = 0;
+			cliqueTemp.erase(v);
+										
+			/* Busco los nodos que no estan en la clique y que no están en la lista Tabu-Eliminados, y que tengan como vecino */
+			/* al menos a algún nodo de la clique temporal */
+			agregados.clear();
+			vaciarHeap(vecindad);		
+			definirVecindad(Tabu,cliqueTemp,vecindad);
+
+			/* Mientras que la vecindad definida no sea vacía, evalúo si el nodo del tope de la vecindad es vecino de todos */
+			/* los nodos de la clique temporal. De ser así lo agrego a esta y lo registro. Luego borro de la vecindad al nodo */
+			/* que acabo de evaluar */
+			while (not vecindad.empty()) {
+				u = vecindad.top().second;
+				vecindad.pop();
+				if (vecinoDeTodos(u, cliqueTemp)) {
+					cliqueTemp.insert(u);
+					agregados.insert(u);
+				}
+			}
+	
+			/* Agrego el nodo eliminado a la lista Tabu-Eliminados y agrego los nodos agregados a la clique en la lista */
+			/* Tabu-Agregados. */
+			Tabu.first.push_back(v);
+			Tabu.second.push_back(agregados);
+			
+			/* Si la clique temporal resultante tiene mayor tamaño que la que tenía como respuesta, actualizo la respuesta */
+			if (cliqueTemp.size() > res.size()) res = cliqueTemp;
+		}
+
+		/* Si la lista Tabu tiene n/2 elementos, quito el primero de a lista. Luego decremento la cota */
+		if (Tabu.first.size() == n/2) { 
 			(Tabu.first).pop_front();
 			(Tabu.second).pop_front();
 		}
-
-		/* Busco en la clique temporal el nodo de menor grado */
-		nodo = nodoConMenorGrado(cliqueTemp);			
-		
-		/* Si no está en la lista Tabu-Agregados lo elimino de la clique y lo agrego a la lista Tabu-Eliminados */
-		if (not estaEnTabuAgregados(nodo,Tabu)) {
-			cliqueTemp.erase(nodo);
-			Tabu.first.push_back(nodo);
-		}
-			
-		/* Busco los nodos que no estan en la clique y que no estén en la lista Tabu-Eliminados, y que tengan como vecino */
-		/* al menos a algún nodo de la clique temporal */
-		agregados.clear();
-		vaciarHeap(vecindad);		
-		definirVecindad(Tabu,cliqueTemp,vecindad);
-	
-		/* Mientras que la vecindad definida no sea vacía, evalúo si el nodo del tope de la vecindad es vecino de todos */
-		/* los nodos de la clique temporal. De ser así lo agrego a esta y lo registro. Luego borro de la vecindad al nodo */
-		/* que acabo de evaluar */
-		while (not vecindad.empty()) {
-			nodo = vecindad.top().second;
-			vecindad.pop();
-			if (vecinoDeTodos(nodo, cliqueTemp)) {
-				cliqueTemp.insert(nodo);
-				agregados.insert(nodo);
-			}
-		}
-		
-		/* Registro los nodos agregados en la lista Tabu-Agregados */
-		Tabu.second.push_back(agregados);
-				
-		/* Si no agregue ningún nodo, como quite un nodo y no agregué otros significa que empeoré */
-		/* Incremento el contador de "empeoramiento" */
-		if (agregados.empty()) empeore++;
-		
-		/* En cambio, si agregué nodos, y la clique temporal resultante tiene mayor tamaño que la que tenía como */
-		/* respuesta, actualizo la respuesta y pongo en 0 el contador de "empeoramiento" */ 
-		else if (cliqueTemp.size() > res.size()) {
-			res = cliqueTemp;
-			empeore = 0;
-		}
+		stop--;
 	}
-	if (empeore == n) respuesta = true;
-	return respuesta;
+	
+	/* Analizo si sali del bucle por haber desmejorado demasiado. De ser asi devuelvo True; sino devuelvo False */
+	if (desmejore == n/4) return true;
+	else return false;
 }
 
 
-int Grafo::nodoConMenorGrado(const set<int>& c) const {
-	int res = grados[*c.begin()];
+int Grafo::nodoConMenorGrado(const listaTabu& T, const set<int>& c) const {
+	set<int> aux;
 	forall(it,c) {
-		if (grados[res] > grados[*it]) res = *it;
+		if (not estaEnTabuAgregados(*it, T)) aux.insert(*it);
 	}
-	return res;
+	if (aux.empty()) return -1;
+	else {
+		int res = *aux.begin();
+		forall(it,aux) {
+			if (grados[res] > grados[*it]) res = *it;
+		}
+		return res;
+	}
 }
 
 
@@ -226,20 +243,28 @@ void Grafo::ponerEnHeap(bool maxHeap, const set<int>& c , Heap& res) const{
 }
 
 
+void vaciarHeap(Heap& h) {
+	while(not h.empty()) {h.pop();}
+}
+
+
 bool estaEnTabuEliminados(int v, const listaTabu& T) {
-	bool res = true;
-	forall(it,T.first) {res = res and (v != *it);}
+	bool res = false;
+	forall(it,T.first) {res = res or (v == *it);}
 	return res;
 }
 
 
 bool estaEnTabuAgregados(int v, const listaTabu& T) {
-	bool res = true; 
-	forall(it, T.second) {res = res and ((*it).count(v) == 0);}
+	bool res = false; 
+	forall(it, T.second) {res = res or ((*it).count(v) != 0);}
 	return res;
 }
 
 
-void vaciarHeap(Heap& h) {
-	while(not h.empty()) {h.pop();}
+int randomNmbr(int desde, int hasta, int x) {
+	int res = x;
+	srand(time(NULL));
+ 	while (res == x) {res = (rand() % (hasta-desde))+desde;}
+	return res;
 }
