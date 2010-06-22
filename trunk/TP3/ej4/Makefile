@@ -1,13 +1,12 @@
-GXX = g++
-GXXFLAGS = -g -w -o
+CC=g++
+CFLAGS= -g -w -o
+OBJ = 
+.PHONY: all clean
 
-.PHONY=clean all
+all: clean ej4
 
-4_ej: ej4.cpp
-	$(GXX) $(GXXFLAGS) $@ $<
-
-all: clean 4_ej
-
+ej4: ej4.cpp $(OBJ)
+	$(CC) $(CFLAGS) $@ $^
+	
 clean:
-	rm 4_ej
-
+	rm -f ej4

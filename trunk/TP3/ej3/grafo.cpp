@@ -53,7 +53,6 @@ int Grafo::cantVecinos(int v, const set<int>& c) const {
 void Grafo::cliqueConstructivo(set<int>& res) const {
 	int v;
 	set<int> frontera;
-
 	mayorFrontera(frontera);
 	while (frontera.size() != 0) {
 		v = masRelacionado(frontera);
@@ -68,6 +67,7 @@ void Grafo::mayorFrontera(set<int>& res) const {
 	set<int> aux;
 	for(int i=0; i<matAd.size(); i++) {
 		for(int j =i+1; j<matAd.size(); j++) {
+			res.clear();
 			fronteraEnComun(i,j,aux);
 			if (aux.size() > res.size()) {
 				res = aux;
@@ -78,7 +78,6 @@ void Grafo::mayorFrontera(set<int>& res) const {
 
 
 void Grafo::fronteraEnComun(int u, int v, set<int>& res) const {
-	res.clear();
 	if (sonAdyacentes(u,v)) {
 		forn(j,matAd.size()) {
 			if (sonAdyacentes(u,j) && sonAdyacentes(v,j)) res.insert(j);
@@ -88,12 +87,10 @@ void Grafo::fronteraEnComun(int u, int v, set<int>& res) const {
 	}
 }
 
-int Grafo::masRelacionado(const set<int>& frontera) const {
 
-	int res, vecinosRes = 0, vecinosAux;
-	set<int>::iterator it = frontera.begin();
-	res = *it;
-	for(it; it != frontera.end(); it++){
+int Grafo::masRelacionado(const set<int>& frontera) const {
+	int res = *frontera.begin(), vecinosRes = 0, vecinosAux;
+	forall(it,frontera) {
 		vecinosAux = cantVecinos(*it,frontera);
 		if(vecinosAux > vecinosRes){
 			res = *it;
@@ -102,4 +99,3 @@ int Grafo::masRelacionado(const set<int>& frontera) const {
 	}
 	return res;
 }
-

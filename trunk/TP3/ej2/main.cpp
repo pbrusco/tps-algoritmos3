@@ -10,7 +10,7 @@
 using namespace std;
 
 void printSet(ostream& os, set<int> c);
-double resolverExacto(string input, string output);
+double resolverExacto(const string& input, const string& output);
 double timeval_diff(struct timeval& a, struct timeval& b); 	/* retorna "a - b " en microsegundos */
 
 
@@ -20,14 +20,14 @@ int main(int argc, char** argv) {
 	
 	if (argc == 1) {
 		input = "../in/Tp3.in";
-		output = "../out/Tp3EXACTO.out";
+		output = "../out/2 - EXACTO/Tp3.out";
 		time = resolverExacto(input,output);
 		cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
 	}
 	else {
 		forn(i, argc-1) {
 			input = argv[i+1];
-			output = ("../out" + input.substr(5, input.size()-8) + ".out");
+			output = ("../out/2 - EXACTO" + input.substr(5, input.size()-8) + ".out");
 			time = resolverExacto(input,output);
 			cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
 		}
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 }
 
 	
-double resolverExacto(string input, string output) {
+double resolverExacto(const string& input, const string& output) {
 	Grafo g;
 	int n;
 	set<int> res;
