@@ -19,14 +19,16 @@ struct Grafo{
 	vector<int> grados;
 	
 	//metodos
-	int cantVecinos(int v, const set<int>& vecindad) const;
+	
+	void cargar(istream& is, int n);
 	bool sonAdyacentes(int v1, int v2) const;
 	bool vecinoDeTodos(int v, const set<int>& c) const;
-	void cargar(istream& is, int cantNodos);
-	set<int> fronteraEnComun(int u, int v) const;
-	set<int> losMasFronterizos(int &u, int &v) const;
+	int cantVecinos(int v, const set<int>& c) const;
+	void cliqueConstructivo(set<int>& res) const;//cambio
+	void mayorFrontera(set<int>& res) const;//cambio, era losMasFronterizos
+	void fronteraEnComun(int u, int v, set<int>& res) const;//cambio
 	int masRelacionado(const set<int>& frontera) const;
-	set<int> cliqueConstructivo() const;
+	
 
 	void busquedaLocal(set<int> &cliqueMaximo) const;
 	void frontera(const set<int>& clique, bool maxHeap, Heap &vecinos) const;

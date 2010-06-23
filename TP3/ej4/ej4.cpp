@@ -1,9 +1,38 @@
 #include "ej4.h"
+#include <cassert>
+
+#define forn(i,n) for(int i=0; i<n; i++)
+#define forall(it,X) for(typeof((X).begin()) it = (X).begin(); it != (X).end(); it++)
 
 using namespace std;
 
 
-int main(){
+int main(int argc, char** argv){
+
+	string in,out;
+
+	if(argc == 1){
+		in = "../in/Tp3.in";
+		out = "../out/4 - BUSQ_LOCAL/Tp3LOCAL.out";
+	}
+	else{
+		if(argc == 2){
+			in = argv[1];
+			int pos = in.rfind('/');
+			out = in.substr(pos+1, in.size());
+			pos = out.rfind(".in");
+			if (pos!=string::npos)
+    			out.replace(pos,3,".out");
+    		
+			out = "../out/4 - BUSQ_LOCAL/" + out;
+		}
+		else{
+			cout << "Se debe dar 1 o ningún parámetro. En el caso de dar 1 parámetro, "
+				 << "pasar el archivo de entrada. En el caso de no dar parámetros, "
+				 << "tomará los archivos por defecto (/in/Tp3.in y /out/4 - BUSQ_LOCAL/Tp3LOCAL.out)";
+			assert(argc != 2 && argc != 1);
+		}
+	}
 
 	int cantNodos;
 	int i = 1;
@@ -11,8 +40,8 @@ int main(){
 	set<int> cliqueMaximo;
 	ifstream is;
 	ofstream os;
-	os.open("../out/prueba2BUSQUEDALOCAL.out");
-	is.open("../in/prueba2.in");
+	os.open(out.c_str());
+	is.open(in.c_str());
 	is >> cantNodos;
 	
 	while(cantNodos != -1){
@@ -20,7 +49,7 @@ int main(){
 		g.cargar(is,cantNodos);
 
 		//solucion constructiva
-		cliqueMaximo = g.cliqueConstructivo();
+		g.cliqueConstructivo(cliqueMaximo);
 		
 		//aca empieza la busqueda local
 		g.busquedaLocal(cliqueMaximo);
@@ -85,36 +114,27 @@ bool Grafo::vecinoDeTodos(int v, const set<int>& c) const {
 	return res;
 }
 
-set<int> Grafo::fronteraEnComun(int u, int v) const {
-
-	set<int> res;
-	for(int j = 0; j < matAd.size(); j++){
-		if(sonAdyacentes(u,j) && sonAdyacentes(v,j))
-			res.insert(j);
-	}
-	if(sonAdyacentes(u,v)){
+void Grafo::fronteraEnComun(int u, int v, set<int>& res) const {
+	res.clear();
+	if (sonAdyacentes(u,v)) {
+		forn(j,matAd.size()) {
+			if (sonAdyacentes(u,j) && sonAdyacentes(v,j)) res.insert(j);
+		}
 		res.insert(u);
 		res.insert(v);
-	}		
-	return res;
+	}
 }
 
-set<int> Grafo::losMasFronterizos(int &u, int &v) const{
-
-	set<int> res,aux;
-	u = 0;
-	v = 1;
-	for(int i = 0; i < matAd.size(); i++){
-		for(int j = i+1; j < matAd.size(); j++){
-			aux = fronteraEnComun(i,j);
-			if(aux.size() > res.size()){
+void Grafo::mayorFrontera(set<int>& res) const {
+	set<int> aux;
+	for(int i=0; i<matAd.size(); i++) {
+		for(int j =i+1; j<matAd.size(); j++) {
+			fronteraEnComun(i,j,aux);
+			if (aux.size() > res.size()) {
 				res = aux;
-				u = i;
-				v = j;
 			}
 		}
 	}
-	return res;
 }
 
 
@@ -144,24 +164,18 @@ int Grafo::cantVecinos(int v, const set<int>& vecindad) const {
 }
 
 
-set<int> Grafo::cliqueConstructivo() const {
-
-	int x,y,v;
-	set<int> res;
-	set<int> frontera = losMasFronterizos(x,y);
-
-	while(frontera.size() != 0){
+void Grafo::cliqueConstructivo(set<int>& res) const {
+	int v;
+	set<int> frontera;
+	mayorFrontera(frontera);
+	while (frontera.size() != 0) {
 		v = masRelacionado(frontera);
-		if(vecinoDeTodos(v,res))
-			res.insert(v);
+		if (vecinoDeTodos(v,res)) res.insert(v);
 		frontera.erase(v);
 	}
-	
-	if(res.size() == 0)
-		res.insert(0);
-	
-	return res;
+	if (res.size() == 0) res.insert(0);
 }
+
 
 void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 
