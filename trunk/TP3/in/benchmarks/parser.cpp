@@ -92,7 +92,7 @@ void Grafo::guardarnuestro(string out){
 void guardarLista(ostream& os, const list<int>& l){
 
 	for(list<int>::const_iterator it = l.begin(); it != l.end(); it++){
-		os << *it << " ";
+		os << *it+1 << " ";
 	}
 
 }
