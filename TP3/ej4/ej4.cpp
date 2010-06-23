@@ -198,7 +198,7 @@ void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 
 }
 
-void Grafo::frontera(const set<int>& clique, bool maxHeap, Heap &vecinos) const{
+void Grafo::vecinosAMaxHeap(const set<int>& clique, Heap &vecinos) const{
 
 	if(!vecinos.empty()){
 		vaciarHeap(vecinos);
@@ -207,14 +207,20 @@ void Grafo::frontera(const set<int>& clique, bool maxHeap, Heap &vecinos) const{
 	for(set<int>::iterator it = clique.begin(); it != clique.end(); it++){
 		for(int i = 0; i < matAd.size(); i++){
 			if(sonAdyacentes(i,*it) && clique.count(i) == 0){
-				if(maxHeap){
-					vecinos.push(make_pair(grados[i],i));
-				}
-				else{
-					vecinos.push(make_pair(-grados[i],i));
-				}
+				vecinos.push(make_pair(grados[i],i));
 			}
 		}
+	}
+}
+
+void Grafo::deCliqueAMinHeap(const set<int>& clique, Heap &cliqueMenorAMayor) const{
+
+	if(!cliqueMenorAMayor.empty()){
+		vaciarHeap(cliqueMenorAMayor);
+	}
+
+	for(set<int>::iterator it = clique.begin(); it != clique.end(); it++){
+		cliqueMenorAMayor.push(make_pair(-grados[*it],*it));
 	}
 }
 
@@ -223,7 +229,7 @@ void Grafo::cambiarSiMaximiza(set<int>& clique, bool &cambio) const {
 	set<int> posibleMejora;
 	const set<int> copiaClique = clique;
 	Heap cliqueMenorAMayor, vecindad;
-	frontera(copiaClique,false,cliqueMenorAMayor);
+	deCliqueAMinHeap(copiaClique,cliqueMenorAMayor);
 
 
 	while(!cliqueMenorAMayor.empty()){
@@ -232,7 +238,7 @@ void Grafo::cambiarSiMaximiza(set<int>& clique, bool &cambio) const {
 		posibleMejora.erase(cliqueMenorAMayor.top().second);
 		
 		//los posibles cambios se realizan sobre los vecinos de los nodos que estan en la clique
-		frontera(posibleMejora,true,vecindad);
+		vecinosAMaxHeap(posibleMejora,vecindad);
 		
 		//voy tomando en orden de grados
 		while(!vecindad.empty()){
