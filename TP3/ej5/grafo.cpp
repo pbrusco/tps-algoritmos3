@@ -44,6 +44,13 @@ bool Grafo::vecinoDeTodos(int v, const set<int>& c) const {
 }
 
 
+void Grafo::vecinos(int v, set<int>& res) const {
+	forn(i,matAd.size()) {
+		if (sonAdyacentes(i,v)) res.insert(i);
+	}
+}
+
+
 int Grafo::cantVecinos(int v, const set<int>& c) const {
 	int res = 0;
 	forall(it,c) {
@@ -106,24 +113,22 @@ int Grafo::masRelacionado(const set<int>& frontera) const {
 
 
 void Grafo::cliqueTabu(set<int>& res) const {
-	cliqueConstructivo(res);
 	bool atascado = true;
 	int stop = matAd.size();
 	set<int> cliqueAux = res;			/* empiezo a partir de la solución constructiva */
 
-	while ((stop > 0) and atascado) {
-	
+	while (stop > 0) {
+		
+		/* Borro el contenido de cliqueAux y genero una solución trivial */	
+		cliqueAux.clear();
+		diversificar(cliqueAux);
+
 		/* Busco la clique mas grande que me sea posible haciendo una busqueda Tabu */
-		atascado = busquedaTabu(cliqueAux);
+		busquedaTabu(cliqueAux);
 
 		/* Me fijo si la clique encontrada es mejor que la que tenia como respuesta y la actualizo */ 
 		if (cliqueAux.size() > res.size()) res = cliqueAux;
 		
-		/* Si me detuve porque empeoré demasiado, difersifico y busco nuevamente */
-		if (atascado) {
-			cliqueAux.clear();
-			diversificar(cliqueAux);
-		}
 		stop--;
 	} 
 }
@@ -136,20 +141,21 @@ int Grafo::definirCota() const {
 
 
 void Grafo::diversificar(set<int>& res) const {
-	int n1 = randomNmbr(0, matAd.size());
-	int n2 = randomNmbr(0, matAd.size());
-	while (not sonAdyacentes(n1,n2)) {
-		n1 = randomNmbr(0, matAd.size());
-		n2 = randomNmbr(0, matAd.size());
+	set<int> aux;
+	int v = randomNmbr(0, matAd.size());
+	res.insert(v);
+	vecinos(v, aux);
+	if (not aux.empty()) {
+		int n = randomNmbr(0, aux.size());
+		set<int>::iterator it = aux.begin();
+		forn(i,n) {it++;}
+		res.insert(*it);
 	}
-	res.insert(n1);
-	res.insert(n2);
 }
 
 
-bool Grafo::busquedaTabu(set<int>& res) const {
-	bool respuesta = false; 
-	int v, u, desmejore = 0, n=matAd.size(), stop=definirCota();
+void Grafo::busquedaTabu(set<int>& res) const {
+	int v, u, desmejore = 0, n=matAd.size(), stop=n;
 	listaTabu Tabu;
 	Heap vecindad;
 	set<int> agregados, cliqueTemp = res;
@@ -159,42 +165,40 @@ bool Grafo::busquedaTabu(set<int>& res) const {
 
 		/* Busco en la clique temporal el nodo de menor grado que no esté en la lista Tabu-Agregados, */
 		v = nodoConMenorGrado(Tabu, cliqueTemp);			
-		
-		/* Si no puedo sacar ningun nodo incremento el contador de desmejora */
-		if (v == -1) desmejore++;
-		
-		/* Sino ... */
-		else {
-			/* Reseteo el contador de desmejora, y elimino el nodo de la clique */
-			desmejore = 0;
-			cliqueTemp.erase(v);
-										
-			/* Busco los nodos que no estan en la clique y que no están en la lista Tabu-Eliminados, y que tengan como vecino */
-			/* al menos a algún nodo de la clique temporal */
-			agregados.clear();
-			vaciarHeap(vecindad);		
-			definirVecindad(Tabu,cliqueTemp,vecindad);
 
-			/* Mientras que la vecindad definida no sea vacía, evalúo si el nodo del tope de la vecindad es vecino de todos */
-			/* los nodos de la clique temporal. De ser así lo agrego a esta y lo registro. Luego borro de la vecindad al nodo */
-			/* que acabo de evaluar */
-			while (not vecindad.empty()) {
-				u = vecindad.top().second;
-				vecindad.pop();
-				if (vecinoDeTodos(u, cliqueTemp)) {
-					cliqueTemp.insert(u);
-					agregados.insert(u);
-				}
+		/* Elimino el nodo de la clique y lo agrego el nodo eliminado a la lista Tabu-Eliminados*/
+		cliqueTemp.erase(v);
+		Tabu.first.push_back(v);
+												
+		/* Busco los nodos que no estan en la clique y que no están en la lista Tabu-Eliminados, y que tengan como vecino */
+		/* al menos a algún nodo de la clique temporal */
+		agregados.clear();
+		vaciarHeap(vecindad);		
+		definirVecindad(Tabu,cliqueTemp,vecindad);
+
+		/* Mientras que la vecindad definida no sea vacía, evalúo si el nodo del tope de la vecindad es vecino de todos */
+		/* los nodos de la clique temporal. De ser así lo agrego a esta y lo registro. Luego borro de la vecindad al nodo */
+		/* que acabo de evaluar */
+		while (not vecindad.empty()) {
+			u = vecindad.top().second;
+			vecindad.pop();
+			if (vecinoDeTodos(u, cliqueTemp)) {
+				cliqueTemp.insert(u);
+				agregados.insert(u);
 			}
-	
-			/* Agrego el nodo eliminado a la lista Tabu-Eliminados y agrego los nodos agregados a la clique en la lista */
-			/* Tabu-Agregados. */
-			Tabu.first.push_back(v);
-			Tabu.second.push_back(agregados);
-			
-			/* Si la clique temporal resultante tiene mayor tamaño que la que tenía como respuesta, actualizo la respuesta */
-			if (cliqueTemp.size() > res.size()) res = cliqueTemp;
 		}
+
+		/* Agrego los nodos agregados a la clique en la lista Tabu-Agregados. */
+		Tabu.second.push_back(agregados);
+		
+		/* Si la clique temporal resultante tiene mayor tamaño que la que tenía como respuesta, actualizo la respuesta */
+		/* y reseteo el contador de desmejora */
+		if (cliqueTemp.size() > res.size()) {
+			res = cliqueTemp;
+			desmejore = 0;
+		}
+		
+		else if (v != -1 and agregados.empty()) desmejore++;
 
 		/* Si la lista Tabu tiene n/2 elementos, quito el primero de a lista. Luego decremento la cota */
 		if (Tabu.first.size() == n/2) { 
@@ -203,10 +207,6 @@ bool Grafo::busquedaTabu(set<int>& res) const {
 		}
 		stop--;
 	}
-	
-	/* Analizo si sali del bucle por haber desmejorado demasiado. De ser asi devuelvo True; sino devuelvo False */
-	if (desmejore == n/4) return true;
-	else return false;
 }
 
 
@@ -230,9 +230,14 @@ void Grafo::definirVecindad(const listaTabu& T, const set<int>& c, Heap& res) co
 	set<int> aux;
 	forall(it,c) {
 		forn(i,matAd.size()) {
-			if (not estaEnTabuEliminados(i,T) and sonAdyacentes(i,*it) and c.count(i) == 0) aux.insert(i);
+			if (sonAdyacentes(i,*it) and c.count(i) == 0) aux.insert(i);
 		}
 	}
+	
+	forall(it,aux) {
+		if (estaEnTabuEliminados(*it,T)) aux.erase(*it);
+	}
+	
 	ponerEnHeap(true, aux, res);
 }
 
@@ -264,7 +269,6 @@ bool estaEnTabuAgregados(int v, const listaTabu& T) {
 
 int randomNmbr(int desde, int hasta, int x) {
 	int res = x;
-	srand(time(NULL));
- 	while (res == x) {res = (rand() % (hasta-desde))+desde;}
+	while (res == x) {res = (rand() % (hasta-desde))+desde;}
 	return res;
 }

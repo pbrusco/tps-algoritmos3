@@ -24,6 +24,7 @@ struct Grafo {
 	void cargar(istream& is, int n);
 	bool sonAdyacentes(int v1, int v2) const;
 	bool vecinoDeTodos(int v, const set<int>& c) const;
+	void vecinos(int v, set<int>& res) const;
 	int cantVecinos(int v, const set<int>& c) const;
 	void cliqueConstructivo(set<int>& res) const;
 	void mayorFrontera(set<int>& res) const;
@@ -32,7 +33,7 @@ struct Grafo {
 	void cliqueTabu(set<int>& res) const;
 	int definirCota() const;
 	void diversificar(set<int>& res) const;
-	bool busquedaTabu(set<int>& res) const;
+	void busquedaTabu(set<int>& res) const;
 	int nodoConMenorGrado(const listaTabu& T, const set<int>& c) const;
 	void definirVecindad(const listaTabu& T, const set<int>& c, Heap& res) const;
 	void ponerEnHeap(bool maxHeap, const set<int>& c , Heap& res) const;
