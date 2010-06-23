@@ -67,7 +67,6 @@ void Grafo::mayorFrontera(set<int>& res) const {
 	set<int> aux;
 	for(int i=0; i<matAd.size(); i++) {
 		for(int j =i+1; j<matAd.size(); j++) {
-			res.clear();
 			fronteraEnComun(i,j,aux);
 			if (aux.size() > res.size()) {
 				res = aux;
@@ -78,6 +77,7 @@ void Grafo::mayorFrontera(set<int>& res) const {
 
 
 void Grafo::fronteraEnComun(int u, int v, set<int>& res) const {
+	res.clear();
 	if (sonAdyacentes(u,v)) {
 		forn(j,matAd.size()) {
 			if (sonAdyacentes(u,j) && sonAdyacentes(v,j)) res.insert(j);
