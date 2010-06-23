@@ -31,7 +31,8 @@ struct Grafo{
 	
 
 	void busquedaLocal(set<int> &cliqueMaximo) const;
-	void frontera(const set<int>& clique, bool maxHeap, Heap &vecinos) const;
+	void vecinosAMaxHeap(const set<int>& clique, Heap &vecinos) const;
+	void deCliqueAMinHeap(const set<int>& clique, Heap &cliqueDeMenorAMayor) const;
 	void cambiarSiMaximiza(set<int>& clique, bool &cambio) const;
 };
 
