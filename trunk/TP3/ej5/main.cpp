@@ -29,7 +29,11 @@ int main(int argc, char** argv) {
 	else {
 		forn(i, argc-1) {
 			input = argv[i+1];
-			output = ("../out/5 - BUSQ_TABU" + input.substr(5, input.size()-8) + ".out");
+			int pos = input.rfind('/');
+			output = input.substr(pos+1, input.size());
+			pos = output.rfind(".in");
+			if (pos!=string::npos) output.replace(pos,3,".out");
+			output = "../out/5 - BUSQ_TABU/" + output;
 			time = resolverBusqTabu(input,output);
 			cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
 		}

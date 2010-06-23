@@ -114,7 +114,7 @@ int Grafo::masRelacionado(const set<int>& frontera) const {
 
 void Grafo::cliqueTabu(set<int>& res) const {
 	bool atascado = true;
-	int stop = matAd.size();
+	int stop = matAd.size()/2;
 	set<int> cliqueAux = res;			/* empiezo a partir de la solución constructiva */
 
 	while (stop > 0) {
@@ -136,7 +136,7 @@ void Grafo::cliqueTabu(set<int>& res) const {
 
 int Grafo::definirCota() const {
 	int n = matAd.size();
-	return n*n;
+	return 10*n;
 }
 
 
@@ -155,7 +155,7 @@ void Grafo::diversificar(set<int>& res) const {
 
 
 void Grafo::busquedaTabu(set<int>& res) const {
-	int v, u, desmejore = 0, n=matAd.size(), stop=n;
+	int v, u, desmejore = 0, n=matAd.size(), stop=definirCota();
 	listaTabu Tabu;
 	Heap vecindad;
 	set<int> agregados, cliqueTemp = res;
