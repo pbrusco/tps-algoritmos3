@@ -15,6 +15,8 @@ double timeval_diff(struct timeval& a, struct timeval& b); 	/* retorna "a - b " 
 
 
 int main(int argc, char** argv) {
+	srand(time(NULL));
+
 	string input, output;
 	double time = 0.0;
 	
