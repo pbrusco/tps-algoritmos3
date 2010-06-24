@@ -69,7 +69,17 @@ Primero, se detectan las componentes conexas del grafo, ya que buscar la max cli
 Luego, para cada componente, se crea un heap que contiene los nodos de la componente ordenados por mayor grado. Esto no parece tener mucha importancia, pero se aclarará a medida que se avanza con la explicación.
 
 \paragraph{}
+A partir de esta estructura, vamos obteniendo en cada iteración, el nodo $v$ de mayor grado disponible en la componente que no hayamos analizado.
 
+\paragraph{}
+Una vez que tenemos el nodo $v$, lo que se hace es buscar la mayor clique en la cual está contenido. Para ello utilizamos la función BuscoCliqueDeTamañoK a la cual le indicamos el tamaño de la clique que queremos buscar (buscaremos cliques de tamaños desde el grado de $v$ + 1 hasta el de la clique que ya hemos encontrado sin incluir, ya que el resto de los resultados no nos serían de utilidad) y los vecinos de $v$ que tienen posibilidades de pertenecer a la clique (dado su grado).
 
+\paragraph{}
+Por ejemplo, veamos la siguiente figura:
+
+\includegraphics[scale = 0.9]{./p.ps} \\
+
+\paragraph{}
+Como se ve en el ejemplo, 
 
 
