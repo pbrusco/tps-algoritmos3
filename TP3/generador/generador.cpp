@@ -19,7 +19,7 @@ struct Grafo {
 
 
 	Grafo(int V);
-	void guardarnuestro(string out);
+	void guardarnuestro(ostream& os);
 
 };
 
@@ -27,31 +27,27 @@ void guardarLista(ostream& os, const list<int>& l);
 int numeroAlAzar(int desde, int hasta);
 void generarGrafoAlAzar();
 void generarGrafoConOpciones();
-
+void tomarMenoresAN(const list<pair<int,int> > &combinacionesFijas, list<pair<int,int> > &combinaciones,int n);
 
 
 int main(){
 
 	srand(time(NULL));
 
-	int opt;
-/*	
-	cout << "Si queres hacer un grafo al azar, presiona 1 y enter" << endl
-		 << "Si queres hacer un grafo con opciones, presiona 2 y enter" << endl;
-		 
-	cin >> opt;
-*/
-	opt = 1;
+	string opt = "1";
+	
+	while(opt == "1"){
+		cout << "Si queres hacer un grafo al azar, presiona 1 y enter" << endl
+			 //<< "Si queres hacer un grafo con opciones, presiona 2 y enter" << endl;
+			 << "Para salir, presiona cualquier tecla ";
+		cin >> opt;
 
-	if(opt == 1)
-		generarGrafoAlAzar();
-	if(opt == 2)
-		generarGrafoConOpciones();
-	if(opt != 1 && opt != 2){
-		cout << "Opcion invalida" << endl;
-		return -1;
+		if(opt == "1")
+			generarGrafoAlAzar();
 	}
-
+	//	if(opt == 2)
+	//		generarGrafoConOpciones();
+	
 
 	return 0;
 }
@@ -60,23 +56,16 @@ Grafo::Grafo(int V){
 	listAd.resize(V);
 }
 
-void Grafo::guardarnuestro(string out){
+void Grafo::guardarnuestro(ostream& os){
 
-	ofstream os;
-	os.open(out.c_str());
-	
 	os << listAd.size() << endl;
 	for(int i = 0; i < listAd.size(); i++){
 	
-		os << listAd[i].size() << " ";
+		os << '\t' << listAd[i].size() << '\t';
 		guardarLista(os,listAd[i]);
 		os << endl;	
 	}
 	
-	os << -1;
-	
-	os.close();
-
 }
 
 void guardarLista(ostream& os, const list<int>& l){
@@ -91,50 +80,80 @@ int numeroAlAzar(int desde, int hasta){
 	return (rand() % (hasta-desde)) + desde;
 }
 
+
+void tomarMenoresAN(const list<pair<int,int> > &combinacionesFijas, list<pair<int,int> > &combinaciones,int n){
+
+	combinaciones.clear();
+
+	for(list<pair<int,int> >::const_iterator it = combinacionesFijas.begin(); it != combinacionesFijas.end(); it++){
+		if(it->first >= n){
+			break;
+		}
+		else{
+			if(it->second < n){
+				combinaciones.push_back(*it);
+			}
+		}
+	}
+
+}
+
+
 void generarGrafoAlAzar(){
 
-	int cantNodos,cantEjes,k;
-	set<pair<int,int> >::iterator it;
+	int cantNodos,porcentajeEjes,k,cantEjes;
+	list<pair<int,int> >::iterator it;
 	string nombreOut;
-	
-	
-	cout 	<< "Ingresar:" << endl
-			<< "Cantidad de nodos ";
-	cin >> cantNodos;
-	
-	cout << "Cantidad de ejes (porcentaje del total de ejes posible ...0% ... 100%) ";
-	cin >> cantEjes;
-	
-	cantEjes = cantEjes % 101; //guardo el porcentaje
-	cantEjes = ((cantNodos * (cantNodos-1) / 2) * cantEjes) / 100; //guardo la cantidad de ejes
-	
-	//me creo todos los posibles ejes
-	set<pair<int,int> > combinaciones;
-	for(int i = 0; i < cantNodos; i++){
-		for(int j = i+1; j < cantNodos;j++){
-			combinaciones.insert(make_pair(i,j));
-		}
-	}
-
-	Grafo g(cantNodos);
-	
-	//busco un eje al azar, lo guardo en el grafo y lo borro de los ejes que restan
-	for(int i = 0; i < cantEjes; i++){
-		k = numeroAlAzar(0,combinaciones.size());
-		it = combinaciones.begin();
-		while(k > 0){
-			k--;
-			it++;
-		}
-		g.listAd[it->second].push_back(it->first);
-		g.listAd[it->first].push_back(it->second);
-		combinaciones.erase(*it);
-	}
-	
+	list<pair<int,int> > combinaciones;
+	Grafo g(0);
+	ofstream os;
 	cout << "ingrese el nombre con el que quiere guardar el archivo ";
 	cin.ignore();
 	getline(cin,nombreOut);
-	g.guardarnuestro(nombreOut);
+	os.open(nombreOut.c_str());
+	
+	cout 	<< "Ingresar:" << endl
+			<< "Cantidad de nodos maxima (se van a crear grafos desde 1 nodo hasta lo que pongas aca) ";
+	cin >> cantNodos;
+	
+	cout << "Cantidad de ejes (porcentaje del total de ejes posible ...0% ... 100%) ";
+	cin >> porcentajeEjes;
+	
+	porcentajeEjes = porcentajeEjes % 101; //guardo el porcentaje
+	
+	//me creo todos los posibles ejes
+	for(int i = 0; i < cantNodos; i++){
+		for(int j = i+1; j < cantNodos;j++){
+			combinaciones.push_back(make_pair(i,j));
+		}
+	}
+
+	const list<pair<int,int> > combinacionesFijas = combinaciones;
+	
+	
+	//creo los grafos de tamaño n
+	for(int n = 1; n < cantNodos; n++){
+		g.listAd.clear();
+		g.listAd.resize(n);
+		cantEjes = ((n * (n-1) / 2) * porcentajeEjes) / 100; //guardo la cantidad de ejes
+		tomarMenoresAN(combinacionesFijas,combinaciones,n);
+	
+		//busco un eje al azar, lo guardo en el grafo y lo borro de los ejes que restan
+		for(int i = 0; i < cantEjes; i++){
+			k = numeroAlAzar(0,((n*(n-1))/2)-i-1);
+			it = combinaciones.begin();
+			advance(it,k);
+			g.listAd[it->second].push_back(it->first);
+			g.listAd[it->first].push_back(it->second);
+			it = combinaciones.erase(it);
+		}
+	
+		g.guardarnuestro(os);
+	}
+	
+	os << -1;
+	os << endl << endl << "Porcentaje Ejes " << porcentajeEjes;
+	os.close();
 
 }
 
