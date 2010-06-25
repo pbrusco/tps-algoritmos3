@@ -5,9 +5,15 @@ GXXFLAGS = -g -w -o
 
 generador: generador.cpp
 	$(GXX) $(GXXFLAGS) $@ $<
+	
+gennerador: gennerador.cpp
+	$(GXX) $(GXXFLAGS) $@ $<
 
-all: clean generador
+all: cleanGenerador cleanGennerador generador gennerador
 
-clean:
+cleanGenerador:
 	rm generador
+	
+cleanGennerador:
+	rm gennerador
 
