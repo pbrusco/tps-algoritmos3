@@ -19,7 +19,7 @@ Dada una solución parcial $S$, se saca un nodo $v$ de dicha solución y se obti
 Estos pasos se repiten para todos los vértices pertenecientes a $S$. Una vez finalizado esto, pueden suceder 2 cosas: que se haya encontrado una mejor solución que $S$ o que no. Si se encontró una mejor solución, entonces se repiten todos los pasos antes mencionados pero para esta nueva solución parcial. Sino, significa que se encontró un máximo local, por lo que el algoritmo finaliza. Así como el orden en que se van tomando los vértices de $C$ es de mayor a menor grado, en el caso de los vértices que se van descartando de $S$ se hace en orden inverso, es decir, comenzando por los que tienen menor grado hacia los que tienen mayor grado.
 
 \paragraph{}
-Para graficar mejor este procedimiento, se detalla a continuación el pseudocódigo de las funciones que lo implementan.
+Para graficar mejor este procedimiento, se detalla a continuación el pseudocódigo de las funciones que lo implementan. Recordar que dentro de los comentarios que contienen la complejidad, la letra ``n'' representa la cantidad de nodos de un grafo.
 
 \vspace{2em}
 \incmargin{1em}
@@ -29,18 +29,18 @@ Para graficar mejor este procedimiento, se detalla a continuación el pseudocód
 \textbf{busquedaLocal}(G: grafo) \\
 \begin{algorithm}[H]
 	\BlankLine
-	termine = false\\
+	termine = false\tcp*{\Ode{1}}
 
-	maxClique = cliqueConstructivo(G)\\
+	maxClique = cliqueConstructivo(G)\tcp*{\Ode{n^3}}
 	
 	\textbf{mientras} termine $==$ false \textbf{hacer}\\
 		
-		\tab cambio = false\\
+		\tab cambio = false\tcp*{\Ode{1}}
 
-		\tab $<$maxClique,cambio$> =$ cambiarSiMaximiza(G,maxClique,cambio)\\
+		\tab $<$maxClique,cambio$> =$ cambiarSiMaximiza(G,maxClique,cambio)\tcp*{\Ode{n^3}}
 		
-		\tab \textbf{si} cambio $==$ false\\
-			\tab \tab termine = true\\
+		\tab \textbf{si} cambio $==$ false\tcp*{\Ode{1}}
+			\tab \tab termine = true\tcp*{\Ode{1}}
 		\tab \textbf{fin si}\\
 	\textbf{fin mientras}\\
 
@@ -55,29 +55,31 @@ Para graficar mejor este procedimiento, se detalla a continuación el pseudocód
 \textbf{cambiarSiMaximiza}(G: grafo, maxClique: conjunto, cambio: bool) \\
 \begin{algorithm}[H]
 	\BlankLine
-	copiaClique = maxClique\\
-	cliqueDeMenorAMayor = frontera(copiaClique,false)\\
+	copiaClique = maxClique\tcp*{\Ode{n}}
+	cliqueDeMenorAMayor = deCliqueAMinHeap(copiaClique)\tcp*{\Ode{n*log(n)}}
 
 	\textbf{mientras} cliqueDeMenorAMayor \textbf{no sea un Heap vacío}\\
 
-		\tab posibleMejora = copiaClique $\diagdown$ \{tope(cliqueDeMenorAMayor)\}\\
+		\tab posibleMejora = copiaClique $\diagdown$ \{tope(cliqueDeMenorAMayor)\}\tcp*{\Ode{log(n)}}
 
-		\tab candidatos = frontera(posibleMejora,true)\\
+		\tab candidatos = vecinosAMaxHeap(posibleMejora)\tcp*{\Ode{n^2}}
 		
 		\tab \textbf{mientras} candidatos \textbf{no sea un Heap vacío}\\
-			\tab \tab \textbf{si} vecinoDeTodos(tope(candidatos),posibleMejora)\\
-				\tab \tab \tab posibleMejora = posibleMejora $\cup$ tope(candidatos)\\
+			\tab \tab \textbf{si} vecinoDeTodos(tope(candidatos),posibleMejora)\tcp*{\Ode{n}}
+				\tab \tab \tab posibleMejora = posibleMejora $\cup$ tope(candidatos)\tcp*{\Ode{log(n)}}
 			\tab \tab \textbf{fin si}\\
-			\tab \tab pop(candidatos)\\
+			\tab \tab pop(candidatos)\tcp*{\Ode{log(n)}}
 		\tab \textbf{fin mientras}\\
 
 
 		\tab \textbf{si} $\#$posibleMejora $>\ \#$maxClique\\
-			\tab \tab maxClique = posibleMejora\\
-			\tab \tab cambio = true\\
+			\tab \tab maxClique = posibleMejora\tcp*{\Ode{n}}
+			\tab \tab cambio = true\tcp*{\Ode{1}}
 		\tab \textbf{fin si}\\
-		\tab pop(cliqueDeMenorAMayor)\\
+		\tab pop(cliqueDeMenorAMayor)\tcp*{\Ode{log(n)}}
 	\textbf{fin mientras}\\
+
+	\textbf{devolver} $<$maxClique,cambio$>$
 
 \caption{Pseudocódigo del algoritmo cambiarSiMaximiza}
 \end{algorithm}
@@ -86,13 +88,23 @@ Para graficar mejor este procedimiento, se detalla a continuación el pseudocód
 
 
 
-
-
-
-
-
 \normalsize
 \subsection{Análisis de la complejidad del algoritmo}
+
+\paragraph{}
+Para analizar la complejidad del algoritmo de búsqueda local basta con comprender cómo se comporta tanto el algoritmo principal, llamado ``busquedaLocal'', como el secundario llamado ``cambiarSiMaximiza''. El resto de los algoritmos puede obviarse ya que, o bien ya fueron analizados en la sección [\ref{ej3}] como es el caso de ``vecinoDeTodos'', o bien tienen un comportamiento trivial y conocido, como es el caso de las funciones ``deCliqueAMinHeap'' y ``vecinosAMaxHeap'' que como sus nombres lo indican, son funciones que devuelven un min-heap y un max-heap respectivamente. Lo que si es interesante aclarar de estas funciones es qué elementos devuelven en cada heap. En el caso de ``deCliqueAMinHeap'' toma todos los vértices que pertenecen a la clique que se le pasa como parámetro y los heapifica según sus grados (de menor a mayor). En cambio, la función ``vecinosAMaxHeap'' toma todos aquellos vértices que no pertenecen a la clique pero que tienen algún vecino dentro de ella y los inserta en un max-heap ordenándolos por grado.
+
+\paragraph{}
+En primer lugar vamos a analizar al segundo algoritmo aquí presentado, es decir, ``cambiarSiMaximiza''. Como se observa dentro del pseudocódigo, existen dos ciclos dentro del algoritmo, uno dentro de otro. Para que el ciclo más global finalice, debe ejecutarse tantas veces como elementos haya en ``cliqueDeMenorAMayor'' por lo que a lo sumo se ejecutará $n$ veces. Pasa lo mismo con el ciclo anidado dentro de este. El mismo se ejecutará tantas veces como vecinos de la clique haya, es decir, a lo sumo $n$. Dentro de este segundo ciclo, la función más costosa es la que se encuentra en la guarda del $if$ que tiene una complejidad de \Ode{n}. Como este ciclo se ejecuta a lo sumo $n$ veces, la complejidad del mismo es \Ode{n^2}. Ahora bien, además del ciclo anidado, la otra función costosa dentro del ciclo mayor es ``vecinosAMaxHeap'' que también cuesta \Ode{n^2}. Por lo tanto, como el ciclo mayor se ejecuta a lo sumo $n$ veces, la complejidad total de este algoritmo es \Ode{n^3}.
+
+\paragraph{}
+Ahora bien, sólo faltaría analizar qué complejidad tiene la función principal. Pero si se observa bien, este algoritmo consta de un ciclo en el cuál existe una llamada a la función antes analizada. Por lo cuál sabiendo cuántas veces se ejecuta este ciclo, sabremos la complejidad total del algoritmo. Este ciclo finaliza cuando la variable ``termine'' valga $true$. La misma tomará este valor, cuando la variable ``cambio'' valga $false$ luego del llamado a ``cambiarSiMaximiza''. Por lo tanto, hay que volver al pseudocódigo de esta función para saber cómo se comporta allí esta variable.
+
+\paragraph{}
+La variable ``cambio'' sólo se modifica cuando existe una mejora en la clique mayor temporalmente hallada. Podemos ver entonces que el peor caso se da cuando la clique mayor temporal comienza con tamaño igual a 1 (respuesta obtenida con el algoritmo constructivo). Luego, dentro de cada llamada a la función ``cambiarSiMaximiza'', lo peor sería que sólo exista una mejora del tamaño en una unidad, es decir, en el primer llamado habrá un cambio de tamaño de 1 a 2, por lo que la variable ``cambio'' tomará el valor de verdad $true$. Cómo cada vez que se llama a esta función, esta mejora la respuesta temporal en una unidad, se puede observar que en el n-ésimo llamado el tamaño de la clique mayor temporal no aumentará, ya que se introdujeron todos los vértices existentes, por lo que en este llamado a la función secundaria, el algoritmo no entrará al $if$ en el que se modifica a la variable ``cambio'', por lo que dicha variable quedará con valor $false$\footnote{cabe notar que en cada llamado a la función ``cambiarSiMaximiza'' esta variable entra con valor $false$}. Por lo tanto, en el peor caso, en el n-ésimo llamado a esta función, la guarda del ciclo de la función principal se hace falsa. Entonces, como dicho ciclo se ejecutará a lo sumo $n$ veces, y en el mismo hay un llamado a una función de complejidad \Ode{n^3}, la complejidad total del algoritmo principal es \Ode{n^4}.
+
+
+
 \subsection{Detalles de implementación}
 \subsection{Resultados}
 \subsection{Debate}
