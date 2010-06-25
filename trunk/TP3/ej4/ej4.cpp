@@ -198,7 +198,7 @@ void Grafo::busquedaLocal(set<int> &cliqueMaximo) const{
 
 }
 
-void Grafo::vecinosAMaxHeap(const set<int>& clique, Heap &vecinos) const{
+void Grafo::vecinosAMaxHeap(const set<int>& clique, Heap &vecinos, const int v) const{
 
 	if(!vecinos.empty()){
 		vaciarHeap(vecinos);
@@ -206,7 +206,7 @@ void Grafo::vecinosAMaxHeap(const set<int>& clique, Heap &vecinos) const{
 
 	for(set<int>::iterator it = clique.begin(); it != clique.end(); it++){
 		for(int i = 0; i < matAd.size(); i++){
-			if(sonAdyacentes(i,*it) && clique.count(i) == 0){
+			if(sonAdyacentes(i,*it) && clique.count(i) == 0 && *it != v){
 				vecinos.push(make_pair(grados[i],i));
 			}
 		}
@@ -237,8 +237,8 @@ void Grafo::cambiarSiMaximiza(set<int>& clique, bool &cambio) const {
 		posibleMejora = copiaClique;
 		posibleMejora.erase(cliqueMenorAMayor.top().second);
 		
-		//los posibles cambios se realizan sobre los vecinos de los nodos que estan en la clique
-		vecinosAMaxHeap(posibleMejora,vecindad);
+		//los posibles cambios se realizan sobre los vecinos de los nodos que estan en la clique (que no sea el que saque)
+		vecinosAMaxHeap(posibleMejora,vecindad,cliqueMenorAMayor.top().second);
 		
 		//voy tomando en orden de grados
 		while(!vecindad.empty()){
