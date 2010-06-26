@@ -206,7 +206,7 @@ void Grafo::vecinosAMaxHeap(const set<int>& clique, Heap &vecinos, const int v) 
 
 	for(set<int>::iterator it = clique.begin(); it != clique.end(); it++){
 		for(int i = 0; i < matAd.size(); i++){
-			if(sonAdyacentes(i,*it) && clique.count(i) == 0 && *it != v){
+			if(sonAdyacentes(i,*it) && clique.count(i) == 0 && i != v){
 				vecinos.push(make_pair(grados[i],i));
 			}
 		}
