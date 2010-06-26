@@ -95,42 +95,60 @@ Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	10	3	993	235
+ggeometry	10	4	994	384
 PlotTitle	Algoritmo Exacto	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
 Margin	0
 Border	0	#000000
 grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
-EnabledAxes	1	1	1	1	
+EnabledAxes	1	0	1	0	
 AxesTitles	X Axis Title	Tiempo (milisegundos)			
 AxesTitleColors	#000000	#000000	#000000	#000000	
-AxesTitleAlignment	5124	5124	5124	5124
-AxesTitleDistance	2	2	2	2
-TitleFont	Sans	8	75	0	0	0
-ScaleFont0	Sans	6	75	0	0	0
-ScaleFont1	Sans	6	75	0	0	0
-ScaleFont2	Sans	6	75	0	0	0
-ScaleFont3	Sans	6	75	0	0	0
-AxisFont0	Sans	6	50	0	0	0
-AxisFont1	Sans	6	50	0	0	0
-AxisFont2	Sans	6	50	0	0	0
-AxisFont3	Sans	6	50	0	0	0
+AxesTitleAlignment	5124	4	5124	4
+AxesTitleDistance	2	-1	2	-1
+TitleFont	Sans	13	75	0	0	0
+ScaleFont0	Sans	10	75	0	0	0
+ScaleFont1	Sans	10	75	0	0	0
+ScaleFont2	Sans	10	75	0	0	0
+ScaleFont3	Sans	10	75	0	0	0
+AxisFont0	Sans	10	50	0	0	0
+AxisFont1	Sans	10	50	0	0	0
+AxisFont2	Sans	10	50	0	0	0
+AxisFont3	Sans	10	50	0	0	0
 EnabledTickLabels	1	1	1	1	
 AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#171717	#171717	#171717	#171717
 AxesBaseline	0	0	0	0	
 CanvasBackground	#ffffff	255
-curve	Table2_tamaño	Table2_40nods	0	1	#000000	0	1	7	0	#000000	#000000	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_100nods1	0	1	#ff0000	0	1	7	0	#ff0000	#ff0000	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_100nods2	0	1	#00ff00	0	1	7	0	#00ff00	#00ff00	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_100nods3	0	1	#0000ff	0	1	7	0	#0000ff	#0000ff	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_100nods4	0	1	#00ffff	0	1	7	0	#00ffff	#00ffff	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_200nods	0	1	#ff00ff	0	1	7	0	#ff00ff	#ff00ff	0	#000000	14	1	2	0	0	69	1
-scale	0	0	50000000	0	6	5	0	0
+curve	Table2_tamaño	Table2_40nods	0	4	#000000	0	5	7	0	#000000	#000000	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_100nods1	0	4	#ff0000	0	5	7	0	#ff0000	#ff0000	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_100nods2	0	4	#00ff00	0	5	7	0	#00ff00	#00ff00	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_100nods3	0	4	#0000ff	0	5	7	0	#0000ff	#0000ff	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_100nods4	0	4	#00ffff	0	5	7	0	#00ffff	#00ffff	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_200nods	0	4	#ff00ff	0	5	7	0	#ff00ff	#ff00ff	0	#000000	14	1	2	0	0	69	1
+<Function>
+<Type>0</Type>
+<Title>F1</Title>
+<Expression>7000*x^2</Expression>
+<Variable>x</Variable>
+<Range>0	70</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#ffff00</Color>
+	<Style>0</Style>
+	<Width>1</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	50000000	0	7	5	0	0
 scale	1	0	50000000	0	6	5	0	0
-scale	2	0	70	0	8	5	0	0
-scale	3	0	70	0	8	5	0	0
+scale	2	-10	80	0	8	5	0	0
+scale	3	-10	80	0	8	5	0	0
 <AxisFormula pos="0">
 x/1000
 </AxisFormula>
@@ -147,10 +165,10 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>2.1875</x>
-<y>48136645.962733</y>
-<right>11.796875</right>
-<bottom>24223602.4844721</bottom>
+<x>-7.3208379272326</x>
+<y>45114006.514658</y>
+<right>9.05181918412348</right>
+<bottom>23941368.0781759</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)%(1)
@@ -159,8 +177,9 @@ LabelsRotation	0	0
 \l(4)%(4)
 \l(5)%(5)
 \l(6)%(6)
+\l(7)7000x²
 </Text>
-<Font>Sans	6	50	0	0	0</Font>
+<Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
 <Background>#ffffff</Background>
 <Alpha>0</Alpha>
