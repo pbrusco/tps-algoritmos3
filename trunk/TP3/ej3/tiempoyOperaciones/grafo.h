@@ -16,12 +16,12 @@ struct Grafo {
 	/* metodos */
 	void cargar(istream& is, int n);
 	bool sonAdyacentes(int v1, int v2) const;
-	bool vecinoDeTodos(int v, const set<int>& c) const;
-	int cantVecinos(int v, const set<int>& c) const;
-	void cliqueConstructivo(set<int>& res) const;
-	void mayorFrontera(set<int>& res) const;
-	void fronteraEnComun(int u, int v, set<int>& res) const;
-	int masRelacionado(const set<int>& frontera) const;
+	bool vecinoDeTodos(int v, const set<int>& c, unsigned long long int &) const;
+	int cantVecinos(int v, const set<int>& c, unsigned long long int &) const;
+	void cliqueConstructivo(set<int>& res, unsigned long long int &) const;
+	void mayorFrontera(set<int>& res, unsigned long long int &) const;
+	void fronteraEnComun(int u, int v, set<int>& res, unsigned long long int &) const;
+	int masRelacionado(const set<int>& frontera, unsigned long long int &) const;
 };
 
 #endif
