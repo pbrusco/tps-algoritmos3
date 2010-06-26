@@ -68,8 +68,8 @@ void Grafo::cliqueConstructivo(set<int>& res, unsigned long long int &operacione
 			res.insert(v);
 			operaciones = operaciones + (int) log10(res.size());
 		}
+		operaciones = operaciones + ((int) (log10(frontera.size()))) + 1;
 		frontera.erase(v);
-		operaciones = operaciones + (int) log10(frontera.size());
 	}
 	if (res.size() == 0)
 		res.insert(0);
