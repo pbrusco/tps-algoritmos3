@@ -89,7 +89,7 @@ Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	10	5	993	384
+ggeometry	10	5	995	389
 PlotTitle	Cantidad de operaciones , algoritmo Exacto	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -97,7 +97,7 @@ Margin	0
 Border	0	#000000
 grid	0	0	0	0	#0000ff	0	0.5	#a0a0a4	2	0.4	#0000ff	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
 EnabledAxes	1	0	1	0	
-AxesTitles	X Axis Title	Cantidad de operaciones (en miles)			
+AxesTitles	Tamaño del grafo	Cantidad de operaciones (en miles)			
 AxesTitleColors	#000000	#000000	#000000	#000000	
 AxesTitleAlignment	5124	4	5124	4
 AxesTitleDistance	2	-1	2	-1
@@ -141,18 +141,39 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>20.341176470588</x>
-<y>482578397.21254</y>
-<right>22.5529411764706</right>
-<bottom>277003484.320557</bottom>
+<x>20.260770975057</x>
+<y>289389067.52412</y>
+<right>21.3945578231293</right>
+<bottom>99678456.5916399</bottom>
 <attachTo>0</attachTo>
 <Text>
-\l(1)%(1)
-\l(2)%(2)
-\l(3)%(3)
-\l(4)%(4)
-\l(5)%(5)
-\l(6)%(6)
+\l(1) (0.80)
+\l(2) (0.60)
+\l(3) (0.35)
+\l(4) (0.50)
+\l(5) (0.43)
+\l(6) (0.50)
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+<Legend>
+<Frame>2</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>20.272108843537</x>
+<y>369774919.61415</y>
+<right>23.0272108843537</right>
+<bottom>316720257.234727</bottom>
+<attachTo>0</attachTo>
+<Text>
+Probabilidad de aparicion de ejes
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
