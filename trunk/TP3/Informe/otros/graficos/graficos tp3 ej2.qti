@@ -163,9 +163,30 @@ curve	Table2_tamaño	Table2_200nods	0	1	#ff00ff	0	1	7	0	#ff00ff	#ff00ff	0	#00000
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	40000000	0	10	5	0	0
+<Function>
+<Type>0</Type>
+<Title>ExpGrowthFit1</Title>
+<Expression>-275+1900*exp(x/3)</Expression>
+<Variable>x</Variable>
+<Range>0.71	30.29</Range>
+<Points>100</Points>
+<Constant>A	1904.49762823779</Constant>
+<Constant>t	2.93810478442125</Constant>
+<Constant>y0	-275245.115711171</Constant>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#000080</Color>
+	<Style>1</Style>
+	<Width>4</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	40000000	0	9	5	0	0
 scale	1	0	40000000	0	6	5	0	0
-scale	2	0	40	0	7	5	0	0
+scale	2	0	40	0	3	5	0	0
 scale	3	0	40	0	8	5	0	0
 <AxisFormula pos="0">
 x/1000
@@ -183,10 +204,10 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>1.1907386990077</x>
+<x>1.3230429988975</x>
 <y>36052631.578947</y>
-<right>7.76185226019846</right>
-<bottom>16710526.3157895</bottom>
+<right>9.74641675854465</right>
+<bottom>14473684.2105263</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1)test de 40
@@ -233,9 +254,9 @@ LabelsRotation	0	0
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
 <x>36.51598676957</x>
-<y>26842105.263158</y>
+<y>26973684.210526</y>
 <right>38.8092613009923</right>
-<bottom>23157894.7368421</bottom>
+<bottom>23289473.6842105</bottom>
 <attachTo>0</attachTo>
 <Text>
 10x⁴
@@ -248,6 +269,49 @@ LabelsRotation	0	0
 <AutoUpdate>1</AutoUpdate>
 <TeXOutput>0</TeXOutput>
 </Legend>
+<Legend>
+<Frame>2</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>11.113561190739</x>
+<y>36447368.421053</y>
+<right>18.6108048511577</right>
+<bottom>14210526.3157895</bottom>
+<attachTo>0</attachTo>
+<Text>
+aproximación Exponencial
+
+\l(9)-275+1900*e^(x/3)
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
 </graph>
 </multiLayer>
 <open>1</open>
+<log>
+[27/06/10 01:13	Plot: ''Graph1'']
+Exponential growth of dataset: Table2_40nods, using function: y0+A*exp(x/t)
+Weighting Method: No weighting
+Scaled Levenberg-Marquardt algorithm with tolerance = 0,0001
+From x = 1,000000000000000e+00 to x = 3,000000000000000e+01
+A (amplitude) = 1,904497628237790e+03 +/- 8,696800009144147e+02
+t (lifetime) = 2,938104784421254e+00 +/- 1,342503918266901e-01
+y0 (offset) = -2,752451157111707e+05 +/- 3,366772467951428e+05
+--------------------------------------------------------------------------------------
+Chi^2/doF = 2,056684515079926e+12
+R^2 = -0,243386315792045
+Adjusted R^2 = -0,386853967614204
+RMSE (Root Mean Squared Error) = 14.255.800,8156853
+RSS (Residual Sum of Squares) = 5,48715213620531e+15
+---------------------------------------------------------------------------------------
+Iterations = 53
+Status = success
+---------------------------------------------------------------------------------------
+</log>
