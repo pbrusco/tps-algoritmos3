@@ -121,12 +121,12 @@ AxesColors	#000000	#000000	#000000	#000000
 AxesNumberColors	#171717	#171717	#171717	#171717
 AxesBaseline	0	0	0	0	
 CanvasBackground	#ffffff	255
-curve	Table2_tamaño	Table2_40nods	0	4	#000000	0	5	7	0	#000000	#000000	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_100nods1	0	4	#ff0000	0	5	7	0	#ff0000	#ff0000	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_100nods2	0	4	#00ff00	0	5	7	0	#00ff00	#00ff00	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_100nods3	0	4	#0000ff	0	5	7	0	#0000ff	#0000ff	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_100nods4	0	4	#00ffff	0	5	7	0	#00ffff	#00ffff	0	#000000	14	1	2	0	0	69	1
-curve	Table2_tamaño	Table2_200nods	0	4	#ff00ff	0	5	7	0	#ff00ff	#ff00ff	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_40nods	0	1	#000000	0	1	7	0	#000000	#000000	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_100nods1	0	1	#ff0000	0	1	7	0	#ff0000	#ff0000	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_100nods2	0	1	#00ff00	0	1	7	0	#00ff00	#00ff00	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_100nods3	0	1	#0000ff	0	1	7	0	#0000ff	#0000ff	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_100nods4	0	1	#00ffff	0	1	7	0	#00ffff	#00ffff	0	#000000	14	1	2	0	0	69	1
+curve	Table2_tamaño	Table2_200nods	0	1	#ff00ff	0	1	7	0	#ff00ff	#ff00ff	0	#000000	14	1	2	0	0	69	1
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
@@ -137,18 +137,36 @@ curve	Table2_tamaño	Table2_200nods	0	4	#ff00ff	0	5	7	0	#ff00ff	#ff00ff	0	#00000
 <Style>0</Style>
 <LineStyle>1</LineStyle>
 <Pen>
-	<Color>#ffff00</Color>
-	<Style>0</Style>
+	<Color>#800000</Color>
+	<Style>1</Style>
 	<Width>1</Width>
 </Pen>
 <xAxis>2</xAxis>
 <yAxis>0</yAxis>
 <Visible>1</Visible>
 </Function>
-scale	0	0	50000000	0	7	5	0	0
-scale	1	0	50000000	0	6	5	0	0
-scale	2	-10	80	0	8	5	0	0
-scale	3	-10	80	0	8	5	0	0
+<Function>
+<Type>0</Type>
+<Title>F2</Title>
+<Expression>10* x^4</Expression>
+<Variable>x</Variable>
+<Range>0	60</Range>
+<Points>100</Points>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#000080</Color>
+	<Style>1</Style>
+	<Width>1.8</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
+scale	0	0	40000000	0	10	5	0	0
+scale	1	0	40000000	0	6	5	0	0
+scale	2	0	40	0	7	5	0	0
+scale	3	0	40	0	8	5	0	0
 <AxisFormula pos="0">
 x/1000
 </AxisFormula>
@@ -165,19 +183,62 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>-7.3208379272326</x>
-<y>45114006.514658</y>
-<right>9.05181918412348</right>
-<bottom>23941368.0781759</bottom>
+<x>1.1907386990077</x>
+<y>36052631.578947</y>
+<right>7.76185226019846</right>
+<bottom>16710526.3157895</bottom>
 <attachTo>0</attachTo>
 <Text>
-\l(1)%(1)
-\l(2)%(2)
-\l(3)%(3)
-\l(4)%(4)
-\l(5)%(5)
-\l(6)%(6)
+\l(1)test de 40
+\l(2)test de 100 (1)
+\l(3)test de 100 (2)
+\l(4)test de 100 (3)
+\l(5)test de 100 (4)
+\l(6)test de 200 
 \l(7)7000x²
+\l(8)10x⁴
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+<Legend>
+<Frame>0</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>36.074972436604</x>
+<y>13815789.473684</y>
+<right>39.0738699007718</right>
+<bottom>10131578.9473684</bottom>
+<attachTo>0</attachTo>
+<Text>
+7000x²
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+<Legend>
+<Frame>0</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>36.51598676957</x>
+<y>26842105.263158</y>
+<right>38.8092613009923</right>
+<bottom>23157894.7368421</bottom>
+<attachTo>0</attachTo>
+<Text>
+10x⁴
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
