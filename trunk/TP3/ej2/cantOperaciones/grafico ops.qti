@@ -89,7 +89,7 @@ Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	10	5	995	389
+ggeometry	10	5	993	384
 PlotTitle	Cantidad de operaciones , algoritmo Exacto	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -121,6 +121,27 @@ curve	Table1_1	Table1_100nodos2	0	1	#00ff00	0	1	7	0	#00ff00	#00ff00	0	#000000	14
 curve	Table1_1	Table1_100nodos3	0	1	#0000ff	0	1	7	0	#0000ff	#0000ff	0	#000000	14	1	2	0	0	65	1
 curve	Table1_1	Table1_100nodos4	0	1	#00ffff	0	1	7	0	#00ffff	#00ffff	0	#000000	14	1	2	0	0	65	1
 curve	Table1_1	Table1_200nodos	0	1	#ff00ff	0	1	7	0	#ff00ff	#ff00ff	0	#000000	14	1	2	0	0	65	1
+<Function>
+<Type>0</Type>
+<Title>ExpGrowthFit1</Title>
+<Expression>3484380 +1761*exp(x/2.343)</Expression>
+<Variable>x</Variable>
+<Range>4.76	29.24</Range>
+<Points>100</Points>
+<Constant>A	1761.62250005391</Constant>
+<Constant>t	2.34384744793743</Constant>
+<Constant>y0	3484380</Constant>
+<Style>0</Style>
+<LineStyle>1</LineStyle>
+<Pen>
+	<Color>#800080</Color>
+	<Style>2</Style>
+	<Width>3</Width>
+</Pen>
+<xAxis>2</xAxis>
+<yAxis>0</yAxis>
+<Visible>1</Visible>
+</Function>
 scale	0	0	500000000	0	7	5	0	0
 scale	1	0	500000000	0	8	5	0	0
 scale	2	20	30	0	8	5	0	0
@@ -141,10 +162,10 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>20.260770975057</x>
-<y>289389067.52412</y>
-<right>21.3945578231293</right>
-<bottom>99678456.5916399</bottom>
+<x>20.259593679458</x>
+<y>288961038.96104</y>
+<right>21.3882618510158</right>
+<bottom>97402597.4025974</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1) (0.80)
@@ -163,17 +184,39 @@ LabelsRotation	0	0
 <TeXOutput>0</TeXOutput>
 </Legend>
 <Legend>
+<Frame>0</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>20.237020316027</x>
+<y>368506493.50649</y>
+<right>21.7945823927765</right>
+<bottom>295454545.454545</bottom>
+<attachTo>0</attachTo>
+<Text>
+Probabilidad de
+ aparición de ejes
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+<Legend>
 <Frame>2</Frame>
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>20.272108843537</x>
-<y>369774919.61415</y>
-<right>23.0272108843537</right>
-<bottom>316720257.234727</bottom>
+<x>20.327313769752</x>
+<y>435064935.06494</y>
+<right>23.058690744921</right>
+<bottom>381493506.493506</bottom>
 <attachTo>0</attachTo>
 <Text>
-Probabilidad de aparicion de ejes
+\l(7)3500000 +1700.e^(x/2.343)
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
@@ -186,3 +229,23 @@ Probabilidad de aparicion de ejes
 </graph>
 </multiLayer>
 <open>1</open>
+<log>
+[27/06/10 00:59	Plot: ''Graph1'']
+Exponential growth of dataset: Table1_100nodos1, using function: y0+A*exp(x/t)
+Weighting Method: No weighting
+Scaled Levenberg-Marquardt algorithm with tolerance = 0,0001
+From x = 5,000000000000000e+00 to x = 2,900000000000000e+01
+A (amplitude) = 1,761622500053909e+03 +/- 2,813374868766532e+03
+t (lifetime) = 2,343847447937426e+00 +/- 3,073421254759431e-01
+y0 (offset) = 3,484375698038843e+06 +/- 7,768729821734658e+06
+--------------------------------------------------------------------------------------
+Chi^2/doF = 9,347584798952024e+14
+R^2 = -0,216833779199487
+Adjusted R^2 = -0,390667176227985
+RMSE (Root Mean Squared Error) = 121.061.640,833773
+RSS (Residual Sum of Squares) = 3,22430259390041e+17
+---------------------------------------------------------------------------------------
+Iterations = 54
+Status = success
+---------------------------------------------------------------------------------------
+</log>
