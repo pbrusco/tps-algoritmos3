@@ -5,10 +5,9 @@
 \paragraph{}
 En esta sección se presentara un algoritmo exacto para resolver el problema de encontrar la Clique Máxima en un grafo.
 
-
 \paragraph{}
-Aun no se conocen algoritmos buenos, es decir, polinomiales con respecto al tamaño de la entrada, para resolver 
-este problema, asi que nos concentraremos en realizar mejoras al algoritmo de fuerza bruta que considera todos los casos.
+Aún no se conocen algoritmos buenos, es decir, polinomiales con respecto al tamaño de la entrada para resolver 
+este problema. Así que nos consentraremos en realizar mejoras al algoritmo de fuerza bruta que considera todos los casos.
 
 
 \subsection{Explicación}
@@ -24,7 +23,7 @@ Una mejora que surge casi inmediatamente es utilizar la técnica de BackTracking
 arbol implicito de combinaciones posibles. 
 
 \paragraph{}
-De todas maneras, implementar solo un BackTracking parece ser poco con respecto a las mejoras que se pueden lograr. A continuación, se explicara el algoritmo implementado con algunas mejoras,su pseudocodigo, y se verá cada una de las mejoras por separado.
+De todas maneras, implementar solo un BackTracking parece ser poco con respecto a las mejoras que se pueden lograr. A continuación, se explicara el algoritmo implementado con algunas mejoras, su pseudocodigo, y se verá cada una de las mejoras por separado.
 
 \vspace{2em}
 \incmargin{3em}
@@ -72,19 +71,18 @@ Luego, para cada componente, se crea un heap que contiene los nodos de la compon
 A partir de esta estructura, vamos obteniendo en cada iteración, el nodo $v$ de mayor grado disponible en la componente que no hayamos analizado.
 
 \paragraph{}
-Una vez que tenemos el nodo $v$, lo que se hace es buscar la mayor clique en la cual está contenido. Para ello utilizamos la función BuscoCliqueDeTamañoK a la cual le indicamos el tamaño de la clique que queremos buscar (desde el grado de $v$ + 1) y los vecinos de $v$ que tienen posibilidades de pertenecer a la clique (dado su grado).
+Una vez que tenemos el nodo $v$, lo que se hace es buscar la mayor clique en la cual está contenido. Para ello utilizamos la función BuscoCliqueDeTamañoK a la cual le indicamos el tamaño de la clique que queremos buscar (desde el grado de $v$ + 1) y los vecinos de $v$ que, dado su grado, tienen posibilidades de pertenecer a la clique.
 
 \paragraph{}
 Por ejemplo, veamos la siguiente figura:
 
-\includegraphics[scale = 0.9]{./p.jpg} \\
+\includegraphics[scale = 0.9]{./otros/p.jpg} \\
 
 \paragraph{}
 Como se ve en el ejemplo, si buscamos cliques que contengan al vertice A (cuyo grado es 7), no tendria sentido buscarlas de cualquier tamaño, sino desde el grado del vertice más uno, es decir, cliques de tamaño 8 en este caso. Pero si vemos cuantos nodos vecinos de grado 7 tiene, notamos que no alcanzan para formar una clique de 8. Luego buscamos nodos vecinos de A de grado 6 o más y notamos que hay 3 (B, C, D) y A, por lo tanto tampoco alcanzan para una clique de tamaño 7. Luego los de grado 5 o más, encontramos 5 más A. En este caso, hay probabilidades de que estos 6 nodos puedan formar una clique de tamaño 6, entonces realizaremos una busqueda exaustiva utilizando backtracking, el cual en este caso dara negativo ya que no hay cliques de grado 6 en el grafo que contengan a A. Una vez más, buscaremos una clique de tamaño 5, para lo cual solo miraremos nodos de grado 4 o más y realizaremos el backtracking sobre los nodos disponibles. 
 
 \paragraph{}
-De todas maneras, el algoritmo intentará buscar cliques cada vez mas chicas hasta llegar a cliques de del tamaño de la más grande encontrada hasta el momento sin incluir, ya que encontrar cliques más chicas no tiene importancia. 
-
+De todas maneras, el algoritmo intentará buscar cliques cada vez mas chicas hasta llegar a cliques de del tamaño de la más grande encontrada hasta el momento (sin incluir). Esto es así puesto que no tiene sentdo seguir buscando cliques más chicas que la mayor encontrada hasta el momento. 
 
 \paragraph{}
-El heap de nodos ordenados por grados tiene gran importancia, ya que permite decidir rapidamente cuando terminar con la busqueda. Esto se realiza comprobando que el nodo siguiente del heap, es decir, el de mayor grado de la componente, supere o iguale al tamaño de la clique mas grande encontrada, ya que en caso contrario, no tendría sentido seguir buscando.
+El heap de nodos ordenados por grados tiene gran importancia, ya que permite decidir rapidamente cuando terminar con la busqueda. Esto se realiza comprobando que el nodo siguiente del heap, es decir, el de mayor grado de la componente, supere o iguale al tamaño de la clique mas grande encontrada, ya que en caso contrario, no tendría sentido seguir buscando dentro de esa clique.
