@@ -8,8 +8,8 @@ El problema a resolver en el presente trabajo práctico consiste en dado un graf
 Este problema es muy conocido. Además, no está computacionalmente resuelto  y tiene infinidad de aplicaciones en distintos problemas de la vida real, lo que hace que sea un importante objeto de estudio. Algunas de sus aplicaciones más estudiadas provienen de áreas como bioinformática, transporte, diseño de tuberías, diseño de redes energéticas, procesamiento de imágenes, seguridad informática, electrónica, etc.
 
 \subsection{Algunas aplicaciones}
-
 \subsubsection{Telefonía Móvil}
+
 \paragraph{}
 Una aplicación posible podría darse por ejemplo, en el contexto de una compañía de telefonía móvil. Como bien se conoce, este tipo de empresa ofrece un plan llamado ``plan empresas'' para el cuál todos los teléfonos que se encuentren bajo este, tienen la posibilidad de comunicarse entre sí de forma libre.
 
@@ -20,31 +20,41 @@ Para la empresa, podría ser de interés conocer algún grupo de personas que es
 Podemos pensar el modelo de la siguiente manera:
 \begin{itemize}
   \item Vértices: Son los celulares de los clientes de la empresa de telefonía.
-  \item Ejes o aristas: Existe una arista entre dos vértices (o teléfonos) A y B si alguna vez se realizó una llamada entre ambos (A llamó a B o vice versa)\footnote{Sería conveniente elegir un período de tiempo acotado para ver si se produjo dicha llamada o no y así poder armar el grafo.}.
+  \item Ejes o aristas: Existe una arista entre dos vértices (o teléfonos) A y B si alguna vez se realizó una llamada entre ambos (A llamó a B o viceversa)\footnote{Sería conveniente elegir un período de tiempo acotado para ver si se produjo dicha llamada o no y así poder armar el grafo.}.
 \end{itemize}
 
 \paragraph{}
 Con este modelo, encontrar una clique de tamaño K significa encontrar un grupo de K celulares que se hayan comunicado todos entre sí alguna vez durante un período de tiempo predeterminado. Pasa lo mismo si se busca un \mc. Esto sería equivalente a encontrar el mayor grupo de personas que estén comunicados todos entre sí\footnote{Una variante sería buscar el \mc durante un año todos los días y quedarse con aquellos que se haya repetido la mayor cantidad de veces.}.
 
 \paragraph{}
-De la misma forma, se puede pensar al revés, y quizás a la empresa le interese conocer grupos de celulares que estén todos comunicados entre sí, para NO ofrecerles el ``plan empresas'' ya que de esa manera ese grupo de personas podría eventualmente bajar el consumo de sus llamadas descendiendo las ganancias de la empresa de telefonía.
+De la misma forma, se puede pensar al revés, y quizás a la empresa le interese conocer grupos de celulares que estén todos comunicados entre sí, para NO ofrecerles el ``plan empresas'' ya que de esa manera ese grupo de personas podría eventualmente bajar el consumo de sus llamadas decrementando así las ganancias de la empresa de telefonía.
 
 \subsubsection{Planes Sociales}
 
 \paragraph{}
-Imaginemos que el gobierno de la nación quiere lanzar un nuevo plan social y quiere que la entrega de estos sea lo más equitativa posible para la sociedad. En este sentido, quiere entregar planes a la mayor cantidad de personas posibles de forma tal que ninguna persona que reciba el beneficio del plan esté relacionada directamente con otra que también lo reciba. Por relacionada directamente, se entiende que esas personas no tengan un parentesco directo que las una (madre,padre,hijo/a). Podemos pensar el siguiente modelo de grafos:\\
-Los nodos son las personas que pueden verse beneficiadas con el plan (i.e: mayores de 18 años que tengan hijos) y existe un eje que une un par de nodos si existe un parentesco directo que una a las dos personas que representan esos nodos.
+Imaginemos que el gobierno de la Nación quiere lanzar un nuevo plan social y quiere que la entrega de estos sea lo más equitativa posible entre la población. En este sentido, quiere entregar planes a la mayor cantidad de personas posibles de forma tal que ninguna persona que reciba el beneficio del plan esté relacionada directamente con otra que también lo reciba. Por relacionada directamente, se entiende que esas personas no tengan un parentesco directo que las una (madre,padre,hijo/a).
 
 \paragraph{}
-Lo que se debería buscar en este modelo entonces es el mayor conjunto de nodos independientes, es decir, un conjunto de nodos tales que para un par cualquiera de esos nodos no exista una arista que los una. Esto no es directamente transferible a un problema de \mc pero lo es si tomamos el complemento del grafo proveniente del modelo anteriormente mencionado. Haciendo esto, sabemos que el grafo resultante tiene ejes donde antes no había y le faltan los ejes que antes existían. Por lo que, si antes había un conjunto de nodos independientes, en el complemento en su lugar hay una clique. Por lo tanto ahora sí podemos ver que encontrar una \mc en el complemento del grafo creado como antes se mencionó es igual a encontrar un grupo de personas no relacionadas entre sí para poder asignarles un plan social.
+Podemos pensar el siguiente modelo de grafos:
+\begin{itemize}
+  \item Vértices: Son las personas que son potencialmente beneficiarios del plan (i.e: mayores de 18 años que tengan hijos).
+  \item Ejes o aristas: Existe un eje que une un par de vértices si existe un parentesco directo que una a las dos personas que representan esos nodos.
+\end{itemize}
 
+\paragraph{}
+Entonces lo que se debería buscar en este modelo es el mayor conjunto de nodos independientes, es decir, un conjunto de nodos tales que para un par cualquiera de esos nodos no exista una arista que los una. Esto no es directamente transferible a un problema de \mc, pero sí lo es si tomamos el complemento del grafo proveniente del modelo anteriormente descripto. Haciendo esto, sabemos que el grafo resultante tiene ejes donde antes no los había y le faltan aquellos que antes sí existían. Por lo que, si antes había un conjunto de nodos independientes, en el complemento en su lugar hay una clique. En consecuencia, ahora sí podemos ver que encontrar una \mc en el complemento del grafo creado como antes se mencionó es igual a encontrar un grupo de personas no relacionadas entre sí para poder asignarles un plan social.
 
 \subsubsection{Buscador Web}
 
 \paragraph{}
-Como bien sabemos, en un buscador web se realizan muchísimas búsquedas diarias. Para la empresa que mantiene un buscador web, puede ser de gran importancia saber cuál es el tema o palabra más buscado/a en algún período de tiempo en particular. Podemos pensar por ejemplo el siguiente modelo para las búsquedas realizadas:\\
-Los nodos representan una palabra o frase que haya sido buscada en el sitio web. Las aristas aparecen entre dos nodos si entre esas frases hay alguna palabra en común (o un cierto porcentaje de palabras en común, por ejemplo, para evitar que dos frases estén relacionadas sólo por tener una preposición en común).
+Como bien sabemos, en un buscador web se realizan muchísimas búsquedas diarias. Para la empresa que mantiene un buscador web, puede ser de gran importancia saber cuál es el tema o palabra más buscado/a en algún período de tiempo en particular. 
+
+\paragraph{}
+Podemos pensar por ejemplo el siguiente modelo para las búsquedas realizadas:
+\begin{itemize}
+  \item Vértices: Representan una palabra o frase que haya sido buscada en el sitio web.
+  \item Ejes o aristas: Las aristas aparecen entre dos nodos si entre esas frases hay alguna palabra en común (o un cierto porcentaje de palabras en común, por ejemplo, para evitar que dos frases estén relacionadas sólo por tener una preposición en común).
+\end{itemize}
 
 \paragraph{}
 Para este modelo, encontrar una clique significa encontrar un conjunto de frases que (en cierto sentido) hacen referencia a una misma temática. Por lo tanto, encontrar una \mc sería equivalente a conocer cuál es el tema (o palabra) más consultado en el buscador web.
-

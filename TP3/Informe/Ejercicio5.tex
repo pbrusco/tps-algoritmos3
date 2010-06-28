@@ -1,0 +1,188 @@
+\section{Ejercicio 5}
+
+\subsection{Introducción}
+
+\paragraph{}
+La búsqueda tabú es un algoritmo metaheurístico \footnote{
+Las metaheurísticas son pues, heurísticas. No obstante, y generalmente la metaheurística consiste en estrategia de ataque del problema que cuenta con una heurística subordinada. Analizando su etimología, se obtiene que en griego meta: ''más allá'' y heurístico: ''encontrar''; lo cual evidencia que la metaheurística supone un nivel superior en cuanto a la heurística.} basado en los algortimos heurísticos de búsqueda local, que aumenta su eficacia con respecto a este mediante el uso de estructuras de memorización. Esto le permite recodar características de las soluciones ya visitadas, para de esa forma evitar recorrerlas en el futuro, evitando así caer en ciclos dentro de la búsqueda. \\
+Además, a diferencia de la heurísitica de búsqueda local, la metaheurística de búsqueda tabú cuenta con la posibilidad de admitir temporalmente soluciones peores con respecto a la mejor encontrada hasta el momento. Esta variación le brinda en algunos casos la posibilidad de continuar explorando en busca de la solución óptima en lugar de quedar reducida a una solución óptima local (máxima o mínima).
+
+\paragraph{}
+La búsqueda tabú utiliza un procedimiento similar al de búsqueda local o por vecindades moviéndose de forma iterativa desde una solución inicial \textit{S} hacia una solución \textit{S'} en \textit{N(S)} (la vecindad de \textit{S}) que optimice el valor de la solución hasta satisfacer algún criterio de parada.
+Su principal diferencia radica en el uso de una la lista tabú, la cual es una estructura que le brinda al algoritmo una memoria de corto plazo y acotada \footnote{Generalmente el valor que acota el tamaño de la lista tabú es arbitrario pero dependiente del valor del tamaño de la entrada.}, en donde puede alojar las soluciones que fueron visitadas en el pasado reciente. \\
+Una variación que supone un uso más eficiente de esta esctructura consiste en la prohíbición de soluciones que tienen ciertos atributos o la prevención ciertos movimientos, puesto que el volumen de información a guardar en estos casos es significativamente menor que el necesario para guardar las soluciones obtenidas en las \textit{k} iteraciones pasadas, siendo \textit{k} el tamaño de la lista tabu. \\
+De este modo, en cada iteración el algoritmo parte de una solución \textit{S} hacia una solución \textit{S'} que mejore el valor de la solución obtenida hasta el momento. Para ello, define una vecindad de \textit{S}, \textit{N(S)}, que representa el conjunto de soluciones alcanzables mediante transformaciones locales de \textit{S}. Seguidamente, excluye de este conjunto a todas aquellas soluciones cuyos atributos esten registrados en la lista tabú o que sean generadas por transformaciones que estén en la lista tabú \footnote{Cabe aclarar que aún cuando sólo un atributo es marcado como tabú, esto por lo general resulta en que más de una solución sea marcada como tabú, y en consecuencia sea temporalmente ignorada.}. Finalmente, halla \textit{S'} de entre las soluciones de \textit{N(S)}, y el algoritmo marca a \textit{S} como ''tabú'' incorporándola a la lista tabú continuando con su ejecución hasta alcanzar el criterio de parada.
+
+\paragraph{}
+En la presente parte de este trabajo se busca resolver el problema de \mc mediante la implementación de un algoritmo metaheurístico basado en la técnica de búsqueda tabú.
+
+
+\subsection{Explicación}
+
+\paragraph{}
+El concepto principal de la metaheurística desarrollada consiste en realizar repetidas veces una búsquedas tabú, partiendo cada vez de una solución inicial distinta. La motivación detrás de esta idea es la de, mediante esta técnica de diversificación, poder alcanzar espacios de búsqueda que de otro modo no sería explorados por el algoritmo, logrando así aumentar el número de soluciones potenciales cuyo valor \footnote{Téngase presente que el problema que se busca resolver es el de \mc, y que por ende se entiende por posibles soluciones a los conjuntos de nodos que forman cliques, y por valor de una solución a la cantidad de nodos que la conforma. Precisamente, lo que se busca con esta metaheurística es encontrar la solución de mayor valor} sea mayor que el de la mejor solución obtenida hasta el momento.
+
+\paragraph{}
+Para poder comprender de manera más cabal tanto la idea como el funcionamiento del algoritmo que implementa la metaheurística de búsqueda tabú se dividirá la explicación en dos partes. En primer lugar, se analizará el algoritmo encargado de diversificar las soluciones iniciales y realizar las sucesivas búsqueda tabú, el cual se halla implementado en la función \textit{cliqueTabu}. En segunda instancia, se procederá a elucidar el algoritmo de búsqueda tabú propiamente dicho, el cual se encuentra implementado en la función \textit{busquedaTabu}. 
+\subsubsection{Primera Parte}
+\paragraph{}
+Dando comienzo a la explicación de la función \textit{cliqueTabu}, se presenta a continuación el pseudocódigo de la misma, y seguidamente se expone con mayor detalle el funcionamiento del algoritmo. \\
+
+\textbf{CliqueTabu}(G: Grafo) \\
+\begin{algorithm}[H]
+\footnotesize 
+\linesnumbered
+\incmargin{3em}
+\restylealgo{boxed}
+
+	\BlankLine
+	\textbf{var} res : Conj(\entero)  									\tcp*{\Ode{1}}
+	\textbf{var} cliqueAux : Conj(\entero) 								\tcp*{\Ode{1}}
+	\textbf{var} n : \entero												\tcp*{\Ode{1}}
+
+	\BlankLine \BlankLine
+	n $\leftarrow$ cant\_nodos(G) \\										\tcp*{\Ode{1}}
+	res $\leftarrow$ cliqueConstructivo(G)								\tcp*{\Ode{?}}	
+	cliqueAux $\leftarrow$ res											\tcp*{\Ode{n}}
+
+	\BlankLine \BlankLine
+	\textbf{Para} 1, ... , n/2 \{												\tcp*{\Ode{n}}
+
+	\BlankLine \BlankLine
+	\tab cliqueAux $\leftarrow$ busquedaTabu(G, cliqueAux)			\tcp*{\Ode{?}}
+
+	\BlankLine \BlankLine		
+	\tab \textbf{Si} (tam(cliqueAux) $>$ tam(res))						\tcp*{\Ode{1}}
+	\tab \tab	res $\leftarrow$ cliqueAux								\tcp*{\Ode{n}}
+
+	\BlankLine \BlankLine		
+	cliqueAux $\leftarrow$ $\emptyset$								\tcp*{\Ode{1}}
+	cliqueAux $\leftarrow$ diversificar(G)								\tcp*{\Ode{n}}
+	\}
+	
+	\BlankLine \BlankLine		
+	\textbf{return} res													\tcp*{\Ode{1}}
+
+\caption{Pseudocódigo de la función cliqueTabu}
+\normalsize
+\end{algorithm}
+
+\paragraph{}
+Tal como puede observarse del pseudocódigo anterior, el algoritmo \textit{cliqueTabu} toma como solución de partida la solución obtenida mediante la heurística constructiva desarrolada en el Ejercicio 3 del presente trabajo. A partir de allí, el algoritmo comienza un ciclo que repite \textit{n/2} veces, siendo \textit{n} la cantidad de nodos del grafo analizado. En cada ciclo, se realiza una búsqueda tabú sobre esa solución inicial , y si encuentra una clique de tamaño mayor que la registrada hasta ese momento la guarda. Seguidamente, se procede a buscar una nueva solución inicial por medio de la función \textit{diversificar} y se continua con la ejecución del ciclo. Finalmente, una vez que el ciclo concluye, el algorimo devuelve el cojunto de nodos que conforman la mayor clique que fue capaz de encontrar.
+
+\paragraph{}
+En este punto, y antes de continuar con la explicación de \textit{busquedaTabu}, cabe hacer un pequeño paréntesis para comentar brevemente el funcionamiento de la función \textit{diversificar}. El algoritmo implementado en dicha función concretamente lo que hace es brindar de modo aleatorio una solución trivial al problema. En otras palabras, devuelve un conjunto de nodos que sean trivialmente una clique; esto es o bien un único nodo, o bien un par de nodos adyacentes. \\
+Para generar esta solución, el algortimo elige al azar un nodo \textit{v} cualquiera del grafo, y seguidamente elige otro nodo \textit{u} al azar de entre los vecinos de \textit{v}. Finalmente, devuelve un conjunto con el par de nodos \textit{v,u} en caso de que el \textit{gr(v)} $ > 0$, o devuelve un conjunto con \textit{v} en caso contrario.
+
+\paragraph{}
+Finalmente, una observación para cerrar la exposición del algoritmo implementado en la función \textit{cliqueTabu}. Nótese que este algoritmo en su primera iteración realiza la búsqueda tabú partiendo de la solución brindada por la heurística constructiva. Esto, a priori, supone una ventaja para la metaheurística ya que en los casos en que la búsqueda contructiva se acerca ''de forma aceptable'' a la solución óptima, la búsqueda tabú parte de una solución bastante encaminada con lo cual se vuelve esperable que encuentre la mejor solución. \\
+Por el contrario, si la solución de la heurística constructiva corresponde a un caso patológico y alejado de la solución óptima, esto no necesariamente supone un problema para la metaheurística aquí expuesta, ya que en cada iteración dentro de la función \textit{cliqueTabu} el algoritmo diversificará la búsqueda generando nuevas soluciones iniciales triviales a partir de las cuales realizar nuevamente la búsqueda tabú con intención de obtener resultados más favorables.
+
+
+\subsubsection{Segunda Parte}
+\paragraph{}
+A continuación, se procederá a explicar el funcionamiento del algoritmo de búsqueda tabú. Para ello, y al igual que en el caso anterior, se incorpora al pie el pseudocódigo de la función \textit{busquedaTabu} para acompañar la explicación. \\
+
+\textbf{busquedaTabu}(G: Grafo, res: Conj(\entero)) \\
+\begin{algorithm}[H]
+\footnotesize 
+\linesnumbered
+\incmargin{3em}
+\restylealgo{boxed}
+
+	\BlankLine
+	\textbf{var} n 				: \entero												\tcp*{\Ode{1}}
+	\textbf{var} v 				: \entero												\tcp*{\Ode{1}}
+	\textbf{var} u 				: \entero												\tcp*{\Ode{1}}
+	\textbf{var} stop				: \entero					 							\tcp*{\Ode{1}}
+	\textbf{var} desmejore		: \entero												\tcp*{\Ode{1}}
+	\textbf{var} vecindad 		: Heap(\entero)							 			\tcp*{\Ode{1}}
+	\textbf{var} cliqueTemp 		: Conj(\entero) 										\tcp*{\Ode{1}}
+	\textbf{var} agregados 		: Conj(\entero) 										\tcp*{\Ode{1}}
+	\textbf{var} TabuAgregados 	: Cola(Conj(\entero))								 	\tcp*{\Ode{1}}
+	\textbf{var} TabuEliminados 	: Cola(\entero)) 										\tcp*{\Ode{1}}
+	
+	\BlankLine \BlankLine
+	n 				$\leftarrow$ cant\_nodos(G)											\tcp*{\Ode{1}}
+	stop 			$\leftarrow$ $10*n$													\tcp*{\Ode{1}}
+	desmejore 		$\leftarrow$ 0														\tcp*{\Ode{1}}
+	cliqueTemp 	$\leftarrow$ res														\tcp*{\Ode{1}}
+
+	\BlankLine \BlankLine		
+	\textbf{Mientras} (stop $\neq 0$) \textbf{and} (desmejore $\neq n/4$) \textbf{and} (cliqueTemp $\neq \emptyset$)) \{ \\
+
+	\BlankLine	
+	\tab v $\leftarrow$ nodoConMenorGrado(TabuAgregados, cliqueTemp)				\tcp*{\Ode{?}}
+	\tab borrar(cliqueTemp, v) 															\tcp*{\Ode{log n}}	
+	\tab encolar(TabuEliminados, v) 														\tcp*{\Ode{1}}
+
+	\BlankLine \BlankLine		
+	\tab agregados $\leftarrow$ $\emptyset$											\tcp*{\Ode{1}}
+	\tab vaciar(vecindad)																	\tcp*{\Ode{n}}
+	\tab vecindad $\leftarrow$ definirVecindad(TabuEliminados, cliqueTemp) 			\tcp*{\Ode{?}}
+
+	\BlankLine \BlankLine		
+	\tab \textbf{Mientras} (vecindad $\neq \emptyset$)) \{							\tcp*{\Ode{n}}
+
+	\BlankLine
+	\tab \tab u $\leftarrow$ tope(vecindad)												\tcp*{\Ode{1}}
+	\tab \tab pop(vecindad)																\tcp*{\Ode{1}}
+
+	\BlankLine		
+	\tab \tab \textbf{Si} (vecinoDeTodos(u, cliqueTemp)) \{ 							\tcp*{\Ode{n}}
+	\tab \tab \tab agregar(cliqueTemp, u) 												\tcp*{\Ode{log n}}
+	\tab \tab \tab agregar(agregados, u)												\tcp*{\Ode{log n}}
+	\tab \tab	\} \\
+	\tab \}
+
+	\BlankLine \BlankLine		
+	\tab encolar(TabuAgregados, agregados)												\tcp*{\Ode{1}}
+	
+	\BlankLine \BlankLine
+	\tab \textbf{Si} (tam(cliqueTemp) $>$ tam(res)) \{ 									\tcp*{\Ode{1}}
+	\tab \tab desmejore $\leftarrow$ 0													\tcp*{\Ode{1}}
+	\tab \tab res $\leftarrow$ cliqueTemp												\tcp*{\Ode{n}}
+	\tab \}
+
+	\BlankLine \BlankLine		
+	\tab \textbf{Sino si} ((v $== -1$) \textbf{and} (agregados $== \emptyset$)) 	\tcp*{\Ode{1}}
+	\tab \tab desmejore++																\tcp*{\Ode{1}}
+	
+	\BlankLine \BlankLine
+	\tab \textbf{Si} (tam(TabuEliminados) $== n/2$) \{									\tcp*{\Ode{1}}
+	\tab \tab desencolar(TabuEliminados)												\tcp*{\Ode{1}}
+	\tab \tab desencolar(TabuAgregados)												\tcp*{\Ode{1}}
+	\tab \}	
+
+	\BlankLine \BlankLine
+	\tab stop$--$ 																			\tcp*{\Ode{1}}
+	\}
+	
+	\BlankLine \BlankLine		
+	\textbf{return} res																	\tcp*{\Ode{1}}
+\caption{Pseudocódigo de la función cliqueTabu} 
+\normalsize
+\end{algorithm}
+
+\paragraph{}
+En base al pseudocódigo anterior se observa que la función \textit{busquedaTabu} recibe como parámetros el grafo sobre el cual se busca determinar la \mc y un conjunto de nodos, \textit{res}, que forman una clique dentro del mismo grafo. Al momento del inicio del algoritmo de búsquda tabú, este conjunto representa la mejor solución hallada en ese punto de la ejecución. Conforme el algoritmo avance, en \textit{res} se irán guardando las cliques del grafo que tengan mayor cantidad de nodos que la clique guardada en res hasta ese momento; o eventualmente, en caso de que el algorimo no consiga hayar una clique mas grande, no se modificará en absoluto.
+
+\paragraph{}
+Como primer paso, el algoritmo inicializa dos variables (\textit{stop} y \textit{desmejore}) que serviran como criterio de parada para la búsqueda. \footnote{Estos criterios será explicados más adelante, estando ya más adentrados en el comportamiento del algoritmo.} Seguidamente copia el conjunto \textit{res} recibido como parámetro en la variable \textit{cliqueTemp}. Esta variable contendrá las sucesivas soluciónes que el algortimo vaya transformando y que registrará en \textit{res} en caso de que alguna de todas estas soluciones resultantes tenga un valor mayor que la solución allí guadada al tiempo de ejecución. Luego, el algoritmo ingresa al ciclo en el que hará efectiva la búsqueda tabú y del cual saldra únicamente cuando se halla cumplido alguno de estos criterios.  
+
+\paragraph{}
+Una vez dentro del ciclo, la idea del algoritmo en cada iteración será la de transformar la solución guardada en \textit{cliqueTemp} eliminando un nodo dentro de esa clique, definir una vecindad en función de la solución resultante y luego intentar luego incorporar a la clique el mayor número de nodos posibles de esa vecindad. Cada nodo eliminado será encolado en \textit{TabuEliminados} y el conjunto de nodos agregados será encolado en \textit{TabuAgregados}.
+
+%------------------------ NO LEER (BORRADOR) -----------------
+
+%BLA BLA BLA
+%lo primero que realiza el algorimo es buscar el nodo de menor grado perteneciente a la solución guardada en cliqueTemp y que no se encuentre en ninguno de los conjuntos de nodos de la lista \textit{TabuAgregados}. 
+%inicializadas en $10*n$ \footnote{Nuevamente aquí \textit{n} represent
+%a la cantidad de nodos presentes en el grafo pasado por parámetro} y 0 respectivamente. La primera tendrá por objetivo poner fin al algoritmo luego de $10*n$ iteraciones, mientras que la segunda tendrá por fin detener la ejecución en el caso en que las soluciones obtenidas hayan empeorado $n/4$ veces consecutivas 
+
+
+\subsection{Análisis de la complejidad del algoritmo}
+\subsection{Detalles de implementación}
+\subsection{Resultados}
+\subsection{Debate}
+\subsection{Conclusiones}
