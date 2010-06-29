@@ -11,7 +11,7 @@ using namespace std;
 
 void printSet(ostream& os, const set<int>& c);
 double resolverBusqTabu(const string& input, const string& output, const string& data);
-double timeval_diff(struct timeval& a, struct timeval& b); 	/* retorna "a - b " en microsegundos */
+double timeval_diff(struct timeval& a, struct timeval& b); 	/* retorna "a - b " en milisegundos */
 
 
 int main(int argc, char** argv) {
@@ -21,11 +21,11 @@ int main(int argc, char** argv) {
 	double time = 0.0;
 	
 	if (argc == 1) {
-		input = "../../Tp3.in";
+		input = "../../in/Tp3.in";
 		output = "./out/Tp3.out";
 		data = "./data/Tp3.data";
 		time = resolverBusqTabu(input,output,data);
-		cout << "El algortimo demoró en promedio " << time << " µseg en resolver las instancias del archivo " << input << endl;
+		cout << "El algortimo demoró en promedio " << time << " milisegundos en resolver las instancias del archivo " << input << endl;
 	}
 	else {
 		forn(i, argc-1) {
@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
 			output = "./out/" + output;
 			data = "./data/" + data;
 			time = resolverBusqTabu(input,output,data);
-			cout << "El algortimo demoró en promedio " << time << " µseg en resolver las instancias del archivo " << input << endl;
+			cout << "El algortimo demoró en promedio " << time << " milisegundos en resolver las instancias del archivo " << input << endl;
 		}
 	}
 	return 0;
@@ -52,14 +52,14 @@ double resolverBusqTabu(const string& input, const string& output, const string&
 	int n;
 	Grafo g;
 	set<int> res;
-	ifstream is;		is.open(input.c_str());		assert(is.is_open()); 
+	ifstream is;	is.open(input.c_str());		assert(is.is_open()); 
 	ofstream os;	os.open(output.c_str());	assert(os.is_open());
 	ofstream gf;	gf.open(data.c_str());		assert(os.is_open());
 
 	struct timeval t1, t2;	
 	double time = 0.0, t = 0.0;
 	list<pair<int, double> > grafico;	
-	
+
 	is >> n;
 	while(n != -1) {
 		t = 0.0;
@@ -95,5 +95,5 @@ void printSet(ostream& os, const set<int>& c) {
 
 
 double timeval_diff(struct timeval& a, struct timeval& b) {
-  return (a.tv_sec + - b.tv_sec)*1000000 + (a.tv_usec  - b.tv_usec);
+  return (a.tv_sec + - b.tv_sec)*1000 + (a.tv_usec - b.tv_usec)/1000;
 }
