@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 		output = "./out/Tp3.out";
 		data = "./data/Tp3.data";
 		time = resolverBusqTabu(input,output,data);
-		cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
+		cout << "El algortimo demoró en promedio " << time << " µseg en resolver las instancias del archivo " << input << endl;
 	}
 	else {
 		forn(i, argc-1) {
@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
 			output = "./out/" + output;
 			data = "./data/" + data;
 			time = resolverBusqTabu(input,output,data);
-			cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
+			cout << "El algortimo demoró en promedio " << time << " µseg en resolver las instancias del archivo " << input << endl;
 		}
 	}
 	return 0;
@@ -56,25 +56,33 @@ double resolverBusqTabu(const string& input, const string& output, const string&
 	ofstream os;	os.open(output.c_str());	assert(os.is_open());
 	ofstream gf;	gf.open(data.c_str());		assert(os.is_open());
 
-	double time = 0.0, t = 0.0;
 	struct timeval t1, t2;	
-
+	double time = 0.0, t = 0.0;
+	list<pair<int, double> > grafico;	
+	
 	is >> n;
 	while(n != -1) {
+		t = 0.0;
 		g.cargar(is,n);
-		gettimeofday(&t1,NULL);
-		g.cliqueTabu(res);
-		gettimeofday(&t2,NULL);
-		t = timeval_diff(t2, t1);
-		gf << n << '\t' << t << endl;
+		forn(i,10) {
+			gettimeofday(&t1,NULL);
+			g.cliqueTabu(res);
+			gettimeofday(&t2,NULL);
+			t += timeval_diff(t2, t1);
+		}
+		t = t/10;
+		grafico.push_back(make_pair(n, t));
 		time += t;
 		printSet(os,res);
 		res.clear();
 		is >> n;
 	}
 
+	grafico.sort();
+	forall(it, grafico) {gf << it ->first << '\t' << it -> second << endl;}
 	is.close();
 	os.close();
+	gf.close();
 	return time;
 }
 
