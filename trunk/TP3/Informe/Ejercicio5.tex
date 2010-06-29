@@ -208,6 +208,24 @@ Complejidades: (verificar y luego redactar) \\
 \tab \tab \textit{definirVecindad} = O($n^2 log(n)$) \\
 
 \subsection{Detalles de implementación}
+\paragraph{}
+Dentro de la carpeta \textit{./ej5/}, se puede encontrar el bytecode de un script de python llamado \textit{ej5.pyc} que tiene por fin facilitar el uso del programa que implementa la metaheurística de búsqueda tabú para resolver el problema de \mc . Este script puede ser ejecutado desde una consola, siendo necesario para ello situarse en el directorio en que se encuentra el script e introducir luego la instrucción \texttt{./ej5.pyc}. Una vez ejecutado el script, se presenta en pantalla un menú con las siguientes opciones:
+\begin{itemize}
+	\item[1] Recompilar el programa \footnote{El ejecutable es compilado para sistemas operativos GNU-Linux}.
+	\item[2] Ejecutar el programa 
+	\item[3] Eliminar el ejectuable y los archivos \textit{".out"}
+	\item[4] Salir
+\end{itemize}
+Una vez compilado el programa y seleccionada la opción de ejecutarlo, se mostrará en pantalla un segundo menú que lista todos los archivos \textit{".in"} ubicados en la carpeta \textit{./in}, permitiendo elegir el aquel que se desee ejecutar. Una vez ejecutado, se mostrará un mensaje en pantalla avisando la finalización de la ejecución del algoritmo, y las soluciones de cada instancia del archivo \textit{".in"} estarán guardadas en un archivo \textit{".out"} homónimo  dentro del directorio \textit{./out/5 - BUSQ\_TABU}. \\
+
+\paragraph{}
+Se recomienda que cualquier archivo \textit{".in"} que se desee resolver mediante esta metaheurística sea colocado en la carpeta \textit{./in} para poder ser elegido desde el menu que muestra el script \footnote{En el directorio \textit{./in} hay un archivo ejecutable llamado \textit{generador} que genera archivos con varias instancias de grafos. El mismo puede ejecutarse desde consola por medio del comando \texttt{./generador}}. \\
+De cualquier forma, el programa también puede ser compilado por consola con el comando \texttt{make} y puede ser ejecutado con el comando \texttt{./ej5} recibiendo como parámetro las rutas de los archivos de entrada \textit{".in"} a procesar. Puede recibir tantos archivos como se desee, pero en caso de no recibir ninguno, el programa procesará el archivo \textit{./in/Tp3.in}. En todos los casos, los archivos correspondientes archivos \textit{".out"} serán guardados en la carpeta \textit{./out/5 - BUSQ\_TABU}.
+
+\paragraph{}
+Además, en la carpeta correspondiente a este ejercicio se encuentran los archivos fuentes en lenguaje C++ del programa desarrollado. Los mismos se encuentran cometados para simplificar la comprensión del algortimo. \\
+Allí también se ubica el directorio \textit{/tiempos}, el cual contiene en su interior un archivo ejecutable con la versión modificada del algoritmo para poder realizar mediciones de tiempo, su codigo fuente, y dos subdirectorios \textit{data} y \textit{out}. El ejecutable puede ser recompilado por consola usando el comando \texttt{make}, y puede ser corrido usando el comando \texttt{./tiempos} que recibie como parámetro las rutas de los archivos de entrada \textit{".in"} a procesar. Una vez resueltos todos los inputs, en la carpeta \textit{/tiempos/out} se encontrarán los archivos \textit{".out"} con las soluciones a las instancias de sus correspondientes archivos \textit{".in"}, mientras que en la carpeta \textit{/tiempos/data} se ubicarán los archivos \textit{".data} en los cuales se registra para cada instancia de los archivos input la cantidad de nodos del grafo y el tiempo promedio que tardó el algoritmo en resolverla. Este archivo tiene objetivo facilitar la tarea de cargar los datos en el programa de análisis gráfico \textit{QtiPlot} \footnote{Originalemente, los archivos contenidos en los directorios \textit{data} y \textit{out} son los que se utilizaron para la realización de los gráficos que se presentan en la próxima sección.}.
+
 \subsection{Resultados}
 \subsection{Debate}
 \subsection{Conclusiones}

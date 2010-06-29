@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cassert>
 #include <sys/time.h>
-#include "grafo.h"
+#include "../grafo.h"
 
 #define forn(i,n) for(int i=0; i<n; i++)
 #define forall(it,X) for(typeof((X).begin()) it = (X).begin(); it != (X).end(); it++)
