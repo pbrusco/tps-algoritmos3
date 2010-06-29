@@ -11,7 +11,7 @@ using namespace std;
 
 void printSet(ostream& os, const set<int>& c);
 double resolverBusqTabu(const string& input, const string& output);
-double timeval_diff(struct timeval& a, struct timeval& b); 	/* retorna "a - b " en microsegundos */
+double timeval_diff(struct timeval& a, struct timeval& b); 	/* retorna "a - b " en milisegundos */
 
 
 int main(int argc, char** argv) {
@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 		input = "../in/Tp3.in";
 		output = "../out/5 - BUSQ_TABU/Tp3.out";
 		time = resolverBusqTabu(input,output);
-		cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
+		cout << "El algortimo demoró " << time << " milisegundos en resolver las instancias del archivo " << input << endl;
 	}
 	else {
 		forn(i, argc-1) {
@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 			if (pos!=string::npos) output.replace(pos,3,".out");
 			output = "../out/5 - BUSQ_TABU/" + output;
 			time = resolverBusqTabu(input,output);
-			cout << "El algortimo demoró " << time << " µseg en resolver las instancias del archivo " << input << endl;
+			cout << "El algortimo demoró " << time << " milisegundos en resolver las instancias del archivo " << input << endl;
 		}
 	}
 	return 0;
@@ -78,5 +78,5 @@ void printSet(ostream& os, const set<int>& c) {
 
 
 double timeval_diff(struct timeval& a, struct timeval& b) {
-  return (a.tv_sec + - b.tv_sec)*1000000 + (a.tv_usec  - b.tv_usec);
+  return (a.tv_sec + - b.tv_sec)*1000 + (a.tv_usec  - b.tv_usec)/1000;
 }

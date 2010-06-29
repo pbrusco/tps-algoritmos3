@@ -156,42 +156,47 @@ void Grafo::diversificar(set<int>& res) const {
 
 
 void Grafo::busquedaTabu(set<int>& res) const {
+	bool agregue = false;
 	int v, u, desmejore = 0, n=matAd.size(), stop=definirCota();
-	listaTabu Tabu;
+	vector<unsigned long long> TabuAgregados(n);
+	vector<unsigned long long> TabuEliminados(n);
 	Heap vecindad;
-	set<int> agregados, cliqueTemp = res;
+	set<int> cliqueTemp = res;
 	
 	/* Mientras no se cumplan las condiciones de parada... */
-	while ((stop > 0) and (desmejore < n/4) and (not cliqueTemp.empty())) {
+	forn(nro_it, stop) {
+
+		/* --- */
+		if ((desmejore == n/4) or cliqueTemp.empty()) break;
 
 		/* Busco en la clique temporal el nodo de menor grado que no esté en la lista Tabu-Agregados, */
-		v = nodoConMenorGrado(Tabu, cliqueTemp);			
+		v = nodoConMenorGrado(nro_it,TabuAgregados,cliqueTemp);			
 
 		/* Elimino el nodo de la clique y lo agrego el nodo eliminado a la lista Tabu-Eliminados*/
-		cliqueTemp.erase(v);
-		Tabu.first.push_back(v);
+		if (v!=-1) {
+			cliqueTemp.erase(v);
+			TabuEliminados[v] = nro_it + n/2;
+		}
 
 		/* Busco los nodos que no estan en la clique y que no están en la lista Tabu-Eliminados, y que tengan como vecino */
 		/* al menos a algún nodo de la clique temporal */
-		agregados.clear();
 		vaciarHeap(vecindad);		
-		definirVecindad(Tabu,cliqueTemp,vecindad);
+		definirVecindad(nro_it,TabuEliminados,cliqueTemp,vecindad);
 
 		/* Mientras que la vecindad definida no sea vacía, evalúo si el nodo del tope de la vecindad es vecino de todos */
 		/* los nodos de la clique temporal. De ser así lo agrego a esta y lo registro. Luego borro de la vecindad al nodo */
 		/* que acabo de evaluar */
 		while (not vecindad.empty()) {
+			agregue = false;
 			u = vecindad.top().second;
 			vecindad.pop();
 			if (vecinoDeTodos(u, cliqueTemp)) {
+				agregue = true;
 				cliqueTemp.insert(u);
-				agregados.insert(u);
+				TabuAgregados[u] = nro_it + n/2;
 			}
 		}
 
-		/* Agrego los nodos agregados a la clique en la lista Tabu-Agregados. */
-		Tabu.second.push_back(agregados);
-		
 		/* Si la clique temporal resultante tiene mayor tamaño que la que tenía como respuesta, actualizo la respuesta */
 		/* y reseteo el contador de desmejora */
 		if (cliqueTemp.size() > res.size()) {
@@ -200,24 +205,15 @@ void Grafo::busquedaTabu(set<int>& res) const {
 		}
 		
 		/* Si saque un nodo de la clique temporal y no agregue nuevos, incremento el contador de desmejora */
-		else if (v != -1 and agregados.empty()) desmejore++;
-
-		/* Si la lista Tabu tiene n/2 elementos, quito el primero de a lista. */
-		if (Tabu.first.size() == n/2) { 
-			(Tabu.first).pop_front();
-			(Tabu.second).pop_front();
-		}
-		
-		/* Decremento la cota */
-		stop--;
+		else if (v!=-1 and (not agregue)) desmejore++;
 	}
 }
 
 
-int Grafo::nodoConMenorGrado(const listaTabu& T, const set<int>& c) const {
+int Grafo::nodoConMenorGrado(int nro_it, vector<unsigned long long> tAgreg, const set<int>& c) const {
 	set<int> aux;
 	forall(it,c) {
-		if (not estaEnTabuAgregados(*it, T)) aux.insert(*it);
+		if (tAgreg[*it] <= nro_it) aux.insert(*it);
 	}
 	if (aux.empty()) return -1;
 	else {
@@ -230,7 +226,7 @@ int Grafo::nodoConMenorGrado(const listaTabu& T, const set<int>& c) const {
 }
 
 
-void Grafo::definirVecindad(const listaTabu& T, const set<int>& c, Heap& res) const {
+void Grafo::definirVecindad(int nro_it, vector<unsigned long long> tElim, const set<int>& c, Heap& res) const {
 	set<int> aux;
 	forall(it,c) {
 		forn(i,matAd.size()) {
@@ -239,7 +235,7 @@ void Grafo::definirVecindad(const listaTabu& T, const set<int>& c, Heap& res) co
 	}
 	
 	forall(it,aux) {
-		if (estaEnTabuEliminados(*it,T)) aux.erase(*it);
+		if (tElim[*it] > nro_it) aux.erase(*it);
 	}
 	
 	ponerEnHeap(true, aux, res);
@@ -254,20 +250,6 @@ void Grafo::ponerEnHeap(bool maxHeap, const set<int>& c , Heap& res) const{
 
 void vaciarHeap(Heap& h) {
 	while(not h.empty()) {h.pop();}
-}
-
-
-bool estaEnTabuEliminados(int v, const listaTabu& T) {
-	bool res = false;
-	forall(it,T.first) {res = res or (v == *it);}
-	return res;
-}
-
-
-bool estaEnTabuAgregados(int v, const listaTabu& T) {
-	bool res = false; 
-	forall(it, T.second) {res = res or ((*it).count(v) != 0);}
-	return res;
 }
 
 

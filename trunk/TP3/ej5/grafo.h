@@ -11,7 +11,6 @@
 
 #define matriz vector<vector<bool > >
 #define Heap priority_queue<pair<int,int> >
-#define listaTabu pair<list<int>, list<set<int> > >
 
 using namespace std;
 
@@ -34,14 +33,12 @@ struct Grafo {
 	int definirCota() const;
 	void diversificar(set<int>& res) const;
 	void busquedaTabu(set<int>& res) const;
-	int nodoConMenorGrado(const listaTabu& T, const set<int>& c) const;
-	void definirVecindad(const listaTabu& T, const set<int>& c, Heap& res) const;
+	int nodoConMenorGrado(int nro_it, vector<unsigned long long> tAgreg, const set<int>& c) const;
+	void definirVecindad(int nro_it, vector<unsigned long long> tElim, const set<int>& c, Heap& res) const;
 	void ponerEnHeap(bool maxHeap, const set<int>& c , Heap& res) const;
 };
 
 void vaciarHeap(Heap& h);
-bool estaEnTabuEliminados(int v, const listaTabu& T);
-bool estaEnTabuAgregados(int v, const listaTabu& T);
 int randomNmbr(int desde, int hasta, int x=-1);
 
 void printSet(ostream& os, const set<int>& c);
