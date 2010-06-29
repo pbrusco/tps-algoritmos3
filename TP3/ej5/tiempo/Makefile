@@ -1,13 +1,13 @@
 CC=g++
 CFLAGS= -g -w -o
-OBJ = grafo.cpp
+OBJ = ../grafo.cpp
 
 .PHONY: all clean
 
-all: clean ej5
+all: clean tiempo
 
-ej5: main.cpp $(OBJ)
+tiempo: tiempo.cpp $(OBJ)
 	$(CC) $(CFLAGS) $@ $^
 	
 clean:
-	rm -f ej5
+	rm -f tiempo
