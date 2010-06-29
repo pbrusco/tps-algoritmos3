@@ -38,6 +38,8 @@ struct Grafo{
 
 void guardarRes(ostream& os, set<int> c);
 void vaciarHeap(Heap& h);
+double resolverBusqLocal(const string& input, const string& output);
+double timeval_diff(struct timeval& a, struct timeval& b); 	/* retorna "a - b " en microsegundos */
 
 
 
