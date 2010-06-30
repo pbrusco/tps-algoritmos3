@@ -3,7 +3,7 @@ QtiPlot 0.9.7 project file
 <windows>	2
 <table>
 Table1	66	7	26/06/10 23:57
-geometry	258	-20	817	220	active
+geometry	258	-20	817	220	
 header	Nodos[X]	40nodos080[Y]	100nodos1-60[Y]	100nodos2-35[Y]	100nodos3-50[Y]	100nodos4-43[Y]	200nodos-50[Y]
 ColWidth	100	100	100	100	100	100	100	
 <com>
@@ -82,14 +82,14 @@ WindowLabel		2
 </table>
 <multiLayer>
 Graph1	1	1	27/06/10 00:03
-geometry	maximized
+geometry	maximized	active
 WindowLabel		2
 Margins	5	5	5	5
 Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	10	5	993	384
+ggeometry	10	5	995	390
 PlotTitle	Cantidad de operaciones , algoritmo Exacto	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -164,8 +164,8 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>15.237020316027</x>
 <y>368506493.50649</y>
-<right>17.5733634311512</right>
-<bottom>295454545.454545</bottom>
+<right>16.7716535433071</right>
+<bottom>436274509.803922</bottom>
 <attachTo>0</attachTo>
 <Text>
 
@@ -185,8 +185,8 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>15.389390519187</x>
 <y>435064935.06494</y>
-<right>19.4864559819413</right>
-<bottom>381493506.493506</bottom>
+<right>16.8560179977503</right>
+<bottom>428104575.163399</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(7)3500000 +1700.e^(x/2.343)
@@ -206,8 +206,8 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>15.338600451467</x>
 <y>490259740.25974</y>
-<right>18.6230248306998</right>
-<bottom>444805194.805195</bottom>
+<right>16.7716535433071</right>
+<bottom>436274509.803922</bottom>
 <attachTo>0</attachTo>
 <Text>
 Aproximación Exponencial
@@ -227,8 +227,8 @@ Aproximación Exponencial
 <LineStyle>0</LineStyle>
 <x>15.389390519187</x>
 <y>360389610.38961</y>
-<right>18.6230248306998</right>
-<bottom>113636363.636364</bottom>
+<right>16.8560179977503</right>
+<bottom>428104575.163399</bottom>
 <attachTo>0</attachTo>
 <Text>
         Prueba            (prob. ejes)
@@ -270,6 +270,7 @@ RSS (Residual Sum of Squares) = 3,22430259390041e+17
 Iterations = 54
 Status = success
 ---------------------------------------------------------------------------------------
+
 
 
 
