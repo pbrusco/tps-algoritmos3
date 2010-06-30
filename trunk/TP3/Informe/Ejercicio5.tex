@@ -350,10 +350,10 @@ A contnuación se presentan los gráficos elaborados en base a los datos recolec
 El principal aspecto esperable del comportamiento de la metaheurística de búsqueda tabú es que requiera un mayor período de tiempo para resolver los mismos casos de prueba que las demás heurísitcas implementadas en este trabajo. La motivación de esta presunción surge de tener en cuenta que si bien la metaheurística demora un tiempo significaticamente menor en relación el algoritmo exacto para obtener una solucion \footnote{Es lógico que así sea pues esa es básicamente la motivación para desarollar una heurística}, ésta se idea con el propósito de mejores que soluciones que las demás heuristicas mediante el uso de diversas técnicas y métodos de exploración del grafo. Por tanto cabe presuponer que dicha intensificación en la búsqueda va acompañada de un consecuente aumento de cómputo que finalmente se traduce en un incremento del tiempo de ejecución del algoritmo.
 
 \paragraph{}
-El segundo aspecto esperable, y que prácticamente se desprende del primero es que las soluciónes de la metaheurísticas sean mejores que las de los restantes algoritmos. Esto es, que para una misma instancia, la clique encontrada mediante búsqueda tabú sea mayor en tamaño que las cliques encontradas mediante las heurísticas constructiva y local. Esto hipótesis se sostiene en el hecho suponer que el mayor nivel de computo que posee la metaheurísticas por sobre las otras heurísticas es empleado de forma eficiente y efectiva, y que por ello conlleva a una solución de igual o mayor calidad.
+El segundo aspecto esperable, y que prácticamente se desprende del primero es que las soluciónes de la metaheurísticas sean mejores que las de los restantes algoritmos. Esto es, que para una misma instancia, la clique encontrada mediante búsqueda tabú sea mayor en tamaño que las cliques encontradas mediante las heurísticas constructiva y local. Esta hipótesis se sostiene en el hecho suponer que el mayor nivel de computo que posee la metaheurísticas por sobre las otras heurísticas es empleado de forma eficiente y efectiva, y que por ello conlleva a una solución de igual o mayor calidad.
 
 \paragraph{}
-Una tercera hipótesis, es la de esperar que el  de la metaheurística 
+Una tercera hipótesis, es la de esperar que el tiempo de ejecución de la metaheurística y las soluciones que genera generalemnte empeoren en el caso en que la misma no parte de la solución constructiva. Esta teoría se apoya en la concepción de que la metaheurística es una estrategia de ataque a un problema que se monta sobre una heurística subordinada. En otras palabras, es esperable debido a que al empezar a explorar a partir de una respuesta obtenida por otra heurística se tiene una solución base y no se empieza desde cero.
 
 \paragraph{}
 Por último, se espera que el algoritmo se comporta acorde al análisis teórico de complejidad realizado previamente en este informe. Debiera ser posible observar en la práctica que los tiempos de ejecución son acotables por alguna función del estilo $f(x) = c.x^4 * log(x) + d$, con c y d contantes enteras.
@@ -361,14 +361,21 @@ Por último, se espera que el algoritmo se comporta acorde al análisis teórico
 \paragraph{}
 En resumen, las hipótesis que uno podría formular en base al desarrollo y el estudio realizado sobre la metaheurística son las siguientes:
 \begin{enumerate}
-	\item
-	\item
-	\item
-	\item
+	\item La metaheurística de búsquda tabú demora más que las demás heurísticas de este trabajo en obtener una solución.
+	\item La metaheurística de búsquda tabú obtiene una mejor solución que las demás heurísticas en este trabajo.
+	\item La metaheurística de búsquda tabú demora más y obtiene peores soluciones cuando no parte de una solución generada por la heurística constructiva.
+	\item Los tiempo de ejecución de la metaheurística de búsquda tabú se comportan acorde al análisis teórico de complejidad.
 \end{enumerate}
 
 \subsection{Conclusiones}
 \paragraph{}
+Una de las primeras cosas que se puede inferir de los gráficos presentados en la sección anterior es que en las pruebas realizadas la metaheurística se comportó de la manera prevista, ya que en todos ellos se pudo acotar los tiempos tanto inferior como superiormente por una función $f(x) = c.x^4 * log(x) + d$, con c y d contantes enteras. En consecuencia, se puede afirmar que la hipótesis 4 se vió corroborada en la práctica.
 
-%Una de las primeras cosas que se puede inferir de los gráficos presentados en la sección anterior es que en las pruebas realizadas la metaheurística se comportó de la manera prevista, ya que en todos ellos se pudo acotar los tiempos tanto inferior como superiormente por una función $f(x) = c.x^4 * log(x) + d$, con c y d contantes enteras. Según los datos arrojados por los gráficos en la sección anterior, podemos ver que los datos arrojados por las distintas corridas del algoritmo de búsqueda local tienen la forma que se esperaba. En la sección [\ref{complejidad4}], se explicó y analizó la complejidad de esta heurística, y se concluyó que la misma era \Ode{}. Dentro de estos gráficos, se ve que en estos casos de prueba, la heurística parece haberse comportado como era esperado, y pudo ser acotada por arriba y abajo por una función cuarta multiplicada por un logaritmo.Como se comentó en la sección de debate y conclusiones del ejercicio 3, a pesar de haberse tomado varias muestras en las que se variaba el número de ejes y de nodos, todos los resultados presentaban la misma forma, salvo alguna constante no muy pronunciada. Por ello no pareció adecuado incluir más gráficos, ya que en general y utilizando los generadores implementados por el grupo para este trabajo práctico, el comportamiento no varió de muestra en muestra.Podemos concluir entonces que el algoritmo, tanto en la teoría como en la práctica para los casos de prueba realizados se comportó como se esperaba, arrojando una complejidad de \Ode{n^4 * log(n)}.
+\paragraph{}
+Otro de los hechos observables a partir de los gráficos es que los tiempos de ejecución de la metaheurística son menores respecto a los de la heurística constructiva y significativamente respecto a los de la heurística de de búsqueda local. Esto en principio llevaría a desetimar la hipótesis 1. No obstante, las comparaciones de tiempos de ejecución presentadas en la sección \textbf{Comparaciones} corroboran la hipótesis de manera tajante. Esto lleva a inferir que los resultados obtenidos en esta parte la experimentación se debe a alguna caracteristica particular de los grafos generados, y no al comportamiento del algoritmo en general. Posiblemente esa característica este vinculada con el grado de densidad del grafo. Sin embargo, no se cuenta con evidencia suficiente como para afirmar esta última suposición.
+
+\paragraph{}
+En lo concerniente a la hipótesis 3, las pruebas realizadas evidenciaron que al correr la metaheurística sin partir de una solución constructiva, los tiempos de ejecución se incrementaron, y las soluciones en muchos casos fueron peores. En particular, para la quinta instancia del archivo \textit{"TP3.in}, la metaheurística sin partir de la solución constructiva no es capaz de encontrar la \mc, mientras que la heurística constructiva sí. Esto puede deberse a que el comportamiento de la heurística se basa en quitar un nodo primero y luego intentar agregar nuevos, en lugar de probar el comportamiento inverso; es decir, agregar primero y quitar después.
+
+\paragraph{}
 
