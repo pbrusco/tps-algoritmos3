@@ -41,15 +41,15 @@ Dando comienzo a la explicación de la función \textit{cliqueTabu}, se presenta
 	\textbf{var} n : \entero												\tcp*{\Ode{1}}
 
 	\BlankLine \BlankLine
-	n $\leftarrow$ cant\_nodos(G) \\										\tcp*{\Ode{1}}
+	n $\leftarrow$ cant\_nodos(G)										\tcp*{\Ode{1}}
 	res $\leftarrow$ cliqueConstructivo(G)								\tcp*{\Ode{?}}	
 	cliqueAux $\leftarrow$ res											\tcp*{\Ode{n}}
 
 	\BlankLine \BlankLine
-	\textbf{Para} 1, ... , n/2 \{												\tcp*{\Ode{n^4 log(n)}}
+	\textbf{Para} 1, ... , n/2 \{												\tcp*{\Ode{?}}
 
 	\BlankLine \BlankLine
-	\tab cliqueAux $\leftarrow$ busquedaTabu(G, cliqueAux)			\tcp*{\Ode{n^3 log(n)}}
+	\tab cliqueAux $\leftarrow$ busquedaTabu(G, cliqueAux)			\tcp*{\Ode{?}}
 
 	\BlankLine \BlankLine		
 	\tab \textbf{Si} (tam(cliqueAux) $>$ tam(res))						\tcp*{\Ode{1}}
@@ -91,71 +91,72 @@ A continuación, se procederá a explicar el funcionamiento del algoritmo de bú
 \restylealgo{boxed}
 
 	\BlankLine
-	\textbf{var} agregados 		: bool		 										\tcp*{\Ode{1}}
-	\textbf{var} n 				: \entero												\tcp*{\Ode{1}}
-	\textbf{var} v 				: \entero												\tcp*{\Ode{1}}
-	\textbf{var} u 				: \entero												\tcp*{\Ode{1}}
-	\textbf{var} stop				: \entero					 							\tcp*{\Ode{1}}
-	\textbf{var} desmejore		: \entero												\tcp*{\Ode{1}}
-	\textbf{var} vecindad 		: Heap(\entero)							 			\tcp*{\Ode{1}}
-	\textbf{var} cliqueTemp 		: Conj(\entero) 										\tcp*{\Ode{1}}
-	\textbf{var} TabuAgregados 	: Vector(\entero))								 	\tcp*{\Ode{1}}
-	\textbf{var} TabuEliminados 	: Vector(\entero)) 										\tcp*{\Ode{1}}
+	\textbf{var} agregados 		: bool		 													\tcp*{\Ode{1}}
+	\textbf{var} n 				: \entero														\tcp*{\Ode{1}}
+	\textbf{var} v 				: \entero														\tcp*{\Ode{1}}
+	\textbf{var} u 				: \entero														\tcp*{\Ode{1}}
+	\textbf{var} stop				: \entero							 							\tcp*{\Ode{1}}
+	\textbf{var} desmejore		: \entero														\tcp*{\Ode{1}}
+	\textbf{var} vecindad 		: Heap(\entero)									 			\tcp*{\Ode{1}}
+	\textbf{var} cliqueTemp 		: Conj(\entero) 												\tcp*{\Ode{1}}
+	\textbf{var} TabuAgregados 	: Vector(\entero))											 	\tcp*{\Ode{1}}
+	\textbf{var} TabuEliminados 	: Vector(\entero)) 												\tcp*{\Ode{1}}
 	
 	\BlankLine \BlankLine
-	n 				$\leftarrow$ cant\_nodos(G)											\tcp*{\Ode{1}}
-	stop 			$\leftarrow$ $10*n$													\tcp*{\Ode{1}}
-	desmejore 		$\leftarrow$ 0														\tcp*{\Ode{1}}
-	cliqueTemp 		$\leftarrow$ res													\tcp*{\Ode{1}}
-	agregue 		$\leftarrow$ false													\tcp*{\Ode{1}}
+	n 				$\leftarrow$ cant\_nodos(G)													\tcp*{\Ode{1}}
+	stop 			$\leftarrow$ $10*n$															\tcp*{\Ode{1}}
+	desmejore 		$\leftarrow$ 0																\tcp*{\Ode{1}}
+	agregue 		$\leftarrow$ false																\tcp*{\Ode{1}}
+	cliqueTemp 	$\leftarrow$ res																\tcp*{\Ode{n}}
+	
 
 	\BlankLine \BlankLine		
-	\textbf{Para} \textit{nro\_it} entre [0...stop) \{ 
+	\textbf{Para} \textit{nro\_it} entre [0...stop) \{ 												\tcp*{\Ode{?}}
 
 	\BlankLine	
-	\tab \textbf{Si} ((desmejore $== n/4$) \textbf{or} (cliqueTemp == $\emptyset$)) \\
-	\tab \tab \textbf{break}
+	\tab \textbf{Si} ((desmejore $== n/4$) \textbf{or} (cliqueTemp == $\emptyset$))		\tcp*{\Ode{1}}
+	\tab \tab \textbf{break}																		\tcp*{\Ode{1}}
 
 	\BlankLine \BlankLine				
-	\tab v $\leftarrow$ nodoConMenorGrado(nro\_it, TabuAgregados, cliqueTemp)		\tcp*{\Ode{?}}
-	\tab \textbf{Si} (v $\neq -1$) \{												\tcp*{\Ode{1}}
-	\tab \tab borrar(cliqueTemp, v) 												\tcp*{\Ode{log(n)}}	
-	\tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2} 					\tcp*{\Ode{1}}
+	\tab v $\leftarrow$ nodoConMenorGrado(nro\_it, TabuAgregados, cliqueTemp)				\tcp*{\Ode{?}}
+	\tab \textbf{Si} (v $\neq -1$) \{																\tcp*{\Ode{1}}
+	\tab \tab borrar(cliqueTemp, v) 																\tcp*{\Ode{log(n)}}	
+	\tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2}			 					\tcp*{\Ode{1}}
 	\tab \}
 
 	\BlankLine \BlankLine		
-	\tab vaciar(vecindad)																\tcp*{\Ode{n}}
-	\tab vecindad $\leftarrow$ definirVecindad(nro\_it, TabuEliminados, cliqueTemp) 			\tcp*{\Ode{?}}
+	\tab vaciar(vecindad)																			\tcp*{\Ode{n}}
+	\tab vecindad $\leftarrow$ definirVecindad(nro\_it, TabuEliminados, cliqueTemp)		 	\tcp*{\Ode{?}}
 
 	\BlankLine \BlankLine		
-	\tab agregue $\leftarrow$ false													\tcp*{\Ode{1}}
-	\tab \textbf{Mientras} (vecindad $\neq \emptyset$)) \{							\tcp*{\Ode{n}}
+	\tab agregue $\leftarrow$ false																\tcp*{\Ode{1}}
+	\tab \textbf{Mientras} (vecindad $\neq \emptyset$)) \{									\tcp*{\Ode{n*log(n)}}
 
 	\BlankLine
-	\tab \tab u $\leftarrow$ tope(vecindad)												\tcp*{\Ode{1}}
-	\tab \tab pop(vecindad)																\tcp*{\Ode{1}}
+	\tab \tab u $\leftarrow$ tope(vecindad)														\tcp*{\Ode{1}}
+	\tab \tab pop(vecindad)																		\tcp*{\Ode{1}}
 
 	\BlankLine		
-	\tab \tab \textbf{Si} (vecinoDeTodos(u, cliqueTemp)) \{ 							\tcp*{\Ode{n}}
-	\tab \tab \tab agregue $\leftarrow$ true											\tcp*{\Ode{1}}
-	\tab \tab \tab agregar(cliqueTemp, u) 												\tcp*{\Ode{log(n)}}
-	\tab \tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2}				\tcp*{\Ode{1}}
+	\tab \tab \textbf{Si} (vecinoDeTodos(u, cliqueTemp)) \{ 									\tcp*{\Ode{n}}
+	\tab \tab \tab agregue $\leftarrow$ true													\tcp*{\Ode{1}}
+	\tab \tab \tab agregar(cliqueTemp, u) 														\tcp*{\Ode{log(n)}}
+	\tab \tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2}							\tcp*{\Ode{1}}
 	\tab \tab \} \\
 	\tab \}
 
 	\BlankLine \BlankLine		
 	\tab \textbf{Si} ((v $\neq -1$) \textbf{and} (agregados $== \emptyset$)) 				\tcp*{\Ode{1}}
-	\tab \tab desmejore++																\tcp*{\Ode{1}}
+	\tab \tab desmejore++																		\tcp*{\Ode{1}}
 	
 	\BlankLine \BlankLine
-	\tab \textbf{Sino si} (tam(cliqueTemp) $>$ tam(res)) \{								\tcp*{\Ode{1}}
-	\tab \tab desmejore $\leftarrow$ 0													\tcp*{\Ode{1}}
-	\tab \tab res $\leftarrow$ cliqueTemp												\tcp*{\Ode{n}}
+	\tab \textbf{Sino si} (tam(cliqueTemp) $>$ tam(res)) \{										\tcp*{\Ode{1}}
+	\tab \tab desmejore $\leftarrow$ 0															\tcp*{\Ode{1}}
+	\tab \tab res $\leftarrow$ cliqueTemp														\tcp*{\Ode{n}}
 	\tab \} \\
 	\}
 	
 	\BlankLine \BlankLine		
-	\textbf{return} res																	\tcp*{\Ode{1}}
+	\textbf{return} res																			\tcp*{\Ode{1}}
 \caption{Pseudocódigo de la función busqudaTabu} 
 \normalsize
 \end{algorithm}
@@ -164,20 +165,22 @@ A continuación, se procederá a explicar el funcionamiento del algoritmo de bú
 En base al pseudocódigo anterior se observa que la función \textit{busquedaTabu} recibe como parámetros el grafo sobre el cual se busca determinar la \mc y un conjunto de nodos, \textit{res}, que forman una clique dentro del mismo grafo. Al momento del inicio del algoritmo de búsquda tabú, este conjunto representa la mejor solución hallada en ese punto de la ejecución. Conforme el algoritmo avance, en \textit{res} se irán guardando las cliques del grafo que tengan mayor cantidad de nodos que la clique guardada en res hasta ese momento; o eventualmente, en caso de que el algorimo no consiga hayar una clique mas grande, no se modificará en absoluto.
 
 \paragraph{}
-Como primer paso, el algoritmo declara varias variables e inicializa dos de ellas (\textit{stop} y \textit{desmejore}) que serviran como criterio de parada para la búsqueda \footnote{Estos criterios será explicados más adelante, estando ya más adentrados en el comportamiento del algoritmo.}. Seguidamente copia el conjunto \textit{res} recibido como parámetro en la variable \textit{cliqueTemp}. Esta variable contendrá las sucesivas soluciónes que el algortimo vaya transformando y que registrará en \textit{res} en caso de que alguna de todas estas soluciones resultantes tenga un valor mayor que la solución allí guadada al tiempo de ejecución. Luego, el algoritmo ingresa al ciclo en el que hará efectiva la búsqueda tabú y del cual saldra únicamente cuando se halla cumplido alguno de estos criterios.  
+Como primer paso, el algoritmo declara varias variables e inicializa dos de ellas (\textit{stop} y \textit{desmejore}) que serviran como criterio de parada para la búsqueda \footnote{Estos criterios será explicados más adelante, estando ya más adentrados en el comportamiento del algoritmo.}. Seguidamente copia el conjunto \textit{res} recibido como parámetro en la variable \textit{cliqueTemp}. Esta variable contendrá las sucesivas soluciónes que el algortimo vaya transformando y que registrará en \textit{res} en caso de que alguna de todas estas soluciones resultantes tenga un valor mayor que la solución allí guadada al tiempo de ejecución. Luego, el algoritmo ingresa al ciclo en el que hará efectiva la búsqueda tabú y del cual saldra únicamente cuando se halla cumplido alguno de los criterios de parada.  
 
 \paragraph{}
-Una vez dentro del ciclo, el algoritmo ejecuta la función \textit{nodoConMenorGrado} y guarda el resultado en la variable \textit{v}. Esta función devuelve el nodo de menor grado de la \textit{cliqueTemp} que no se encuentre en ninguno de los conjuntos presentes en la lista \textit{TabuAgregados}; y en caso de que todos los nodos de \textit{cliqueTemp} se encuentren entre los conjutos de \textit{TabuAgregados}, entonces \textit{nodoConMenorGrado} devuelve -1. \\
-La idea de elegir este nodo \textit{v} tiene por fin quitarlo de la \textit{cliqueTemp} para modificar esa solución de forma tal que luego sea posible agregar nuevos nodos. El hecho de que sea el de menor grado busca preservar los nodos de mayor grado dentro de la solución con vista a maximizarla. Asimismo, el hecho de que el nodo elegido no se encuentre entre los conjuntos de \textit{TabuAgregados} pretende no desandar el camino ya recorrido al eliminar alguno de los nodo que fuese agregado en alguna de las iteraciones recientes. Precisamente, aqui puede observarse como el algoritmo hace uso de la memorización para no volver sobre sus pasos al revisar la lista \textit{TabuAgregados} que contiene los conjuntos de nodos agregados en las \textit{n/2} iteraciones previas. \\
-Acto seguido, el algortimo elimina \textit{v} de la \textit{cliqueTemp} y lo agrega al final a la cola \textit{tabuEliminados}. para así ir teniendo registro de los nodos eliminados.
+Una vez dentro del ciclo, la primera acción realizada por el algoritmo es evaluar si se cumple alguna de las condiciones de parada. De ser así  la busquedaTabu se interrumpe y se vuelve a la función cliqueTabu para diversificar la solución e iniciar una nueva búsqueda tabú. En el caso contrario, se continúa con la ejecución del ciclo.
 
 \paragraph{}
-Habiendo eliminado ya uno de los nodos de \textit{cliqueTemp}, el paso siguiente del algoritmo consiste en definir el conjunto de nodos que intentará agregar a \textit{cliqueTemp}. En este sentido, se vacía el conjunto \textit{agregados} y el heap \textit{vecindad}, y luego se ejecuta la función \textit{definirVecindad} almacenando su resultado en \textit{vecindad}. La función \textit{definirVecindad} busca el conjunto de todos los nodos que estan fuera de \textit{cliqueTemp} pero que tengan por vecino al menos a algún nodo de esa clique. Luego, elimina de ese conjunto a todos aquellos nodos que se encuentren en la lista \textit{TabuEliminados}, y ubica los nodos restantes en un maxheap ordenándolos por grado. Este heap es el que devuelve la función. \\
-Nuevamente aquí, el hecho de que los nodos que se busca agregar a \textit{cliqueTemp} esten ordenados en un heap tiene por objetivo poder ir agregando aquellos de mayor grado primero en pos de maximizarla. Además, otra vez puede apreciarse como el algoritmo recurre al uso de la memorización para elegir de entre los posibles nodos a agregar únicamente aquellos que no esten en \textit{TabuEliminados}, que son los nodos eliminados en alguna de las \textit{n/2} iteraciones previas. De este modo evita, al menos por un tiempo, no volver a evaluar soluciones ya visitadas.
+Seguidamente, se ejecuta la función \textit{nodoConMenorGrado} y guarda el resultado en la variable \textit{v}. Esta función devuelve el nodo de menor grado de la \textit{cliqueTemp} que no se encuentre inhabilitado en el vector \textit{TabuAgregados}; y en caso de que todos los nodos de \textit{cliqueTemp} estén marcados como prohibidos en el vector \textit{TabuAgregados}, entonces \textit{nodoConMenorGrado} devuelve -1. \\
+La idea de elegir este nodo \textit{v} tiene por fin quitarlo de la \textit{cliqueTemp} para modificar esa solución de forma tal que luego sea posible agregar nuevos nodos. El hecho de que sea el de menor grado busca preservar los nodos de mayor grado dentro de la solución con vista a maximizarla. Asimismo, el hecho de que el nodo elegido no se encuentre entre nodos prohibidos en el vector \textit{TabuAgregados} pretende no desandar el camino ya recorrido al eliminar alguno de los nodo que fue agregado en alguna de las iteraciones recientes. Precisamente, aqui puede observarse como el algoritmo hace uso de la memorización para no volver sobre sus pasos al cotejar el número de iteración actual(\textit{nro\_it}) con los números de iteración a partir de los cuales cada nodo puede ser volver a ser utilizado contenidos en el vector \textit{TabuAgregados}, pudiendo estableces así si un nodo está o no vetado. \\
+Acto seguido, si la función \textit{nodoConMenorGrado} devolvió un nodo válido (v $\neq -1$) el algortimo elimina \textit{v} de la \textit{cliqueTemp} y lo prohibe por \textit{n/2} iteraciones, asignando para ello, \textit{nro\_it} aumentado en  \textit{n/2} en la posición \textit{v} del vector \textit{tabuEliminados}. Esto permite ir teniendo registro de los nodos que fueron eliminados y que no podrán volver a ser agregados hasta que el \textit{nro\_it} del ciclo no alcance los valores de esos nodos dentro del vector \textit{tabuEliminados}.
 
 \paragraph{}
-Una vez establecidad la vecindad de nodos que se busca incorporar a \textit{cliqueTemp} se procede a ir a tomando el nodo ubicado en el tope de la vecindad e incorporalo únicamente si éste es vecino de todos los nodos en \textit{cliqueTemp}, repitiendo el proceso hasta que el heap quede vacio. Al mismo tiempo, todos los nodos de la vecindad que se incorporan a \textit{cliqueTemp} también son registrados agregándolos al conjunto \textit{agregados}. \\
-Seguidamente, el conjunto \textit{agregados} es agregado al final de la lista \textit{TabuAgregados} para así ir llevando cuenta de todos los conjuntos de los nodos agregados.
+Habiendo eliminado ya uno de los nodos de \textit{cliqueTemp}, el paso siguiente del algoritmo consiste en definir el conjunto de nodos que intentará agregar a \textit{cliqueTemp}. En este sentido, se setea el flag \textit{agregue} como falso, se vacia el heap \textit{vecindad}, y luego se ejecuta la función \textit{definirVecindad} almacenando su resultado en \textit{vecindad}. La función \textit{definirVecindad} busca el conjunto de todos los nodos que estan fuera de \textit{cliqueTemp} pero que tengan por vecino al menos a algún nodo de esa clique. Luego, elimina de ese conjunto a todos aquellos nodos que esten proscriptos por el vector \textit{TabuEliminados}, y ubica los nodos restantes en un maxheap ordenándolos por grado. Este heap es el que devuelve la función. \\
+Nuevamente aquí, el hecho de que los nodos que se busca agregar a \textit{cliqueTemp} esten ordenados en un heap tiene por objetivo poder ir agregando aquellos de mayor grado primero en pos de maximizarla. Además, otra vez puede apreciarse como el algoritmo recurre al uso de la memorización para elegir de entre los posibles nodos a agregar únicamente aquellos cuyo valor en el vector \textit{TabuEliminados} es menor o igual al de la iteración actual. De este modo evita, al menos por un tiempo, no volver a evaluar soluciones ya visitadas.
+
+\paragraph{}
+Una vez establecidad la vecindad de nodos que se busca incorporar a \textit{cliqueTemp} se procede a ir a tomando el nodo ubicado en el tope de la vecindad e incorporalo únicamente si éste es vecino de todos los nodos en \textit{cliqueTemp}, repitiendo el proceso hasta que el heap quede vacio. Al mismo tiempo, a cada nodo agregado \textit{cliqueTemp} se le asigna el valor \textit{nro\_it + n/2} en su correspondiente posición dentro del vector \textit{TabuAgregados} para que de ese modo quede prohibido eliminarlo durante las siguientes \textit{n/2} iteraciones. En cualquier caso, si se hubiese agregado como mínimo un nodo, la variable \textit{agregue} pasa a tener el valor true.
 
 \paragraph{}
 A continuación, se evalua si el tamaño de la solución obtenida en \textit{cliqueTemp} es mayor que la solución guardada en \textit{res}. En dicho caso, se resetea el contador \textit{desmejore} y se guarda en \textit{res} el conjunto de nodos contenido en \textit{cliqueTemp}. \\
