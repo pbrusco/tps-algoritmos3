@@ -195,6 +195,7 @@ Finalmente, queda esclarecer el tercer y último criterio de parada. Este no es 
 Una vez fuera del ciclo, por cualquiera de los tres criterio de parada, la función \textit{busquedaTabu} devuelve el mayor conjuto de nodos del grafo que conforman una clique, el cual se encuentra almacenado en \textit{res}, y finaliza.
 
 \subsection{Análisis de la complejidad del algoritmo}
+\label{compl5}
 
 \paragraph{}
 En esta sección del informe, se expone el análisis de complejidad de la metaheurística de búsquda tabú implementada para resolver el problema de \mc.
@@ -299,14 +300,11 @@ Por consiguiente, la función \textit{busquedaTabu} ejecuta en cada iteración d
 Habiendo, averiguado la complejidad de la función \textit{busquedaTabu}, resulta posible entonces concluir que la complejidad del la métaheurística de búsqueda tabu que resuelve el problema de \mc, implementada en la funcion \textit{cliqueTabu} es: $$\Ode{n^3*log(n) + n^4*log(n)}$$
 
 \subsection{Resultados}
-\paragraph{}
-Bla...
 
 \paragraph{}
-A contnuación se presentan los gráficos elaborados en base a los datos recolectados por las sucesivas pruebas y experimentos con la metaheurística implementada: \\
+A contnuación se presentan los gráficos elaborados en base a los datos recolectados por las sucesivas pruebas y experimentos con la metaheurística implementada sobre los archivos de prueba utilizados en los ejercicios anteriores: \\
 
 \begin{figure}[htb]
-
 % grafico 1
 \begin{minipage}{\textwidth}
 \begin{center}
@@ -324,7 +322,9 @@ A contnuación se presentan los gráficos elaborados en base a los datos recolec
 	\label{ej5tiempo2}
 \end{center}
 \end{minipage}
+\end{figure}
 
+\begin{figure}[htb]
 % grafico 3
 \begin{minipage}{\textwidth}
 \begin{center}
@@ -344,8 +344,10 @@ A contnuación se presentan los gráficos elaborados en base a los datos recolec
 \end{minipage}
 \end{figure}
 
-\subsection{Debate}
+\subsection{Debate y Conclusiones}
+\paragraph{}
+El principal aspecto esperable del comportamiento de la metaheurística de búsqueda tabú es que requiera un mayor período de tiempo para resolver los mismos casos de prueba que las demás heurísitcas implementadas en este trabajo. Esto puede entenderse si se tiene en cuenta que si bien la metaheurística demora un tiempo significaticamente menor en relación el algoritmo exacto para obtener una solucion \footnote{Es lógico que así sea pues esa es básicamente la motivación para desarollar una heurística}, ésta si idea con el propósito de mejores que soluciones que las demás heuristicas mediante el uso de diversas técnicas y métodos de exploración del grafo. Por tanto cabe presuponer que 
 
 
-\subsection{Conclusiones}
+%Una de las primeras cosas que se puede inferir de los gráficos presentados en la sección anterior es que en las pruebas realizadas la metaheurística se comportó de la manera prevista, ya que en todos ellos se pudo acotar los tiempos tanto inferior como superiormente por una función $f(x) = c.x^4 * log(x) + d$, con c y d contantes enteras. Según los datos arrojados por los gráficos en la sección anterior, podemos ver que los datos arrojados por las distintas corridas del algoritmo de búsqueda local tienen la forma que se esperaba. En la sección [\ref{complejidad4}], se explicó y analizó la complejidad de esta heurística, y se concluyó que la misma era \Ode{}. Dentro de estos gráficos, se ve que en estos casos de prueba, la heurística parece haberse comportado como era esperado, y pudo ser acotada por arriba y abajo por una función cuarta multiplicada por un logaritmo.Como se comentó en la sección de debate y conclusiones del ejercicio 3, a pesar de haberse tomado varias muestras en las que se variaba el número de ejes y de nodos, todos los resultados presentaban la misma forma, salvo alguna constante no muy pronunciada. Por ello no pareció adecuado incluir más gráficos, ya que en general y utilizando los generadores implementados por el grupo para este trabajo práctico, el comportamiento no varió de muestra en muestra.Podemos concluir entonces que el algoritmo, tanto en la teoría como en la práctica para los casos de prueba realizados se comportó como se esperaba, arrojando una complejidad de \Ode{n^4 * log(n)}.
 
