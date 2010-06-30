@@ -19,7 +19,7 @@ A modo de ampliar la cantidad de resultados anteriormente presentados y con inte
   \hline
   1150 & 50 & 40(315s) & 40(324s) & 40(54min)\\
   \hline
-  1272 & 53 & 37(435s) & 40(455s) & -\\
+  1272 & 53 & 37(435s) & 40(455s) & 38(79min)\\
 \hline
   \end{tabular}
 \end{center}
@@ -39,7 +39,7 @@ Luego de realizar varios bosquejos, dimos con el siguiente grafo:
   \caption{Grafo en el que se observan distintos resultados entre los distintos algoritmos. Hay una cantidad total de 18 nodos.}
   \label{pruebademejoras}
 \end{figure}
-
+\clearpage
 \vspace*{2cm}
 
 \paragraph{}
@@ -71,11 +71,18 @@ Cabe aclarar que el \mc dentro de este grafo particular es de tamaño 7. Si se h
 Como se puede ver en esta tabla, existe una mejora en el resultado arrojado por cada heurística. Esto se debe principalmente a las técnicas algorítmicas utilizadas en cada ejercicio, y además a que tanto la heurística de búsqueda local implementada, como la de búsqueda tabú, parten de una solución inicial, que es la arrojada por el algoritmo constructivo. Por lo tanto, partiendo de ese detalle, sabemos que siempre va a valer que:
 
 \begin{equation}
- \#CliqueConstructiva \le \#CliqueBusqLocal \le \#CliqueBusqTabu \le \#CliqueExacta
-\label{mejoras}
+ \#CliqueConstructiva \le \#CliqueBusqLocal \le \#CliqueExacta
+\label{mejoras1}
+\end{equation}
+
+y
+
+\begin{equation}
+ \#CliqueConstructiva \le \#CliqueBusqTabu \le \#CliqueExacta
+\label{mejoras2}
 \end{equation}
 
 \paragraph{}
 Por lo dicho anteriormente, jamás se va a encontrar un ejemplo en el cuál el resultado arrojado por la heurística constructiva sea mayor que el arrojado por cualquiera de las otras heurísticas.\\
-El ejemplo de la Figura \ref{pruebademejoras} es un claro ejemplo en el que las desigualdades de la ecuación (\ref{mejoras}) cambian de menor o igual, a estrictamente menor (salvo el caso de la clique exacta y la tabú).
+El ejemplo de la Figura \ref{pruebademejoras} es un claro ejemplo en el que las desigualdades de las ecuaciones cambian de menor o igual, a estrictamente menor (salvo el caso de la clique exacta y la tabú).
 
