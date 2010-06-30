@@ -121,7 +121,7 @@ Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	13	9	1242	684
+ggeometry	12	9	1243	685
 PlotTitle	Tiempo Tabu Search vs Función cuarta	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -151,9 +151,9 @@ curve	Table1_1	Table1_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	
 <Function>
 <Type>0</Type>
 <Title>F1</Title>
-<Expression>(0.00003)*x^4 + 500</Expression>
+<Expression>(0.000015) * x^4 * log10(x) + 600</Expression>
 <Variable>x</Variable>
-<Range>0	100</Range>
+<Range>1	100</Range>
 <Points>100</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
@@ -169,10 +169,10 @@ curve	Table1_1	Table1_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	
 <Function>
 <Type>0</Type>
 <Title>F2</Title>
-<Expression>(0.00003)*x^4 - 300</Expression>
+<Expression>(0.000015) * x^4 * log10(x) - 300</Expression>
 <Variable>x</Variable>
-<Range>0	100</Range>
-<Points>100</Points>
+<Range>1	101</Range>
+<Points>101</Points>
 <Style>0</Style>
 <LineStyle>1</LineStyle>
 <Pen>
@@ -186,8 +186,8 @@ curve	Table1_1	Table1_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#ff0000	0	0	0	2	0	
 </Function>
 scale	0	0	3500	0	10	5	0	0
 scale	1	0	3500	0	10	5	0	0
-scale	2	0	110	0	8	5	0	0
-scale	3	0	110	0	8	5	0	0
+scale	2	0	105	0	7	5	0	0
+scale	3	0	105	0	8	5	0	0
 LabelsFormat	0	4	0	4	0	4	0	4	
 AxisType	0	0	0	0	
 MajorTicks	1	1	1	1	
@@ -201,15 +201,15 @@ LabelsRotation	0	0
 <Color>#000000</Color>
 <FrameWidth>1</FrameWidth>
 <LineStyle>0</LineStyle>
-<x>2.7402135231317</x>
-<y>3235.0352112676</y>
-<right>33.1761565836299</right>
-<bottom>2631.16197183099</bottom>
+<x>2.6040744021258</x>
+<y>3235.5008787346</y>
+<right>9.5291095890411</right>
+<bottom>3289.87993138937</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(1) Implementación
-\l(2) (0.00003)x⁴ + 500
-\l(3) (0.00003)x⁴ - 300
+\l(2) (0.000015) x⁴ * log10(x) + 600
+\l(3) (0.000015) x⁴ * log10(x) - 300
 </Text>
 <Font>Sans	18	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
