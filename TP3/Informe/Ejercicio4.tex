@@ -37,7 +37,7 @@ Para graficar mejor este procedimiento, se detalla a continuación el pseudocód
 		
 		\tab cambio = false\tcp*{\Ode{1}}
 
-		\tab $<$maxClique,cambio$> =$ cambiarSiMaximiza(G,maxClique,cambio)\tcp*{\Ode{n^3}}
+		\tab $<$maxClique,cambio$> =$ cambiarSiMaximiza(G,maxClique,cambio)\tcp*{\Ode{n^3 * log(n)}}
 		
 		\tab \textbf{si} cambio $==$ false\tcp*{\Ode{1}}
 			\tab \tab termine = true\tcp*{\Ode{1}}
@@ -62,7 +62,7 @@ Para graficar mejor este procedimiento, se detalla a continuación el pseudocód
 
 		\tab posibleMejora = copiaClique $\diagdown$ \{tope(cliqueDeMenorAMayor)\}\tcp*{\Ode{log(n)}}
 
-		\tab candidatos = vecinosAMaxHeap(posibleMejora)\tcp*{\Ode{n^2}}
+		\tab candidatos = vecinosAMaxHeap(posibleMejora)\tcp*{\Ode{n^2 * log(n)}}
 		
 		\tab \textbf{mientras} candidatos \textbf{no sea un Heap vacío}\\
 			\tab \tab \textbf{si} vecinoDeTodos(tope(candidatos),posibleMejora)\tcp*{\Ode{n}}
@@ -90,22 +90,54 @@ Para graficar mejor este procedimiento, se detalla a continuación el pseudocód
 
 \normalsize
 \subsection{Análisis de la complejidad del algoritmo}
-
+\label{complejidad4}
 \paragraph{}
 Para analizar la complejidad del algoritmo de búsqueda local basta con comprender cómo se comporta tanto el algoritmo principal, llamado ``busquedaLocal'', como el secundario llamado ``cambiarSiMaximiza''. El resto de los algoritmos puede obviarse ya que, o bien ya fueron analizados en la sección [\ref{ej3}] como es el caso de ``vecinoDeTodos'', o bien tienen un comportamiento trivial y conocido, como es el caso de las funciones ``deCliqueAMinHeap'' y ``vecinosAMaxHeap'' que como sus nombres lo indican, son funciones que devuelven un min-heap y un max-heap respectivamente. Lo que si es interesante aclarar de estas funciones es qué elementos devuelven en cada heap. En el caso de ``deCliqueAMinHeap'' toma todos los vértices que pertenecen a la clique que se le pasa como parámetro y los heapifica según sus grados (de menor a mayor). En cambio, la función ``vecinosAMaxHeap'' toma todos aquellos vértices que no pertenecen a la clique pero que tienen algún vecino dentro de ella y los inserta en un max-heap ordenándolos por grado.
 
 \paragraph{}
-En primer lugar vamos a analizar al segundo algoritmo aquí presentado, es decir, ``cambiarSiMaximiza''. Como se observa dentro del pseudocódigo, existen dos ciclos dentro del algoritmo, uno dentro de otro. Para que el ciclo más global finalice, debe ejecutarse tantas veces como elementos haya en ``cliqueDeMenorAMayor'' por lo que a lo sumo se ejecutará $n$ veces. Pasa lo mismo con el ciclo anidado dentro de este. El mismo se ejecutará tantas veces como vecinos de la clique haya, es decir, a lo sumo $n$. Dentro de este segundo ciclo, la función más costosa es la que se encuentra en la guarda del $if$ que tiene una complejidad de \Ode{n}. Como este ciclo se ejecuta a lo sumo $n$ veces, la complejidad del mismo es \Ode{n^2}. Ahora bien, además del ciclo anidado, la otra función costosa dentro del ciclo mayor es ``vecinosAMaxHeap'' que también cuesta \Ode{n^2}. Por lo tanto, como el ciclo mayor se ejecuta a lo sumo $n$ veces, la complejidad total de este algoritmo es \Ode{n^3}.
+En primer lugar vamos a analizar al segundo algoritmo aquí presentado, es decir, ``cambiarSiMaximiza''. Como se observa dentro del pseudocódigo, existen dos ciclos dentro del algoritmo, uno dentro de otro. Para que el ciclo más global finalice, debe ejecutarse tantas veces como elementos haya en ``cliqueDeMenorAMayor'' por lo que a lo sumo se ejecutará $n$ veces. Pasa lo mismo con el ciclo anidado dentro de este. El mismo se ejecutará tantas veces como vecinos de la clique haya, es decir, a lo sumo $n$. Dentro de este segundo ciclo, la función más costosa es la que se encuentra en la guarda del $if$ que tiene una complejidad de \Ode{n}. Como este ciclo se ejecuta a lo sumo $n$ veces, la complejidad del mismo es \Ode{n^2}. Ahora bien, además del ciclo anidado, la otra función costosa dentro del ciclo mayor es ``vecinosAMaxHeap'' que cuesta \Ode{n^2 * log(n)}. Por lo tanto, como el ciclo mayor se ejecuta a lo sumo $n$ veces, la complejidad total de este algoritmo es \Ode{n^3 * log(n)}.
 
 \paragraph{}
 Ahora bien, sólo faltaría analizar qué complejidad tiene la función principal. Pero si se observa bien, este algoritmo consta de un ciclo en el cuál existe una llamada a la función antes analizada. Por lo cuál sabiendo cuántas veces se ejecuta este ciclo, sabremos la complejidad total del algoritmo. Este ciclo finaliza cuando la variable ``termine'' valga $true$. La misma tomará este valor, cuando la variable ``cambio'' valga $false$ luego del llamado a ``cambiarSiMaximiza''. Por lo tanto, hay que volver al pseudocódigo de esta función para saber cómo se comporta allí esta variable.
 
 \paragraph{}
-La variable ``cambio'' sólo se modifica cuando existe una mejora en la clique mayor temporalmente hallada. Podemos ver entonces que el peor caso se da cuando la clique mayor temporal comienza con tamaño igual a 1 (respuesta obtenida con el algoritmo constructivo). Luego, dentro de cada llamada a la función ``cambiarSiMaximiza'', lo peor sería que sólo exista una mejora del tamaño en una unidad, es decir, en el primer llamado habrá un cambio de tamaño de 1 a 2, por lo que la variable ``cambio'' tomará el valor de verdad $true$. Cómo cada vez que se llama a esta función, esta mejora la respuesta temporal en una unidad, se puede observar que en el n-ésimo llamado el tamaño de la clique mayor temporal no aumentará, ya que se introdujeron todos los vértices existentes, por lo que en este llamado a la función secundaria, el algoritmo no entrará al $if$ en el que se modifica a la variable ``cambio'', por lo que dicha variable quedará con valor $false$\footnote{cabe notar que en cada llamado a la función ``cambiarSiMaximiza'' esta variable entra con valor $false$}. Por lo tanto, en el peor caso, en el n-ésimo llamado a esta función, la guarda del ciclo de la función principal se hace falsa. Entonces, como dicho ciclo se ejecutará a lo sumo $n$ veces, y en el mismo hay un llamado a una función de complejidad \Ode{n^3}, la complejidad total del algoritmo principal es \Ode{n^4}.
+La variable ``cambio'' sólo se modifica cuando existe una mejora en la clique mayor temporalmente hallada. Podemos ver entonces que el peor caso se da cuando la clique mayor temporal comienza con tamaño igual a 1 (respuesta obtenida con el algoritmo constructivo). Luego, dentro de cada llamada a la función ``cambiarSiMaximiza'', lo peor sería que sólo exista una mejora del tamaño en una unidad, es decir, en el primer llamado habrá un cambio de tamaño de 1 a 2, por lo que la variable ``cambio'' tomará el valor de verdad $true$. Cómo cada vez que se llama a esta función, esta mejora la respuesta temporal en una unidad, se puede observar que en el n-ésimo llamado el tamaño de la clique mayor temporal no aumentará, ya que se introdujeron todos los vértices existentes, por lo que en este llamado a la función secundaria, el algoritmo no entrará al $if$ en el que se modifica a la variable ``cambio'', por lo que dicha variable quedará con valor $false$\footnote{cabe notar que en cada llamado a la función ``cambiarSiMaximiza'' esta variable entra con valor $false$}. Por lo tanto, en el peor caso, en el n-ésimo llamado a esta función, la guarda del ciclo de la función principal se hace falsa. Entonces, como dicho ciclo se ejecutará a lo sumo $n$ veces, y en el mismo hay un llamado a una función de complejidad \Ode{n^3 * log(n)}, la complejidad total del algoritmo principal es \Ode{n^4 * log(n)}.
 
 
 
-\subsection{Detalles de implementación}
 \subsection{Resultados}
-\subsection{Debate}
-\subsection{Conclusiones}
+\paragraph{}
+A continuación se presentan los gráficos provenientes de las pruebas realizadas con archivos generados al azar. La forma en la que fueron generados estos archivos de entrada es explicada en la sección [\ref{anexo}].
+
+%primeras 2 imagenes
+\begin{figure}[htb]
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{./otros/graficos/operaciones_200nodos1_ej4.pdf}
+		\caption{Muestra el comportamiento del algoritmo de búsqueda local, comparando cantidad de nodos contra cantidad de operaciones. La probabilidad de aparición de ejes en esta muestra fue del 50\%}
+		\label{ej4contarOp}
+	\end{center}
+    \end{minipage}
+
+\vspace*{1cm}
+
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{./otros/graficos/tiempo_200nodos1_ej4.pdf}
+		\caption{Muestra el comportamiento del algoritmo de búsqueda local, comparando cantidad de nodos contra el tiempo medido en microsegundos. La probabilidad de aparición de ejes en esta muestra fue del 50\%}
+		\label{ej4contarTiempo}
+	\end{center}
+    \end{minipage}
+
+\end{figure}
+
+\subsection{Debate y conclusiones}
+\paragraph{}
+Según los datos arrojados por los gráficos en la sección anterior, podemos ver que los datos arrojados por las distintas corridas del algoritmo de búsqueda local tienen la forma que se esperaba. En la sección [\ref{complejidad4}], se explicó y analizó la complejidad de esta heurística, y se concluyó que la misma era \Ode{n^4 * log(n)}. Dentro de estos gráficos, se ve que en estos casos de prueba, la heurística parece haberse comportado como era esperado, y pudo ser acotada por arriba y abajo por una función cuarta multiplicada por un logaritmo.
+
+\paragraph{}
+Como se comentó en la sección de debate y conclusiones del ejercicio 3, a pesar de haberse tomado varias muestras en las que se variaba el número de ejes y de nodos, todos los resultados presentaban la misma forma, salvo alguna constante no muy pronunciada. Por ello no pareció adecuado incluir más gráficos, ya que en general y utilizando los generadores implementados por el grupo para este trabajo práctico, el comportamiento no varió de muestra en muestra.
+
+\paragraph{}
+Podemos concluir entonces que el algoritmo, tanto en la teoría como en la práctica para los casos de prueba realizados se comportó como se esperaba, arrojando una complejidad de \Ode{n^4 * log(n)}.
+
