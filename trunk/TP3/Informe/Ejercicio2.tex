@@ -11,7 +11,7 @@ este problema. Así que nos consentraremos en realizar mejoras al algoritmo de f
 
 
 \subsection{Explicación}
-
+\label{explicacion2}
 \paragraph{}
 Un algoritmo de fuerza bruta para resolver el problema de Max-Clique podría simplemente intentar formar el conjunto más 
 grande de nodos, donde ese conjunto sea completo, intentando todas las posibilidades eligiendo todos los conjuntos de un cierto tamaño,
@@ -86,3 +86,49 @@ De todas maneras, el algoritmo intentará buscar cliques cada vez mas chicas has
 
 \paragraph{}
 El heap de nodos ordenados por grados tiene gran importancia, ya que permite decidir rapidamente cuando terminar con la busqueda. Esto se realiza comprobando que el nodo siguiente del heap, es decir, el de mayor grado de la componente, supere o iguale al tamaño de la clique mas grande encontrada, ya que en caso contrario, no tendría sentido seguir buscando dentro de esa clique.
+\clearpage
+
+\newpage
+
+\subsection{Resultados}
+
+\paragraph{}
+A continuación se presentan los gráficos provenientes de las pruebas realizadas con archivos generados al azar. La forma en la que fueron generados estos archivos de entrada es explicada en la sección [\ref{anexo}].
+%primeras 2 imagenes
+\begin{figure}[h]
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{./otros/graficos/operaciones_ej2.pdf}
+		\caption{Muestra el comportamiento del algoritmo exacto, comparando el rendimiento del algoritmo para distintas cantidades de nodos contra cantidad de operaciones realizadas efectivamente. La probabilidad de aparición de ejes en estas muestras fueron las presentes en la tabla entre paréntesis. También, aparece una función exponencial generada con qti plot en base a los datos de la tabla que aproxima una de las mediciónes (100nodos1.in en este caso).}
+		\label{ej2contarOp}
+	\end{center}
+    \end{minipage}
+
+\end{figure}
+
+
+\begin{figure}[h]
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{./otros/graficos/tiempo_ej2.pdf}
+		\caption{Muestra el comportamiento del algoritmo exacto, comparando el rendimiento del algoritmo para distintas cantidades de nodos contra el tiempo que demoro en devolver los resultados. La probabilidad de aparición de ejes en estas muestras fueron las presentes en la tabla entre paréntesis. También, aparece una función exponencial generada con qti plot en base a los datos de la tabla que aproxima una de las mediciónes (40nodos.in en este caso)}
+		\label{ej2contarTiempo}
+	\end{center}
+    \end{minipage}
+
+\end{figure}
+
+
+\subsection{Debate y conclusiones}
+\paragraph{}
+Viendo los gráficos podemos ver que para estos casos, el algoritmo se comporto como se esperaba (Exponencialmente) salvo algunos casos donde pareciera estar acotados por alguna función polinomica. Sin embargo en general esto no ocurre.
+
+\paragraph{}
+La única diferencia notable entre distintas pruebas fue que en los casos de prueba en los que había más ejes, es decir, en aquellos casos en que los grafos eran más densos, el algoritmo empeora, excepteptuando casos donde el grafo era muy denso (superior al 80\% de los ejes presentes) en cuyo caso funciona un poco mejor por lo explicado en la sección [\ref{explicacion2}].
+
+\paragraph{}
+Podemos concluir entonces que suponer que el algoritmo exacto no es bueno, es decir, es exponencial, era correcto.
+
+
+
+
