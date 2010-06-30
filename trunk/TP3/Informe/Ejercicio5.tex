@@ -122,39 +122,38 @@ A continuación, se procederá a explicar el funcionamiento del algoritmo de bú
 	\tab \textbf{Si} (v $\neq -1$) \{																\tcp*{\Ode{1}}
 	\tab \tab borrar(cliqueTemp, v) 																\tcp*{\Ode{log(n)}}	
 	\tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2}			 					\tcp*{\Ode{1}}
-	\tab \}
 
 	\BlankLine \BlankLine		
-	\tab vaciar(vecindad)																			\tcp*{\Ode{n}}
-	\tab vecindad $\leftarrow$ definirVecindad(nro\_it, TabuEliminados, cliqueTemp)		 	\tcp*{\Ode{?}}
+	\tab \tab vaciar(vecindad)																	\tcp*{\Ode{n}}
+	\tab \tab vecindad $\leftarrow$ definirVecindad(nro\_it, TabuEliminados, cliqueTemp)	 	\tcp*{\Ode{?}}
 
 	\BlankLine \BlankLine		
-	\tab agregue $\leftarrow$ false																\tcp*{\Ode{1}}
-	\tab \textbf{Mientras} (vecindad $\neq \emptyset$)) \{									\tcp*{\Ode{n*log(n)}}
+	\tab \tab agregue $\leftarrow$ false														\tcp*{\Ode{1}}
+	\tab \tab \textbf{Mientras} (vecindad $\neq \emptyset$)) \{								\tcp*{\Ode{n*log(n)}}
 
 	\BlankLine
-	\tab \tab u $\leftarrow$ tope(vecindad)														\tcp*{\Ode{1}}
-	\tab \tab pop(vecindad)																		\tcp*{\Ode{1}}
+	\tab \tab \tab u $\leftarrow$ tope(vecindad)												\tcp*{\Ode{1}}
+	\tab \tab \tab pop(vecindad)																	\tcp*{\Ode{1}}
 
 	\BlankLine		
-	\tab \tab \textbf{Si} (vecinoDeTodos(u, cliqueTemp)) \{ 									\tcp*{\Ode{n}}
-	\tab \tab \tab agregue $\leftarrow$ true													\tcp*{\Ode{1}}
-	\tab \tab \tab agregar(cliqueTemp, u) 														\tcp*{\Ode{log(n)}}
-	\tab \tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2}							\tcp*{\Ode{1}}
-	\tab \tab \} \\
-	\tab \}
+	\tab \tab \tab \textbf{Si} (vecinoDeTodos(u, cliqueTemp)) \{ 								\tcp*{\Ode{n}}
+	\tab \tab \tab \tab agregue $\leftarrow$ true												\tcp*{\Ode{1}}
+	\tab \tab \tab \tab agregar(cliqueTemp, u) 													\tcp*{\Ode{log(n)}}
+	\tab \tab \tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2}					\tcp*{\Ode{1}}
+	\tab \tab \tab \} \\
+	\tab \tab \}
 
 	\BlankLine \BlankLine		
-	\tab \textbf{Si} ((v $\neq -1$) \textbf{and} (agregados $== \emptyset$)) 				\tcp*{\Ode{1}}
-	\tab \tab desmejore++																		\tcp*{\Ode{1}}
+	\tab \tab \textbf{Si} (agregue == false) 													\tcp*{\Ode{1}}
+	\tab \tab \tab desmejore++																	\tcp*{\Ode{1}}
 	
 	\BlankLine \BlankLine
-	\tab \textbf{Sino si} (tam(cliqueTemp) $>$ tam(res)) \{										\tcp*{\Ode{1}}
-	\tab \tab desmejore $\leftarrow$ 0															\tcp*{\Ode{1}}
-	\tab \tab res $\leftarrow$ cliqueTemp														\tcp*{\Ode{n}}
+	\tab \tab \textbf{Sino si} (tam(cliqueTemp) $>$ tam(res)) \{								\tcp*{\Ode{1}}
+	\tab \tab \tab desmejore $\leftarrow$ 0													\tcp*{\Ode{1}}
+	\tab \tab \tab res $\leftarrow$ cliqueTemp													\tcp*{\Ode{n}}
+	\tab \tab \} \\
 	\tab \} \\
 	\}
-	
 	\BlankLine \BlankLine		
 	\textbf{return} res																			\tcp*{\Ode{1}}
 \caption{Pseudocódigo de la función busqudaTabu} 
@@ -173,28 +172,27 @@ Una vez dentro del ciclo, la primera acción realizada por el algoritmo es evalu
 \paragraph{}
 Seguidamente, se ejecuta la función \textit{nodoConMenorGrado} y guarda el resultado en la variable \textit{v}. Esta función devuelve el nodo de menor grado de la \textit{cliqueTemp} que no se encuentre inhabilitado en el vector \textit{TabuAgregados}; y en caso de que todos los nodos de \textit{cliqueTemp} estén marcados como prohibidos en el vector \textit{TabuAgregados}, entonces \textit{nodoConMenorGrado} devuelve -1. \\
 La idea de elegir este nodo \textit{v} tiene por fin quitarlo de la \textit{cliqueTemp} para modificar esa solución de forma tal que luego sea posible agregar nuevos nodos. El hecho de que sea el de menor grado busca preservar los nodos de mayor grado dentro de la solución con vista a maximizarla. Asimismo, el hecho de que el nodo elegido no se encuentre entre nodos prohibidos en el vector \textit{TabuAgregados} pretende no desandar el camino ya recorrido al eliminar alguno de los nodo que fue agregado en alguna de las iteraciones recientes. Precisamente, aqui puede observarse como el algoritmo hace uso de la memorización para no volver sobre sus pasos al cotejar el número de iteración actual(\textit{nro\_it}) con los números de iteración a partir de los cuales cada nodo puede ser volver a ser utilizado contenidos en el vector \textit{TabuAgregados}, pudiendo estableces así si un nodo está o no vetado. \\
-Acto seguido, si la función \textit{nodoConMenorGrado} devolvió un nodo válido (v $\neq -1$) el algortimo elimina \textit{v} de la \textit{cliqueTemp} y lo prohibe por \textit{n/2} iteraciones, asignando para ello, \textit{nro\_it} aumentado en  \textit{n/2} en la posición \textit{v} del vector \textit{tabuEliminados}. Esto permite ir teniendo registro de los nodos que fueron eliminados y que no podrán volver a ser agregados hasta que el \textit{nro\_it} del ciclo no alcance los valores de esos nodos dentro del vector \textit{tabuEliminados}.
+Acto seguido, si la función \textit{nodoConMenorGrado} devolvió un nodo inválido (v $== -1$) el algortimo no hace nada y vuelve a iterar con la intención de que algún nodo prohibido en TabuAgregados haya dejado de serlo. Sino, si \textit{nodoConMenorGrado} devuelve un nodo válido, el algoritmo elimina \textit{v} de la \textit{cliqueTemp} y lo prohibe por \textit{n/2} iteraciones, asignando para ello, \textit{nro\_it} aumentado en  \textit{n/2} en la posición \textit{v} del vector \textit{tabuEliminados}. Esto permite ir teniendo registro de los nodos que fueron eliminados y que no podrán volver a ser agregados hasta que el \textit{nro\_it} del ciclo no alcance los valores de esos nodos dentro del vector \textit{tabuEliminados}.
 
 \paragraph{}
 Habiendo eliminado ya uno de los nodos de \textit{cliqueTemp}, el paso siguiente del algoritmo consiste en definir el conjunto de nodos que intentará agregar a \textit{cliqueTemp}. En este sentido, se setea el flag \textit{agregue} como falso, se vacia el heap \textit{vecindad}, y luego se ejecuta la función \textit{definirVecindad} almacenando su resultado en \textit{vecindad}. La función \textit{definirVecindad} busca el conjunto de todos los nodos que estan fuera de \textit{cliqueTemp} pero que tengan por vecino al menos a algún nodo de esa clique. Luego, elimina de ese conjunto a todos aquellos nodos que esten proscriptos por el vector \textit{TabuEliminados}, y ubica los nodos restantes en un maxheap ordenándolos por grado. Este heap es el que devuelve la función. \\
 Nuevamente aquí, el hecho de que los nodos que se busca agregar a \textit{cliqueTemp} esten ordenados en un heap tiene por objetivo poder ir agregando aquellos de mayor grado primero en pos de maximizarla. Además, otra vez puede apreciarse como el algoritmo recurre al uso de la memorización para elegir de entre los posibles nodos a agregar únicamente aquellos cuyo valor en el vector \textit{TabuEliminados} es menor o igual al de la iteración actual. De este modo evita, al menos por un tiempo, no volver a evaluar soluciones ya visitadas.
 
 \paragraph{}
-Una vez establecidad la vecindad de nodos que se busca incorporar a \textit{cliqueTemp} se procede a ir a tomando el nodo ubicado en el tope de la vecindad e incorporalo únicamente si éste es vecino de todos los nodos en \textit{cliqueTemp}, repitiendo el proceso hasta que el heap quede vacio. Al mismo tiempo, a cada nodo agregado \textit{cliqueTemp} se le asigna el valor \textit{nro\_it + n/2} en su correspondiente posición dentro del vector \textit{TabuAgregados} para que de ese modo quede prohibido eliminarlo durante las siguientes \textit{n/2} iteraciones. En cualquier caso, si se hubiese agregado como mínimo un nodo, la variable \textit{agregue} pasa a tener el valor true.
+Una vez establecidad la vecindad de nodos que se busca incorporar a \textit{cliqueTemp} se procede a ir a tomando el nodo ubicado en el tope de la vecindad e incorporalo únicamente si éste es vecino de todos los nodos en \textit{cliqueTemp}, repitiendo el proceso hasta que el heap quede vacio. Al mismo tiempo, a cada nodo agregado \textit{cliqueTemp} se le asigna el valor \textit{nro\_it + n/2} en su correspondiente posición dentro del vector \textit{TabuAgregados} para que de ese modo quede prohibido eliminarlo durante las siguientes \textit{n/2} iteraciones \footnote{Una observación interesante en este punto respecto a la implementación es el hecho de que ambos vectores, \textit{TabuAgregados} y \textit{TabuEliminados} funcionan de forma análoga a una cola \textit{FIFO}, puesto que los primeros nodos en prohibirse son los primeros en pasar a estar disponible una vez pasados sus tiempos de prohibición.}. En cualquier caso, si se hubiese agregado como mínimo un nodo, la variable \textit{agregue} pasa a tener el valor true.
 
 \paragraph{}
-A continuación, se evalua si el tamaño de la solución obtenida en \textit{cliqueTemp} es mayor que la solución guardada en \textit{res}. En dicho caso, se resetea el contador \textit{desmejore} y se guarda en \textit{res} el conjunto de nodos contenido en \textit{cliqueTemp}. \\
-En caso contrario, se evalúa si durante la iteración actual se eliminó algún nodo de \textit{cliqueTemp} (v $\neq$ -1) sin haberse agregado nuevos (agregados $== \emptyset$). De darse esa condicion, se incrementa el contador \textit{desmejore}. \\
-Dicho contador, busca registrar la cantidad de veces que \textit{cliqueTemp} disminuyó su tamaño con respecto a su valor durante la iteración previa. Es así que en el caso en que se quitan un nodo sin agregarse nuevos este contador aumenta, mientras que en el caso en que se encuentra una solución mejor respecto a la contenida en \textit{res} el contardor se resetea. Esta variable permite establecer un criterio de parada para los casos en que el algoritmo entra en una curva de desmejoramiento de la clique mediante la fijación de una cota. En la presente implementación se estableción que el algoritmo pudiese desmejorar a lo sumo \textit{n/4} veces. En caso de alcanzarse la cota, la \textit{busquedaTabu} se interrumpe y se procede a diversificar la búsqueda volviendo a la función \textit{cliqueTabu}. \\
-Otra situación que puede darse es que el conjunto contenido en \textit{cliqueTemp} quede vacío antes de que la variable \textit{desmejore} alcance la cota \footnote{A modo de ejemplo puede pensarse en el caso de un grafo grande y denso en el que la solución constructiva es una clique pequeña alejada del óptimo. Partiendo de esa solución, si el algortimo entrase en una curva de demejoramiento antes de que la solución pudiese crecer lo suficiente \textit{cliqueTemp} quedaría vacío mucho antes de que \textit{desmejore} alcance la cota establecida por el criterio de parada.}. Dicho caso también constituye un criterio de parada, puesto que no tiene sentido continuar la optimización sobre una solución vacía. Por el contrario, resulta más eficiente realizar detener la ejecución, diversificar y volver a correr la \textit{busquedaTabu}.
+A continuación, se evalua si durante la iteración actual no se agregaron nuevos nodos a \textit{cliqueTemp} (agregue == false), en cuyo caso representa una desmejora, y se procede a incrementar el contador \textit{desmejore}. Dicho contador, busca registrar la cantidad de veces que \textit{cliqueTemp} disminuyó su tamaño con respecto a su valor durante la iteración previa. Es así que en el caso en que se quitan un nodo sin agregarse nuevos este contador aumenta, mientras que en el caso en que se encuentra una solución mejor respecto a la contenida en \textit{res} el contardor se resetea. Esta variable permite establecer un criterio de parada mediante la fijación de una cota para los casos en que el algoritmo entra en una curva de desmejoramiento de la clique. En la presente implementación se estableción que el algoritmo pudiese desmejorar a lo sumo \textit{n/4} veces. En caso de alcanzarse la cota, la \textit{busquedaTabu} se interrumpe y se procede a diversificar la búsqueda volviendo a la función \textit{cliqueTabu}. \\
+Otra situación que puede darse es que el conjunto contenido en \textit{cliqueTemp} quede vacío antes de que la variable \textit{desmejore} alcance la cota \footnote{A modo de ejemplo puede pensarse en el caso de un grafo grande y denso en el que la solución constructiva es una clique pequeña alejada del óptimo. Partiendo de esa solución, si el algortimo entrase rápidamente en una curva de demejoramiento antes de que la solución pudiese crecer lo suficiente \textit{cliqueTemp} quedaría vacío mucho antes de que \textit{desmejore} alcance la cota establecida por el criterio de parada.}. Dicho caso también constituye el segundo criterio de parada del algoritmo, puesto que resulta ineficiente continuar la optimización sobre una solución vacía. Por el contrario, resulta más eficiente realizar detener la ejecución, diversificar y volver a correr la \textit{busquedaTabu}.\\
 
 \paragraph{}
-Como anteúltimo paso, se analiza si las colas sobre las cuales se implementó la Lista Tabu (\textit{TabuAgregados} y \textit{TabuEliminados}) se encuentran alcanzaron su tamaño máximo permitido, que en el caso de esta implementación es \textit{n/2}. Siendo ese el caso, se procede a desencolar el primer elemento de ambas colas; esto es, quitar el primer nodo en la cola \textit{TabuEliminados} y quitar el primer conjunto de nodos en la cola \textit{TabuAgregados}, lo cual permite que estos puedan volver a ser agregados y/o eliminados respectivamente \footnote{Nótese que ambas colas tienen un tiempo de carga de \textit{n/2} iteraciones. Luego de ese punto, en cada iteración siempre se encola y deseconla un elemento en ambas colas.}.\\
-Una observación interesante en cuanto a la implementación es el hecho de que tanto en el caso en que no se elimina ningún nodo (cuando \textit{nodoConMenorGrado} devuelve -1), como en el caso en que no se agregan nodos (cuando agregados $== \emptyset$) el nodo ''-1'' y el cojunto $\emptyset$ son encolados en \textit{TabuEliminados} y \textit{TabuAgregados} respectivamente. Si bien esto no supone restrición alguna sobre las posibles transformaciones de la \textit{cliqueTemp} en las iteraciones siguientes, se realiza a fin de mantener con simpleza la estructura \textit{FIFO} en ambas colas.
+En cambio, si se agregaron nodos a \textit{cliqueTemp} y el tamaño resultante es mayor que la solución guardada en \textit{res}, se resetea el contador \textit{desmejore} y se guarda en \textit{res} el conjunto de nodos contenido en \textit{cliqueTemp}.
 
 \paragraph{}
-Finalmente, como útlima instrucción del ciclo, se decrementa el contador \textit{stop} mediante el cual se establece el tercer y último criterio de parada. Este criterio de parada resulta necesario ya que no hay certeza de que alguno de los otros dos ocurra alguna vez. Por consiguiente, esta variable \textit{stop} es inicializada al comienzo del algoritmo con el valor \textit{10*n} y es decrementada en cada iteración del ciclo. \\
-Una vez fuera del ciclo, por cualquiera de los tres criterio de parada, el algoritmo devuelve el mayor conjuto de nodos del grafo que conforman una clique, el cual se encuentra almacenado en \textit{res}, y finaliza.
+Finalmente, queda esclarecer el tercer y último criterio de parada. Este no es ni más ni menos que la cota que detiene al ciclo \textbf{Para} del pseudocódigo expuesto anteriormente. La misma es un valor almacenado en la variable \textit{stop} que es inicializada al comienzo del algoritmo con el valor \textit{10*n}. Este criterio de parada resulta necesario ya que no hay certeza de que alguno de los otros dos ocurra alguna vez.
+ 
+\paragraph{}
+Una vez fuera del ciclo, por cualquiera de los tres criterio de parada, la función \textit{busquedaTabu} devuelve el mayor conjuto de nodos del grafo que conforman una clique, el cual se encuentra almacenado en \textit{res}, y finaliza.
 
 \subsection{Análisis de la complejidad del algoritmo}
 
@@ -205,25 +203,6 @@ Complejidades: (verificar y luego redactar) \\
 \tab \textit{busquedaTabu} = O($n^3 log(n)$) \\
 \tab \tab \textit{nodoConMenorGrado} = O($n^2 log(n)$) \\
 \tab \tab \textit{definirVecindad} = O($n^2 log(n)$) \\
-
-\subsection{Detalles de implementación}
-\paragraph{}
-Dentro de la carpeta \textit{./ej5/}, se puede encontrar el bytecode de un script de python llamado \textit{ej5.pyc} que tiene por fin facilitar el uso del programa que implementa la metaheurística de búsqueda tabú para resolver el problema de \mc . Este script puede ser ejecutado desde una consola, siendo necesario para ello situarse en el directorio en que se encuentra el script e introducir luego la instrucción \texttt{./ej5.pyc}. Una vez ejecutado el script, se presenta en pantalla un menú con las siguientes opciones:
-\begin{itemize}
-	\item[1] Recompilar el programa \footnote{El ejecutable es compilado para sistemas operativos GNU-Linux}.
-	\item[2] Ejecutar el programa 
-	\item[3] Eliminar el ejectuable y los archivos \textit{".out"}
-	\item[4] Salir
-\end{itemize}
-Una vez compilado el programa y seleccionada la opción de ejecutarlo, se mostrará en pantalla un segundo menú que lista todos los archivos \textit{".in"} ubicados en la carpeta \textit{./in}, permitiendo elegir el aquel que se desee ejecutar. Una vez ejecutado, se mostrará un mensaje en pantalla avisando la finalización de la ejecución del algoritmo, y las soluciones de cada instancia del archivo \textit{".in"} estarán guardadas en un archivo \textit{".out"} homónimo  dentro del directorio \textit{./out/5 - BUSQ\_TABU}. \\
-
-\paragraph{}
-Se recomienda que cualquier archivo \textit{".in"} que se desee resolver mediante esta metaheurística sea colocado en la carpeta \textit{./in} para poder ser elegido desde el menu que muestra el script \footnote{En el directorio \textit{./in} hay un archivo ejecutable llamado \textit{generador} que genera archivos con varias instancias de grafos. El mismo puede ejecutarse desde consola por medio del comando \texttt{./generador}}. \\
-De cualquier forma, el programa también puede ser compilado por consola con el comando \texttt{make} y puede ser ejecutado con el comando \texttt{./ej5} recibiendo como parámetro las rutas de los archivos de entrada \textit{".in"} a procesar. Puede recibir tantos archivos como se desee, pero en caso de no recibir ninguno, el programa procesará el archivo \textit{./in/Tp3.in}. En todos los casos, los archivos correspondientes archivos \textit{".out"} serán guardados en la carpeta \textit{./out/5 - BUSQ\_TABU}.
-
-\paragraph{}
-Además, en la carpeta correspondiente a este ejercicio se encuentran los archivos fuentes en lenguaje C++ del programa desarrollado. Los mismos se encuentran cometados para simplificar la comprensión del algortimo. \\
-Allí también se ubica el directorio \textit{/tiempos}, el cual contiene en su interior un archivo ejecutable con la versión modificada del algoritmo para poder realizar mediciones de tiempo, su codigo fuente, y dos subdirectorios \textit{data} y \textit{out}. El ejecutable puede ser recompilado por consola usando el comando \texttt{make}, y puede ser corrido usando el comando \texttt{./tiempos} que recibie como parámetro las rutas de los archivos de entrada \textit{".in"} a procesar. Una vez resueltos todos los inputs, en la carpeta \textit{/tiempos/out} se encontrarán los archivos \textit{".out"} con las soluciones a las instancias de sus correspondientes archivos \textit{".in"}, mientras que en la carpeta \textit{/tiempos/data} se ubicarán los archivos \textit{".data} en los cuales se registra para cada instancia de los archivos input la cantidad de nodos del grafo y el tiempo promedio que tardó el algoritmo en resolverla. Este archivo tiene objetivo facilitar la tarea de cargar los datos en el programa de análisis gráfico \textit{QtiPlot} \footnote{Originalemente, los archivos contenidos en los directorios \textit{data} y \textit{out} son los que se utilizaron para la realización de los gráficos que se presentan en la próxima sección.}.
 
 \subsection{Resultados}
 \subsection{Debate}

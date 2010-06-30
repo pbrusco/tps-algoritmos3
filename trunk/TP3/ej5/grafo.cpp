@@ -163,49 +163,48 @@ void Grafo::busquedaTabu(set<int>& res) const {
 	Heap vecindad;
 	set<int> cliqueTemp = res;
 	
-	/* Mientras no se cumplan las condiciones de parada... */
+	/* Itero 10pn veces mientras no se cumplan las condiciones de parada... */
 	forn(nro_it, stop) {
 
-		/* --- */
+		/* Evalúo si se cumplen las condiciones de parada */
 		if ((desmejore == n/4) or cliqueTemp.empty()) break;
 
-		/* Busco en la clique temporal el nodo de menor grado que no esté en la lista Tabu-Agregados, */
+		/* Busco en la clique temporal el nodo de menor grado que no esté prohibido en el vector TabuAgregados, */
 		v = nodoConMenorGrado(nro_it,TabuAgregados,cliqueTemp);			
 
-		/* Elimino el nodo de la clique y lo agrego el nodo eliminado a la lista Tabu-Eliminados*/
+		/* Si encontre uno, lo elimino de la clique y lo prohibo en el vector TabuEliminados*/
 		if (v!=-1) {
 			cliqueTemp.erase(v);
 			TabuEliminados[v] = nro_it + n/2;
-		}
 
-		/* Busco los nodos que no estan en la clique y que no están en la lista Tabu-Eliminados, y que tengan como vecino */
-		/* al menos a algún nodo de la clique temporal */
-		vaciarHeap(vecindad);		
-		definirVecindad(nro_it,TabuEliminados,cliqueTemp,vecindad);
+			/* Busco los nodos que no estan en la clique que tengan como vecino al menos a algún nodo de la clique temporal */
+			/* y que no están prohibidos en la lista TabuEliminados */
+			vaciarHeap(vecindad);		
+			definirVecindad(nro_it,TabuEliminados,cliqueTemp,vecindad);
 
-		/* Mientras que la vecindad definida no sea vacía, evalúo si el nodo del tope de la vecindad es vecino de todos */
-		/* los nodos de la clique temporal. De ser así lo agrego a esta y lo registro. Luego borro de la vecindad al nodo */
-		/* que acabo de evaluar */
-		while (not vecindad.empty()) {
-			agregue = false;
-			u = vecindad.top().second;
-			vecindad.pop();
-			if (vecinoDeTodos(u, cliqueTemp)) {
-				agregue = true;
-				cliqueTemp.insert(u);
-				TabuAgregados[u] = nro_it + n/2;
+			/* Mientras que la vecindad definida no sea vacía, evalúo si el nodo del tope de la vecindad es vecino de todos */
+			/* los nodos de la clique temporal. De ser así lo agrego a esta y lo prohibo en el vector TabuAgregados. Luego */ 
+			/* borro de la vecindad al nodo que acabo de evaluar */
+			while (not vecindad.empty()) {
+				agregue = false;
+				u = vecindad.top().second;
+				vecindad.pop();
+				if (vecinoDeTodos(u, cliqueTemp)) {
+					agregue = true;
+					cliqueTemp.insert(u);
+					TabuAgregados[u] = nro_it + n/2;
+				}
 			}
-		}
-
-		/* Si la clique temporal resultante tiene mayor tamaño que la que tenía como respuesta, actualizo la respuesta */
-		/* y reseteo el contador de desmejora */
-		if (cliqueTemp.size() > res.size()) {
-			res = cliqueTemp;
-			desmejore = 0;
-		}
+			
+			/* Como saque un nodo de la clique temporal, si no agregue nuevos, incremento el contador de desmejora */
+			if (not agregue) desmejore++;
 		
-		/* Si saque un nodo de la clique temporal y no agregue nuevos, incremento el contador de desmejora */
-		else if (v!=-1 and (not agregue)) desmejore++;
+			/* En cambio, si la clique temporal resultante tiene mayor tamaño que la que tenía como respuesta, actualizo la */ 				/* respuesta  y reseteo el contador de desmejora */
+			else if (cliqueTemp.size() > res.size()) {
+					res = cliqueTemp;
+					desmejore = 0;
+			}
+		}	
 	}
 }
 
