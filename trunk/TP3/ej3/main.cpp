@@ -44,7 +44,7 @@ double resolverConstructiva(const string& input, const string& output) {
 	int n;
 	Grafo g;
 	set<int> res;
-	ifstream is;	is.open(input.c_str());		assert(is.is_open());
+	ifstream is;		is.open(input.c_str());		assert(is.is_open());
 	ofstream os;	os.open(output.c_str());	assert(os.is_open());
 
 	double time = 0.0;

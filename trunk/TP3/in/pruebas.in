@@ -56,5 +56,6 @@
 	6	12 13 14 15 16 17	
 -1
 
-Deberia pasar para el 3º grafo que: rta(constructivo) < rta(local) < rta(tabu) <= rta(exacta)
+#Deberia pasar para el 3º grafo que: rta(constructivo) < rta(local) < rta(tabu) <= rta(exacta)
+
 

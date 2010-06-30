@@ -197,6 +197,13 @@ Una vez fuera del ciclo, por cualquiera de los tres criterio de parada, la funci
 \subsection{Análisis de la complejidad del algoritmo}
 
 \paragraph{}
+En esta sección del informe, se expone el análisis de complejidad de la metaheurística de búsquda tabú implementada para resolver el problema de \mc.
+
+\paragraph{}
+Analizado el psegudocódigo de la función \textit{cliqueTabu}, presente en la primera parte de la explicación del algoritmo, se pude apreciar que la complejidad de la misma está dada por la complejidad de la función \textit{cliqueConstructivo} más la complejidad del ciclo \textbf{Para}. \\
+La complejidad de \textit{cliqueConstructivo}, tal como se explicó en la parte de este informe correspondiente al Ejercicio 3, es O(??). Por su parte, viendo más en detalle la estructura iterativa de la función \textit{cliqueTabu} se puede concluir que la instrución más costosa del ciclo en cuanto a complejidad es la llamada a la función \textit{cliqueTabu}; por cuanto su complejidad es del orden de n*complejidad de \textit{busquedaTabu}, dado que el ciclo itera \textit{n/2} veces.
+
+\paragraph{}
 Complejidades: (verificar y luego redactar) \\
 \textit{cliqueTabu} = O($n^4 log(n) + ???$) \\
 \tab \textit{cliqueConstructivo} = O($???$) \\

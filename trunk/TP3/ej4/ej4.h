@@ -1,5 +1,5 @@
-#ifndef __EJ1__
-#define __EJ1__
+#ifndef __EJ4__
+#define __EJ4__
 
 #include <iostream>
 #include <fstream>
@@ -36,12 +36,9 @@ struct Grafo{
 	void cambiarSiMaximiza(set<int>& clique, bool &cambio) const;
 };
 
+double timeval_diff(struct timeval& a, struct timeval& b);
+double resolverBusqLocal(const string& input, const string& output);
 void guardarRes(ostream& os, set<int> c);
 void vaciarHeap(Heap& h);
-double resolverBusqLocal(const string& input, const string& output);
-double timeval_diff(struct timeval& a, struct timeval& b); 	/* retorna "a - b " en microsegundos */
-
-
-
 
 #endif
