@@ -91,6 +91,7 @@ A continuación, se procederá a explicar el funcionamiento del algoritmo de bú
 \restylealgo{boxed}
 
 	\BlankLine
+	\textbf{var} agregados 		: bool		 										\tcp*{\Ode{1}}
 	\textbf{var} n 				: \entero												\tcp*{\Ode{1}}
 	\textbf{var} v 				: \entero												\tcp*{\Ode{1}}
 	\textbf{var} u 				: \entero												\tcp*{\Ode{1}}
@@ -98,30 +99,36 @@ A continuación, se procederá a explicar el funcionamiento del algoritmo de bú
 	\textbf{var} desmejore		: \entero												\tcp*{\Ode{1}}
 	\textbf{var} vecindad 		: Heap(\entero)							 			\tcp*{\Ode{1}}
 	\textbf{var} cliqueTemp 		: Conj(\entero) 										\tcp*{\Ode{1}}
-	\textbf{var} agregados 		: Conj(\entero) 										\tcp*{\Ode{1}}
-	\textbf{var} TabuAgregados 	: Cola(Conj(\entero))								 	\tcp*{\Ode{1}}
-	\textbf{var} TabuEliminados 	: Cola(\entero)) 										\tcp*{\Ode{1}}
+	\textbf{var} TabuAgregados 	: Vector(\entero))								 	\tcp*{\Ode{1}}
+	\textbf{var} TabuEliminados 	: Vector(\entero)) 										\tcp*{\Ode{1}}
 	
 	\BlankLine \BlankLine
 	n 				$\leftarrow$ cant\_nodos(G)											\tcp*{\Ode{1}}
 	stop 			$\leftarrow$ $10*n$													\tcp*{\Ode{1}}
 	desmejore 		$\leftarrow$ 0														\tcp*{\Ode{1}}
-	cliqueTemp 	$\leftarrow$ res														\tcp*{\Ode{1}}
+	cliqueTemp 		$\leftarrow$ res													\tcp*{\Ode{1}}
+	agregue 		$\leftarrow$ false													\tcp*{\Ode{1}}
 
 	\BlankLine \BlankLine		
-	\textbf{Mientras} (stop $\neq 0$) \textbf{and} (desmejore $\neq n/4$) \textbf{and} (cliqueTemp $\neq \emptyset$)) \{ \\
+	\textbf{Para} \textit{nro\_it} entre [0...stop) \{ 
 
 	\BlankLine	
-	\tab v $\leftarrow$ nodoConMenorGrado(TabuAgregados, cliqueTemp)				\tcp*{\Ode{n^2 log(n)}}
-	\tab borrar(cliqueTemp, v) 															\tcp*{\Ode{log(n)}}	
-	\tab encolar(TabuEliminados, v) 														\tcp*{\Ode{1}}
+	\tab \textbf{Si} ((desmejore $== n/4$) \textbf{or} (cliqueTemp == $\emptyset$)) \\
+	\tab \tab \textbf{break}
+
+	\BlankLine \BlankLine				
+	\tab v $\leftarrow$ nodoConMenorGrado(nro\_it, TabuAgregados, cliqueTemp)		\tcp*{\Ode{?}}
+	\tab \textbf{Si} (v $\neq -1$) \{												\tcp*{\Ode{1}}
+	\tab \tab borrar(cliqueTemp, v) 												\tcp*{\Ode{log(n)}}	
+	\tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2} 					\tcp*{\Ode{1}}
+	\tab \}
 
 	\BlankLine \BlankLine		
-	\tab agregados $\leftarrow$ $\emptyset$											\tcp*{\Ode{1}}
-	\tab vaciar(vecindad)																	\tcp*{\Ode{n}}
-	\tab vecindad $\leftarrow$ definirVecindad(TabuEliminados, cliqueTemp) 			\tcp*{\Ode{n^2 log(n)}}
+	\tab vaciar(vecindad)																\tcp*{\Ode{n}}
+	\tab vecindad $\leftarrow$ definirVecindad(nro\_it, TabuEliminados, cliqueTemp) 			\tcp*{\Ode{?}}
 
 	\BlankLine \BlankLine		
+	\tab agregue $\leftarrow$ false													\tcp*{\Ode{1}}
 	\tab \textbf{Mientras} (vecindad $\neq \emptyset$)) \{							\tcp*{\Ode{n}}
 
 	\BlankLine
@@ -130,32 +137,21 @@ A continuación, se procederá a explicar el funcionamiento del algoritmo de bú
 
 	\BlankLine		
 	\tab \tab \textbf{Si} (vecinoDeTodos(u, cliqueTemp)) \{ 							\tcp*{\Ode{n}}
+	\tab \tab \tab agregue $\leftarrow$ true											\tcp*{\Ode{1}}
 	\tab \tab \tab agregar(cliqueTemp, u) 												\tcp*{\Ode{log(n)}}
-	\tab \tab \tab agregar(agregados, u)												\tcp*{\Ode{log(n)}}
-	\tab \tab	\} \\
+	\tab \tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2}				\tcp*{\Ode{1}}
+	\tab \tab \} \\
 	\tab \}
 
 	\BlankLine \BlankLine		
-	\tab encolar(TabuAgregados, agregados)												\tcp*{\Ode{1}}
-	
-	\BlankLine \BlankLine
-	\tab \textbf{Si} (tam(cliqueTemp) $>$ tam(res)) \{ 									\tcp*{\Ode{1}}
-	\tab \tab desmejore $\leftarrow$ 0													\tcp*{\Ode{1}}
-	\tab \tab res $\leftarrow$ cliqueTemp												\tcp*{\Ode{n}}
-	\tab \}
-
-	\BlankLine \BlankLine		
-	\tab \textbf{Sino si} ((v $== -1$) \textbf{and} (agregados $== \emptyset$)) 	\tcp*{\Ode{1}}
+	\tab \textbf{Si} ((v $\neq -1$) \textbf{and} (agregados $== \emptyset$)) 				\tcp*{\Ode{1}}
 	\tab \tab desmejore++																\tcp*{\Ode{1}}
 	
 	\BlankLine \BlankLine
-	\tab \textbf{Si} (tam(TabuEliminados) $== n/2$) \{									\tcp*{\Ode{1}}
-	\tab \tab desencolar(TabuEliminados)												\tcp*{\Ode{1}}
-	\tab \tab desencolar(TabuAgregados)												\tcp*{\Ode{1}}
-	\tab \}	
-
-	\BlankLine \BlankLine
-	\tab stop$--$ 																			\tcp*{\Ode{1}}
+	\tab \textbf{Sino si} (tam(cliqueTemp) $>$ tam(res)) \{								\tcp*{\Ode{1}}
+	\tab \tab desmejore $\leftarrow$ 0													\tcp*{\Ode{1}}
+	\tab \tab res $\leftarrow$ cliqueTemp												\tcp*{\Ode{n}}
+	\tab \} \\
 	\}
 	
 	\BlankLine \BlankLine		
