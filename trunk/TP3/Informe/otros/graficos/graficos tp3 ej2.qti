@@ -95,7 +95,7 @@ Spacing	5	5
 LayerCanvasSize	417	324
 Alignement	0	0
 <graph>
-ggeometry	10	4	996	389
+ggeometry	10	4	998	394
 PlotTitle	Algoritmo Exacto	#000000	4228
 <Antialiasing>1</Antialiasing>
 Background	#ffffff	255
@@ -170,8 +170,8 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>11.060773480663</x>
 <y>29126213.592233</y>
-<right>16.9944751381215</right>
-<bottom>8090614.88673139</bottom>
+<right>13.4577387486279</right>
+<bottom>43648208.4690554</bottom>
 <attachTo>0</attachTo>
 <Text>
 Medición 	(prob. ejes)
@@ -197,8 +197,8 @@ Medición 	(prob. ejes)
 <LineStyle>0</LineStyle>
 <x>11.127071823204</x>
 <y>41100323.624595</y>
-<right>18.2872928176796</right>
-<bottom>35760517.7993528</bottom>
+<right>13.622392974753</right>
+<bottom>42833876.2214984</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(7) \l(7)-275+1900*e^(x/3)
@@ -218,8 +218,8 @@ Medición 	(prob. ejes)
 <LineStyle>0</LineStyle>
 <x>10.926130099228</x>
 <y>50653594.771242</y>
-<right>13.4653465346535</right>
-<bottom>43543046.3576159</bottom>
+<right>13.4577387486279</right>
+<bottom>43648208.4690554</bottom>
 <attachTo>0</attachTo>
 <Text>
 
@@ -239,8 +239,8 @@ Medición 	(prob. ejes)
 <LineStyle>0</LineStyle>
 <x>11.160220994475</x>
 <y>45631067.961165</y>
-<right>17.8563535911602</right>
-<bottom>41100323.6245955</bottom>
+<right>13.4577387486279</right>
+<bottom>43648208.4690554</bottom>
 <attachTo>0</attachTo>
 <Text>
 Aproximación Exponencial
@@ -275,6 +275,7 @@ RSS (Residual Sum of Squares) = 5,48715213620531e+15
 Iterations = 53
 Status = success
 ---------------------------------------------------------------------------------------
+
 
 
 
