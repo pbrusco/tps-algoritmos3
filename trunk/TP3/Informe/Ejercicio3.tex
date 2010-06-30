@@ -79,7 +79,7 @@ En el caso de \textit{elMasRelacionado}, recibe dos parámetros, un grafo y un c
 
 
 \subsection{Análisis de la complejidad del algoritmo}
-
+\label{complejidad3}
 \paragraph{}
 Para realizar el siguiente análisis de complejidad vamos a remitirnos al pseudocódigo de la función \textit{AlgoritmoConstructivo} adjunto en la sección anterior. Cabe recordar que cada vez que se haga mención a ``n'' nos estaremos refiriendo a la cantidad de nodos del grafo al que se quiere analizar.\\
 En la primer línea se realiza una llamada a la función \textit{mayorFronteraEnComun} y una asignación. Estas 2 operaciones tienen una complejidad de \Ode{n^3}. Más adelante se explicará el por qué de la misma. Luego, dentro del ciclo, la función que mayor complejidad temporal tiene es \textit{elMasRelacionado} y la misma es \Ode{n^2}. Esta complejidad se debe a que para cada vértice del grafo inducido por el conjunto de vértices pasado como parámetro, se debe calcular cuántos vecinos tiene dentro de ese grafo, para lo que se debe recorrer todo el conjunto una vez por cada vértice. Como a lo sumo puede haber ``n'' vértices en ese conjunto, debo recorrerlo ``n'' veces por cada vértice. Entonces, su complejidad es \Ode{n^2}.\\
@@ -90,7 +90,42 @@ Para completar este análisis, falta justificar por qué la función \textit{may
 En el caso de la intersección, sólo hace falta recorrer una sola vez la lista de todos los vértices para saber cuáles son vecinos a ambos nodos a la vez, y la unión de dicha intersección con los vértices ``u'' y ``v'' tiene complejidad logarítmica, por lo que dicha instrucción tiene complejidad \Ode{n}. Pero esta sentencia se ejecuta tantas veces como se ejecute el ciclo \textit{for}, así que para saber la complejidad total, debemos conocer las veces que se ejecuta el ciclo: éste se ejecuta tantas veces como aristas haya. En el peor caso, si hay ``n'' nodos entonces puede haber hasta ``$n^2$'' aristas. Por lo que el ciclo se ejecutará a lo sumo $n^2$ veces\footnote{La complejidad podría verse como \Ode{m} pero como se eligió una matriz de adyacencia para modelar el grafo, para recorrer todas las aristas es necesario pasar por cada valor de la matriz de adyacencia, por eso es que se toma como complejidad \Ode{n^2} y no \Ode{m}}. Finalmente, la complejidad total de \textit{mayorFronteraEnComun} es \Ode{n^3}. 
 
 
-\subsection{Detalles de implementación}
 \subsection{Resultados}
-\subsection{Debate}
-\subsection{Conclusiones}
+
+\paragraph{}
+A continuación se presentan los gráficos provenientes de las pruebas realizadas con archivos generados al azar. La forma en la que fueron generados estos archivos de entrada es explicada en la sección [\ref{anexo}].
+
+
+%primeras 2 imagenes
+\begin{figure}[htb]
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{./otros/graficos/operaciones_200nodos1_ej3.pdf}
+		\caption{Muestra el comportamiento del algoritmo constructivo, comparando cantidad de nodos contra cantidad de operaciones. La probabilidad de aparición de ejes en esta muestra fue del 50\%}
+		\label{ej3contarOp}
+	\end{center}
+    \end{minipage}
+
+\vspace*{3cm}
+
+    \begin{minipage}{\textwidth}
+	\begin{center}
+		\includegraphics[width=\textwidth]{./otros/graficos/tiempo_200nodos1_ej3.pdf}
+		\caption{Muestra el comportamiento del algoritmo constructivo, comparando cantidad de nodos contra el tiempo medido en microsegundos. La probabilidad de aparición de ejes en esta muestra fue del 50\%}
+		\label{ej3contarTiempo2}
+	\end{center}
+    \end{minipage}
+
+\end{figure}
+
+
+\subsection{Debate y conclusiones}
+\paragraph{}
+Si observamos los gráficos adjuntos en la sección anterior, podemos decir que para estos casos de pruebas el algoritmo constructivo pareciera haberse comportado como se esperaba. En ambos casos, los datos arrojados luego de realizar pruebas con el algoritmo pueden ser acotados tanto por debajo como por arriba por una función cúbica.
+
+\paragraph{}
+Para este análisis se realizaron varias pruebas, en las que se hizo variar tanto la cantidad de nodos pertenecientes a los grafos, como así también la cantidad de ejes. En todas ellas, pudo notarse una gran similitud en los datos arrojados, es decir, todas se comportaban como se esperaba y podían ser acotadas por arriba y por abajo por una función cúbica.\\
+La única diferencia notable entre distintas pruebas fue que en los casos de prueba en los que había más ejes, es decir, en aquellos casos en que los grafos eran más densos, la constante que acompañaba a la función cúbica era un poco mayor. A pesar que esta diferencia existía, no era muy notable como para incluir gráficos que la mostraran.
+
+\paragraph{}
+Podemos concluir entonces que el análisis realizado en la sección [\ref{complejidad3}] era correcto y que la complejidad de este algoritmo es de orden cúbico.
