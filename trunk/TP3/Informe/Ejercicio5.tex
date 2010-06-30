@@ -56,8 +56,8 @@ Dando comienzo a la explicación de la función \textit{cliqueTabu}, se presenta
 	\tab \tab	res $\leftarrow$ cliqueAux								\tcp*{\Ode{n}}
 
 	\BlankLine \BlankLine		
-	cliqueAux $\leftarrow$ $\emptyset$								\tcp*{\Ode{1}}
-	cliqueAux $\leftarrow$ diversificar(G)								\tcp*{\Ode{n}}
+	\tab cliqueAux $\leftarrow$ $\emptyset$							\tcp*{\Ode{1}}
+	\tab cliqueAux $\leftarrow$ diversificar(G)							\tcp*{\Ode{n}}
 	\}
 	
 	\BlankLine \BlankLine		
@@ -118,14 +118,14 @@ A continuación, se procederá a explicar el funcionamiento del algoritmo de bú
 	\tab \tab \textbf{break}																		\tcp*{\Ode{1}}
 
 	\BlankLine \BlankLine				
-	\tab v $\leftarrow$ nodoConMenorGrado(nro\_it, TabuAgregados, cliqueTemp)				\tcp*{\Ode{?}}
+	\tab v $\leftarrow$ nodoConMenorGrado(G, nro\_it, TabuAgregados, cliqueTemp)				\tcp*{\Ode{?}}
 	\tab \textbf{Si} (v $\neq -1$) \{																\tcp*{\Ode{1}}
 	\tab \tab borrar(cliqueTemp, v) 																\tcp*{\Ode{log(n)}}	
 	\tab \tab TabuEliminados[v] $\leftarrow$ \textit{nro\_it+n/2}			 					\tcp*{\Ode{1}}
 
 	\BlankLine \BlankLine		
 	\tab \tab vaciar(vecindad)																	\tcp*{\Ode{n}}
-	\tab \tab vecindad $\leftarrow$ definirVecindad(nro\_it, TabuEliminados, cliqueTemp)	 	\tcp*{\Ode{?}}
+	\tab \tab vecindad $\leftarrow$ definirVecindad(G, nro\_it, TabuEliminados, cliqueTemp)	 	\tcp*{\Ode{?}}
 
 	\BlankLine \BlankLine		
 	\tab \tab agregue $\leftarrow$ false														\tcp*{\Ode{1}}
@@ -200,16 +200,60 @@ Una vez fuera del ciclo, por cualquiera de los tres criterio de parada, la funci
 En esta sección del informe, se expone el análisis de complejidad de la metaheurística de búsquda tabú implementada para resolver el problema de \mc.
 
 \paragraph{}
-Analizado el psegudocódigo de la función \textit{cliqueTabu}, presente en la primera parte de la explicación del algoritmo, se pude apreciar que la complejidad de la misma está dada por la complejidad de la función \textit{cliqueConstructivo} más la complejidad del ciclo \textbf{Para}. \\
-La complejidad de \textit{cliqueConstructivo}, tal como se explicó en la parte de este informe correspondiente al Ejercicio 3, es O(??). Por su parte, viendo más en detalle la estructura iterativa de la función \textit{cliqueTabu} se puede concluir que la instrución más costosa del ciclo en cuanto a complejidad es la llamada a la función \textit{cliqueTabu}; por cuanto su complejidad es del orden de n*complejidad de \textit{busquedaTabu}, dado que el ciclo itera \textit{n/2} veces.
+Analizado el psegudocódigo de la función \textit{cliqueTabu}, presente en la primera parte de la explicación del algoritmo, se pude apreciar que la complejidad de la misma está dada principalmente por la complejidad de la función \textit{cliqueConstructivo} más la complejidad del ciclo \textbf{Para}. \\
+La complejidad de \textit{cliqueConstructivo}, tal como se explicó en la parte de este informe correspondiente al Ejercicio 3, es \Ode{n^3*log(n)}. Por su parte, la instrución más costosa del ciclo \textbf{Para} en cuanto a complejidad es la llamada a la función \textit{busquedaTabu}. Dado que el ciclo itera \textit{n/2} veces, la complejidad del mismo debe ser del orden de \textbf{n*complejidad(\textit{busquedaTabu})}. \\
+En consecuencia, se puede afirmar que la complejidad de la función \textit{cliqueTabu} es: $$\Ode{n^3*log(n) + n*complejidad(\textit{busquedaTabu})}$$
 
 \paragraph{}
-Complejidades: (verificar y luego redactar) \\
-\textit{cliqueTabu} = O($n^4 log(n) + ???$) \\
-\tab \textit{cliqueConstructivo} = O($???$) \\
-\tab \textit{busquedaTabu} = O($n^3 log(n)$) \\
-\tab \tab \textit{nodoConMenorGrado} = O($n^2 log(n)$) \\
-\tab \tab \textit{definirVecindad} = O($n^2 log(n)$) \\
+Luego, solo resta averiguar la complejidad de la función \textit{busquedaTabu}. Para ello, es necesario previamente, conocer las complejidades de las funciones \textit{nodoConMenorGrado} y \textit{definirVecindad} ambas ejecutadas desde un ciclo \textit{Para} dentro de la función \textit{busquedaTabu}.\\
+A continuación, se incluyen los pseudocódigos de dichas funciónes para poder comprender y calcular el valor de sus respectivas complejidades: \\
+
+\textbf{busquedaTabu}(G: Grafo, nro\_it: \entero, TabuAgregados: Vector(\entero), cliqueTemp: Conj(\entero)) \\
+\begin{algorithm}[H]
+\footnotesize 
+\linesnumbered
+\incmargin{3em}
+\restylealgo{boxed}
+
+	\BlankLine
+	\textbf{var} res : \entero											\tcp*{\Ode{1}}
+	\textbf{var} aux : Conj(\entero)										\tcp*{\Ode{1}}
+
+	\BlankLine \BlankLine
+	\textbf{Para} nodo en cliqueTemp \{		 							\tcp*{\Ode{n}}
+	\tab \textbf{Si} (TabuAgregados[nodo] $\leq$ nro\_it) 				\tcp*{\Ode{1}}
+	\tab \tab agregar(aux, nodo)											\tcp*{\Ode{log(n)}}
+	\}
+	
+	\BlankLine \BlankLine
+	\textbf{Si} (aux $== \emptyset$) 									\tcp*{\Ode{1}}
+	\tab res $\leftarrow$ -1												\tcp*{\Ode{1}}
+
+	\BlankLine \BlankLine
+	\textbf{Sino}  \{ \\		 							
+	\tab res $\leftarrow$ dameUno(cliqueTemp)							\tcp*{\Ode{1}}
+	\tab \textbf{Para} nodo en aux \{			 						\tcp*{\Ode{n}}
+	\tab \tab \textbf{Si} (grado(G,nodo) $>$ nro\_it) 					\tcp*{\Ode{1}}
+	\tab \tab \tab res $\leftarrow$ nodo								\tcp*{\Ode{1}}
+	\tab \} \\
+	\}
+	
+	\BlankLine \BlankLine
+	\textbf{retunr} res														\tcp*{\Ode{1}}
+\caption{Pseudocódigo de la función nodoConMenorGrado} 
+\normalsize
+\end{algorithm}
+
+\paragraph{}
+Como puede verse en el pseudocódigo anterior, la complejidad de la función \textit{nodoConMenorGrado} esta dada por el primer ciclo que filtra aquellos nodos que no están prohibidos en el vector \textit{TabuAgregados}. Este ciclo \textbf{Para} puede llegar a realizar una inserción en un conjunto por cada una de las n veces que se ejecuta. En consecuencia, la complejidad esta función es \Ode{n*log(n)} \footnote{La complejidad de la función \textit{grado} que figura en el pseudocódigo y que devuelve el grado de un nodo dentro del grafo que lo contien es \Ode{1} puesto a que está implementada sobre un arreglo.}.
+
+\paragraph{}
+Complejidades:  \\
+\textit{cliqueTabu} = O($n^4*log(n) + n^3*log(n)???$) \\
+\tab \textit{cliqueConstructivo} = O($n^3 log(n)$) \\
+\tab \textit{busquedaTabu} = O($n^4*log(n)$) \\
+\tab \tab \textit{nodoConMenorGrado} = O($n*log(n)$) \\
+\tab \tab \textit{definirVecindad} = O($n^2*log(n)$) \\
 
 \subsection{Resultados}
 \subsection{Debate}
