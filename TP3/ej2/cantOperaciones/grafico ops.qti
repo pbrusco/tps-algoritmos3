@@ -164,16 +164,17 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>20.259593679458</x>
 <y>288961038.96104</y>
-<right>21.3882618510158</right>
-<bottom>97402597.4025974</bottom>
+<right>22.1218961625282</right>
+<bottom>69805194.8051948</bottom>
 <attachTo>0</attachTo>
 <Text>
-\l(1) (0.80)
-\l(2) (0.60)
-\l(3) (0.35)
-\l(4) (0.50)
-\l(5) (0.43)
-\l(6) (0.50)
+Medición (prob. ejes)
+\l(1)      (0.80)
+\l(2)      (0.60)
+\l(3)      (0.35)
+\l(4)      (0.50)
+\l(5)      (0.43)
+\l(6)      (0.50)
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
@@ -190,8 +191,8 @@ LabelsRotation	0	0
 <LineStyle>0</LineStyle>
 <x>20.237020316027</x>
 <y>368506493.50649</y>
-<right>21.7945823927765</right>
-<bottom>295454545.454545</bottom>
+<right>21.1811023622047</right>
+<bottom>436274509.803922</bottom>
 <attachTo>0</attachTo>
 <Text>
 Probabilidad de
@@ -212,11 +213,32 @@ Probabilidad de
 <LineStyle>0</LineStyle>
 <x>20.327313769752</x>
 <y>435064935.06494</y>
-<right>23.058690744921</right>
-<bottom>381493506.493506</bottom>
+<right>21.2373453318335</right>
+<bottom>428104575.163399</bottom>
 <attachTo>0</attachTo>
 <Text>
 \l(7)3500000 +1700.e^(x/2.343)
+</Text>
+<Font>Sans	10	50	0	0	0</Font>
+<TextColor>#000000</TextColor>
+<Background>#ffffff</Background>
+<Alpha>0</Alpha>
+<Angle>0</Angle>
+<AutoUpdate>1</AutoUpdate>
+<TeXOutput>0</TeXOutput>
+</Legend>
+<Legend>
+<Frame>0</Frame>
+<Color>#000000</Color>
+<FrameWidth>1</FrameWidth>
+<LineStyle>0</LineStyle>
+<x>20.338600451467</x>
+<y>516233766.23377</y>
+<right>21.8961625282167</right>
+<bottom>443181818.181818</bottom>
+<attachTo>0</attachTo>
+<Text>
+Aproximación Exponencial
 </Text>
 <Font>Sans	10	50	0	0	0</Font>
 <TextColor>#000000</TextColor>
@@ -248,4 +270,5 @@ RSS (Residual Sum of Squares) = 3,22430259390041e+17
 Iterations = 54
 Status = success
 ---------------------------------------------------------------------------------------
+
 </log>
